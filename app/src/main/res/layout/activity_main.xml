@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+android:id="@+id/drawer_main"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_lighter" >
+
+        <ir.rasen.myapplication.ui.ViewPagerPaging
+            android:id="@+id/pager_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_main_menu"
+            tools:context=".MainActivity" />
+
+        <LinearLayout
+            android:id="@+id/ll_main_menu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageButton
+                android:id="@+id/btn_main_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/text_details"
+                android:src="@drawable/ic_menu_home"
+                android:scaleType="centerInside"
+                android:contentDescription="@null"
+                android:onClick="home"/>
+            <ImageButton
+                android:id="@+id/btn_main_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selected_tab_u"
+                android:src="@drawable/ic_menu_search"
+                android:scaleType="centerInside"
+                android:contentDescription="@null"
+                android:onClick="search"/>
+            <ImageButton
+                android:id="@+id/btn_main_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selected_tab_u"
+                android:src="@drawable/ic_menu_profile"
+                android:scaleType="centerInside"
+                android:contentDescription="@null"
+                android:onClick="profile"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+        <!-- OUR RIGHT DRAWER IS HERE -->
+        <RelativeLayout
+            android:id="@+id/rl_drawer_right"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/actionbar_height"
+            android:background="@android:color/white"
+            android:layout_gravity="right">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ll_drawer_menu_top"
+                android:layout_marginTop="@dimen/activity_vertical_margin_1of4">
+
+                <!-- NEW BUSINESS OPTION -->
+                <RelativeLayout
+                    android:id="@+id/ll_profile_menu_new_business"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:orientation="horizontal"
+                    android:background="@drawable/style_button_menu"
+                    android:clickable="true">
+                    <ir.rasen.myapplication.ui.TextViewFont
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="32dp"
+                        android:text="@string/new_business"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/text_size_normal"
+                        android:gravity="center"/>
+                    <ImageView
+                        android:layout_width="@dimen/menu_pic_large"
+                        android:layout_height="32dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_menu_options_settings"
+                        android:layout_margin="4dp"/>
+                </RelativeLayout>
+
+                <!-- SETTINGS OPTION -->
+                <RelativeLayout
+                    android:id="@+id/ll_profile_menu_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/style_button_menu"
+                    android:clickable="true">
+                    <ir.rasen.myapplication.ui.TextViewFont
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="32dp"
+                        android:text="@string/settings"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/text_size_normal"
+                        android:gravity="center"/>
+                    <ImageView
+                        android:layout_width="@dimen/menu_pic_large"
+                        android:layout_height="32dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_menu_options_settings"
+                        android:layout_margin="4dp"/>
+                </RelativeLayout>
+
+                <!-- EXIT OPTION -->
+                <RelativeLayout
+                    android:id="@+id/ll_profile_menu_exit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/style_button_menu"
+                    android:clickable="true">
+                    <ir.rasen.myapplication.ui.TextViewFont
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="32dp"
+                        android:text="@string/exit"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/text_size_normal"
+                        android:gravity="center"/>
+                    <ImageView
+                        android:layout_width="@dimen/menu_pic_large"
+                        android:layout_height="32dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_menu_options_exit"
+                        android:layout_margin="4dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_drawer_businesses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/businesses"
+                android:background="@color/button_on_dark"
+                android:layout_below="@+id/ll_drawer_menu_top"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_large"
+                android:textColor="@android:color/white"/>
+            <ListView
+                android:id="@+id/list_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_below="@+id/txt_drawer_businesses"/>
+
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

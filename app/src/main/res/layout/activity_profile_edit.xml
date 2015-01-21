@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_profile_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="8dp"
+            android:scaleType="centerInside"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/profile_edit" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_profile_actionbar"
+        android:background="@color/background" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/btn_profile_edit_picture_set"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@color/background"
+                android:src="@drawable/ic_edittext_name"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:layout_margin="8dp"
+                android:onClick="setPicture"/>
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_profile_edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:layout_margin="8dp"
+                android:textSize="@dimen/text_size_normal"
+                android:inputType="textEmailAddress"
+                android:layout_below="@+id/btn_profile_edit_picture_set"
+                android:drawableLeft="@drawable/ic_edittext_email" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_profile_edit_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/status"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:layout_margin="8dp"
+                android:textSize="@dimen/text_size_normal"
+                android:inputType="textShortMessage"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_profile_edit_name"
+                android:drawableLeft="@drawable/ic_edittext_status" />
+
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/edt_profile_edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:layout_margin="8dp"
+                android:textSize="@dimen/text_size_normal"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_profile_edit_status"
+                android:drawableLeft="@drawable/ic_edittext_password"
+                android:text="@string/password_change"/>
+
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/edt_profile_edit_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/birthday"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:layout_margin="8dp"
+                android:textSize="@dimen/text_size_normal"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_profile_edit_password"
+                android:drawableLeft="@drawable/ic_edittext_date" />
+
+            <ir.rasen.myapplication.ui.ButtonFont
+                android:id="@+id/btn_profile_edit_save"
+                android:layout_width="100dp"
+                android:layout_height="@dimen/button_height"
+                android:gravity="center"
+                android:layout_below="@+id/edt_profile_edit_birthday"
+                android:layout_centerHorizontal="true"
+                android:text="@string/save"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/style_button_on_dark"
+                android:textSize="@dimen/text_size_normal"
+                android:onClick="save" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

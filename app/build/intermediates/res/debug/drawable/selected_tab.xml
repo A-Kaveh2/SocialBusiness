@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/text_details" />
+        </shape>
+    </item>
+
+    <item android:bottom="@dimen/activity_vertical_margin_1of4">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/button_on_dark" />
+        </shape>
+    </item>
+
+</layer-list><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/drawable/selected_tab.xml -->

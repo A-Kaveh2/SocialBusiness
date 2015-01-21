@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_register_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="8dp"
+            android:scaleType="centerInside"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/new_business" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_register_actionbar"
+        android:background="@color/background" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_register_picture_set"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_edittext_name"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:layout_margin="8dp"
+                android:contentDescription="@null"
+                android:onClick="setPicture"/>
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_business_step1_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_edittext_username"
+                android:hint="@string/business_id" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_business_step1_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_edittext_name"
+                android:hint="@string/business_name" />
+
+            <Spinner
+                android:id="@+id/spinner_business_step1_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:textSize="@dimen/text_size_normal" />
+
+            <Spinner
+                android:id="@+id/spinner_business_step1_subcategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:textSize="@dimen/text_size_normal"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                android:drawableLeft="@drawable/ic_edittext_password" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_business_step1_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/business_description"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:selectAllOnFocus="true"
+                android:drawableLeft="@drawable/ic_edittext_status" />
+
+            <ir.rasen.myapplication.ui.ButtonFont
+                android:id="@+id/btn_business_submit"
+                android:layout_width="100dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@+id/edt_business_step1_description"
+                android:layout_centerHorizontal="true"
+                android:text="@string/next_step"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/style_button_on_dark"
+                android:textSize="@dimen/text_size_large"
+                android:onClick="submit" />
+
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/btn_business_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_business_submit"
+                android:layout_marginTop="16dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/help"
+                android:textSize="@dimen/text_size_large"
+                android:clickable="true"
+                android:onClick="help" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/activity_business_step_1.xml -->

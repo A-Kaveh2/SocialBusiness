@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:background="@drawable/style_view_corners" >
+
+        <!-- HEADER OF POST -->
+        <RelativeLayout
+            android:id="@+id/rl_reviews_review_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_view_ulr" >
+
+            <!-- BAR -->
+            <RelativeLayout
+                android:id="@+id/rl_home_post_header_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- PROFILE PICTURE -->
+                <ir.rasen.myapplication.ui.ImageViewCircle
+                    android:id="@+id/img_reviews_review_profile"
+                    android:layout_width="@dimen/profile_pic"
+                    android:layout_height="@dimen/profile_pic"
+                    android:src="@drawable/test_ic"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin_1of4"
+                    android:contentDescription="@null"
+                    app:border_width="2dp"
+                    app:border_color="@color/button_on_dark_darker_opacity"
+                    android:clickable="true"/>
+
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/txt_reviews_review_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_larger"
+                    android:gravity="right"
+                    android:text="نسرین محمدی"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/img_reviews_review_profile" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_reviews_review_header_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+                android:layout_below="@id/rl_home_post_header_bar">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:background="@android:color/darker_gray"/>
+            </LinearLayout>
+
+            <!-- POST DETAILS -->
+
+            <ImageView
+                android:id="@+id/btn_reviews_review_options"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/img_home_post_pic"
+                android:layout_alignStart="@+id/img_home_post_pic"
+                android:src="@drawable/ic_menu_options_dark"/>
+
+        </RelativeLayout>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_reviews_review_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/activity_vertical_margin_half"
+            android:text="کباب کوبیده یعنی این!!"
+            android:layout_below="@+id/rl_reviews_review_header"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <!-- POST MENU -->
+
+        <!-- COMMENT(S) -->
+
+    </RelativeLayout>
+</RelativeLayout>

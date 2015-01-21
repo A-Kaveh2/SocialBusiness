@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_followers_follower"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ir.rasen.myapplication.ui.ImageViewCircle
+            android:id="@+id/img_followers_follower_image"
+            android:layout_width="@dimen/profile_pic"
+            android:layout_height="@dimen/profile_pic"
+            android:layout_margin="4dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/test_ic"
+            android:contentDescription="@null"
+            app:border_width="1dp"
+            app:border_color="@color/button_on_dark_darker_opacity" />
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_followers_follower_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/img_friends_friend_image"
+            android:textColor="@android:color/black"
+            android:layout_alignTop="@+id/img_friends_friend_image"
+            android:layout_alignBottom="@+id/img_friends_friend_image"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/btn_followers_follower_delete"
+            android:layout_width="@dimen/profile_pic_small"
+            android:layout_height="@dimen/profile_pic_small"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_1of4"
+            android:layout_centerVertical="true"
+            android:background="@drawable/style_menu_gray"
+            android:src="@drawable/ic_menu_delete"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"
+        android:layout_below="@+id/rl_followers_follower"/>
+</RelativeLayout>

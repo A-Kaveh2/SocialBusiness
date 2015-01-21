@@ -1,0 +1,246 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- COVER PHOTO -->
+    <ir.rasen.myapplication.ui.ImageViewCover
+        android:id="@+id/img_profile_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/test_ic"
+        android:scaleType="centerCrop" />
+    <ir.rasen.myapplication.ui.ImageViewCover
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@color/cover_background"
+        android:scaleType="fitXY" />
+
+    <!-- OPTIONS -->
+    <ImageButton
+        android:id="@+id/btn_profile_drawer"
+        android:layout_width="@dimen/actionbar_height"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/style_button_menu"
+        android:src="@drawable/ic_menu_options"
+        android:contentDescription="@null"/>
+
+    <!-- SEARCH USERS -->
+    <ImageButton
+        android:id="@+id/btn_profile_search"
+        android:layout_width="@dimen/actionbar_height"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@drawable/style_button_menu"
+        android:src="@drawable/ic_menu_search"
+        android:contentDescription="@null"
+        android:layout_toLeftOf="@+id/btn_profile_drawer"/>
+
+    <!-- BACK -->
+    <ImageButton
+        android:id="@+id/btn_profile_back"
+        android:layout_width="@dimen/actionbar_height"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/style_button_menu"
+        android:src="@drawable/ic_menu_back"
+        android:onClick="back"
+        android:contentDescription="@null"/>
+
+    <LinearLayout
+        android:id="@+id/ll_profile_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/img_profile_cover"
+        android:layout_alignBottom="@+id/img_profile_cover"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"/>
+
+        <!-- PROFILE PICTURE -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="47"
+            android:weightSum="5"
+            android:orientation="vertical">
+            <ir.rasen.myapplication.ui.ImageViewCircle
+                android:id="@+id/img_profile_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+                android:src="@drawable/test_ic"
+                app:border_width="4dp"
+                app:border_color="@color/red"/>
+            <LinearLayout
+                android:id="@+id/ll_profile_on_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:weightSum="10"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"/>
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/btn_profile_on_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:minWidth="@dimen/button_width_min"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_large"
+                    android:background="@drawable/style_textview_on_pic"
+                    android:clickable="true"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/text_size_largest"
+            android:text="سینا خلیلی"
+            android:textColor="@android:color/white"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_details"
+            android:textSize="@dimen/text_size_normal"
+            android:text="عشق یعنی انتظار, تو دل یه مادر بی قرار"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <!-- OPTION 1 -->
+            <LinearLayout
+                android:id="@+id/ll_profile_option1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:weightSum="5"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:background="@drawable/style_button_transparent"
+                android:clickable="true">
+                <ImageView
+                    android:id="@+id/img_profile_option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_menu_user"/>
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_normal"
+                    android:text="122 نفر"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_profile_option2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:weightSum="5"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:background="@drawable/style_button_transparent"
+                android:clickable="true">
+                <ImageView
+                    android:id="@+id/img_profile_option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_menu_reviews"/>
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_normal"
+                    android:text="22 نقد"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_profile_option3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:weightSum="5"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:background="@drawable/style_button_transparent"
+                android:clickable="true">
+                <ImageView
+                    android:id="@+id/img_profile_option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_menu_businesses"/>
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_normal"
+                    android:text="10 کسب و کار"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_profile_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:orientation="horizontal"
+        android:layout_below="@+id/ll_profile_header"
+        android:weightSum="2"
+        android:background="@color/text_details">
+        <ImageButton
+            android:id="@+id/btn_profile_grid"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_grid"
+            android:background="@android:color/transparent"/>
+        <ImageButton
+            android:id="@+id/btn_profile_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_list"
+            android:clickable="true"
+            android:background="@drawable/selected_tab"/>
+    </LinearLayout>
+</RelativeLayout>

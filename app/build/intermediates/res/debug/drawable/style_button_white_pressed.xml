@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+	<solid android:color="@android:color/white"/>
+  <stroke
+      android:width="5dp"
+      android:color="@android:color/transparent" />
+</shape><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/drawable/style_button_white_pressed.xml -->

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- BNUSINESS OPTION -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_drawer_business"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:orientation="horizontal"
+    android:background="@drawable/style_button_menu"
+    android:clickable="true">
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_drawer_business_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="32dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_normal"
+            android:gravity="center"/>
+        <ir.rasen.myapplication.ui.ImageViewCircle
+            android:id="@+id/img_drawer_business_picture"
+            android:layout_width="@dimen/menu_pic_large"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_menu_options_settings"
+            android:layout_margin="4dp"/>
+</RelativeLayout>

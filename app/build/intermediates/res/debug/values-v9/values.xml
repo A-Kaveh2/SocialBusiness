@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/values-v9/styles.xml -->
+    <eat-comment/>
+    <style name="AppTheme" parent="@style/_AppTheme">
+        <item name="android:textSelectHandleLeft">@drawable/apptheme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/apptheme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/apptheme_text_select_handle_middle</item>
+    </style>
+    <style name="AppTheme.Dialog" parent="@style/_AppTheme.Dialog">
+        <item name="android:textSelectHandleLeft">@drawable/apptheme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/apptheme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/apptheme_text_select_handle_middle</item>
+    </style>
+</resources>

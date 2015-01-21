@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background_light">#696D76</color>
+    <color name="background">#EEEEEE</color>
+    <color name="background_dark">#1C2127</color>
+
+    <color name="gray_lighter">#FAFAFA</color>
+    <color name="gray_light">#EEEEEE</color>
+    <color name="gray">#484F54</color>
+    <color name="gray_dark">#2D3138</color>
+
+    <color name="red">#F5524F</color>
+    <color name="red_dark">#F04540</color>
+    <color name="green">#44AA44</color>
+    <color name="green_dark">#338833</color>
+
+    <color name="text_details">#5EB4BF</color>
+    <color name="button_on_dark">#539CB0</color>
+    <color name="button_on_dark_darker">#3F6F94</color>
+    <color name="button_on_dark_darker_opacity">#80256070</color>
+
+    <color name="cover_background">#AD256070</color>
+    <color name="splash_screen_background">#AD256070</color>
+
+    <color name="opacity3">#33ffffff</color>
+    <color name="opacity5">#77ffffff</color>
+    <color name="opacity8">#BBffffff</color>
+
+</resources>

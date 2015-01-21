@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- POST PICTURE -->
+<ir.rasen.myapplication.ui.ImageViewSquare xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/img_profile_grid_post_pic"
+    android:layout_below="@+id/ll_home_header_divider"
+    android:layout_width="match_parent"
+    android:scaleType="centerInside"
+    android:adjustViewBounds="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_vertical_margin_1of4"
+    android:src="@drawable/test"
+    android:contentDescription="@null"/><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/layout_profile_grid_post.xml -->

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/rl_register_actionbar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerInside"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/register" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_register_actionbar"
+        android:background="@color/background" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center" >
+
+            <ImageButton
+                android:id="@+id/btn_register_picture_set"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_edittext_name"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:contentDescription="@null"
+                android:onClick="setPicture"/>
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_register_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/btn_register_picture_set"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_edittext_name" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_register_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edt_register_username"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_edittext_name"
+                android:hint="@string/name" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_register_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/edt_register_name"
+                android:inputType="textEmailAddress"
+                android:drawableLeft="@drawable/ic_edittext_email" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_centerHorizontal="true"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_register_email"
+                android:drawableLeft="@drawable/ic_edittext_password" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_register_password_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_repeat"
+                android:layout_centerHorizontal="true"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_register_password"
+                android:drawableLeft="@drawable/ic_edittext_password" />
+
+            <ir.rasen.myapplication.ui.ButtonFont
+                android:id="@+id/btn_register_register"
+                android:layout_width="100dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@+id/edt_register_password_repeat"
+                android:layout_centerHorizontal="true"
+                android:text="@string/register"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/style_button_on_dark"
+                android:textSize="@dimen/text_size_large"
+                android:onClick="register" />
+
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/btn_register_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_register_register"
+                android:layout_marginTop="16dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/help"
+                android:textSize="@dimen/text_size_large"
+                android:clickable="true"
+                android:onClick="help" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/activity_register.xml -->

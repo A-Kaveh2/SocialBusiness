@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:id="@+id/rl_reviews_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/friend_requests" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_reviews_actionbar"
+        android:layout_above="@+id/ll_reviews_review">
+        <ListView
+            android:id="@+id/list_reviews_review"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/activity_vertical_margin_1of8"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_reviews_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_vertical_margin_1of8">
+
+    </RelativeLayout>
+</RelativeLayout>

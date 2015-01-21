@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">نرم افزار راسن</string>
+
+    <!-- LOGIN PAGE -->
+    <string name="login">ورود</string>
+    <string name="email">ایمیل</string>
+    <string name="password">رمز عبور</string>
+    <!-- REGISTER PAGE -->
+    <string name="register">ثبت نام</string>
+    <string name="forgot_password">فراموشی رمز عبور</string>
+    <string name="username">نام کاربری</string>
+    <string name="name">نام</string>
+    <string name="password_repeat">تکرار رمز عبور</string>
+    <string name="save">ذخیره</string>
+    <string name="help">راهنما</string>
+
+    <!-- SEARCH -->
+    <string name="search">جستجو</string>
+    <string name="products">محصولات</string>
+    <string name="enter_search_keywords">متنی را جهت جستجو وارد نمایید.</string>
+
+    <!-- PROFILE -->
+    <string name="profile">حساب کاربری</string>
+    <string name="profile_edit_profile">ویرایش حساب</string>
+
+    <!-- ERRORS -->
+    <string name="enter_valid_username">نام کاربری حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
+    <string name="enter_valid_name">نام حدأقل 3 حرفی بوده و تنها می تواند از حروف انگلیسی و فارسی, اعداد, فاصله, . یا _ تشکیل شود.</string>
+    <string name="enter_valid_email">لطفأ آدرس ایمیل خود را به طور صحیح وارد نمایید.</string>
+    <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
+    <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
+
+    <!-- TIME -->
+    <string name="time_now">همین الآن!</string>
+    <string name="time_year">سال</string>
+    <string name="time_month">ماه</string>
+    <string name="time_week">هفته</string>
+    <string name="time_day">روز</string>
+    <string name="time_hour">ساعت</string>
+    <string name="time_minute">دقیقه</string>
+    <string name="time_ago">پیش</string>
+
+    <!-- HOME -->
+    <string name="about">درباره ی ما</string>
+
+    <!-- PROFILE -->
+    <string name="profile_edit">مشخصات</string>
+    <string name="password_change">تغییر رمز عبور</string>
+    <string name="birthday">روز تولد</string>
+    <string name="status">توضیحات</string>
+    <string name="friend_request">درخواست دوستی</string>
+    <string name="profile_edit_business">ویرایش اطلاعات کسب و کار</string>
+    <string name="follow_request">دنبال کردن</string>
+    <string name="followers">دنبال کنندگان</string>
+    <string name="friend_requests">درخواست های دوستی</string>
+    <string name="accept_or_ignore_requests">درخواست ها را تأیید و یا رد کنید.</string>
+
+    <!-- SEARCH -->
+    <string name="search_title">عنوان جستجو</string>
+    <string name="search_in">جستجو در</string>
+    <string name="nearby">نزدیک من</string>
+    <string name="searching_for">جستجوی</string>
+    <string name="in">در</string>
+    <string name="search_nearby">جستجوی اطراف</string>
+    <string name="filter">فیلتر:</string>
+    <string name="filter_all">فیلتر: تمام موضوعات</string>
+    <string name="search_businesses">جستجوی کسب و کار ها</string>
+    <string name="search_products">جستجوی محصولات</string>
+    <string name="choose_category">انتخاب موضوع</string>
+    <string name="selected_location">جستجوی مکان انتخابی</string>
+
+    <!-- SEARCH USERS -->
+    <string name="search_users">جستجوی کاربران</string>
+
+    <!-- BUSINESSES -->
+    <string name="comments">نظرات</string>
+    <string name="business_id">شناسه ی کسب و کار</string>
+
+    <!-- SETTINGS -->
+    <string name="friends">دوستان</string>
+    <string name="friends_set">با فعال کردن این گزینه به دوستان خود امکان می دهید لیست دوستان شما را مشاهده کنند.</string>
+    <string name="settings">تنظیمات</string>
+    <string name="businesses">کسب و کار ها</string>
+    <string name="businesses_set">با فعال کردن این گزینه به دوستان خود امکان می دهید کسب و کار های مورد علاقه ی شما را مشاهده کنند.</string>
+    <string name="reviews">نقد ها</string>
+    <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
+
+    <!-- EDIT -->
+    <string name="share">به اشتراک گذاری</string>
+    <string name="report">گزارش تخلف</string>
+    <string name="edit">ویرایش</string>
+    <string name="delete">حذف</string>
+
+    <!-- DIALOGS -->
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+
+    <!-- MENU ITEMS -->
+    <string name="exit">خروج</string>
+
+    <!-- POPUP -->
+    <string name="delete_post">حذف مطلب</string>
+    <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
+    <string name="delete_comment">حذف نظر</string>
+    <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
+    <string name="delete_friend">حذف دوست</string>
+    <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
+    <string name="delete_follower">حذف دنبال کننده</string>
+    <string name="popup_delete_follower">آیا میخواهید شخص را از لیست دنبال کنندگان خود حذف کنید؟</string>
+
+    <!-- COMMENTS -->
+    <string name="enter_your_comment">نظر خود را بنویسید&#8230;</string>
+    <string name="send">ارسال</string>
+
+    <!-- Persian Date -->
+    <string name="FARVARDIN">فروردین</string>
+    <string name="ORDIBEHESHT">اردیبهشت</string>
+    <string name="KHORDAD">خرداد</string>
+    <string name="TIR">تیر</string>
+    <string name="MORDAD">مرداد</string>
+    <string name="SHAHRIVAR">شهریور</string>
+    <string name="MEHR">مهر</string>
+    <string name="ABAN">آبان</string>
+    <string name="AZAR">آذر</string>
+    <string name="DEY">دی</string>
+    <string name="BAHMAN">بهمن</string>
+    <string name="ESFAND">اسفند</string>
+
+    <!-- Picture -->
+    <string name="image_file_path">/Image/</string>
+
+    <!-- BUSINESS -->
+    <string name="business_name">نام کسب و کار</string>
+    <string name="business_address">موقعیت کسب و کار را تعیین کنید</string>
+    <string name="business_description">توضیحات کسب و کار</string>
+    <string name="new_business">کسب و کار جدید</string>
+    <string name="enter_working_time">ساعات کار را تعیین کنید</string>
+    <string name="phone">تلفن تماس</string>
+    <string name="website">وب سایت</string>
+    <string name="mobile">تلفن همراه</string>
+    <string name="next_step">مرحله ی بعد</string>
+    <string name="submit">ثبت</string>
+    <string name="business_location">موقعیت کسب و کار</string>
+    <string name="working_time">ساعات کاری</string>
+    <string name="address_defined">موقعیت تعیین شد:</string>
+    <string name="lat">عرض جغرافیایی:</string>
+    <string name="lon">طول جغرافیایی:</string>
+
+    <!-- POST -->
+    <string name="product_name">نام محصول</string>
+    <string name="product_price">قیمت</string>
+    <string name="product_code">کد کالا</string>
+
+    <!-- PRODUCT -->
+    <string name="new_product">محصول جدید</string>
+    <string name="product_description">توضیحات محصول</string>
+
+    <!-- WEEK DAYS -->
+    <string name="SHANBE">شنبه</string>
+    <string name="YEK_SHANBE">یک شنبه</string>
+    <string name="DO_SHANBE">دوشنبه</string>
+    <string name="SE_SHANBE">سه شنبه</string>
+    <string name="CHAHAR_SHANBE">چهارشنبه</string>
+    <string name="PANJ_SHANBE">پنج شنبه</string>
+    <string name="JOME">جمعه</string>
+
+    <!-- TIMES -->
+    <string name="time_start">زمان شروع به کار</string>
+    <string name="time_end">زمان پایان کار</string>
+
+    <!-- MAP -->
+    <string name="error">خطا!</string>
+    <string name="error_google_play_services">ویرایش مناسبی از نرم افزار google play services بر روی دستگاه یافت نشد.\n\nلطفأ جهت استفاده از این بخش از نرم افزار, اقدام به دریافت و نصب آن نمایید.</string>
+    <string name="download">دریافت و نصب</string>
+    <string name="not_now">الآن نه</string>
+    <string name="title_activity_add_location">Map</string>
+
+    <!-- CALL INFO -->
+    <string name="call_info">اطلاعات تماس</string>
+
+    <!-- REVIEWS -->
+    <string name="enter_your_review">نقد خود را بنویسید&#8230;</string>
+
+    <!-- SPLASH SCREEN -->
+    <string name="splash_register">ثبت نام</string>
+    <string name="splash_login">ورود به حساب</string>
+
+    <!-- FORGOT PASSWORD -->
+    <string name="send_new_password">ارسال رمز عبور جدید</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <shape android:shape="rectangle" >
+            <stroke
+                android:width="8dp"
+                android:color="@color/gray_dark" />
+        </shape>
+    </item>
+
+    <item android:left="8dp"
+        android:right="8dp" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+            <gradient
+                android:type="radial"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:endColor="@color/gray_dark"
+                android:startColor="@color/gray"
+                android:gradientRadius="100"/>
+        </shape>
+    </item>
+
+</layer-list><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/drawable/style_background_radial_gray.xml -->

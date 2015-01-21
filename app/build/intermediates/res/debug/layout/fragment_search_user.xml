@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_search"
+    android:background="@color/gray_lighter">
+
+        <!-- SEARCH OPTIONS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_on_dark"
+            android:orientation="vertical"
+            android:id="@+id/ll_search_options">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_half">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_view"
+                    android:layout_margin="@dimen/activity_vertical_margin_half"
+                    android:layout_toLeftOf="@+id/btn_search_back">
+                    <ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable
+                        android:id="@+id/txt_search_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/actionbar_height"
+                        android:drawableStart="@drawable/ic_edittext_search"
+                        android:drawableLeft="@drawable/ic_edittext_search"
+                        android:hint="@string/search_users"/>
+                </LinearLayout>
+                <ImageButton
+                    android:layout_width="@dimen/actionbar_height"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:id="@+id/btn_search_back"
+                    android:src="@drawable/ic_menu_forward"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/style_button_menu"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                    android:onClick="back"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    <!-- Suggests, History -->
+    <ListView
+        android:id="@+id/list_search_suggests"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search_options"/>
+
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/fragment_search_user.xml -->

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/rl_login_actionbar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerInside"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/login" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_login_actionbar"
+        android:background="@color/background" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center" >
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_login_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:drawableLeft="@drawable/ic_edittext_email" />
+
+            <ir.rasen.myapplication.ui.EditTextFont
+                android:id="@+id/edt_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_centerHorizontal="true"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                android:layout_below="@+id/edt_login_email"
+                android:drawableLeft="@drawable/ic_edittext_password"/>
+
+            <LinearLayout
+                android:id="@+id/ll_login_btns"
+                android:layout_below="@+id/edt_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_login_password"
+                android:layout_alignRight="@id/edt_login_password"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical" >
+
+                <ir.rasen.myapplication.ui.ButtonFont
+                    android:id="@+id/btn_login_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_margin="8dp"
+                    android:text="@string/login"
+                    android:background="@drawable/style_button_on_dark"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_larger"
+                    android:onClick="login" />
+
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/btn_login_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/forgot_password"
+                    android:textSize="@dimen/text_size_large"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                    android:clickable="true"
+                    android:onClick="forgot" />
+                </LinearLayout>
+
+          </RelativeLayout>
+    </ScrollView>
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/activity_login.xml -->

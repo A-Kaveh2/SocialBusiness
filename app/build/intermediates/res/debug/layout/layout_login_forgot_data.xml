@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white" >
+
+	<ir.rasen.myapplication.ui.EditTextFont
+    	android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin_1of4"
+		android:gravity="center"
+        android:drawableLeft="@drawable/ic_edittext_email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:hint="@string/email"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+	<ir.rasen.myapplication.ui.ButtonFont
+          android:id="@+id/SendPassword"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/activity_horizontal_margin_1of4"
+          android:background="@drawable/style_button_on_dark_second"
+          android:text="@string/send_new_password"
+	android:textColor="@android:color/white"
+	android:textAppearance="@android:style/TextAppearance.Large" />
+
+</LinearLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/layout_login_forgot_data.xml -->

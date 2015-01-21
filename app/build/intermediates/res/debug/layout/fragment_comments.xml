@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:id="@+id/rl_comments_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/comments" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_comments_actionbar"
+        android:layout_above="@+id/ll_comments_comment">
+        <ListView
+            android:id="@+id/list_comments_comments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:layout_margin="@dimen/activity_vertical_margin"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_comments_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_vertical_margin_1of8">
+        <ir.rasen.myapplication.ui.ButtonFont
+            android:id="@+id/btn_comments_send"
+            android:layout_width="@dimen/button_width_min"
+            android:layout_height="@dimen/actionbar_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/txt_comments_comment"
+            android:layout_alignBottom="@+id/txt_comments_comment"
+            android:background="@drawable/style_button_on_dark_second"
+            android:text="@string/send"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@android:color/white"
+            android:clickable="true"/>
+        <ir.rasen.myapplication.ui.EditTextFont
+            android:id="@+id/txt_comments_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/actionbar_height"
+            android:hint="@string/enter_your_comment"
+            android:textColorHint="@color/gray"
+            android:background="@drawable/style_view_corners"
+            android:layout_marginLeft="@dimen/activity_vertical_margin_1of8"
+            android:layout_toRightOf="@+id/btn_comments_send"
+            android:gravity="center|right"
+            android:textSize="@dimen/text_size_normal"
+            android:padding="@dimen/activity_vertical_margin_1of8"
+            android:singleLine="false"
+            android:inputType="text"/>
+    </RelativeLayout>
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/fragment_comments.xml -->

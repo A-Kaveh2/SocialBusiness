@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- HEADER OF POST -->
+    <RelativeLayout
+        android:id="@+id/rl_home_post_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_view_ulr" >
+
+        <!-- BAR -->
+        <RelativeLayout
+            android:id="@+id/rl_home_post_header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- PROFILE PICTURE -->
+            <ir.rasen.myapplication.ui.ImageViewCircle
+                android:id="@+id/img_home_post_business_pic"
+                android:layout_width="@dimen/profile_pic"
+                android:layout_height="@dimen/profile_pic"
+                android:src="@drawable/test_ic"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_1of4"
+                android:contentDescription="@null"
+                app:border_width="2dp"
+                app:border_color="@color/button_on_dark_darker_opacity"
+                android:clickable="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_toLeftOf="@id/img_home_post_business_pic">
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/txt_home_post_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="2 ساعت پیش"
+                    android:layout_margin="@dimen/activity_vertical_margin_1of4" />
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/txt_home_post_business_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/button_on_dark_darker"
+                    android:textSize="@dimen/text_size_larger"
+                    android:gravity="right|center"
+                    android:text="نسرین محمدی"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+            <!-- POST PICTURE -->
+        <ImageView
+            android:id="@+id/img_home_post_pic"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin_1of4"
+            android:src="@drawable/test"
+            android:contentDescription="@null"
+            android:layout_below="@id/rl_home_post_header_bar" />
+
+        <!-- POST DETAILS -->
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_home_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_home_post_pic"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@android:color/black"
+            android:text="کباب کوبیده یعنی این!!"/>
+
+        <!-- POST DETAILS -->
+
+    </RelativeLayout>
+
+    <!-- POST MENU -->
+    <LinearLayout
+        android:id="@+id/rl_home_post_menu"
+        android:baselineAligned="true"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/actionbar_height_half"
+        android:layout_below="@+id/rl_home_post_header"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:id="@+id/ll_home_post_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/style_button_gray"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_1of4"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/img_like_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_menu_like"
+                android:scaleType="fitCenter"/>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_home_post_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_1of4"
+                android:text="1544"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_home_post_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/style_button_gray"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_1of4"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_menu_comment"
+                android:scaleType="centerInside"
+                android:contentDescription="@null" />
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_home_post_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_1of4"
+                android:text="150"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/style_button_gray"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_1of4"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_menu_share"
+                android:scaleType="centerInside"/>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_home_post_shares"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_1of4"
+                android:text="22"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_home_post_options"
+        android:layout_width="@dimen/profile_pic_small"
+        android:layout_height="@dimen/profile_pic_small"
+        android:background="@drawable/style_menu_gray"
+        android:src="@drawable/ic_menu_options_horizontal"
+        android:layout_alignTop="@+id/rl_home_post_menu"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+        android:layout_alignParentEnd="true" />
+
+    <!-- COMMENT(S) -->
+    <RelativeLayout
+        android:id="@+id/rl_home_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_home_post_menu"
+        android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+        android:minHeight="@dimen/actionbar_height" >
+
+        <ir.rasen.myapplication.ui.ImageViewCircle
+            android:id="@+id/img_home_post_comment_1"
+            android:layout_width="@dimen/profile_pic_small"
+            android:layout_height="@dimen/profile_pic_small"
+            android:layout_margin="4dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/test_ic"
+            android:contentDescription="@null"
+            app:border_width="1dp"
+            app:border_color="@color/button_on_dark_darker_opacity" />
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_home_post_comment_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/img_home_post_comment_1"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_margin="4dp"/>
+        <!-- POST DETAILS -->
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <!-- ACTION BAR -->
+    <RelativeLayout
+        android:id="@+id/rl_call_info_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark" >
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/call_info" />
+    </RelativeLayout>
+
+    <!-- CONTENT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_call_info_actionbar"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/activity_vertical_margin">
+        <!-- LOCATION ON MAP -->
+        <ir.rasen.myapplication.ui.LinearLayoutSquare
+            android:id="@+id/ll_call_info_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/style_view">
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        </ir.rasen.myapplication.ui.LinearLayoutSquare>
+        <!-- DESCRIPTION -->
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_call_info_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:hint="@string/business_description"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin_1of4"
+            android:paddingRight="@dimen/activity_horizontal_margin_1of4"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@android:color/black"
+            android:gravity="right"/>
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

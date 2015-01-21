@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_search">
+
+        <RelativeLayout
+            android:id="@+id/rl_search_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_on_dark"
+            android:clickable="true"
+            android:onClick="location">
+
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_search_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionbar_height"
+                android:textSize="24sp"
+                android:gravity="right|center"
+                android:textColor="@android:color/white"
+                android:text = "@string/search_nearby"
+                android:drawableRight="@drawable/ic_menu_map"
+                android:drawablePadding="@dimen/activity_vertical_margin_half"
+                android:background="@drawable/style_button_menu"/>
+
+            <LinearLayout
+                android:id="@+id/ll_search_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionbar_height"
+                android:orientation="horizontal"
+                android:layout_below="@+id/txt_search_title"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+                android:background="@color/text_details">
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/btn_search_businesses"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:text="@string/businesses"/>
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/btn_search_users"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/selected_tab"
+                    android:text="@string/products"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- SEARCH OPTIONS -->
+        <LinearLayout
+            android:id="@+id/ll_search_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_below="@+id/rl_search_actionbar">
+
+            <!-- SEARCH OPTIONS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_details"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/style_view"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin">
+                    <ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable
+                        android:id="@+id/txt_search_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/actionbar_height"
+                        android:drawableStart="@drawable/ic_edittext_search"
+                        android:drawableLeft="@drawable/ic_edittext_search"
+                        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                        android:drawableRight="@drawable/ic_edittext_filter"
+                        android:drawableEnd="@drawable/ic_edittext_filter"
+                        android:hint="@string/search_businesses"/>
+                </LinearLayout>
+
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/txt_search_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="@string/filter_all"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/activity_vertical_margin_2x"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin_1of4"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    <!-- Suggests, Categories -->
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_search_filters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search_options" >
+
+        <ListView
+            android:id="@+id/list_search_suggests"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_search_choose_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/actionbar_height"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_large"
+                android:background="@color/button_on_dark"
+                android:textColor="@android:color/white"
+                android:text="@string/choose_category"/>
+            <ListView
+                android:id="@+id/list_search_categories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_lighter"
+                android:layout_below="@+id/txt_search_choose_category"/>
+            <RelativeLayout
+                android:id="@+id/rl_search_subcategories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_search_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/actionbar_height"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_large"
+                android:background="@color/button_on_dark"
+                android:textColor="@android:color/white"/>
+            <ImageButton
+                android:layout_width="@dimen/actionbar_height"
+                android:layout_height="@dimen/actionbar_height"
+                android:id="@+id/btn_search_back"
+                android:src="@drawable/ic_menu_forward"
+                android:scaleType="centerInside"
+                android:background="@drawable/style_button_menu"
+                android:layout_alignParentRight="true"/>
+            <ListView
+                android:id="@+id/list_search_subcategories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_lighter"
+                android:layout_below="@+id/txt_search_category"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/fragment_search.xml -->
