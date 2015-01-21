@@ -1,20 +1,15 @@
 package ir.rasen.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -93,13 +88,13 @@ public class FragmentComments extends Fragment {
             }
         });
 
-        ((EditTextFont) view.findViewById(R.id.btn_comments_send)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ((EditTextFont) view.findViewById(R.id.txt_comments_comment)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean b) {
                 if(!view.isFocused()) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.btn_comments_send)).getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.txt_comments_comment)).getWindowToken(), 0);
                 }
             }
         });

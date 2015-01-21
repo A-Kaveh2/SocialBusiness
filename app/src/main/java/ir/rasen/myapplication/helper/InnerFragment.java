@@ -14,6 +14,7 @@ import ir.rasen.myapplication.FragmentFollowers;
 import ir.rasen.myapplication.FragmentFriends;
 import ir.rasen.myapplication.FragmentHome;
 import ir.rasen.myapplication.FragmentProfile;
+import ir.rasen.myapplication.FragmentRequests;
 import ir.rasen.myapplication.FragmentResults;
 import ir.rasen.myapplication.FragmentSearchUsers;
 import ir.rasen.myapplication.FragmentUserReviews;
@@ -98,14 +99,20 @@ public class InnerFragment {
     }
 
     // new results fragment
-    public void newResultsFragment(String searchString, String category, boolean nearby, Location_M location_m) {
-        Fragment newFragment = new FragmentResults().newInstance(searchString, category, nearby, location_m);
+    public void newResultsFragment(String searchString, String category, boolean nearby, Location_M location_m, int searchType) {
+        Fragment newFragment = new FragmentResults().newInstance(searchString, category, nearby, location_m, searchType);
         addFragment(newFragment);
     }
 
     // new search users fragment
     public void newSearchUsers() {
         Fragment newFragment = new FragmentSearchUsers().newInstance();
+        addFragment(newFragment);
+    }
+
+    // new requests fragment
+    public void newRequestsFragment(String userId) {
+        Fragment newFragment = new FragmentRequests().newInstance(userId);
         addFragment(newFragment);
     }
 

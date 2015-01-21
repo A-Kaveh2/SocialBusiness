@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_search"
-    android:background="@color/gray_light">
+    android:background="@android:color/white">
 
         <RelativeLayout
             android:id="@+id/rl_results_actionbar"
@@ -36,9 +36,8 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_results_actionbar"
-        android:layout_margin="@dimen/activity_vertical_margin">
-        <ListView
+        android:layout_below="@id/rl_results_actionbar">
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
             android:id="@+id/list_results_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

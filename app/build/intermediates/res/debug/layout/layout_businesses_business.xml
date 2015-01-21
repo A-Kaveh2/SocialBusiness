@@ -28,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_businesses_business_image"
         android:textColor="@android:color/black"
-        android:layout_alignTop="@+id/img_businesses_business_image"
-        android:layout_alignBottom="@+id/img_businesses_business_image"
+        android:layout_centerVertical="true"
         android:gravity="center"/>
     <ImageButton
         android:id="@+id/btn_businesses_business_delete"

@@ -18,6 +18,7 @@ import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -104,6 +105,12 @@ public class FragmentFriends extends Fragment {
             listHeaderView.setVisibility(View.VISIBLE);
             ((TextViewFont) listHeaderView.findViewById(R.id.txt_friends_requests)).setText(
                     requestsNum + " " + getString(R.string.friend_request));
+            listHeaderView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showFriendRequests();
+                }
+            });
         } else {
             listHeaderView.setVisibility(View.GONE);
         }
@@ -163,5 +170,10 @@ public class FragmentFriends extends Fragment {
                 }
             }
         });
+    }
+
+    void showFriendRequests() {
+        InnerFragment innerFragment = new InnerFragment(getActivity());
+        innerFragment.newRequestsFragment(userId);
     }
 }

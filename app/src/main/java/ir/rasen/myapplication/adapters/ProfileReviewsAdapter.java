@@ -28,7 +28,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
     int idOfView;
 
 	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews) {
-		super(context, R.layout.layout_post, reviews);
+		super(context, R.layout.layout_reviews_review, reviews);
 		mReviews 	= reviews;
 		mInflater	= LayoutInflater.from(context);
 	}

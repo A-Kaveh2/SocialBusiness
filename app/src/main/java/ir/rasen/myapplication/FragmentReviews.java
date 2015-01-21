@@ -81,13 +81,13 @@ public class FragmentReviews extends Fragment {
             }
         });
 
-        ((EditTextFont) view.findViewById(R.id.btn_reviews_send)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ((EditTextFont) view.findViewById(R.id.txt_reviews_review)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean b) {
                 if(!view.isFocused()) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.btn_reviews_send)).getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.txt_reviews_review)).getWindowToken(), 0);
                 }
             }
         });

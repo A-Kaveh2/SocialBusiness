@@ -13,6 +13,8 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 
@@ -52,6 +54,14 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 
         if (follower != null) {
             holder.friend_name.setText(follower.name);
+            // show followers profile
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, follower.userID);
+                }
+            });
             if(mOwnFollowers) {
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.delete.setOnClickListener(new View.OnClickListener() {

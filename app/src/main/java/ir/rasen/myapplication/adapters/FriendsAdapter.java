@@ -13,6 +13,8 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 /**
@@ -51,6 +53,14 @@ public class FriendsAdapter extends ArrayAdapter<User> {
 
         if (friend != null) {
             holder.friend_name.setText(friend.name);
+            // show friends profile
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, friend.userID);
+                }
+            });
             if(mOwnFriends) {
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.delete.setOnClickListener(new View.OnClickListener() {

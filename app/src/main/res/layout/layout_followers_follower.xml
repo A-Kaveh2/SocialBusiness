@@ -27,6 +27,7 @@
             android:textColor="@android:color/black"
             android:layout_alignTop="@+id/img_friends_friend_image"
             android:layout_alignBottom="@+id/img_friends_friend_image"
+            android:layout_centerVertical="true"
             android:gravity="center"/>
 
         <ImageButton

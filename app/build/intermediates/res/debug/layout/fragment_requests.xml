@@ -37,7 +37,7 @@
         android:layout_below="@+id/rl_reviews_actionbar"
         android:layout_above="@+id/ll_reviews_review">
         <ListView
-            android:id="@+id/list_reviews_review"
+            android:id="@+id/list_requests_request"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"

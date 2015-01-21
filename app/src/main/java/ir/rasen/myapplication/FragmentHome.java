@@ -1,31 +1,19 @@
 package ir.rasen.myapplication;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
-import ir.rasen.myapplication.adapters.PostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Params;
@@ -62,6 +50,7 @@ public class FragmentHome extends Fragment {
     private RelativeLayout actionBar;
     //private RelativeLayout rlHome;
     private TextViewFont title;
+    private boolean singlePost = false;
 
     Boolean isLoadingMore=false;
 
@@ -137,6 +126,9 @@ public class FragmentHome extends Fragment {
             // load as post page!
             homeTitle = bundle.getString(Params.TITLE);
             posts = PassingPosts.getInstance().getValue();
+            if(posts.size()==1) {
+                singlePost = true;
+            }
             mAdapter = new HomePostsAdapter(getActivity(), posts);
 
         } else if(homeType==Params.HomeType.HOME_HOME) {
@@ -250,35 +242,37 @@ public class FragmentHome extends Fragment {
         listFooterView.setVisibility(View.INVISIBLE);
         mListView.addFooterView(listFooterView);
         mListView.setAdapter((StickyListHeadersAdapter) mAdapter);
-        // TODO: ListView LoadMore
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int currentFirstVisibleItem
-                    ,
-                    currentVisibleItemCount
-                    ,
-                    currentScrollState;
+        // TODO: ListView LoadMore if it's not single post
+        if(!singlePost) {
+            mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                int currentFirstVisibleItem
+                        ,
+                        currentVisibleItemCount
+                        ,
+                        currentScrollState;
 
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                this.currentFirstVisibleItem = firstVisibleItem;
-                this.currentVisibleItemCount = visibleItemCount;
-            }
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    this.currentFirstVisibleItem = firstVisibleItem;
+                    this.currentVisibleItemCount = visibleItemCount;
+                }
 
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                this.currentScrollState = scrollState;
-                this.isScrollCompleted();
-            }
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                    this.currentScrollState = scrollState;
+                    this.isScrollCompleted();
+                }
 
-            private void isScrollCompleted() {
-                if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
-                    /*** In this way I detect if there's been a scroll which has completed ***/
-                    /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
-                        loadMoreData();
+                private void isScrollCompleted() {
+                    if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
+                        /*** In this way I detect if there's been a scroll which has completed ***/
+                        /*** do the work for load more date! ***/
+                        if (!swipeView.isRefreshing() && !isLoadingMore) {
+                            isLoadingMore = true;
+                            loadMoreData();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 /*
     void autoHideActionBar() {

@@ -40,6 +40,7 @@ public class Params {
     }*/
 
     public static String SET_LOCATION_TYPE = "set_location_type";
+    public static String SEARCH_TYPE = "search_type";
     public static class SearchType {
         public static int BUSINESSES = 0;
         public static int PRODUCTS = 1;

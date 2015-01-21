@@ -58,7 +58,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, true, business.businessID);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, business.businessID);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });

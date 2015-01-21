@@ -27,6 +27,7 @@ import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.EditTextFontClickable;
 import ir.rasen.myapplication.ui.TextViewFont;
 
 public class FragmentSearch extends Fragment {
@@ -113,7 +114,7 @@ public class FragmentSearch extends Fragment {
             database.insert(text.getText().toString().trim());
             setUpHistory();
             InnerFragment innerFragment = new InnerFragment(getActivity());
-            innerFragment.newResultsFragment("", "", false, new Location_M("", ""));
+            innerFragment.newResultsFragment("", "", false, new Location_M("", ""), searchType);
         } else {
             text.setError(getString(R.string.enter_search_keywords));
         }
@@ -229,6 +230,9 @@ public class FragmentSearch extends Fragment {
             public void onClick(DrawablePosition target) {
                 switch (target) {
                     case LEFT:
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
                         searchNow();
                         break;
                     case RIGHT:
