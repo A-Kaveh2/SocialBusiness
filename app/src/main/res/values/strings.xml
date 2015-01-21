@@ -31,6 +31,7 @@
     <string name="enter_valid_email">لطفأ آدرس ایمیل خود را به طور صحیح وارد نمایید.</string>
     <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
     <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
+    <string name="enter_is_too_long">طولانی تر از حد مجاز می باشد.</string>
 
     <!-- TIME -->
     <string name="time_now">همین الآن!</string>
@@ -105,6 +106,7 @@
     <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
     <string name="delete_comment">حذف نظر</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
+    <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
     <string name="delete_friend">حذف دوست</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="delete_follower">حذف دنبال کننده</string>

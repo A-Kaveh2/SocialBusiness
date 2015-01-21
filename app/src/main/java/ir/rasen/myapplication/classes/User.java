@@ -1,6 +1,5 @@
 package ir.rasen.myapplication.classes;
 
-
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.Sex;
@@ -26,7 +25,5 @@ public class User {
     public int reviewsNumber;
     public int followedBusinessesNumber;
     public int friendsNumber;
-
-
 
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.PostsAdapter;
 import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
@@ -45,12 +46,13 @@ public class FragmentProfile extends Fragment {
 
     ListAdapter listAdapter, gridAdapter;
 
-    public static FragmentProfile newInstance (int profileType, boolean profileOwn){
+    public static FragmentProfile newInstance (int profileType, boolean profileOwn, String profileId){
         FragmentProfile fragment = new FragmentProfile();
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.PROFILE_TYPE, profileType);
         bundle.putBoolean(Params.PROFILE_OWN, profileOwn);
+        bundle.putString(Params.ID, profileId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -71,6 +73,7 @@ public class FragmentProfile extends Fragment {
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
             profileOwn = bundle.getBoolean(Params.PROFILE_OWN);
+            profileId=bundle.getString(Params.ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -82,9 +85,6 @@ public class FragmentProfile extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         this.view = view;
-
-        // TODO:: SET PROFILE ID !!
-        profileId="!";
 
         header = (View)getActivity().getLayoutInflater().inflate(R.layout.fragment_profile_header,null);
 
@@ -196,7 +196,15 @@ public class FragmentProfile extends Fragment {
                     innerFragment.newCallInfo(profileId);
                 }
             });
-            // FRIENDS
+            // REVIEWS OF BUSINESS
+            header.findViewById(R.id.ll_profile_option2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InnerFragment innerFragment = new InnerFragment(getActivity());
+                    innerFragment.newReviews(profileId);
+                }
+            });
+            // FOLLOWERS
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -253,42 +261,31 @@ public class FragmentProfile extends Fragment {
         Post post1 = new Post();
         Post post2 = new Post();
         Post post3 = new Post();
-        post1.title="راسن";
-        post1.businessID= "RAASEN";
-        post1.price= "100.000";
-        post1.code="30";
+        post1.businessID = "راسن";
+        post1.description = "یک نرم افزار عالی!!";
+        post1.price = "100.000";
+        post1.code = "30";
+        ArrayList<Comment> lastThreeComments = new ArrayList<>();
+        Comment comment = new Comment();
+        comment.userID = "SINA";
+        comment.text = "سلام";
+        lastThreeComments.add(comment);
+        post1.lastThreeComments = lastThreeComments;
+        post1.title = "عنوان!!";
         posts.add(post1);
-        post2.businessID="sina";
-        post2.description= "programmer - RASEN CO.";
-        post2.price= "123.456";
-        post2.code="30";
+        post2.businessID = "sina";
+        post2.description = "programmer - RASEN CO.";
+        post2.price = "123.456";
+        post2.code = "30";
+        post2.title = "عنوان!!";
+        post2.lastThreeComments = lastThreeComments;
         posts.add(post2);
-        post3.businessID="sina";
-        post3.description= "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
-        post3.price= "125.234";
-        post3.code="30";
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post2);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
-        posts.add(post3);
+        post3.businessID = "sina";
+        post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
+        post3.price = "125.234";
+        post3.code = "30";
+        post3.title = "عنوان!!";
+        post3.lastThreeComments = lastThreeComments;
         posts.add(post3);
 
         listAdapter = new PostsAdapter(getActivity(), posts);

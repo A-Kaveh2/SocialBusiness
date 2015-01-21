@@ -41,12 +41,12 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.layout_user_reviews_review, null);
+            convertView = mInflater.inflate(R.layout.layout_reviews_review, null);
 
-            holder.business_pic = (ImageViewCircle) convertView.findViewById(R.id.img_profile_reviews_review_profile);
-            holder.business_name = (TextViewFont) convertView.findViewById(R.id.txt_profile_reviews_review_text);
-            holder.review = (TextViewFont) convertView.findViewById(R.id.txt_profile_reviews_review_text);
-            holder.options = (ImageView) convertView.findViewById(R.id.btn_profile_reviews_review_options);
+            holder.business_pic = (ImageViewCircle) convertView.findViewById(R.id.img_reviews_review_profile);
+            holder.business_name = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_text);
+            holder.review = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_text);
+            holder.options = (ImageView) convertView.findViewById(R.id.btn_reviews_review_options);
 
             convertView.setTag(holder);
         } else {
@@ -57,7 +57,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
             holder.business_name.setText(review.businessID);
 
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.processComment("sina: SALAM @haSAN jan!! in naghdo bebin!", holder.review);
+            textProcessor.process("SALAM @haSAN jan!! in naghdo bebin!", holder.review);
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, review.userID);
                 }
             });
         }

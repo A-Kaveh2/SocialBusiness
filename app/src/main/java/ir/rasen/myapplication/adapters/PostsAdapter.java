@@ -57,7 +57,8 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.business_name = (TextViewFont) convertView.findViewById(R.id.txt_home_post_business_name);
             holder.description = (TextViewFont) convertView.findViewById(R.id.txt_home_post_description);
             holder.time = (TextViewFont) convertView.findViewById(R.id.txt_home_post_time);
-            holder.comment1 = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1);
+            holder.comment1 = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_comment);
+            holder.comment1_user = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_user);
             holder.options = (ImageView) convertView.findViewById(R.id.btn_home_post_options);
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
             holder.likeHeart = (ImageView) convertView.findViewById(R.id.img_like_heart);
@@ -79,12 +80,19 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                     + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
-            // FOR TEST ONLY!
             holder.time.setText(Functions.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
+            holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
+            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO:: OPEN COMMENT's USER's PROFILE
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                }
+            });
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.processComment("sina: SALAM @haSAN jan!!", holder.comment1);
+            textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -131,11 +139,19 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 }
             });
 
+            // ON CLICK LISTENERS FOR business pic and name
             holder.business_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                }
+            });
+            holder.business_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
 
@@ -143,7 +159,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                }
+            });
+            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
 
@@ -157,7 +180,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         return  convertView;
     }
     class ViewHolder {
-        TextViewFont business_name, description, time, comment1;
+        TextViewFont business_name, description, time, comment1, comment1_user;
         ImageView options, postPic, likeHeart;
         ImageViewCircle business_pic, comment1_pic;
         LinearLayout likes, comments;

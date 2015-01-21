@@ -11,8 +11,8 @@
         android:layout_height="match_parent">
     <ir.rasen.myapplication.ui.ImageViewCircle
         android:id="@+id/img_comments_comment_image"
-        android:layout_width="@dimen/profile_pic_small"
-        android:layout_height="@dimen/profile_pic_small"
+        android:layout_width="@dimen/profile_pic"
+        android:layout_height="@dimen/profile_pic"
         android:layout_margin="4dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/test_ic"
@@ -21,10 +21,19 @@
         app:border_color="@color/button_on_dark_darker_opacity" />
 
     <ir.rasen.myapplication.ui.TextViewFont
+        android:id="@+id/txt_comments_comment_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/img_comments_comment_image"
+        android:textColor="@color/button_on_dark"
+        android:gravity="right|center_vertical"
+        android:layout_margin="@dimen/activity_vertical_margin_1of4"/>
+    <ir.rasen.myapplication.ui.TextViewFont
         android:id="@+id/txt_comments_comment_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_comments_comment_image"
+        android:layout_below="@+id/txt_comments_comment_user"
         android:textColor="@android:color/black"
         android:gravity="center_vertical"
         android:layout_margin="@dimen/activity_vertical_margin_1of4"/>

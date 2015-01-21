@@ -9,8 +9,10 @@ public class Params {
      */
     public static String USER_USERNAME_VALIDATION = "[0-9a-zA-Z._]*";
     public static int USER_USERNAME_MIN_LENGTH = 4;
+    public static int USER_USERNAME_MAX_LENGTH = 15;
     public static String USER_NAME_VALIDATION = "[0-9a-zA-Z._ \\u0600-\\u06FF\\uFB8A\\u067E\\u0686\\u06AF]*";
     public static int USER_NAME_MIN_LENGTH = 3;
+    public static int USER_NAME_MAX_LENGTH = 25;
     public static int USER_PASSWORD_MIN_LENGTH = 5;
 
     public static String BUSINESS = "business";

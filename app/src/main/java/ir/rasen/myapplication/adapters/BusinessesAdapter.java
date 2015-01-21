@@ -36,7 +36,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
-        Business business = mBusinesses.get(position);
+        final Business business = mBusinesses.get(position);
 
         if (convertView == null) {
             holder = new ViewHolder();
@@ -58,7 +58,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, true);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, true, business.businessID);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });

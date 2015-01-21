@@ -61,7 +61,8 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
             holder.postPic = (ImageView) convertView.findViewById(R.id.img_home_post_pic);
             holder.description = (TextViewFont) convertView.findViewById(R.id.txt_home_post_description);
-            holder.comment1 = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1);
+            holder.comment1 = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_comment);
+            holder.comment1_user = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_user);
             holder.comment1_pic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_comment_1);
             holder.comments = (LinearLayout) convertView.findViewById(R.id.ll_home_post_comments);
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
@@ -77,15 +78,22 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.postPic.setImageResource(R.drawable.test2);
         }
         if (post != null) {
-            holder.description.setText(Html.fromHtml("<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
-                    + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
+            holder.description.setText(Html.fromHtml(post.title+"<br />"
+                    +"<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
+                    + "<br /><font color=#3F6F94>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
-            // FOR TEST ONLY!
-
+            holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
+            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO:: OPEN COMMENT's USER's PROFILE
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                }
+            });
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.processComment("sina: SALAM @haSAN jan!!", holder.comment1);
+            textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
 
             // SHOW COMMENTS LISTENER
             holder.comments.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +110,14 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                }
+            });
+            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
 
@@ -151,7 +166,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         return  convertView;
     }
     class ViewHolder {
-        TextViewFont description, comment1;
+        TextViewFont description, comment1, comment1_user;
         ImageView postPic, likeHeart;
         ImageViewCircle comment1_pic;
         ImageButton options;
@@ -219,11 +234,19 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         // FOR TEST ONLY!
         holder.time.setText(Functions.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
+        // ON CLICK LISTENERS FOR business pic and name
         holder.business_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InnerFragment innerFragment = new InnerFragment(getContext());
-                innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false);
+                innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+            }
+        });
+        holder.business_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
             }
         });
 

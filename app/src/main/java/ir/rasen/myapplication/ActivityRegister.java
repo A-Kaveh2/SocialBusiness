@@ -55,9 +55,19 @@ public class ActivityRegister extends Activity {
             username.setError(getString(R.string.enter_valid_username));
             return;
         }
+        if(username.getText().length()>Params.USER_USERNAME_MAX_LENGTH) {
+            username.requestFocus();
+            username.setError(getString(R.string.enter_is_too_long));
+            return;
+        }
         if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()< Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
             name.setError(getString(R.string.enter_valid_name));
+            return;
+        }
+        if(name.getText().length()>Params.USER_NAME_MAX_LENGTH) {
+            name.requestFocus();
+            name.setError(getString(R.string.enter_is_too_long));
             return;
         }
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {

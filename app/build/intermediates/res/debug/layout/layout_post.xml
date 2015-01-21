@@ -217,14 +217,23 @@
             app:border_color="@color/button_on_dark_darker_opacity" />
 
         <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/txt_home_post_comment_1"
-            android:layout_width="match_parent"
+            android:id="@+id/txt_home_post_comment_1_user"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/img_home_post_comment_1"
-            android:textColor="@android:color/black"
+            android:textColor="@color/button_on_dark_darker"
             android:gravity="center_vertical"
-            android:layout_margin="4dp"/>
-        <!-- POST DETAILS -->
+            android:layout_marginRight="@dimen/activity_vertical_margin_1of4"
+            android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
+            android:layout_marginLeft="@dimen/activity_vertical_margin_1of4"/>
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_home_post_comment_1_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/img_home_post_comment_1"
+            android:layout_below="@+id/txt_home_post_comment_1_user"
+            android:gravity="center_vertical|right"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin_1of4"/>
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -56,8 +58,7 @@ public class FragmentComments extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_comments, container, false);
-        this.view = view;
+        view = inflater.inflate(R.layout.fragment_comments, container, false);
 
         list = (ListView) view.findViewById(R.id.list_comments_comments);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
@@ -74,9 +75,12 @@ public class FragmentComments extends Fragment {
         Comment comment1 = new Comment();
         Comment comment2 = new Comment();
         Comment comment3 = new Comment();
-        comment1.text=("سینا: سلام!!");
-        comment2.text=("حسن: چطوری @سینا؟");
-        comment3.text=("سینا: فدایت عزیز");
+        comment1.userID="Sina";
+        comment1.text=("سلام!!");
+        comment2.userID="Hossein";
+        comment2.text=("چطوری @سینا؟");
+        comment3.text="SINA";
+        comment3.text=("فدایت عزیز");
         comments.add(comment1);
         comments.add(comment2);
         comments.add(comment3);
@@ -89,6 +93,16 @@ public class FragmentComments extends Fragment {
             }
         });
 
+        ((EditTextFont) view.findViewById(R.id.btn_comments_send)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean b) {
+                if(!view.isFocused()) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.btn_comments_send)).getWindowToken(), 0);
+                }
+            }
+        });
         return view;
     }
 

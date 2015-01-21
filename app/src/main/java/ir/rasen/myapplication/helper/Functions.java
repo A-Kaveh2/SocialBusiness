@@ -65,7 +65,6 @@ public class Functions {
                 })
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
-
     }
 
     public void showCommentDeletePopup(Context context) {
@@ -73,6 +72,20 @@ public class Functions {
         builder
                 .setTitle(R.string.delete_comment)
                 .setMessage(R.string.popup_delete_comment)
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: DELETE COMMENT
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
+    public void showCommentDeleteFromMyBusinessPopup(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.delete_comment)
+                .setMessage(R.string.popup_delete_comment_from_my_business)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO:: DELETE COMMENT

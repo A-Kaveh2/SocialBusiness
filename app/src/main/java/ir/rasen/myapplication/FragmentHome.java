@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.adapters.PostsAdapter;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
@@ -153,16 +154,27 @@ public class FragmentHome extends Fragment {
             post1.description = "یک نرم افزار عالی!!";
             post1.price = "100.000";
             post1.code = "30";
+            ArrayList<Comment> lastThreeComments = new ArrayList<>();
+            Comment comment = new Comment();
+            comment.userID = "SINA";
+            comment.text = "سلام";
+            lastThreeComments.add(comment);
+            post1.lastThreeComments = lastThreeComments;
+            post1.title = "عنوان!!";
             posts.add(post1);
             post2.businessID = "sina";
             post2.description = "programmer - RASEN CO.";
             post2.price = "123.456";
             post2.code = "30";
+            post2.title = "عنوان!!";
+            post2.lastThreeComments = lastThreeComments;
             posts.add(post2);
             post3.businessID = "sina";
             post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
             post3.price = "125.234";
             post3.code = "30";
+            post3.title = "عنوان!!";
+            post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
 
             mAdapter = new HomePostsAdapter(getActivity(), posts);

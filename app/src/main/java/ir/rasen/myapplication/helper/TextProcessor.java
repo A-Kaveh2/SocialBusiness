@@ -28,13 +28,13 @@ public class TextProcessor {
     }
 
     // processing comments for owner and profile tags
-    public void processComment(final String text, TextView textView) {
+    public void process(final String text, TextView textView) {
         String TAG = "TextProcessor->processComment";
 
         int index_end = 0;
         Spannable wordtoSpan = new SpannableString(text);
 
-        index_end = text.indexOf(":", 0);
+/*        index_end = text.indexOf(":", 0);
         if (index_end == -1) {
             Log.e(TAG, "comment text without ':' char!");
         }
@@ -52,7 +52,7 @@ public class TextProcessor {
         wordtoSpan.setSpan(clickableSpan, 0, index_end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(wordtoSpan);
-
+*/
         // TODO:: FIND AND LINK PROFILE TAGS!
         int index_temp = 0;
         while ((index_temp = text.indexOf("@", index_temp)) != -1 && index_temp<=text.length()-1-Params.USER_NAME_MIN_LENGTH) {
@@ -70,21 +70,21 @@ public class TextProcessor {
 
                 final String profileId = text.substring(index_temp, index_end);
                 wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), index_temp-1, index_end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                clickableSpan = new ClickableSpan() {
+                ClickableSpan clickableSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View textView) {
                         // username clicked!
-                        // TODO:: profileId variable should be passed
                         InnerFragment innerFragment = new InnerFragment(context);
-                        innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
+                        innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, profileId);
                     }
                 };
                 wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                textView.setMovementMethod(LinkMovementMethod.getInstance());
-                textView.setText(wordtoSpan);
 
             }
         }
+
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(wordtoSpan);
 
     }
 }

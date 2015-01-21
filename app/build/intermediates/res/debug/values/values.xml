@@ -374,6 +374,7 @@
     <string name="download">دریافت و نصب</string>
     <string name="edit">ویرایش</string>
     <string name="email">ایمیل</string>
+    <string name="enter_is_too_long">طولانی تر از حد مجاز می باشد.</string>
     <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
     <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
     <string name="enter_search_keywords">متنی را جهت جستجو وارد نمایید.</string>
@@ -434,6 +435,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="phone">تلفن تماس</string>
     <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
+    <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
     <string name="popup_delete_follower">آیا میخواهید شخص را از لیست دنبال کنندگان خود حذف کنید؟</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="product_code">کد کالا</string>

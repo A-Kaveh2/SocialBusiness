@@ -3,28 +3,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:id="@+id/rl_reviews_review"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
 
         <!-- HEADER OF POST -->
         <RelativeLayout
-            android:id="@+id/rl_profile_reviews_review_header"
+            android:id="@+id/rl_reviews_review_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/style_view_ulr" >
 
             <!-- BAR -->
             <RelativeLayout
-                android:id="@+id/rl_home_post_header_bar"
+                android:id="@+id/rl_reviews_review_header_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <!-- PROFILE PICTURE -->
                 <ir.rasen.myapplication.ui.ImageViewCircle
-                    android:id="@+id/img_profile_reviews_review_profile"
+                    android:id="@+id/img_reviews_review_profile"
                     android:layout_width="@dimen/profile_pic"
                     android:layout_height="@dimen/profile_pic"
                     android:src="@drawable/test_ic"
@@ -39,45 +40,50 @@
                     android:clickable="true"/>
 
                 <ir.rasen.myapplication.ui.TextViewFont
-                    android:id="@+id/txt_profile_reviews_review_profile"
+                    android:id="@+id/txt_reviews_review_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/button_on_dark_darker"
                     android:textSize="@dimen/text_size_larger"
                     android:gravity="right"
                     android:text="نسرین محمدی"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/img_profile_reviews_review_profile" />
+                    android:layout_toLeftOf="@+id/img_reviews_review_profile" />
 
             </RelativeLayout>
 
-            <!-- POST DETAILS -->
+            <!-- Review Text -->
 
             <ImageView
-                android:id="@+id/btn_profile_reviews_review_options"
+                android:id="@+id/btn_reviews_review_options"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="4dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignLeft="@+id/img_home_post_pic"
-                android:layout_alignStart="@+id/img_home_post_pic"
-                android:background="@drawable/style_button_menu"
+                android:layout_alignLeft="@+id/rl_reviews_review_header_bar"
+                android:layout_alignStart="@+id/rl_reviews_review_header_bar"
+                android:background="@drawable/style_menu_gray"
                 android:src="@drawable/ic_menu_options_dark"/>
 
         </RelativeLayout>
 
         <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/txt_profile_reviews_review_text"
+            android:id="@+id/txt_reviews_review_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_normal"
             android:textColor="@android:color/black"
             android:layout_margin="@dimen/activity_vertical_margin_half"
             android:text="کباب کوبیده یعنی این!!"
-            android:layout_below="@+id/rl_profile_reviews_review_header"
+            android:layout_below="@+id/rl_reviews_review_header"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"
+        android:layout_below="@+id/rl_reviews_review"/>
 </RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_reviews_review.xml -->

@@ -1,11 +1,13 @@
 package ir.rasen.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -52,8 +54,7 @@ public class FragmentReviews extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_reviews, container, false);
-        this.view = view;
+        view = inflater.inflate(R.layout.fragment_reviews, container, false);
 
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
@@ -64,6 +65,12 @@ public class FragmentReviews extends Fragment {
         /*
             for example, i've made some fake data to show ::
         */
+        Review review = new Review();
+        review.businessID="RASEN";
+        review.text="کسب و کار خوبیه, خوشم اومد!";
+        review.userID="SINA";
+
+        reviews.add(review);
 
         mAdapter = new ReviewsAdapter(getActivity(), reviews);
         list.setAdapter(mAdapter);
@@ -71,6 +78,17 @@ public class FragmentReviews extends Fragment {
             @Override
             public void onClick(View view) {
                 sendReview(view);
+            }
+        });
+
+        ((EditTextFont) view.findViewById(R.id.btn_reviews_send)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean b) {
+                if(!view.isFocused()) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.btn_reviews_send)).getWindowToken(), 0);
+                }
             }
         });
 

@@ -28,7 +28,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
     int idOfView;
 
 	public ReviewsAdapter(Context context, ArrayList<Review> reviews) {
-		super(context, R.layout.layout_post, reviews);
+		super(context, R.layout.layout_reviews_review, reviews);
 		mReviews 	= reviews;
 		mInflater	= LayoutInflater.from(context);
 	}
@@ -41,12 +41,12 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.layout_post, null);
+            convertView = mInflater.inflate(R.layout.layout_reviews_review, null);
 
             holder.profile_pic = (ImageViewCircle) convertView.findViewById(R.id.img_reviews_review_profile);
             holder.profile_name = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_profile);
             holder.review = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_text);
-            holder.options = (ImageView) convertView.findViewById(R.id.btn_home_post_options);
+            holder.options = (ImageView) convertView.findViewById(R.id.btn_reviews_review_options);
 
             convertView.setTag(holder);
         } else {
@@ -57,7 +57,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             holder.profile_name.setText(review.userID);
 
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.processComment("sina: SALAM @haSAN jan!! in naghdo bebin!", holder.review);
+            textProcessor.process("SALAM @haSAN jan!! in naghdo bebin!", holder.review);
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
+                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, review.userID);
                 }
             });
         }
