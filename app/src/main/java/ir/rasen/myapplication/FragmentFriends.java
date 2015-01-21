@@ -103,7 +103,7 @@ public class FragmentFriends extends Fragment {
             int requestsNum = 2; // number of new requests
             listHeaderView.setVisibility(View.VISIBLE);
             ((TextViewFont) listHeaderView.findViewById(R.id.txt_friends_requests)).setText(
-                    requestsNum + " " + getString(R.string.new_friend_request));
+                    requestsNum + " " + getString(R.string.friend_request));
         } else {
             listHeaderView.setVisibility(View.GONE);
         }

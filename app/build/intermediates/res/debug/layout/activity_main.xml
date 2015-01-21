@@ -174,4 +174,4 @@ android:layout_height="match_parent">
                 android:layout_below="@+id/txt_drawer_businesses"/>
 
     </RelativeLayout>
-</android.support.v4.widget.DrawerLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/activity_main.xml -->
+</android.support.v4.widget.DrawerLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/activity_main.xml -->

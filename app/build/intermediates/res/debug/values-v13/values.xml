@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/values-v13/styles.xml -->
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values-v13/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="@style/_AppTheme"/>
     <style name="AutoCompleteTextViewAppTheme" parent="android:Widget.Holo.Light.AutoCompleteTextView">

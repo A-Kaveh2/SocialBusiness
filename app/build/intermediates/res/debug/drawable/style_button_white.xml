@@ -3,4 +3,4 @@
   <item android:state_pressed="true"
    android:drawable="@drawable/style_button_white_pressed" /> <!-- pressed -->
   <item android:drawable="@android:color/white" /> <!-- default -->
-</selector><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/drawable/style_button_white.xml -->
+</selector><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_button_white.xml -->

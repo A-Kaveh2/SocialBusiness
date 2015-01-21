@@ -28,4 +28,4 @@
         android:layout_alignTop="@+id/img_businesses_business_image"
         android:layout_alignBottom="@+id/img_businesses_business_image"
         android:gravity="center"/>
-</RelativeLayout><!-- From: file:/F:/Android%20Projects/RASENMyApplication/app/src/main/res/layout/layout_businesses_business.xml -->
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_businesses_business.xml -->
