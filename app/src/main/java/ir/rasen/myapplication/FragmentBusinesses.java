@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Params;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * Created by 'Sina KH'.
@@ -68,7 +67,10 @@ public class FragmentBusinesses extends Fragment {
             userId = bundle.getString(Params.USER_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
-            if(getActivity()!=null) getActivity().finish();
+            if(getActivity()!=null) {
+                getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+            }
         }
 
         list = (ListView) view.findViewById(R.id.list_businesses_business);

@@ -1,25 +1,16 @@
 package ir.rasen.myapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,8 +24,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import ir.rasen.myapplication.adapters.MarkerPopupAdapter;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.ui.ButtonFont;
-import ir.rasen.myapplication.ui.TextViewFont;
 
 /**
  * Created by 'Sina KH'.
@@ -68,13 +57,13 @@ public class ActivityLocation extends FragmentActivity {
         i.putExtra(Params.LOCATION_LONGITUDE, marker.getPosition().longitude+"");
         setResult(Params.INTENT_OK , i);
         finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
 
     public void onBackPressed() {
         setResult(Params.INTENT_ERROR, null);
 		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View v) {
         onBackPressed();
@@ -108,7 +97,7 @@ public class ActivityLocation extends FragmentActivity {
                     public void run() {
                         setUpMapEvents();
                     }
-                }, 3000);
+                }, 1000);
 
             }
         }
@@ -130,6 +119,7 @@ public class ActivityLocation extends FragmentActivity {
                     Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms"));
                     startActivity(marketIntent);
                     finish();
+                    overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
                 }
             })
             .setNegativeButton(R.string.not_now, null)
@@ -159,7 +149,11 @@ public class ActivityLocation extends FragmentActivity {
                     myLocation = location;
                     LatLng target;
                     com.google.android.gms.maps.model.CameraPosition.Builder builder = new CameraPosition.Builder();
-                    target = new LatLng(location.getLatitude(), location.getLongitude());
+                    if(getIntent().getExtras().containsKey(Params.LOCATION_LATITUDE))
+                        target = new LatLng(Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LATITUDE))
+                                , Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LONGITUDE)));
+                    else
+                        target = new LatLng(location.getLatitude(), location.getLongitude());
                     builder.zoom(13);
                     builder.target(target);
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(builder.build()));
@@ -192,6 +186,16 @@ public class ActivityLocation extends FragmentActivity {
         // set popup info adapter
         if(getIntent().getIntExtra(Params.SET_LOCATION_TYPE, Params.SEARCH)!=Params.SEARCH)
             mMap.setInfoWindowAdapter(new MarkerPopupAdapter(getBaseContext(), getLayoutInflater()));
+        // set marker prev place
+        if(getIntent().getExtras().containsKey(Params.LOCATION_LATITUDE)) {
+                marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LATITUDE))
+                                , Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LONGITUDE))))
+                        .title(businessName)
+                        .snippet(businessCategory)
+                        .draggable(true));
+                findViewById(R.id.btn_location_submit).setVisibility(View.VISIBLE);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ public class PassingWorkTime {
      */
     private static final PassingWorkTime instance = new PassingWorkTime();
 
-    private WorkTime workTime = new WorkTime();
+    private WorkTime workTime = null;
 
     private PassingWorkTime(){}
 

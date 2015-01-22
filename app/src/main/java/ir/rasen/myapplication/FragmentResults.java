@@ -8,24 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.adapters.BusinessesAdapterResult;
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
-import ir.rasen.myapplication.adapters.PostsAdapter;
-import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.ui.EditTextFont;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -83,6 +75,7 @@ public class FragmentResults extends Fragment {
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
     }
 

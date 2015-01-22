@@ -34,7 +34,7 @@
     <dimen name="corner_size_dialog">20dp</dimen>
     <dimen name="corner_size">2dp</dimen>
 
-    <dimen name="drawer_width">150dp</dimen>
+    <dimen name="drawer_width">200dp</dimen>
 
     <dimen name="dialog_body_height">72dp</dimen>
 

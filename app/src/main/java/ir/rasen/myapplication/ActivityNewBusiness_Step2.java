@@ -11,19 +11,24 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.Spinner;
 
+import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingWorkTime;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.ButtonFont;
+import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 
 public class ActivityNewBusiness_Step2 extends Activity {
 
-    String name, category, subcategory, description;
+    private EditTextFont phone, website, email, mobile;
     WorkTime workTime;
     Location_M locationM;
+    boolean isEditing=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +37,16 @@ public class ActivityNewBusiness_Step2 extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_business_step_2);
 
-        name = getIntent().getStringExtra(Params.NAME);
-        category = getIntent().getStringExtra(Params.CATEGORY);
-        subcategory = getIntent().getStringExtra(Params.SUBCATEGORY);
-        description = getIntent().getStringExtra(Params.DESCRIPTION);
+        // check if we are in edit mode or not
+        if(getIntent().getBooleanExtra(Params.EDIT_MODE,false)) {
+            isEditing = true;
+            ((TextViewFont) findViewById(R.id.txt_business_step2_title)).setText(R.string.profile_edit_business);
+        }
+
+        phone = ((EditTextFont) findViewById(R.id.edt_business_step2_phone));
+        website = ((EditTextFont) findViewById(R.id.edt_business_step2_website));
+        email = ((EditTextFont) findViewById(R.id.edt_business_step2_email));
+        mobile = ((EditTextFont) findViewById(R.id.edt_business_step2_mobile));
 
         // SET ANIMATIONS
         setAnimations();
@@ -44,15 +55,10 @@ public class ActivityNewBusiness_Step2 extends Activity {
         updateViews();
     }
 
-    // SET PICTURE
-    public void setPicture(View view) {
-        // TODO SET PICTURE NOW
-    }
-
     // SUBMIT TOUCHED
     public void submit(View view) {
         // SET ON TEXT CHANGE LISTENERS (FOR ERRORS)
-        setOnTextChangeListeners();
+        //setOnTextChangeListeners();
         // CHECK INPUT DATA
         /*if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()< Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
@@ -60,9 +66,18 @@ public class ActivityNewBusiness_Step2 extends Activity {
             return;
         }*/
         // TODO SUBMIT NOW!
-        Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        putDataInPassingBusiness();
+        Business business = PassingBusiness.getInstance().getValue();
+        if(business.location_m==null)
+        // TODO CREATE OR SUBMIT BUSINESS NOW ( from PassingBusiness.get... !!
+        if(isEditing) {
+            // TODO: EDIT
+        } else {
+            // TODO: CREATE NEW
+        }
+        PassingBusiness.getInstance().setValue(null);
+        finish();
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
     // HELP TOUCHED
@@ -86,8 +101,8 @@ public class ActivityNewBusiness_Step2 extends Activity {
         animationSetBtn.addAnimation(anim_fromDown);
         findViewById(R.id.btn_business_help).startAnimation(animationSetBtn);
     }
-    public void setOnTextChangeListeners() {
-        /*name.addTextChangedListener(new TextWatcher(){
+    /*public void setOnTextChangeListeners() {
+        name.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
                 //name.setText(name.getText().toString().trim());
                 name.setError(null);
@@ -97,11 +112,13 @@ public class ActivityNewBusiness_Step2 extends Activity {
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
             public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });*/
-    }
+        });
+    }*/
     public void onBackPressed() {
-		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        // TODO PUT DATA IN PASSING BUSINESS
+        putDataInPassingBusiness();
+        finish();
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View v) {
         onBackPressed();
@@ -109,12 +126,22 @@ public class ActivityNewBusiness_Step2 extends Activity {
 
     // open work time dialog
     public void setWorkTime(View v) {
+        if(workTime!=null) {
+            PassingWorkTime.getInstance().setValue(workTime);
+        }
         Intent intent = new Intent(getBaseContext(), ActivityWorkTime.class);
         startActivityForResult(intent, Params.INTENT_WORK_TIME);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
     void updateViews() {
+        Business business = PassingBusiness.getInstance().getValue();
+        phone.setText(business.phone);
+        website.setText(business.webSite);
+        email.setText(business.email);
+        mobile.setText(business.mobile);
+        workTime = business.workTime;
+        locationM = business.location_m;
         if(workTime!=null) {
             boolean[] workDays = workTime.getWorkDays();
             String workTimeText = "";
@@ -127,18 +154,35 @@ public class ActivityNewBusiness_Step2 extends Activity {
             if (workDays[6])
                 workTimeText += "جمعه";
             workTimeText +=
-                    "\nزمان شروع به کار: " + ((int) workTime.time_open / 60) + ":" + (workTime.time_open % 60)
-                            + "\nزمان پایان کار: " + ((int) workTime.time_close / 60) + ":" + (workTime.time_close % 60);
+                    "\nزمان شروع به کار: " + two_char(((int) workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
+                            + "\nزمان پایان کار: " + two_char(((int) workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
             ((ButtonFont) findViewById(R.id.edt_business_step2_workingTime)).setText(workTimeText);
         }
+        if(locationM!=null) {
+            ((ButtonFont) findViewById(R.id.edt_business_step2_address)).setText(
+                    getString(R.string.address_defined)
+                            +"\n"+getString(R.string.lat)
+                            +"\n"+locationM.getLongitude()
+                            +"\n"+getString(R.string.lon)
+                            +"\n"+locationM.getLongitude());
+        }
+    }
+    private String two_char(int x) {
+        if (Integer.toString(x).length()==1)
+            return "0"+Integer.toString(x);
+        return Integer.toString(x);
     }
 
     // open set location dialog
     public void setLocation(View v) {
         Intent intent = new Intent(ActivityNewBusiness_Step2.this, ActivityLocation.class);
         intent.putExtra(Params.SET_LOCATION_TYPE, Params.SEARCH);
+        if(locationM!=null) {
+            intent.putExtra(Params.LOCATION_LATITUDE, locationM.getLatitude());
+            intent.putExtra(Params.LOCATION_LONGITUDE, locationM.getLongitude());
+        }
         startActivityForResult(intent, Params.INTENT_LOCATION);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -146,17 +190,27 @@ public class ActivityNewBusiness_Step2 extends Activity {
 
         if(requestCode==Params.INTENT_WORK_TIME && resultCode==Params.INTENT_OK) {
             workTime = PassingWorkTime.getInstance().getValue();
+            PassingWorkTime.getInstance().setValue(null);
+            putDataInPassingBusiness();
             updateViews();
         }
         if (requestCode == Params.INTENT_LOCATION && resultCode == Params.INTENT_OK) {
             locationM = new Location_M(data.getStringExtra(Params.LOCATION_LATITUDE), data.getStringExtra(Params.LOCATION_LONGITUDE));
-            ((ButtonFont) findViewById(R.id.edt_business_step2_address)).setText(
-                getString(R.string.address_defined)
-                +"\n"+getString(R.string.lat)
-                +"\n"+locationM.getLongitude()
-                +"\n"+getString(R.string.lon)
-                +"\n"+locationM.getLongitude());
+            putDataInPassingBusiness();
+            updateViews();
         }
+    }
+
+    void putDataInPassingBusiness() {
+        Business business;
+        business = PassingBusiness.getInstance().getValue();
+        business.phone = phone.getText().toString();
+        business.webSite = website.getText().toString();
+        business.email = email.getText().toString();
+        business.mobile = mobile.getText().toString();
+        business.workTime = workTime;
+        business.location_m = locationM;
+        PassingBusiness.getInstance().setValue(business);
     }
 
 }

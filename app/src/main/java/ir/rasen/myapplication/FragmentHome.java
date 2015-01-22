@@ -109,6 +109,7 @@ public class FragmentHome extends Fragment {
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
 
         // ArrayList to show
@@ -126,6 +127,7 @@ public class FragmentHome extends Fragment {
             // load as post page!
             homeTitle = bundle.getString(Params.TITLE);
             posts = PassingPosts.getInstance().getValue();
+            PassingPosts.getInstance().setValue(null);
             if(posts.size()==1) {
                 singlePost = true;
             }

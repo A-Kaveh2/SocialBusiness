@@ -3,17 +3,11 @@ package ir.rasen.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 
-import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.EditTextFont;
 
 /**
@@ -52,6 +46,6 @@ public class ActivitySplash extends Activity {
     public void gotoActivity(Class targetClass) {
         Intent intent = new Intent(getBaseContext(), targetClass);
         startActivity(intent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 }

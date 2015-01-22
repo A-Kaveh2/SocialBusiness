@@ -16,6 +16,7 @@ import ir.rasen.myapplication.FragmentHome;
 import ir.rasen.myapplication.FragmentProfile;
 import ir.rasen.myapplication.FragmentRequests;
 import ir.rasen.myapplication.FragmentResults;
+import ir.rasen.myapplication.FragmentResultsUsers;
 import ir.rasen.myapplication.FragmentSearchUsers;
 import ir.rasen.myapplication.FragmentUserReviews;
 import ir.rasen.myapplication.FragmentReviews;
@@ -60,8 +61,8 @@ public class InnerFragment {
     }
 
     // add new call info fragment to current place
-    public void newCallInfo(String businessId) {
-        Fragment newFragment = new FragmentCallInfo().newInstance(businessId);
+    public void newCallInfo() {
+        Fragment newFragment = new FragmentCallInfo().newInstance();
         addFragment(newFragment);
     }
 
@@ -110,6 +111,12 @@ public class InnerFragment {
         addFragment(newFragment);
     }
 
+    // new results fragment for users
+    public void newResultsUsersFragment(String searchString) {
+        Fragment newFragment = new FragmentResultsUsers().newInstance(searchString);
+        addFragment(newFragment);
+    }
+
     // new requests fragment
     public void newRequestsFragment(String userId) {
         Fragment newFragment = new FragmentRequests().newInstance(userId);
@@ -121,6 +128,7 @@ public class InnerFragment {
         ((ActivityMain) context).lockDrawers();
         ((ActivityMain) context).fragCount[fragPlace]++;
         FragmentTransaction ft = ((ActivityMain) context).getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.to_0, R.anim.to_left);
         if(fragPlace== Params.HOME)
             ft.add(R.id.rl_home,newFragment, fragPlace+"."+((ActivityMain) context).fragCount[fragPlace]);
         else if(fragPlace==Params.SEARCH)

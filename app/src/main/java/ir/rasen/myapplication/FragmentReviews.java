@@ -67,10 +67,16 @@ public class FragmentReviews extends Fragment {
         */
         Review review = new Review();
         review.businessID="RASEN";
-        review.text="کسب و کار خوبیه, خوشم اومد!";
+        review.text="کسب و کار خوبیه, خوشم اومد!\nمحصولاتش سطح بالاس..";
         review.userID="SINA";
-
+        review.rate = 4;
         reviews.add(review);
+        Review review2 = new Review();
+        review2.businessID="RASEN";
+        review2.text="من سایت کالاکاویشو پیشنهاد میدم خخخ...";
+        review2.userID="HASAM";
+        review2.rate = 5;
+        reviews.add(review2);
 
         mAdapter = new ReviewsAdapter(getActivity(), reviews);
         list.setAdapter(mAdapter);

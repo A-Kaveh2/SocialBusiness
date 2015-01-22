@@ -23,6 +23,7 @@
             android:contentDescription="@null"/>
 
         <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_business_step2_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:textSize="24sp"
@@ -43,17 +44,6 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:gravity="center"
             android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btn_register_picture_set"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_edittext_name"
-                android:scaleType="centerInside"
-                android:layout_margin="8dp"
-                android:contentDescription="@null"
-                android:onClick="setPicture"/>
 
             <ir.rasen.myapplication.ui.ButtonFont
                 android:id="@+id/edt_business_step2_address"
@@ -89,7 +79,9 @@
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="phone"
                 android:selectAllOnFocus="true"
-                android:drawableLeft="@drawable/ic_edittext_phone" />
+                android:drawableLeft="@drawable/ic_edittext_phone">
+                <requestFocus/>
+            </ir.rasen.myapplication.ui.EditTextFont>
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_business_step2_website"

@@ -1,14 +1,10 @@
 package ir.rasen.myapplication.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Handler;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +13,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.ActivityNewPost;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -50,7 +48,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup group) {
+	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Post post = mPosts.get(position);
         final String postId = post.id;
@@ -152,7 +150,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
             holder.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    showOptionsPopup(view);
+                    showOptionsPopup(view, position);
                 }
             });
 
@@ -174,11 +172,11 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         int id;
     }
 
-    public void showOptionsPopup(View view) {
+    public void showOptionsPopup(View view, final int position) {
         // TODO: CHECK IS MINE
         Boolean isMine = true;
         // SHOWING POPUP WINDOW
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
         final View layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
                 new LinearLayout(getContext()));
         final PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
@@ -190,7 +188,13 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             // EDIT OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                // TODO: EDIT POST
+                    // TODO: EDIT POST
+                    ArrayList<Post> posts = new ArrayList<Post>();
+                    posts.add(mPosts.get(position));
+                    PassingPosts.getInstance().setValue(posts);
+                    Intent intent = new Intent(getContext(), ActivityNewPost.class);
+                    getContext().startActivity(intent);
+                    ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
                     pw.dismiss();
                 }
             });

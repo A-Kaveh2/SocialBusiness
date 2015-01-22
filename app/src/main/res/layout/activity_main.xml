@@ -65,18 +65,18 @@ android:layout_height="match_parent">
         <!-- OUR RIGHT DRAWER IS HERE -->
         <RelativeLayout
             android:id="@+id/rl_drawer_right"
-            android:layout_width="@dimen/drawer_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/actionbar_height"
-            android:background="@android:color/white"
-            android:layout_gravity="right">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:onClick="closeDrawer">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="@dimen/drawer_width"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/ll_drawer_menu_top"
-                android:layout_marginTop="@dimen/activity_vertical_margin_1of4">
+                android:background="@android:color/white"
+                android:layout_alignParentRight="true"
+                android:id="@+id/ll_drawer_menu_top">
 
                 <!-- NEW BUSINESS OPTION -->
                 <RelativeLayout
@@ -109,7 +109,6 @@ android:layout_height="match_parent">
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/actionbar_height"
                     android:orientation="horizontal"
-                    android:layout_marginTop="1dp"
                     android:background="@drawable/style_button_menu"
                     android:clickable="true">
                     <ir.rasen.myapplication.ui.TextViewFont
@@ -157,7 +156,7 @@ android:layout_height="match_parent">
             </LinearLayout>
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/txt_drawer_businesses"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/drawer_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:text="@string/businesses"
@@ -165,13 +164,16 @@ android:layout_height="match_parent">
                 android:layout_below="@+id/ll_drawer_menu_top"
                 android:gravity="center"
                 android:textSize="@dimen/text_size_large"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:layout_alignParentRight="true"/>
             <ListView
                 android:id="@+id/list_drawer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/drawer_width"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
-                android:layout_below="@+id/txt_drawer_businesses"/>
+                android:layout_below="@+id/txt_drawer_businesses"
+                android:background="@android:color/white"
+                android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

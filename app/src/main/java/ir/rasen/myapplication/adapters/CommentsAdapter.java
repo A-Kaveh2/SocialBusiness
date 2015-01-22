@@ -70,7 +70,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             holder.comment_options.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showOptionsPopup(view);
+                    showOptionsPopup(view, comment);
                 }
             });
         }
@@ -84,7 +84,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         int id;
     }
 
-    public void showOptionsPopup(View view) {
+    public void showOptionsPopup(View view, final Comment comment) {
         // TODO: CHECK COMMENT IS MINE OR NOT
         Boolean isMine = true;
         Boolean isMyBusiness = true; // TODO: CHECK THE BUSINESS IS MINE OR NOT
@@ -105,13 +105,16 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             // EDIT OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // TODO: EDIT POST
+                    // TODO: EDIT COMMENT
+                    Functions functions = new Functions();
+                    functions.showCommentEditPopup(getContext(), comment);
+                    pw.dismiss();
                 }
             });
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // TODO DELETE POST
+                    // TODO DELETE COMMENT
                     Functions functions = new Functions();
                     functions.showCommentDeletePopup(getContext());
                     pw.dismiss();

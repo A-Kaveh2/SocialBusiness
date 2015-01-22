@@ -1,6 +1,7 @@
 package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Html;
@@ -17,11 +18,14 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.ActivityNewPost;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -44,7 +48,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup group) {
+	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Post post = mPosts.get(position);
 
@@ -96,7 +100,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                showOptionsPopup(view);
+                showOptionsPopup(view, position);
             }
             });
 
@@ -187,7 +191,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         int id;
     }
 
-    public void showOptionsPopup(View view) {
+    public void showOptionsPopup(View view, final int position) {
         // TODO: CHECK IS MINE
         Boolean isMine = true;
         // SHOWING POPUP WINDOW
@@ -207,6 +211,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 // TODO: EDIT POST
+                ArrayList<Post> posts = new ArrayList<Post>();
+                posts.add(mPosts.get(position));
+                PassingPosts.getInstance().setValue(posts);
+                Intent intent = new Intent(getContext(), ActivityNewPost.class);
+                getContext().startActivity(intent);
+                ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
+                pw.dismiss();
                 }
             });
             // DELETE OPTION

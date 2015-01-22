@@ -40,9 +40,8 @@ public class HistoryDatabase {
     public Cursor getHistory(String text)
     {
         return db.query(table, new String[] {FIELD_ID, FIELD_HISTORY},
-                FIELD_HISTORY+" LIKE '"+ text +"%'", null, null, null, null);
+                FIELD_HISTORY+" LIKE '"+ text +"%' ORDER BY " + FIELD_ID + " DESC", null, null, null, null);
     }
-
 
     private class Helper extends SQLiteOpenHelper
     {

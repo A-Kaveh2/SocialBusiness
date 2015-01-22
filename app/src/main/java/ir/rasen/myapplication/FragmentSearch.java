@@ -9,13 +9,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,8 +29,6 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;
-import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.EditTextFontClickable;
 import ir.rasen.myapplication.ui.TextViewFont;
 
 public class FragmentSearch extends Fragment {
@@ -110,6 +111,9 @@ public class FragmentSearch extends Fragment {
     void searchNow() {
         // TODO:: Start search fragment
         if(text.getText().toString().trim().length()>0) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
             database = new HistoryDatabase(getActivity(), searchType==Params.SearchType.BUSINESSES ? HistoryDatabase.TABLE_HISTORY_BUSINESS : HistoryDatabase.TABLE_HISTORY_PRODUCTS);
             database.insert(text.getText().toString().trim());
             setUpHistory();
@@ -182,8 +186,12 @@ public class FragmentSearch extends Fragment {
     public void setLocation() {
         Intent intent = new Intent(getActivity(), ActivityLocation.class);
         intent.putExtra(Params.SET_LOCATION_TYPE, Params.SEARCH);
+        if(locationM!=null) {
+            intent.putExtra(Params.LOCATION_LATITUDE, locationM.getLatitude());
+            intent.putExtra(Params.LOCATION_LONGITUDE, locationM.getLongitude());
+        }
         startActivityForResult(intent, Params.INTENT_LOCATION);
-        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -230,9 +238,6 @@ public class FragmentSearch extends Fragment {
             public void onClick(DrawablePosition target) {
                 switch (target) {
                     case LEFT:
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                                Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
                         searchNow();
                         break;
                     case RIGHT:
@@ -255,6 +260,16 @@ public class FragmentSearch extends Fragment {
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
                 }
+            }
+        });
+        text.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchNow();
+                    return true;
+                }
+                return false;
             }
         });
 

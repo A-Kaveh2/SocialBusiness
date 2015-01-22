@@ -77,8 +77,8 @@ public class ActivitySettings extends Activity {
         ((ButtonFont) findViewById(R.id.btn_settings_save)).startAnimation(animationSetBtn);
     }
     public void onBackPressed() {
-		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View view) {
         onBackPressed();

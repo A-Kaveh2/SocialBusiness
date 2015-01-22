@@ -1,6 +1,5 @@
 package ir.rasen.myapplication;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,19 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FollowersAdapter;
-import ir.rasen.myapplication.adapters.FriendsAdapter;
-import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.ui.GridViewHeader;
-import ir.rasen.myapplication.ui.TextViewFont;
 
 /**
  * Created by 'Sina KH'.
@@ -61,7 +55,10 @@ public class FragmentFollowers extends Fragment {
             businessId = bundle.getString(Params.BUSINESS_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
-            if(getActivity()!=null) getActivity().finish();
+            if(getActivity()!=null){
+                getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+            }
         }
     }
 

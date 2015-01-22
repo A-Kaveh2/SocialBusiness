@@ -55,8 +55,8 @@
             android:layout_width="@dimen/button_width_min"
             android:layout_height="@dimen/actionbar_height"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/txt_comments_comment"
-            android:layout_alignBottom="@+id/txt_comments_comment"
+            android:layout_alignTop="@+id/edt_comments_comment"
+            android:layout_alignBottom="@+id/edt_comments_comment"
             android:background="@drawable/style_button_on_dark_second"
             android:text="@string/send"
             android:gravity="center"
@@ -64,7 +64,7 @@
             android:textColor="@android:color/white"
             android:clickable="true"/>
         <ir.rasen.myapplication.ui.EditTextFont
-            android:id="@+id/txt_comments_comment"
+            android:id="@+id/edt_comments_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/actionbar_height"

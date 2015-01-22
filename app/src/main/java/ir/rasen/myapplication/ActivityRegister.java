@@ -2,8 +2,6 @@ package ir.rasen.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -166,8 +164,8 @@ public class ActivityRegister extends Activity {
         password_repeat.addTextChangedListener(textWatcherPassword);
     }*/
     public void onBackPressed() {
-		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View v) {
         onBackPressed();

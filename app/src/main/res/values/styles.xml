@@ -14,7 +14,7 @@
         <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
     </style>
 
     <style name="_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -28,7 +28,7 @@
         <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
     </style>
 
     <style name="CheckBoxAppTheme" parent="android:Widget.CompoundButton.CheckBox">
@@ -66,9 +66,11 @@
         <item name="android:maxHeight">16dip</item>
     </style>
 
-    <style name="RatingBarAppTheme" parent="android:Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
+    <style name="RatingBarSmallAppTheme" parent="android:Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
     </style>
 
     <style name="TextViewAppTheme" parent="android:Widget.TextView">

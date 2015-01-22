@@ -46,7 +46,7 @@
             android:name=".ActivityMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityProfileEdit"
+            android:name=".ActivityUserProfileEdit"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitySettings"

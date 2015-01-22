@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
 
 /**
@@ -73,7 +73,7 @@ public class ActivityMain extends FragmentActivity {
                 switch (fragmentNumber) {
                     case 0:
                         btnHome.setBackgroundResource(R.color.text_details);
-                        leftDrawer();
+                        lockDrawers();
                         break;
                     case 1:
                         btnSearch.setBackgroundResource(R.color.text_details);
@@ -81,14 +81,14 @@ public class ActivityMain extends FragmentActivity {
                         break;
                     case 2:
                         btnProfile.setBackgroundResource(R.color.text_details);
-                        rightDrawer();
+                        checkDrawerLock();
                         break;
                 }
             }
             @Override
             public void onPageScrollStateChanged(int i) {}
         });
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
+        lockDrawers();
         pager.setCurrentItem(0);
 
         // TODO: Change Adapter to display user's business list
@@ -164,9 +164,17 @@ public class ActivityMain extends FragmentActivity {
 
     void openDrawer(int gravity) {
         drawerLayout.openDrawer(gravity);
+        drawerIsShowing=true;
+        rightDrawer();
     }
     public void closeDrawer(int gravity) {
         drawerLayout.closeDrawer(gravity);
+        drawerIsShowing=false;
+        lockDrawers();
+    }
+    public void closeDrawer(View view) {
+        drawerLayout.closeDrawer(Gravity.RIGHT);
+        drawerIsShowing=false;
     }
 
     void drawerViews() {
@@ -179,7 +187,7 @@ public class ActivityMain extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step1.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
         // SETTINGS
@@ -188,7 +196,7 @@ public class ActivityMain extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), ActivitySettings.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
         // EXIT
@@ -196,6 +204,7 @@ public class ActivityMain extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         });
     }
@@ -207,23 +216,35 @@ public class ActivityMain extends FragmentActivity {
     public void onBackPressed() {
         if(drawerIsShowing) {
             drawerLayout.closeDrawers();
+            drawerIsShowing=false;
         } else if(fragCount[pager.getCurrentItem()]>0) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem()+"."+fragCount[pager.getCurrentItem()]);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.to_0_from_left, R.anim.to_right);
             ft.remove(fragment);
             ft.commit();
             fragCount[pager.getCurrentItem()]--;
-        } else finish();
+            checkDrawerLock();
+        } else {
+            finish();
+            overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+        }
     }
 
     public void lockDrawers(){
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
     }
-    public void leftDrawer(){
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
-    }
     public void rightDrawer(){
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, drawerLayoutRight);
+    }
+
+    private void checkDrawerLock() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem()+"."+fragCount[pager.getCurrentItem()]);
+        try {
+            ((FragmentProfile) fragment).checkDrawerLock();
+        } catch (Exception e) {
+            lockDrawers();
+        }
     }
 
 }

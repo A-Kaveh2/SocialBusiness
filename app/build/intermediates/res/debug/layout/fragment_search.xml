@@ -97,6 +97,9 @@
                         android:layout_marginTop="@dimen/activity_vertical_margin_half"
                         android:drawableRight="@drawable/ic_edittext_filter"
                         android:drawableEnd="@drawable/ic_edittext_filter"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:hint="@string/search_businesses"/>
                 </LinearLayout>
 

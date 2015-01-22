@@ -27,7 +27,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
 	private LayoutInflater mInflater;
 
 	public UsersBusinessesAdapter(Context context, ArrayList<Business> businesses) {
-		super(context, R.layout.layout_drawer_products, businesses);
+		super(context, R.layout.layout_drawer_businesses, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
 	}
@@ -39,7 +39,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.layout_drawer_products, null);
+            convertView = mInflater.inflate(R.layout.layout_drawer_businesses, null);
 
             holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_drawer_business_picture);
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_drawer_business_name);

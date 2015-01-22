@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             holder.profile_name = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_profile);
             holder.review = (TextViewFont) convertView.findViewById(R.id.txt_reviews_review_text);
             holder.options = (ImageView) convertView.findViewById(R.id.btn_reviews_review_options);
+            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar_review);
 
             convertView.setTag(holder);
         } else {
@@ -56,8 +58,10 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         if (review != null) {
             holder.profile_name.setText(review.userID);
 
+            holder.ratingBar.setRating(review.rate);
+
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.process("SALAM @haSAN jan!! in naghdo bebin!", holder.review);
+            textProcessor.process(review.text, holder.review);
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -81,6 +85,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         TextViewFont profile_name, review;
         ImageView options;
         ImageViewCircle profile_pic;
+        RatingBar ratingBar;
         int id;
     }
 /*

@@ -7,12 +7,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
 
 import ir.rasen.myapplication.R;
+import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.TextViewFont;
 
 public class Functions {
 
@@ -109,18 +114,57 @@ public class Functions {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerDeletePopup(Context context, final String businessId) {
+    public void showFollowerBlockPopup(Context context, final String userId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
-                .setTitle(R.string.delete_follower)
-                .setMessage(R.string.popup_delete_follower)
+                .setTitle(R.string.block_follower)
+                .setMessage(R.string.popup_block_follower)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE FRIEND ( ID:: businessId )
+                        // TODO:: BLOCK FOLLOWER ( ID is in userId )
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
+    }
+
+    public void showChooseCategoryFirstPopup(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.choose_category)
+                .setMessage(R.string.choose_category_first)
+                .setPositiveButton(R.string.ok, null);
+        showCustomizedDialog(context, builder);
+    }
+
+    public void showCommentEditPopup(final Context context, final Comment comment) {
+        final Dialog dialog = new Dialog(context,R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_edit_comment);
+        final EditTextFont newComment = (EditTextFont) dialog.findViewById(R.id.edt_edit_comment_comment);
+        newComment.setText(comment.text);
+        dialog.findViewById(R.id.btn_edit_comment_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.btn_edit_comment_submit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newComment.setText(newComment.getText().toString().trim());
+                if (newComment.length() < Params.COMMENT_TEXT_MIN_LENGTH) {
+                    newComment.setError(context.getString(R.string.comment_is_too_short));
+                    return;
+                }
+                if (newComment.length() > Params.COMMENT_TEXT_MAX_LENGTH) {
+                    newComment.setError(context.getString(R.string.enter_is_too_long));
+                    return;
+                }
+                // TODO:: edit comment
+            }
+        });
+        dialog.show();
     }
 
     void showCustomizedDialog(Context context, AlertDialog.Builder builder) {

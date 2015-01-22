@@ -20,9 +20,9 @@
         <item name="android:progressDrawable">@drawable/apptheme_progress_horizontal_holo_light</item>
         <item name="android:indeterminateDrawable">@drawable/apptheme_progress_indeterminate_horizontal_holo_light</item>
     </style>
-    <style name="RatingBarAppTheme" parent="android:Widget.Holo.Light.RatingBar">
-        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
+    <style name="RatingBarSmallAppTheme" parent="android:Widget.Holo.Light.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
     </style>
     <style name="SpinnerAppTheme" parent="android:Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
@@ -43,7 +43,7 @@
         <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light</item>
         <item name="android:dropDownSpinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
         <item name="android:fastScrollThumbDrawable">@drawable/apptheme_fastscroll_thumb_holo</item>
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
         <item name="android:textViewStyle">@style/TextViewAppTheme</item>
@@ -58,7 +58,7 @@
         <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light</item>
         <item name="android:dropDownSpinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
         <item name="android:fastScrollThumbDrawable">@drawable/apptheme_fastscroll_thumb_holo</item>
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
         <item name="android:textViewStyle">@style/TextViewAppTheme</item>

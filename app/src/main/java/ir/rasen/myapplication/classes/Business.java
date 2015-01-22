@@ -8,6 +8,11 @@ import ir.rasen.myapplication.helper.WorkTime;
  * Created by android on 12/1/2014.
  */
 public class Business {
+    /* ONE ITEM ADDED BY Sina.KH: */
+    public String webSite;
+
+    /////
+
     public String id;
     public String businessID;
     public String name;
@@ -19,8 +24,8 @@ public class Business {
     public WorkTime workTime;
     public String phone;
     public String state;
-    public String city;
-    public String address;
+    //public String city;
+    //public String address;
     public Location_M location_m;
     public String email;
     public String mobile;
@@ -28,7 +33,6 @@ public class Business {
     public int reviewsNumber;
     public int followersNumber;
     public boolean isFollowing;
-    public int rate;
-
+    public float rate;
 
 }

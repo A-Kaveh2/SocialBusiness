@@ -31,7 +31,7 @@
             android:gravity="center"/>
 
         <ImageButton
-            android:id="@+id/btn_followers_follower_delete"
+            android:id="@+id/btn_followers_follower_block"
             android:layout_width="@dimen/profile_pic_small"
             android:layout_height="@dimen/profile_pic_small"
             android:layout_alignParentLeft="true"

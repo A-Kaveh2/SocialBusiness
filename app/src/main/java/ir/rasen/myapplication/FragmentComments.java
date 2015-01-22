@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.EditTextFont;
 
 /**
@@ -88,13 +89,13 @@ public class FragmentComments extends Fragment {
             }
         });
 
-        ((EditTextFont) view.findViewById(R.id.txt_comments_comment)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean b) {
                 if(!view.isFocused()) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.txt_comments_comment)).getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.edt_comments_comment)).getWindowToken(), 0);
                 }
             }
         });
@@ -102,8 +103,16 @@ public class FragmentComments extends Fragment {
     }
 
     public void sendComment(View view) {
+        EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
+        if(commentText.length()< Params.COMMENT_TEXT_MIN_LENGTH) {
+            commentText.setError(getString(R.string.comment_is_too_short));
+            return;
+        }
+        if(commentText.length()>Params.COMMENT_TEXT_MAX_LENGTH) {
+            commentText.setError(getString(R.string.enter_is_too_long));
+            return;
+        }
         // TODO: SEND COMMENT HERE
-        String commentText = ((EditTextFont) view.findViewById(R.id.txt_comments_comment)).getText().toString();
     }
 
     // TODO: LOAD MORE DATA

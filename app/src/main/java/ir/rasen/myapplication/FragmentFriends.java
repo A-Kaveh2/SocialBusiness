@@ -14,13 +14,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.adapters.FriendsAdapter;
-import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 
 /**
@@ -65,6 +62,7 @@ public class FragmentFriends extends Fragment {
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
     }
 

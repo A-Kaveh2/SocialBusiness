@@ -45,7 +45,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 
             holder.friend_profile_pic = (ImageViewCircle) convertView.findViewById(R.id.img_followers_follower_image);
             holder.friend_name = (TextViewFont) convertView.findViewById(R.id.txt_followers_follower_name);
-            holder.delete = (ImageButton) convertView.findViewById(R.id.btn_followers_follower_delete);
+            holder.block = (ImageButton) convertView.findViewById(R.id.btn_followers_follower_block);
 
             convertView.setTag(holder);
         } else {
@@ -63,15 +63,15 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 }
             });
             if(mOwnFollowers) {
-                holder.delete.setVisibility(View.VISIBLE);
-                holder.delete.setOnClickListener(new View.OnClickListener() {
+                holder.block.setVisibility(View.VISIBLE);
+                holder.block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showDeletePopup(follower.userID);
+                        showBlockPopup(follower.userID);
                     }
                 });
             } else
-                holder.delete.setVisibility(View.INVISIBLE);
+                holder.block.setVisibility(View.INVISIBLE);
         }
 
         return  convertView;
@@ -79,13 +79,13 @@ public class FollowersAdapter extends ArrayAdapter<User> {
     class ViewHolder {
         ImageViewCircle friend_profile_pic;
         TextViewFont friend_name;
-        ImageButton delete;
+        ImageButton block;
     }
 
-    private void showDeletePopup(String userId) {
+    private void showBlockPopup(String userId) {
         // SHOWING POPUP WINDOW
         Functions functions = new Functions();
-        functions.showFollowerDeletePopup(getContext(), userId);
+        functions.showFollowerBlockPopup(getContext(), userId);
     }
 
 }

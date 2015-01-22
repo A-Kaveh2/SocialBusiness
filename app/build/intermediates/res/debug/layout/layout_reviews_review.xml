@@ -34,6 +34,7 @@
                     android:layout_marginRight="@dimen/activity_horizontal_margin_half"
                     android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
                     android:layout_marginLeft="@dimen/activity_vertical_margin_1of4"
+                    android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     app:border_width="2dp"
                     app:border_color="@color/button_on_dark_darker_opacity"
@@ -47,9 +48,16 @@
                     android:textSize="@dimen/text_size_larger"
                     android:gravity="right"
                     android:text="نسرین محمدی"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@+id/img_reviews_review_profile" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar_review"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_below="@+id/txt_reviews_review_profile"
+                    android:layout_alignRight="@+id/txt_reviews_review_profile" />
 
             </RelativeLayout>
 
@@ -81,9 +89,12 @@
             android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray_lighter"
-        android:layout_below="@+id/rl_reviews_review"/>
+        android:layout_below="@+id/rl_reviews_review"
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal"/>
 </RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_reviews_review.xml -->

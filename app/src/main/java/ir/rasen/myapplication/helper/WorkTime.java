@@ -31,4 +31,8 @@ public class WorkTime {
         for (String str : workDaysArrays)
             workDays[Integer.valueOf(str)] = true;
     }
+
+    public int getTime_open() { return this.time_open; }
+    public int getTime_close() { return this.time_close; }
+
 }

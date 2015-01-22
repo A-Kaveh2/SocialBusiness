@@ -51,7 +51,7 @@
             android:name="ir.rasen.myapplication.ActivityMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ir.rasen.myapplication.ActivityProfileEdit"
+            android:name="ir.rasen.myapplication.ActivityUserProfileEdit"
             android:screenOrientation="portrait" />
         <activity
             android:name="ir.rasen.myapplication.ActivitySettings"

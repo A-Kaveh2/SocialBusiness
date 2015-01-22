@@ -14,6 +14,9 @@ public class Params {
     public static int USER_NAME_MIN_LENGTH = 3;
     public static int USER_NAME_MAX_LENGTH = 25;
     public static int USER_PASSWORD_MIN_LENGTH = 5;
+    public static int BUSINESS_DESCRIPTION_MIN_LENGTH = 5;
+    public static int COMMENT_TEXT_MIN_LENGTH = 3;
+    public static int COMMENT_TEXT_MAX_LENGTH = 255;
 
     public static String BUSINESS = "business";
     public static int HOME = 0;
@@ -54,6 +57,8 @@ public class Params {
     public static String WORK_TIME_OPEN_MINUTE= "work_time_open_minute";
     public static String WORK_TIME_CLOSE_HOUR= "work_time_close_hour";
     public static String WORK_TIME_CLOSE_MINUTE= "work_time_close_minute";
+
+    public static String EDIT_MODE = "edit_mode";
 
     /**
      * Created by android on 12/15/2014.

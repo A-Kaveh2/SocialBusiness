@@ -23,6 +23,7 @@
             android:contentDescription="@null"/>
 
         <ir.rasen.myapplication.ui.TextViewFont
+            android:id="@+id/txt_business_step1_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:textSize="24sp"
@@ -63,7 +64,9 @@
                 android:layout_centerHorizontal="true"
                 android:inputType="text"
                 android:drawableLeft="@drawable/ic_edittext_username"
-                android:hint="@string/business_id" />
+                android:hint="@string/business_id">
+                <requestFocus/>
+            </ir.rasen.myapplication.ui.EditTextFont>
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_business_step1_name"

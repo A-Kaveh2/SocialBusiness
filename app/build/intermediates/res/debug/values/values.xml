@@ -240,7 +240,7 @@
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
-    <dimen name="drawer_width">150dp</dimen>
+    <dimen name="drawer_width">200dp</dimen>
     <dimen name="menu_pic">24dp</dimen>
     <dimen name="menu_pic_large">36dp</dimen>
     <dimen name="menu_pic_largest">48dp</dimen>
@@ -318,7 +318,10 @@
     <string name="accept_or_ignore_requests">درخواست ها را تأیید و یا رد کنید.</string>
     <string name="address_defined">موقعیت تعیین شد:</string>
     <string name="app_name">نرم افزار راسن</string>
+    <string name="back">بازگشت</string>
     <string name="birthday">روز تولد</string>
+    <string name="block_follower">مسدود سازی دنبال کننده</string>
+    <string name="business">کسب و کار</string>
     <string name="business_address">موقعیت کسب و کار را تعیین کنید</string>
     <string name="business_description">توضیحات کسب و کار</string>
     <string name="business_id">شناسه ی کسب و کار</string>
@@ -328,6 +331,8 @@
     <string name="businesses_set">با فعال کردن این گزینه به دوستان خود امکان می دهید کسب و کار های مورد علاقه ی شما را مشاهده کنند.</string>
     <string name="call_info">اطلاعات تماس</string>
     <string name="choose_category">انتخاب موضوع</string>
+    <string name="choose_category_first">لطفأ موضوع فعالیت کسب و کار خود را تعیین نمایید.</string>
+    <string name="comment_is_too_short">نظر خود را با حدأقل 3 حرف وارد کنید.</string>
     <string name="comments">نظرات</string>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
@@ -368,16 +373,18 @@
     <eat-comment/>
     <string name="delete">حذف</string>
     <string name="delete_comment">حذف نظر</string>
-    <string name="delete_follower">حذف دنبال کننده</string>
     <string name="delete_friend">حذف دوست</string>
     <string name="delete_post">حذف مطلب</string>
     <string name="download">دریافت و نصب</string>
     <string name="edit">ویرایش</string>
+    <string name="edit_comment">ویرایش نظر</string>
     <string name="email">ایمیل</string>
+    <string name="enter_business_description">لطفأ توضیحاتی در خصوص کسب و کار وارد نمایید.</string>
     <string name="enter_is_too_long">طولانی تر از حد مجاز می باشد.</string>
     <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
     <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
     <string name="enter_search_keywords">متنی را جهت جستجو وارد نمایید.</string>
+    <string name="enter_valid_business_id">شناسه ی کسب و کار حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
     <string name="enter_valid_email">لطفأ آدرس ایمیل خود را به طور صحیح وارد نمایید.</string>
     <string name="enter_valid_name">نام حدأقل 3 حرفی بوده و تنها می تواند از حروف انگلیسی و فارسی, اعداد, فاصله, . یا _ تشکیل شود.</string>
     <string name="enter_valid_username">نام کاربری حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
@@ -391,7 +398,9 @@
     <string name="filter_all">فیلتر: تمام موضوعات</string>
     <string name="follow_request">دنبال کردن</string>
     <string name="followers">دنبال کنندگان</string>
+    <string name="followers_num">دنبال کننده</string>
     <string name="forgot_password">فراموشی رمز عبور</string>
+    <string name="friend">دوست</string>
     <string name="friend_request">درخواست دوستی</string>
     <string name="friend_requests">درخواست های دوستی</string>
     <string name="friends">دوستان</string>
@@ -429,14 +438,15 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="next_step">مرحله ی بعد</string>
     <string name="no">خیر</string>
     <string name="not_now">الآن نه</string>
+    <string name="ok">تأیید</string>
     <string name="password">رمز عبور</string>
     <string name="password_change">تغییر رمز عبور</string>
     <string name="password_repeat">تکرار رمز عبور</string>
     <string name="phone">تلفن تماس</string>
+    <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
     <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
     <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
-    <string name="popup_delete_follower">آیا میخواهید شخص را از لیست دنبال کنندگان خود حذف کنید؟</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="product_code">کد کالا</string>
     <string name="product_description">توضیحات محصول</string>
@@ -449,6 +459,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="profile_edit_profile">ویرایش حساب</string>
     <string name="register">ثبت نام</string>
     <string name="report">گزارش تخلف</string>
+    <string name="review">نقد</string>
     <string name="reviews">نقد ها</string>
     <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
     <string name="save">ذخیره</string>
@@ -1412,9 +1423,11 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:minHeight">16dip</item>
         <item name="android:maxHeight">16dip</item>
     </style>
-    <style name="RatingBarAppTheme" parent="android:Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_full_holo_light</item>
+    <style name="RatingBarSmallAppTheme" parent="android:Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/apptheme_ratingbar_small_holo_light</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
     </style>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
@@ -1658,7 +1671,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
     </style>
     <style name="_AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <!-- Customize your theme here. -->
@@ -1671,6 +1684,6 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarAppTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppTheme</item>
     </style>
 </resources>

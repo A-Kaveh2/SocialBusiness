@@ -22,25 +22,28 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/style_view"
                     android:layout_margin="@dimen/activity_vertical_margin_half"
-                    android:layout_toLeftOf="@+id/btn_search_back">
+                    android:layout_toRightOf="@+id/btn_search_back">
                     <ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable
                         android:id="@+id/txt_search_text"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/actionbar_height"
                         android:drawableStart="@drawable/ic_edittext_search"
                         android:drawableLeft="@drawable/ic_edittext_search"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:hint="@string/search_users"/>
                 </LinearLayout>
                 <ImageButton
                     android:layout_width="@dimen/actionbar_height"
                     android:layout_height="@dimen/actionbar_height"
                     android:id="@+id/btn_search_back"
-                    android:src="@drawable/ic_menu_forward"
+                    android:src="@drawable/ic_menu_back"
                     android:scaleType="centerInside"
                     android:background="@drawable/style_button_menu"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
                     android:onClick="back"/>
             </RelativeLayout>
         </LinearLayout>

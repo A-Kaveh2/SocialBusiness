@@ -14,7 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
+import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 
@@ -37,6 +39,15 @@ public class ActivityNewPost extends Activity {
 
         // SET ANIMATIONS
         setAnimations();
+
+        if(PassingPosts.getInstance().getValue()!=null) {
+            Post post = PassingPosts.getInstance().getValue().get(0);
+            PassingPosts.getInstance().setValue(null);
+            name.setText(post.title);
+            description.setText(post.description);
+            price.setText(post.price);
+            code.setText(post.code);
+        }
     }
 
     // SET PICTURE
@@ -93,8 +104,8 @@ public class ActivityNewPost extends Activity {
         });
     }
     public void onBackPressed() {
-		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View v) {
         onBackPressed();

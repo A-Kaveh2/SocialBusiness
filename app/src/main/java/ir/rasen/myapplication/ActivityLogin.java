@@ -2,12 +2,10 @@ package ir.rasen.myapplication;
 
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.TextViewFont;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,7 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 
 /**
  * Created by 'Sina KH'.
@@ -110,11 +107,11 @@ public class ActivityLogin extends Activity {
     public void gotoActivity(Class targetClass) {
         Intent intent = new Intent(getBaseContext(), targetClass);
         startActivity(intent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
     public void back(View v) {
         onBackPressed();

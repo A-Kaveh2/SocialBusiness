@@ -14,9 +14,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.RequestsAdapter;
-import ir.rasen.myapplication.adapters.ReviewsAdapter;
-import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 
@@ -62,6 +59,7 @@ public class FragmentRequests extends Fragment {
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
     }
 

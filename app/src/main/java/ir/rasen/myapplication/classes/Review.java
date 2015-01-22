@@ -10,4 +10,5 @@ public class Review {
     public String businessPicutre;
     public String userPicutre;
     public String text;
+    public float rate;
 }

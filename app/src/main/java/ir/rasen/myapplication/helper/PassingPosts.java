@@ -11,7 +11,7 @@ public class PassingPosts {
      */
     private static final PassingPosts instance = new PassingPosts();
 
-    private ArrayList<Post> posts = new ArrayList<>();
+    private ArrayList<Post> posts = null;
 
     private PassingPosts(){}
 

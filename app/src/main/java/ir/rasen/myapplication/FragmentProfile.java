@@ -13,16 +13,23 @@ import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.RatingBar;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.PostsAdapter;
 import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
+import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.TextViewFont;
 
@@ -43,6 +50,9 @@ public class FragmentProfile extends Fragment {
     private int profileType; // returns the type, USER or BUSINESS
     private boolean profileOwn; // true if user is the owner of user or business
     private String profileId; // id of user of business
+
+    private Business profile_business;
+    private User profile_user;
 
     ListAdapter listAdapter, gridAdapter;
 
@@ -77,6 +87,7 @@ public class FragmentProfile extends Fragment {
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
     }
 
@@ -139,7 +150,8 @@ public class FragmentProfile extends Fragment {
         });
 
         // SLIDING DRAWER
-        ((ActivityMain) getActivity()).rightDrawer();
+        if(((ActivityMain) getActivity()).pager.getCurrentItem()==2)
+            ((ActivityMain) getActivity()).rightDrawer();
         header.findViewById(R.id.btn_profile_drawer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,14 +198,18 @@ public class FragmentProfile extends Fragment {
         }
         // BUSINESS
         if(profileType==Params.ProfileType.PROFILE_BUSINESS) {
+            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setVisibility(View.GONE);
+            ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setVisibility(View.VISIBLE);
             // TODO: SHOULD BE REPLACED WITH ic_menu_call::
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_products);
             // CALL INFO
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(profile_business==null) return;
+                    PassingBusiness.getInstance().setValue(profile_business);
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newCallInfo(profileId);
+                    innerFragment.newCallInfo();
                 }
             });
             // REVIEWS OF BUSINESS
@@ -220,10 +236,43 @@ public class FragmentProfile extends Fragment {
             }
         }
 
-        // TODO: NOW LOAD AND SHOW PROFILES DETAILS
-        // ...
+        // TODO: NOW LOAD AND SHOW PROFILES DETAILS BASED ON PROFILE TYPE
+        // for example, i've made some fake data in user and business::
+        profile_business = new Business();
+        profile_business.location_m =  new Location_M("35.7014396","51.3498186");
+        profile_business.businessID = "RASEN Corporation";
+        profile_business.name = "شرکت نرم افزاری راسن";
+        profile_business.followersNumber = 22;
+        profile_business.reviewsNumber = 11;
+        profile_business.description = "توسعه و تولید...";
+        WorkTime workTime = new WorkTime();
+        try {
+            workTime.setWorkDaysFromString("0,1,2,3");
+        } catch (Exception e) {}
+        workTime.time_open=600;
+        workTime.time_close=1000;
+        profile_business.workTime = workTime;
+        profile_business.email="rasen@rasen.com";
+        profile_business.mobile="09123456789";
+        profile_business.phone="02123456789";
+        profile_business.rate=(float) 4.5;
+        profile_business.webSite="http://www.rasen.com";
+
+        profile_user = new User();
+        profile_user.userID="sina_kh";
+        profile_user.name = "سینا خلیلی";
+        profile_user.followedBusinessesNumber=24;
+        profile_user.reviewsNumber=12;
+        profile_user.friendsNumber=6;
+        profile_user.aboutMe="عشق یعنی انتظار, تو دل یه مادر بی قرار";
+
         // TODO: THEN RUN THIS ::
         if(profileType==Params.ProfileType.PROFILE_BUSINESS) {
+            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.name);
+            ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber+" "+getString(R.string.followers_num));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber+" "+getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(R.string.call_info);
             // MY OWN BUSINESS
             if (profileOwn == true) { myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
@@ -237,6 +286,11 @@ public class FragmentProfile extends Fragment {
                 });
             }
         } else if(profileType==Params.ProfileType.PROFILE_USER) {
+            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber+" "+getString(R.string.friend));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber+" "+getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber+" "+getString(R.string.business));
             // MY OWN USER'S PROFILE
             if(profileOwn==true) { myOwnProfile();
             } else { // SOMEONE'S PROFILE
@@ -307,9 +361,9 @@ public class FragmentProfile extends Fragment {
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityProfileEdit.class);
+                Intent intent = new Intent(getActivity(), ActivityUserProfileEdit.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
     }
@@ -319,9 +373,13 @@ public class FragmentProfile extends Fragment {
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Edit business now
+                Business business = new Business();
+                // TODO:: PUT BUSINESS DATA HERE
+                PassingBusiness.getInstance().setValue(business);
                 Intent intent = new Intent(getActivity(), ActivityNewBusiness_Step1.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
         view.findViewById(R.id.btn_profile_new_post).setVisibility(View.VISIBLE);
@@ -330,7 +388,7 @@ public class FragmentProfile extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ActivityNewPost.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
     }
@@ -385,6 +443,10 @@ public class FragmentProfile extends Fragment {
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         listFooterView.setVisibility(View.VISIBLE);
+    }
+
+    public void checkDrawerLock() {
+        ((ActivityMain) getActivity()).rightDrawer();
     }
 
 }
