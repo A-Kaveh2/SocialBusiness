@@ -39,8 +39,6 @@ public class ActivityLogin extends Activity {
 
     // LOGIN TOUCHED
     public void login(View view) {
-		// SET ON TEXT CHANGE LISTENERS (FOR ERRORS)
-	    //setOnTextChangeListeners();
     	// CHECK INPUT DATA
     	if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
     		email.requestFocus();
@@ -81,29 +79,9 @@ public class ActivityLogin extends Activity {
 		    anim_fromDown.setInterpolator(new AccelerateInterpolator());
 		animationSetBtn.addAnimation(anim_fromDown);
 		findViewById(R.id.btn_login_forget).startAnimation(animationSetBtn);
-    }/*
-    public void setOnTextChangeListeners() {
-    	email.addTextChangedListener(new TextWatcher(){
-	        public void afterTextChanged(Editable s) {
-                //email.setError(null);
-                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-	        		email.setError(getString(R.string.enter_valid_email));
-	        	}
-	        }
-	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-	        public void onTextChanged(CharSequence s, int start, int before, int count){}
-	    });
-	    password.addTextChangedListener(new TextWatcher(){
-	        public void afterTextChanged(Editable s) {
-                password.setError(null);
-	        	if(password.getText().length()<Params.USER_PASSWORD_MIN_LENGTH) {
-	        		password.setError(getString(R.string.enter_password_5_digits));
-	        	}
-	        }
-	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-	        public void onTextChanged(CharSequence s, int start, int before, int count){}
-	    });
-    }*/
+    }
+
+
     public void gotoActivity(Class targetClass) {
         Intent intent = new Intent(getBaseContext(), targetClass);
         startActivity(intent);
@@ -113,6 +91,7 @@ public class ActivityLogin extends Activity {
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
+
     public void back(View v) {
         onBackPressed();
     }

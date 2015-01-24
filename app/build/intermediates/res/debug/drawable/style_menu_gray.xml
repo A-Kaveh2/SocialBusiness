@@ -3,4 +3,4 @@
   <item android:state_pressed="true"
    android:drawable="@drawable/style_button_gray_pressed" /> <!-- pressed -->
   <item android:drawable="@android:color/transparent" /> <!-- default -->
-</selector><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_menu_gray.xml -->
+</selector><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/drawable/style_menu_gray.xml -->

@@ -2,4 +2,4 @@
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_interpolator"
     android:fromXDelta="0" android:toXDelta="-100%p"
-    android:duration="200"/><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/anim/to_left.xml -->
+    android:duration="200"/><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/anim/to_left.xml -->

@@ -55,4 +55,4 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_search_options"/>
 
-</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/fragment_search_user.xml -->
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/fragment_search_user.xml -->

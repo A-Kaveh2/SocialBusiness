@@ -1,7 +1,14 @@
 package ir.rasen.myapplication.helper;
 
+import android.content.Context;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import ir.rasen.myapplication.R;
+
 
 public class ServerAnswer {
     private boolean success;
@@ -9,7 +16,10 @@ public class ServerAnswer {
     private JSONArray resultList;
     private int errorCode;
 
-    public enum Error {
+    public static int EXECUTION_ERROR = -2;
+    public static int NONE_ERROR = -1;
+
+   /* public enum Error {
         USERNAME_NOT_EXIST,
         USERNAME_IS_EXIST,
         PASSWORD_INCORRECT,
@@ -17,9 +27,9 @@ public class ServerAnswer {
         EMAIL_IS_EXIST,
         FAIL,
         NONE
-    }
+    }*/
 
-    public  Error getError() {
+    /*public  Error getError() {
         switch (errorCode) {
             case 401:
                 return Error.USERNAME_IS_EXIST;
@@ -35,6 +45,40 @@ public class ServerAnswer {
                 return Error.FAIL;
         }
         return Error.NONE;
+    }*/
+
+    public static String getError(Context context, int errorCode) {
+        switch (errorCode) {
+            case -2:
+                return context.getResources().getString(R.string.err_execution);
+            case -1:
+                return context.getResources().getString(R.string.err_none);
+            case 0:
+                return context.getResources().getString(R.string.err_unknown);
+            case 1:
+                return context.getResources().getString(R.string.err_database_connection);
+            case 2:
+                return context.getResources().getString(R.string.err_user_dose_not_exist);
+            case 3:
+                return context.getResources().getString(R.string.err_password_incorrect);
+            case 4:
+                return context.getResources().getString(R.string.err_business_does_not_exist);
+            case 5:
+                return context.getResources().getString(R.string.err_post_does_not_exist);
+            case 6:
+                return context.getResources().getString(R.string.err_json_serialization);
+            case 7:
+                return context.getResources().getString(R.string.err_further_development);
+            case 8:
+                return context.getResources().getString(R.string.err_empty_post_request);
+            case 9:
+                return context.getResources().getString(R.string.err_invalid_base64_string);
+            case 10:
+                return context.getResources().getString(R.string.err_database_constraints_violation);
+
+        }
+
+        return "Undefined";
     }
 
     public boolean getSuccessStatus() {
@@ -67,5 +111,53 @@ public class ServerAnswer {
 
     public void setResultList(JSONArray resultList) {
         this.resultList = resultList;
+    }
+
+    public static ServerAnswer getList(HttpResponse httpResponse) throws Exception {
+        String responseBody = EntityUtils.toString(httpResponse.getEntity());
+        JSONObject json = new JSONObject(responseBody);
+
+        ServerAnswer serverAnswer = new ServerAnswer();
+        serverAnswer.setSuccessStatus(json.getBoolean(Params.SUCCESS));
+        serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
+        serverAnswer.setErrorCode(json.getInt(Params.ERROR));
+
+        return serverAnswer;
+    }
+
+    public static ServerAnswer get(HttpResponse httpResponse) throws Exception {
+
+        String responseBody = EntityUtils.toString(httpResponse.getEntity());
+        JSONObject json = new JSONObject(responseBody);
+
+        //get success status
+        boolean sucessStatus = json.getBoolean(Params.SUCCESS);
+
+        //get result
+        String resultString = json.getString(Params.RESULT);
+        JSONObject resultJsonObject = null;
+        if (resultString.length() > 4) {
+            try {
+                resultJsonObject = new JSONObject(resultString);
+            } catch (Exception e) {
+
+            }
+        }
+
+        //get error code
+        String errorString = json.getString(Params.ERROR);
+        int errorCode = NONE_ERROR;
+        if (!errorString.equals("null") && !errorString.equals("Null")) {
+            JSONObject jsonObject = new JSONObject(errorString);
+            errorCode = Integer.valueOf(jsonObject.getString(Params.ERROR_CODE));
+        }
+
+
+        ServerAnswer serverAnswer = new ServerAnswer();
+        serverAnswer.setSuccessStatus(sucessStatus);
+        serverAnswer.setResult(resultJsonObject);
+        serverAnswer.setErrorCode(errorCode);
+
+        return serverAnswer;
     }
 }

@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="F:\Programming Applications\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-9ba9ca5159c312993211a2c2b3aa7196e3b47b57.jar" />
-    </item>
-    <item
-        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-b954111a2ba1bb9fd6c85b29c0e1d46a00d13d01.jar" />
-    </item>
-    <item
-        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-72e59b77b71a207de7e2ce62895428ce495fca99.jar" />
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\classes-6312bed3cfb7cbdac3b99916337dd61d80219740.jar" />
     </item>
     <item
-        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jar="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-eb4ae69bf76e2c70fe0a8a8eefa73e3b8e5d4c0e.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-128f4d8266911eac1be00b99fdefaa3f351ff6dc.jar" />
     </item>
     <item
-        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="E:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-18fa7335fa69d67e6cfb173a5a6ec61b8793cb2a.jar" />
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-704a340b9af7bcb3c02ad95d5aa67056e7d6206d.jar" />
     </item>
     <item
-        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.2\classes.jar"
+        jar="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.2\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="9f0808c3f609d8fe93018a8108d5a3d7c9cb5458">
-        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-0bb152d91876bed3b8b4a8ece1da886945fc0802.jar" />
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\classes-c2f2f098f5c138e0bc3945e123d982da3cda840b.jar" />
+    </item>
+    <item
+        jar="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\classes-b6aa2109ec3ac6413742c81a477bbbaebf8bbf15.jar" />
+    </item>
+    <item
+        jar="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="E:\Android\Workspace\RASENMyApplication\app\build\intermediates\pre-dexed\debug\classes-4a3124f5e724d7f09add86285b0591f402be2edb.jar" />
     </item>
 
 </items>

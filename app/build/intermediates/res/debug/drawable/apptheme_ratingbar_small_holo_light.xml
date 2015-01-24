@@ -20,4 +20,4 @@
     <item android:id="@+android:id/progress" android:drawable="@drawable/apptheme_rate_star_small_on_holo_light" />
 </layer-list>
 
-<!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/debug/res/drawable/apptheme_ratingbar_small_holo_light.xml -->
+<!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/debug/res/drawable/apptheme_ratingbar_small_holo_light.xml -->

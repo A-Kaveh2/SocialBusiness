@@ -1,0 +1,65 @@
+package ir.rasen.myapplication.webservice.business;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import helper.Params;
+import helper.SearchItemUserBusiness;
+import helper.ServerAnswer;
+import helper.URLs;
+import webservice.WebservicePOST;
+import webservice.WebserviceResponse;
+
+/**
+ * Created by android on 12/16/2014.
+ */
+public class GetBusinessFollowers extends AsyncTask<Void, Void, ArrayList<SearchItemUserBusiness>> {
+    private static final String TAG = "GetBusinessFollowers";
+
+    private WebserviceResponse delegate = null;
+    private String businessID;
+    private ServerAnswer serverAnswer;
+
+    public GetBusinessFollowers(String businessID) {
+        this.businessID = businessID;
+    }
+
+    @Override
+    protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
+        ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
+
+        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_FOLLOWERS);
+        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
+
+        try {
+            serverAnswer = webservicePOST.executeList();
+            if (serverAnswer.getSuccessStatus()) {
+                JSONArray jsonArray = serverAnswer.getResultList();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                            jsonObject.getString(Params.PICTURE),
+                            jsonObject.getString(Params.NAME)));
+                }
+                return list;
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
+        if (result == null)
+            delegate.getError(serverAnswer.getErrorCode());
+        else
+            delegate.getResult(result);
+    }
+}

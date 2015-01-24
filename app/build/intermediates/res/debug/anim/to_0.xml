@@ -3,4 +3,4 @@
     android:interpolator="@android:anim/accelerate_interpolator"
     android:fromXDelta="100%p"
     android:toXDelta="0"
-    android:duration="200"/><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/anim/to_0.xml -->
+    android:duration="200"/><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/anim/to_0.xml -->
