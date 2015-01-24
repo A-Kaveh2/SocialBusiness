@@ -3,13 +3,16 @@ package ir.rasen.myapplication.webservice.comment;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import controller.Comment;
-import helper.Params;
-import helper.ResultStatus;
-import helper.ServerAnswer;
-import helper.URLs;
-import webservice.WebservicePOST;
-import webservice.WebserviceResponse;
+import com.google.android.gms.internal.id;
+
+import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebservicePOST;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+
 
 /**
  * Created by android on 12/16/2014.

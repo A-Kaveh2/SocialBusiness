@@ -6,12 +6,12 @@ import android.content.SharedPreferences.Editor;
 
 public class LoginInfo {
 
-    private static String USER_ID = "user_id";
+
 
     public static boolean isLoggedIn(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
-        if (!preferences.getString(USER_ID, "").equals(""))
+        if (!preferences.getString(Params.USER_ID, "").equals(""))
             return true;
         return false;
     }
@@ -20,17 +20,19 @@ public class LoginInfo {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
-        edit.putString(USER_ID, "");
+        edit.putString(Params.USER_ID, "");
         edit.commit();
 
 
     }
 
-    public static void login(Context context, String userID) {
+    public static void login(Context context, String userID,String accessToken) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
-        edit.putString(USER_ID, userID);
+        edit.putString(Params.USER_ID, userID);
+        edit.putString(Params.ACCESS_TOKEN, accessToken);
+
         edit.commit();
 
     }

@@ -145,6 +145,7 @@
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="block_follower">مسدود سازی دنبال کننده</string>
     <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
+    <string name="popup_warning">توجه!</string>
 
     <!-- COMMENTS -->
     <string name="enter_your_comment">نظر خود را بنویسید&#8230;</string>

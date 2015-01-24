@@ -9,13 +9,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import helper.LoginInfo;
-import helper.Params;
-import helper.ResultStatus;
-import helper.ServerAnswer;
-import helper.URLs;
-import webservice.WebserviceGET;
-import webservice.WebserviceResponse;
+import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+
 
 /**
  * Created by android on 12/16/2014.
@@ -61,7 +62,7 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
                 if (jsonObject != null) {
                     user_id = jsonObject.getString(Params.USER_ID);
                     access_token = jsonObject.getString(Params.ACCESS_TOKEN);
-                    LoginInfo.login(context,user_id,access_token);
+                    LoginInfo.login(context, user_id, access_token);
                 }
 
                 //just for the test

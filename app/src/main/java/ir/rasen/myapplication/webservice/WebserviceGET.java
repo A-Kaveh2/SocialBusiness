@@ -7,7 +7,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
 
-import helper.ServerAnswer;
+import ir.rasen.myapplication.helper.ServerAnswer;
 
 
 /**

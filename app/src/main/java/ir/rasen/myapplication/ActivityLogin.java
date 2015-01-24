@@ -1,9 +1,14 @@
 package ir.rasen.myapplication;
 
+import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.Login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,9 +23,11 @@ import android.view.animation.TranslateAnimation;
 /**
  * Created by 'Sina KH'.
  */
-public class ActivityLogin extends Activity {
+public class ActivityLogin extends Activity implements WebserviceResponse {
 
 	EditTextFont email, password;
+    Context cotext;
+    WebserviceResponse webserviceResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,8 @@ public class ActivityLogin extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+        cotext = this;
+        webserviceResponse = this;
 
         // SET VALUES
 		email = ((EditTextFont) findViewById(R.id.edt_login_email));
@@ -50,8 +59,8 @@ public class ActivityLogin extends Activity {
     		password.setError(getString(R.string.enter_password_5_digits));
     		return;
     	}
-    	// TODO LOGIN NOW!
-    	// .....
+
+        new Login(cotext, email.getText().toString(), password.getText().toString(), webserviceResponse).execute();
      }
 
     // FORGOT TOUCHED
@@ -94,5 +103,17 @@ public class ActivityLogin extends Activity {
 
     public void back(View v) {
         onBackPressed();
+    }
+
+    @Override
+    public void getResult(Object result) {
+        startActivity(new Intent(cotext, ActivityMain.class));
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+
+        Functions.showMessage(cotext, errorMessage);
     }
 }

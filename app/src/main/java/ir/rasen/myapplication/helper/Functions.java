@@ -181,4 +181,18 @@ public class Functions {
         //tv.setTextColor(getResources().getColor(R.color.red_dark));
     }
 
+    public static void showMessage(Context context, String message) {
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.popup_warning)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+    }
+
 }

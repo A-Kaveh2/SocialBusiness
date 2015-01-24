@@ -133,6 +133,7 @@ public class Params {
     public static String BUSINESS_PICUTE = "business_picture";
     public static String INTERVAL_TIME = "interval_time";
     public static String ERROR_CODE = "ErrorCode";
+    public static String ACCESS_TOKEN = "access_token";
 
 
 }
