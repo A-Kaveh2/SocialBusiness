@@ -25,8 +25,9 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
     private String categroy;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessSubcategories(String categroy) {
+    public GetBusinessSubcategories(String categroy,WebserviceResponse delegate) {
         this.categroy = categroy;
+        this.delegate = delegate;
     }
 
     @Override

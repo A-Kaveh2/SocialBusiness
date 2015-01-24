@@ -22,8 +22,9 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private Business business;
     private ServerAnswer serverAnswer;
 
-    public RegisterBusiness(Business business) {
+    public RegisterBusiness(Business business,WebserviceResponse delegate) {
         this.business = business;
+        this.delegate = delegate;
     }
 
     @Override

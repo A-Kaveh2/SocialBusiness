@@ -23,6 +23,9 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
     private WebserviceResponse delegate = null;
     private ServerAnswer serverAnswer;
 
+    public GetBusinessGategories(WebserviceResponse delegate){
+        this.delegate = delegate;
+    }
     @Override
     protected ArrayList<String> doInBackground(Void... voids) {
         ArrayList<String> list = new ArrayList<String>();

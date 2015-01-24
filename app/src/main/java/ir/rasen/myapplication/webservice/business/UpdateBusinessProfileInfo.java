@@ -23,8 +23,9 @@ public class UpdateBusinessProfileInfo extends AsyncTask<Void, Void, ResultStatu
     private Business business;
     private ServerAnswer serverAnswer;
 
-    public UpdateBusinessProfileInfo(Business business) {
+    public UpdateBusinessProfileInfo(Business business,WebserviceResponse delegate) {
         this.business = business;
+        this.delegate = delegate;
     }
 
     @Override

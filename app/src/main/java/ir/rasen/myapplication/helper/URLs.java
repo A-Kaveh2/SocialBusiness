@@ -10,9 +10,9 @@ public class URLs {
     public static String LOGIN = MAIN_URL+"login";
     public static String FORGET_PASSWORD = MAIN_URL+"forget_password";
     public static String REGISTER_USER = MAIN_URL+"registerUser";
-    public static String REGISTER_BUSINESS = MAIN_URL+"register_business";
+    public static String REGISTER_BUSINESS = MAIN_URL+"registerBusiness";
     public static String UPDATE_PROFILE_USER = MAIN_URL+"updateUserProfile";
-    public static String UPDATE_PROFILE_BUSINESS = MAIN_URL+"update_profile_business";
+    public static String UPDATE_PROFILE_BUSINESS = MAIN_URL+"updateBusinessProfile";
     public static String REQUEST_CONFIRMATION = MAIN_URL+"request_confirmation";
     public static String UPDATE_PASSWORD = MAIN_URL+"update_password";
     public static String GET_HOME_INFO = MAIN_URL+"get_home_info";
@@ -55,6 +55,6 @@ public class URLs {
     public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"get_announcement_comment";
     public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"get_announcement_comment";
     public static String FOLLOW_BUSINESS= MAIN_URL+"follow_business";
-    public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"get_business_categories";
-    public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"get_business_subcategories";
+    public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";
+    public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"getBusinessSubCategories";
 }
