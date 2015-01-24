@@ -35,6 +35,7 @@ public class WebservicePOST {
     public ServerAnswer execute() throws Exception {
         if (postParameters != null && postParameters.size() != 0)
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+        httpPost.setHeader("Content-Type","application/json");
         HttpResponse httpResponse = httpclient.execute(httpPost);
 
         return ServerAnswer.get(httpResponse);
@@ -43,6 +44,7 @@ public class WebservicePOST {
     public ServerAnswer executeList() throws Exception {
         if (postParameters != null && postParameters.size() != 0)
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+        httpPost.setHeader("Content-Type","application/json");
         HttpResponse httpResponse = httpclient.execute(httpPost);
 
         return ServerAnswer.getList(httpResponse);

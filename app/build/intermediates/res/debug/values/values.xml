@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string-array name="camera_or_gallery">
+        <item>@string/camera</item>
+        <item>@string/gallery</item>
+    </string-array>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
@@ -61,6 +67,10 @@
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="cover_background">#AD256070</color>
+    <color name="dark_blue">#004185</color>
+    <color name="dark_gray">#B2B2B2</color>
+    <color name="dark_pink">#B9126D</color>
+    <color name="darker_gray">#595959</color>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
@@ -79,8 +89,19 @@
     <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="hint_color">#c7c7c7</color>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <eat-comment/>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="light_blue">#1BB2C2</color>
+    <color name="light_gray">#EBEBEB</color>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
     <color name="material_blue_grey_800">#ff37474f</color>
@@ -90,9 +111,12 @@
     <color name="material_deep_teal_500">#ff009688</color>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="menu_bg">#f5e1f5fe</color>
     <color name="opacity3">#33ffffff</color>
     <color name="opacity5">#77ffffff</color>
     <color name="opacity8">#BBffffff</color>
+    <color name="pink">#E6037F</color>
+    <color name="pink_accent">#5499BA</color>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="primary_dark_material_dark">#ff000000</color>
@@ -229,7 +253,16 @@
     <dimen name="corner_size">2dp</dimen>
     <dimen name="corner_size_dialog">20dp</dimen>
     <item format="float" name="cover_scale" type="dimen">0.85</item>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="demo_dialog_txt">14dp</dimen>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/attrs.xml -->
+    <eat-comment/>
     <dimen name="dialog_body_height">72dp</dimen>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="dialog_button">12dp</dimen>
+    <dimen name="dialog_button_hieght">48dp</dimen>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
@@ -241,6 +274,20 @@
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <dimen name="drawer_width">200dp</dimen>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="font_circle_button">@dimen/font_large</dimen>
+    <dimen name="font_large">17dp</dimen>
+    <dimen name="font_large_x">20dp</dimen>
+    <dimen name="font_large_xx">50dp</dimen>
+    <dimen name="font_medium">14.5dp</dimen>
+    <dimen name="font_medium_x">15.5dp</dimen>
+    <dimen name="font_small">10dp</dimen>
+    <dimen name="font_small_v">9dp</dimen>
+    <dimen name="font_small_x">12dp</dimen>
+    <dimen name="line_height">4dp</dimen>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/attrs.xml -->
+    <eat-comment/>
     <dimen name="menu_pic">24dp</dimen>
     <dimen name="menu_pic_large">36dp</dimen>
     <dimen name="menu_pic_largest">48dp</dimen>
@@ -253,6 +300,11 @@
     <dimen name="text_size_largest">24sp</dimen>
     <dimen name="text_size_normal">15sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <drawable name="list_clicked">#ffe09cee</drawable>
+    <drawable name="list_selected">#E0E</drawable>
+    <drawable name="transparent">@android:color/transparent</drawable>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
@@ -265,9 +317,18 @@
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
     <integer name="abc_max_action_buttons">2</integer>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <integer name="dialog_body_weight">2</integer>
+    <integer name="dialog_header_weight">10</integer>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">6587000</integer>
+    <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <integer name="image_quality">75</integer>
+    <integer name="image_size">640</integer>
+    <integer name="interval_time">5000</integer>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="ABAN">آبان</string>
@@ -330,8 +391,11 @@
     <string name="businesses">کسب و کار ها</string>
     <string name="businesses_set">با فعال کردن این گزینه به دوستان خود امکان می دهید کسب و کار های مورد علاقه ی شما را مشاهده کنند.</string>
     <string name="call_info">اطلاعات تماس</string>
+    <string name="camera">دوربین</string>
+    <string name="cancel">انصراف</string>
     <string name="choose_category">انتخاب موضوع</string>
     <string name="choose_category_first">لطفأ موضوع فعالیت کسب و کار خود را تعیین نمایید.</string>
+    <string name="choose_photo">انتخاب تصویر</string>
     <string name="comment_is_too_short">نظر خود را با حدأقل 3 حرف وارد کنید.</string>
     <string name="comments">نظرات</string>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
@@ -375,6 +439,8 @@
     <string name="delete_comment">حذف نظر</string>
     <string name="delete_friend">حذف دوست</string>
     <string name="delete_post">حذف مطلب</string>
+    <string name="dialog_forget_password">بازیابی رمز عبور</string>
+    <string name="dialog_ok">تایید</string>
     <string name="download">دریافت و نصب</string>
     <string name="edit">ویرایش</string>
     <string name="edit_comment">ویرایش نظر</string>
@@ -391,6 +457,28 @@
     <string name="enter_working_time">ساعات کار را تعیین کنید</string>
     <string name="enter_your_comment">نظر خود را بنویسید…</string>
     <string name="enter_your_review">نقد خود را بنویسید…</string>
+    <string name="err_business_does_not_exist"/>
+    <string name="err_database_connection">لطفا مجددا سعی نمایید</string>
+    <string name="err_database_constraints_violation"/>
+    <string name="err_empty_post_request"/>
+    <string name="err_execution">Execution Error</string>
+    <string name="err_further_development"/>
+    <string name="err_invalid_base64_string"/>
+    <string name="err_json_serialization"/>
+    <string name="err_login_about_me_long">تعداد کاراکترهای درباره من بیش از حد مجاز است.</string>
+    <string name="err_login_account_name_long">تعداد کاراکترهای نام کاربری بیش از حد مجاز است.</string>
+    <string name="err_login_email_incorrect">چنین آدرس پست الکترونیکی ثبت نشده است. مجددا سعی نمایید</string>
+    <string name="err_login_email_invalid">آدرس ایمیل نامعتبر است.</string>
+    <string name="err_login_name_long">تعداد کاراکترهای نام بیش از حد مجاز است.</string>
+    <string name="err_login_password_incorrect">رمز عبور اشتباه است. مجددا سعی نمایید</string>
+    <string name="err_login_password_re_enter">رمز عبور و تکرار آن یکسان نیستند.</string>
+    <string name="err_login_password_short">رمز عبور باید حداقل 6 کاراکتر باشد.</string>
+    <string name="err_login_server">خطای برقرار ارتباط با سرور.</string>
+    <string name="err_none">None</string>
+    <string name="err_password_incorrect">رمز عبور اشتباه است</string>
+    <string name="err_post_does_not_exist"/>
+    <string name="err_unknown">لطفا مجددا سعی نمایید</string>
+    <string name="err_user_dose_not_exist">چنین پست الکترونیکی ثبت نشده است</string>
     <string name="error">خطا!</string>
     <string name="error_google_play_services">ویرایش مناسبی از نرم افزار google play services بر روی دستگاه یافت نشد.\n\nلطفأ جهت استفاده از این بخش از نرم افزار, اقدام به دریافت و نصب آن نمایید.</string>
     <string name="exit">خروج</string>
@@ -405,6 +493,7 @@
     <string name="friend_requests">درخواست های دوستی</string>
     <string name="friends">دوستان</string>
     <string name="friends_set">با فعال کردن این گزینه به دوستان خود امکان می دهید لیست دوستان شما را مشاهده کنند.</string>
+    <string name="gallery">گالری</string>
     <!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/debug/res/values/google_maps_api.xml -->
     <eat-comment/>
     <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAfBDs59qUbLJi1FAQ1RPpCGVJ-uyFmA8Y</string>
@@ -448,6 +537,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
     <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
+    <string name="popup_warning">توجه!</string>
     <string name="product_code">کد کالا</string>
     <string name="product_description">توضیحات محصول</string>
     <string name="product_name">نام محصول</string>

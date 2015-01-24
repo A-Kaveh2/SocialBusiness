@@ -45,6 +45,7 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
         webservicePOST.addParam(Params.EMAIL, email);
         webservicePOST.addParam(Params.PASSWORD, password);*/
 
+        //params: email,password
         WebserviceGET webserviceGET = new WebserviceGET(URLs.LOGIN, new ArrayList<>(
                 Arrays.asList(email, password)));
 

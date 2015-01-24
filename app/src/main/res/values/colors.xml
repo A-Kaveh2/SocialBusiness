@@ -27,4 +27,19 @@
     <color name="opacity5">#77ffffff</color>
     <color name="opacity8">#BBffffff</color>
 
+    <color name="menu_bg">#f5e1f5fe</color>
+    <color name="dark_blue">#004185</color>
+    <color name="light_blue">#1BB2C2</color>
+    <color name="pink">#E6037F</color>
+    <color name="pink_accent">#5499BA</color>
+    <color name="dark_pink">#B9126D</color>
+    <color name="light_gray">#EBEBEB</color>
+    <color name="dark_gray">#B2B2B2</color>
+    <color name="darker_gray">#595959</color>
+    <color name="hint_color">#c7c7c7</color>
+
+    <drawable name="list_clicked">#ffe09cee</drawable>
+    <drawable name="list_selected">#E0E</drawable>
+    <drawable name="transparent">@android:color/transparent</drawable>
+
 </resources>

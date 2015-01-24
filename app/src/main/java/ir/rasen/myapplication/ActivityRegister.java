@@ -1,7 +1,15 @@
 package ir.rasen.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -10,15 +18,29 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 
+import java.io.File;
+
+import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.RegisterUser;
 
-public class ActivityRegister extends Activity {
+public class ActivityRegister extends Activity implements WebserviceResponse {
 
     EditTextFont username, name, email, password, password_repeat;
+    ImageButton btn_register_picture_set;
+    String filePath;
+    Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +48,7 @@ public class ActivityRegister extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_register);
+        context = this;
 
         // SET VALUES
         username = ((EditTextFont) findViewById(R.id.edt_register_username));
@@ -33,6 +56,7 @@ public class ActivityRegister extends Activity {
         email = ((EditTextFont) findViewById(R.id.edt_register_email));
         password = ((EditTextFont) findViewById(R.id.edt_register_password));
         password_repeat = ((EditTextFont) findViewById(R.id.edt_register_password_repeat));
+        btn_register_picture_set = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
         // SET ANIMATIONS
         setAnimations();
@@ -40,13 +64,58 @@ public class ActivityRegister extends Activity {
 
     // SET PICTURE
     public void setPicture(View view) {
-        // TODO SET PICTURE NOW
+        final String[] items = getResources().getStringArray(R.array.camera_or_gallery);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.choose_photo);
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) { //pick from camera
+                if (item == 0) {
+                    Intent myIntent = new Intent(getApplicationContext(), ActivityCamera.class);
+                    startActivityForResult(myIntent, ActivityCamera.CAPTURE_PHOTO);
+                } else { //pick from file
+                    Intent myIntent = new Intent(getApplicationContext(), ActivityGallery.class);
+                    startActivityForResult(myIntent, ActivityGallery.CAPTURE_GALLERY);
+                }
+            }
+        });
+
+        Dialog d = builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
+                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
+                displayCropedImage(filePath);
+            } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
+                filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
+                displayCropedImage(filePath);
+            }
+        }
+
+    }
+
+    private void displayCropedImage(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            try {
+                btn_register_picture_set.setImageBitmap(myBitmap);
+            }
+            catch (Exception e){
+                String s = e.getMessage();
+            }
+        }
     }
 
     // REGISTER TOUCHED
     public void register(View view) {
-        // SET ON TEXT CHANGE LISTENERS (FOR ERRORS)
-        //setOnTextChangeListeners();
+
         // CHECK INPUT DATA
         if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();
@@ -88,8 +157,23 @@ public class ActivityRegister extends Activity {
             password_repeat.setError(getString(R.string.enter_same_passwords));
             return;
         }
-        // TODO REGISTER NOW!
-        // .....
+
+        User user = new User();
+        user.userID = username.getText().toString();
+        user.name = name.getText().toString();
+        user.email = email.getText().toString();
+        user.password = password.getText().toString();
+
+        /*user.userID = "ali_4";
+        user.name = "ali4";
+        user.email = "ali4@gmail.com";
+        user.password = "123456";*/
+
+        if (filePath != null)
+            user.profilePicture = Image_M.getBase64String(filePath, getResources().getInteger(R.integer.image_quality));
+
+
+        new RegisterUser(user,ActivityRegister.this).execute();
     }
 
     // HELP TOUCHED
@@ -113,56 +197,7 @@ public class ActivityRegister extends Activity {
         animationSetBtn.addAnimation(anim_fromDown);
         ((TextViewFont) findViewById(R.id.btn_register_help)).startAnimation(animationSetBtn);
     }
-    /*public void setOnTextChangeListeners() {
-        username.addTextChangedListener(new TextWatcher(){
-            public void afterTextChanged(Editable s) {
-                //username.setText(username.getText().toString().trim());
-                username.setError(null);
-                if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
-                    username.setError(getString(R.string.enter_valid_username));
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });
-        name.addTextChangedListener(new TextWatcher(){
-            public void afterTextChanged(Editable s) {
-                //name.setText(name.getText().toString().trim());
-                name.setError(null);
-                if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()<Params.USER_NAME_MIN_LENGTH) {
-                    name.setError(getString(R.string.enter_valid_name));
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });
-        email.addTextChangedListener(new TextWatcher(){
-            public void afterTextChanged(Editable s) {
-                email.setError(null);
-                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-                    email.setError(getString(R.string.enter_valid_email));
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });
-        TextWatcher textWatcherPassword = new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                if (password.getText().length() < Params.USER_PASSWORD_MIN_LENGTH) {
-                    password.setError(getString(R.string.enter_password_5_digits));
-                    return;
-                }
-                if(password_repeat.isFocused() && !password.getText().toString().equals(password_repeat.getText().toString())) {
-                    password_repeat.setError(getString(R.string.enter_same_passwords));
-                    return;
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        };
-        password.addTextChangedListener(textWatcherPassword);
-        password_repeat.addTextChangedListener(textWatcherPassword);
-    }*/
+
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
@@ -171,4 +206,14 @@ public class ActivityRegister extends Activity {
         onBackPressed();
     }
 
+    @Override
+    public void getResult(Object result) {
+        startActivity(new Intent(context, ActivityMain.class));
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+        Functions.showMessage(context, errorMessage);
+    }
 }

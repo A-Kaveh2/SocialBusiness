@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="@color/pink" />
+
+
+    <corners
+        android:bottomLeftRadius="18dp" />
+
+</shape><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/drawable/dialog_button_bg_left.xml -->

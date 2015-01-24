@@ -20,16 +20,20 @@ public class ForgetPassword extends AsyncTask<Void, Void, ResultStatus> {
     private WebserviceResponse delegate = null;
     private String email;
     private ServerAnswer serverAnswer;
+    private String userID;
 
 
-    public ForgetPassword(String email) {
+    public ForgetPassword(String userID,String email) {
         this.email = email;
+        this.userID = userID;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.FORGET_PASSWORD);
+        webservicePOST.addParam(Params.USER_ID, userID);
         webservicePOST.addParam(Params.EMAIL, email);
+
 
         try {
             serverAnswer = webservicePOST.execute();

@@ -230,4 +230,20 @@
     <!-- EDIT COMMENT -->
     <string name="edit_comment">ویرایش نظر</string>
     <string name="back">بازگشت</string>
+
+
+    <!--Dialog-->
+    <string name="dialog_ok">تایید</string>
+    <string name="cancel">انصراف</string>
+    <string name="dialog_forget_password">بازیابی رمز عبور</string>
+    <string name="dialog_update_success">اطلاعات به روز رسانی شد</string>
+
+    <!--ChOOSE PICTURE-->
+    <string-array name="camera_or_gallery">
+        <item>@string/camera</item>
+        <item>@string/gallery</item>
+    </string-array>
+    <string name="camera">دوربین</string>
+    <string name="gallery">گالری</string>
+    <string name="choose_photo">انتخاب تصویر</string>
 </resources>

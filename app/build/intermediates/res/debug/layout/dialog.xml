@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/ll_dialog"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/dialog_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_dialog_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_title_dialog"
+                android:orientation="horizontal">
+
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/tv_dialog_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="10dp"
+                    android:textColor="#E6007F"
+                    android:textSize="@dimen/font_circle_button"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_dialog_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_context_dialog"
+                android:orientation="vertical">
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>
+<!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/dialog.xml -->

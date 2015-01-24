@@ -1,0 +1,26 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+
+    <dimen name="font_small_v">9dp</dimen>
+    <dimen name="font_small">10dp</dimen>
+    <dimen name="font_small_x">12dp</dimen>
+    <dimen name="font_medium">14.5dp</dimen>
+    <dimen name="font_medium_x">15.5dp</dimen>
+    <dimen name="font_large">17dp</dimen>
+    <dimen name="font_large_x">20dp</dimen>
+    <dimen name="font_large_xx">50dp</dimen>
+
+    <integer name="dialog_header_weight">10</integer>
+    <integer name="dialog_body_weight">2</integer>
+    <dimen name="demo_dialog_txt">14dp</dimen>
+    <dimen name="dialog_button">12dp</dimen>
+    <dimen name="dialog_button_hieght">48dp</dimen>
+    <dimen name="font_circle_button">@dimen/font_large</dimen>
+    <dimen name="line_height">4dp</dimen>
+
+    <integer name="interval_time">5000</integer>
+    <integer name="image_quality">75</integer>
+    <integer name="image_size">640</integer>
+</resources>

@@ -27,11 +27,12 @@ public class Business {
     public Location_M location_m;
     public String email;
     public String mobile;
+    public String webSite;
     public ArrayList<String> hashtagList = new ArrayList<String>();
     public int reviewsNumber;
     public int followersNumber;
     public boolean isFollowing;
-    public int rate;
+    public float rate;
 
 
 }

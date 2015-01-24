@@ -6,11 +6,15 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.Sex;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -23,6 +27,7 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     private WebserviceResponse delegate = null;
     private String userID;
     private ServerAnswer serverAnswer;
+    private ArrayList<String> params;
 
     public GetUserProfileInfo(String userID) {
         this.userID = userID;
@@ -32,10 +37,11 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     protected User doInBackground(Void... voids) {
         User user = new User();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_PROFILE_INFO);
-        webservicePOST.addParam(Params.USER_ID, userID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_PROFILE_INFO,
+                new ArrayList<>(Arrays.asList(userID)));
+
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();

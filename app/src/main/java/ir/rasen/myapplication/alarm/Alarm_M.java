@@ -6,8 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import helper.Params;
-import ir.rasen.socialbusiness.R;
+import ir.rasen.myapplication.R;
+import ir.rasen.myapplication.helper.Params;
+
 
 /**
  * Created by android on 12/29/2014.

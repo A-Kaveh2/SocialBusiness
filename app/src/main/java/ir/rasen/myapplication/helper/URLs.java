@@ -5,19 +5,19 @@ package ir.rasen.myapplication.helper;
  */
 public class URLs {
 
-    public static String MAIN_URL = "http://google.com/";
+    public static String MAIN_URL = "http://213.233.169.177:8080/bsn/";
 
     public static String LOGIN = MAIN_URL+"login";
     public static String FORGET_PASSWORD = MAIN_URL+"forget_password";
-    public static String REGISTER_USER = MAIN_URL+"register_user";
+    public static String REGISTER_USER = MAIN_URL+"registerUser";
     public static String REGISTER_BUSINESS = MAIN_URL+"register_business";
-    public static String UPDATE_PROFILE_USER = MAIN_URL+"update_profile_user";
+    public static String UPDATE_PROFILE_USER = MAIN_URL+"updateUserProfile";
     public static String UPDATE_PROFILE_BUSINESS = MAIN_URL+"update_profile_business";
     public static String REQUEST_CONFIRMATION = MAIN_URL+"request_confirmation";
     public static String UPDATE_PASSWORD = MAIN_URL+"update_password";
     public static String GET_HOME_INFO = MAIN_URL+"get_home_info";
     public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"get_home_info";
-    public static String GET_PROFILE_INFO = MAIN_URL+"get_profile_info";
+    public static String GET_PROFILE_INFO = MAIN_URL+"getUserProfileInfo";
     public static String GET_BUSINESS_PROFILE_INFO = MAIN_URL+"get_profile_info";
     public static String GET_FOLLOWING_BUSINESSES = MAIN_URL+"get_following_businesses";
     public static String GET_USER_FRIENDS = MAIN_URL+"get_user_friends";

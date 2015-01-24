@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.ui.EditTextFont;
 
 /**
@@ -21,6 +22,10 @@ public class ActivitySplash extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        if(LoginInfo.isLoggedIn(this))
+            gotoActivity(ActivityMain.class);
+
         setContentView(R.layout.activity_splash_screen);
 
         // SET ANIMATIONS
