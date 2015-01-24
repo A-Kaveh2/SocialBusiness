@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white" >
+
+	<ir.rasen.myapplication.ui.EditTextFont
+    	android:id="@+id/edt_edit_comment_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:gravity="center"
+        android:inputType="text"
+        android:hint="@string/enter_your_comment"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <ir.rasen.myapplication.ui.ButtonFont
+            android:id="@+id/btn_edit_comment_submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/style_button_on_dark_second"
+            android:text="@string/edit_comment"
+            android:textColor="@android:color/white"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_margin="@dimen/activity_horizontal_margin_1of4" />
+        <ir.rasen.myapplication.ui.ButtonFont
+            android:id="@+id/btn_edit_comment_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/style_button_on_dark_second"
+            android:text="@string/back"
+            android:textColor="@android:color/white"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_margin="@dimen/activity_horizontal_margin_1of4" />
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_edit_comment.xml -->

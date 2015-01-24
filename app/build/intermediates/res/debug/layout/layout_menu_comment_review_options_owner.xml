@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- EDIT OPTION -->
+    <LinearLayout
+        android:id="@+id/ll_menu_comment_options_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/style_button_gray">
+        <!--
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_menu_options_about"
+            android:layout_margin="4dp"/>
+            -->
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/edit"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_size_normal"
+            android:gravity="center"
+            android:textColor="@color/gray"/>
+    </LinearLayout>
+
+    <!-- DELETE OPTION -->
+    <LinearLayout
+        android:id="@+id/ll_menu_comment_options_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:background="@drawable/style_button_gray">
+        <!--
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_menu_options_help"
+            android:layout_margin="4dp"/>
+            -->
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/delete"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_size_normal"
+            android:gravity="center"
+            android:textColor="@color/gray"/>
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_menu_comment_review_options_owner.xml -->
