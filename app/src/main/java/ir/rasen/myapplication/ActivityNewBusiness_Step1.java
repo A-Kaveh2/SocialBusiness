@@ -189,7 +189,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.subcategory = spnSubcategory.getSelectedItem().toString();
         business.description = edtDescription.getText().toString();
         if (profilePictureFilePath != null)
-            business.profilePicture = Image_M.getBase64String(profilePictureFilePath, getResources().getInteger(R.integer.image_quality));
+            business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
         PassingBusiness.getInstance().setValueStep1(business);
         Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);

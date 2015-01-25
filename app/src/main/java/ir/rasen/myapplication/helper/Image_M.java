@@ -21,13 +21,19 @@ import ir.rasen.myapplication.R;
  */
 public class Image_M {
 
-    public static String getBase64String(String imageFilePath, int imageQuality) {
+    public static String getBase64String(String imageFilePath) {
         Bitmap bm = BitmapFactory.decodeFile(imageFilePath);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, imageQuality, baos); //bm is the bitmap object
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-        return encodedImage.replace("\n","");
+        return encodedImage.replace("\n", "");
+    }
+
+    public static Bitmap getBitmapFromString(String codedImage) {
+        byte[] decodedString = Base64.decode(codedImage, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
     }
 
 

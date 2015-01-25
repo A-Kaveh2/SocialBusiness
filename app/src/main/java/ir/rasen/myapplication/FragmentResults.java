@@ -18,13 +18,14 @@ import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by 'Sina KH' on 1/16/2015.
  */
-public class FragmentResults extends Fragment {
+public class FragmentResults extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentResults";
 
     private View view, listFooterView;
@@ -34,6 +35,8 @@ public class FragmentResults extends Fragment {
     private StickyListHeadersListView list;
     private StickyListHeadersAdapter mAdapter;
     private int searchType;
+
+    private WebserviceResponse webserviceResponse;
 
     String searchString, category, location_latitude, location_longitude;
     Boolean nearby;
@@ -64,6 +67,9 @@ public class FragmentResults extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        webserviceResponse = this;
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             searchString = bundle.getString(Params.SEARCH_TEXT);
@@ -127,7 +133,7 @@ public class FragmentResults extends Fragment {
             post3.title = "عنوان!!";
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
-            mAdapter = new HomePostsAdapter(getActivity(), posts);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
             list.setAdapter(mAdapter);
         } else {
             ArrayList<Business> businesses = new ArrayList<Business>();
@@ -200,5 +206,15 @@ public class FragmentResults extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }

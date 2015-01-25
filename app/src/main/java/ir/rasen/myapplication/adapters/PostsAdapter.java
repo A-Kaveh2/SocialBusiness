@@ -29,6 +29,7 @@ import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH'.
@@ -41,10 +42,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
     private boolean singleTapped;
 
-	public PostsAdapter(Context context, ArrayList<Post> posts) {
+    private WebserviceResponse webserviceResponse;
+
+	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
+        this.webserviceResponse = webserviceResponse;
 	}
 
 	@Override
@@ -223,9 +227,10 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                // TODO DELETE POST
+
+                // TODO where is business.id and post.id
                 Functions functions = new Functions();
-                functions.showPostDeletePopup(getContext());
+                functions.showPostDeletePopup(getContext(),"1","3",webserviceResponse);
                 pw.dismiss();
                 }
             });

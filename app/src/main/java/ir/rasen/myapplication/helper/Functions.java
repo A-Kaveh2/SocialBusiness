@@ -18,6 +18,8 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.post.DeletePost;
 
 public class Functions {
 
@@ -58,14 +60,16 @@ public class Functions {
         return "";
     }
 
-    public void showPostDeletePopup(Context context) {
+    //business_id= business.id
+    //post_id = post.id
+    public void showPostDeletePopup(Context context, final String buisness_id, final String post_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_post)
                 .setMessage(R.string.popup_delete)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE POST
+                        new DeletePost(buisness_id,post_id,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);

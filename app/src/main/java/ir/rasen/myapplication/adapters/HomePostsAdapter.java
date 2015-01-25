@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,6 +29,7 @@ import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -40,10 +42,13 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 	private LayoutInflater mInflater;
 
     private boolean singleTapped;
+    private WebserviceResponse webserviceResponse;
 
-	public HomePostsAdapter(Context context, ArrayList<Post> posts) {
+
+	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
 		super(context, R.layout.layout_post_home, posts);
 		mPosts 	= posts;
+        this.webserviceResponse = webserviceResponse;
 		mInflater	= LayoutInflater.from(context);
 	}
 
@@ -150,7 +155,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
             holder.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    showOptionsPopup(view, position);
+                    showOptionsPopup(view, position,webserviceResponse);
                 }
             });
 
@@ -172,7 +177,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         int id;
     }
 
-    public void showOptionsPopup(View view, final int position) {
+    public void showOptionsPopup(View view, final int position, final WebserviceResponse webserviceResponse) {
         // TODO: CHECK IS MINE
         Boolean isMine = true;
         // SHOWING POPUP WINDOW
@@ -202,17 +207,22 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 // TODO DELETE POST
-                showDeletePopup();
+                showDeletePopup(webserviceResponse);
+
                     pw.dismiss();
                 }
             });
         }
     }
 
-    public void showDeletePopup() {
+    public void showDeletePopup(WebserviceResponse webserviceResponse) {
+        //TODO where is business.id and post.id?
         // SHOWING POPUP WINDOW
         Functions functions = new Functions();
-        functions.showPostDeletePopup(getContext());
+
+        //"1": business.id
+        //"4": post.id
+        functions.showPostDeletePopup(getContext(),"1","5",webserviceResponse);
 
     }
 

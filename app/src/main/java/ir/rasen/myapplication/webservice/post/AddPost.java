@@ -23,8 +23,9 @@ public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
     private Post post;
     private ServerAnswer serverAnswer;
 
-    public AddPost(Post post) {
+    public AddPost(Post post,WebserviceResponse delegate) {
         this.post = post;
+        this.delegate = delegate;
     }
 
     @Override

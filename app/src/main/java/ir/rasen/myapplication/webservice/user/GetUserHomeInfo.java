@@ -24,8 +24,9 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
     private String userID;
     private ServerAnswer serverAnswer;
 
-    public GetUserHomeInfo(String userID) {
+    public GetUserHomeInfo(String userID,WebserviceResponse delegate) {
         this.userID = userID;
+        this.delegate = delegate;
     }
 
     @Override

@@ -170,7 +170,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         user.password = "123456";
 
         if (filePath != null)
-            user.profilePicture = Image_M.getBase64String(filePath, getResources().getInteger(R.integer.image_quality));
+            user.profilePicture = Image_M.getBase64String(filePath);
         else
             user.profilePicture = "";
 

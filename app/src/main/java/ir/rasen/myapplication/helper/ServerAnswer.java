@@ -145,11 +145,14 @@ public class ServerAnswer {
         }
 
         //get error code
-        String errorString = json.getString(Params.ERROR);
+
+
+        JSONObject errorObject = json.getJSONObject(Params.ERROR);
+        String errorCodeString = errorObject.getString(Params.ERROR_CODE);
+
         int errorCode = NONE_ERROR;
-        if (!errorString.equals("null") && !errorString.equals("Null")) {
-            JSONObject jsonObject = new JSONObject(errorString);
-            errorCode = Integer.valueOf(jsonObject.getString(Params.ERROR_CODE));
+        if (!errorCodeString.equals("null") && !errorCodeString.equals("Null")) {
+            errorCode = Integer.valueOf(errorCodeString);
         }
 
 

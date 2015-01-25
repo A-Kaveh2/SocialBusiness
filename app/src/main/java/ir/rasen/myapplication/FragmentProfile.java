@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -27,16 +29,20 @@ import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends Fragment implements WebserviceResponse{
     private static final String TAG = "FragmentProfile";
 
     private SwipeRefreshLayout swipeView;
@@ -56,7 +62,10 @@ public class FragmentProfile extends Fragment {
 
     ListAdapter listAdapter, gridAdapter;
 
-    public static FragmentProfile newInstance (int profileType, boolean profileOwn, String profileId){
+    private WebserviceResponse webserviceResponse;
+    private Context context;
+
+    public static FragmentProfile newInstance (Context context,int profileType, boolean profileOwn, String profileId){
         FragmentProfile fragment = new FragmentProfile();
 
         Bundle bundle = new Bundle();
@@ -79,6 +88,8 @@ public class FragmentProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        webserviceResponse = this;
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
@@ -89,6 +100,11 @@ public class FragmentProfile extends Fragment {
             getActivity().finish();
             getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
+
+
+        //get user home info by sending user_id
+        new GetUserHomeInfo(LoginInfo.getUserId())
+
     }
 
     @Override
@@ -342,7 +358,7 @@ public class FragmentProfile extends Fragment {
         post3.lastThreeComments = lastThreeComments;
         posts.add(post3);
 
-        listAdapter = new PostsAdapter(getActivity(), posts);
+        listAdapter = new PostsAdapter(getActivity(), posts,webserviceResponse);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
         grid.setAdapter(gridAdapter);
     }
@@ -449,4 +465,18 @@ public class FragmentProfile extends Fragment {
         ((ActivityMain) getActivity()).rightDrawer();
     }
 
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ResultStatus){
+            //delete post,like post,.... result
+        }
+        else if(result instanceof User){
+            //get user home info
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+        String s = "";
+    }
 }

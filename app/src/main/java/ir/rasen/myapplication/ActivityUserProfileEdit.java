@@ -147,7 +147,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         user.aboutMe = edtAboutMe.getText().toString();
         user.birthDate = txtBirthDate.getText().toString();
         if (filePath != null)
-            user.profilePicture = Image_M.getBase64String(filePath, getResources().getInteger(R.integer.image_quality));
+            user.profilePicture = Image_M.getBase64String(filePath);
 
         //TODO user.sex
 

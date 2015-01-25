@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.post;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,19 +26,19 @@ public class DeletePost extends AsyncTask<Void, Void, ResultStatus> {
     private String postID;
     private ServerAnswer serverAnswer;
 
-    public DeletePost(String businessID, String postID) {
+    public DeletePost(String businessID, String postID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.postID = postID;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.DELETE_POST);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.POST_ID, postID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_POST,new ArrayList<>(
+                Arrays.asList(businessID, postID)));
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

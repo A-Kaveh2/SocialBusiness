@@ -16,9 +16,12 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -33,7 +36,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * with a GridView.
  * <p/>
  */
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentHome";
 
     /**
@@ -60,6 +63,7 @@ public class FragmentHome extends Fragment {
 
     private int homeType;
     private String homeTitle;
+    private WebserviceResponse webserviceResponse;
 
     // as home fragment
     public static FragmentHome newInstance (){
@@ -103,6 +107,8 @@ public class FragmentHome extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        webserviceResponse = this;
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             homeType = bundle.getInt(Params.HOME_TYPE);
@@ -131,7 +137,7 @@ public class FragmentHome extends Fragment {
             if(posts.size()==1) {
                 singlePost = true;
             }
-            mAdapter = new HomePostsAdapter(getActivity(), posts);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
 
         } else if(homeType==Params.HomeType.HOME_HOME) {
 
@@ -171,7 +177,7 @@ public class FragmentHome extends Fragment {
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
 
-            mAdapter = new HomePostsAdapter(getActivity(), posts);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
 
         }
     }
@@ -275,6 +281,18 @@ public class FragmentHome extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void getResult(Object result) {
+        //TODO
+        String s = "";
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+       //TODO
+        String s = "";
     }
 /*
     void autoHideActionBar() {
