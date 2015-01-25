@@ -97,7 +97,8 @@
                 android:selectAllOnFocus="true"
                 android:layout_below="@+id/edt_profile_edit_status"
                 android:drawableLeft="@drawable/ic_edittext_password"
-                android:text="@string/password_change"/>
+                android:text="@string/password_change"
+                android:onClick="changePassword"/>
 
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/edt_profile_edit_birthday"
@@ -112,7 +113,10 @@
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
                 android:layout_below="@+id/edt_profile_edit_password"
-                android:drawableLeft="@drawable/ic_edittext_date" />
+                android:drawableLeft="@drawable/ic_edittext_date"
+                android:onClick="changeBirthDate"/>
+
+
 
             <ir.rasen.myapplication.ui.ButtonFont
                 android:id="@+id/btn_profile_edit_save"

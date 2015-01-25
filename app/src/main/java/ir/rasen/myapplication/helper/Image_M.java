@@ -27,8 +27,7 @@ public class Image_M {
         bm.compress(Bitmap.CompressFormat.JPEG, imageQuality, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-
-        return encodedImage;
+        return encodedImage.replace("\n","");
     }
 
 

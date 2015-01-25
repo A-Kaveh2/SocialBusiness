@@ -34,8 +34,14 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
         webservicePOST.addParam(Params.BUSINESS_ID, business.businessID);
         webservicePOST.addParam(Params.NAME, business.name);
         webservicePOST.addParam(Params.EMAIL, business.email);
-        webservicePOST.addParam(Params.COVER_PICTURE, business.coverPicture);
-        webservicePOST.addParam(Params.PROFILE_PICTURE, business.profilePicture);
+        if (business.coverPicture != null)
+            webservicePOST.addParam(Params.COVER_PICTURE, business.coverPicture);
+        else
+            webservicePOST.addParam(Params.COVER_PICTURE, "");
+        if (business.profilePicture != null)
+            webservicePOST.addParam(Params.PROFILE_PICTURE, business.profilePicture);
+        else
+            webservicePOST.addParam(Params.PROFILE_PICTURE, "");
         webservicePOST.addParam(Params.CATEGORY, business.category);
         webservicePOST.addParam(Params.SUBCATEGORY, business.subcategory);
         webservicePOST.addParam(Params.DESCRIPTION, business.description);

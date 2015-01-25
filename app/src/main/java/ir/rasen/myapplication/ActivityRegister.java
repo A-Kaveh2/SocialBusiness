@@ -117,7 +117,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     public void register(View view) {
 
         // CHECK INPUT DATA
-        if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
+ /*       if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();
             username.setError(getString(R.string.enter_valid_username));
             return;
@@ -156,24 +156,26 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             password_repeat.requestFocus();
             password_repeat.setError(getString(R.string.enter_same_passwords));
             return;
-        }
+        }*/
 
         User user = new User();
-        user.userID = username.getText().toString();
+       /* user.userID = username.getText().toString();
         user.name = name.getText().toString();
         user.email = email.getText().toString();
         user.password = password.getText().toString();
-
-        /*user.userID = "ali_4";
-        user.name = "ali4";
-        user.email = "ali4@gmail.com";
-        user.password = "123456";*/
+*/
+        user.userID = "ali_8";
+        user.name = "ali8";
+        user.email = "ali8@gmail.com";
+        user.password = "123456";
 
         if (filePath != null)
             user.profilePicture = Image_M.getBase64String(filePath, getResources().getInteger(R.integer.image_quality));
+        else
+            user.profilePicture = "";
 
 
-        new RegisterUser(user,ActivityRegister.this).execute();
+        new RegisterUser(context,user,ActivityRegister.this).execute();
     }
 
     // HELP TOUCHED

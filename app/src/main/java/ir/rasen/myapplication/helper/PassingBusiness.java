@@ -18,6 +18,10 @@ public class PassingBusiness {
         return instance;
     }
 
+    public void setValue(Business business){
+        this.business = business;
+    }
+
     public void setValueStep1(Business business) {
         if (business == null) {
             this.business = null;
