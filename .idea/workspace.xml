@@ -50,18 +50,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: ir.rasen.myapplication" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step2.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessGategories.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessGategories.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessSubcategories.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessSubcategories.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Image_M.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Image_M.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/PassingBusiness.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/PassingBusiness.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/RegisterBusiness.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/RegisterBusiness.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/UpdateBusinessProfileInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/UpdateBusinessProfileInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-    </list>
+    <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="" />
     <ignored path="MyApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -91,8 +80,8 @@
       <file leaf-file-name="ActivityNewBusiness_Step1.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2747253" vertical-offset="884" max-vertical-offset="5346">
-              <caret line="85" column="125" selection-start-line="85" selection-start-column="125" selection-end-line="85" selection-end-column="125" />
+            <state vertical-scroll-proportion="0.35531136" vertical-offset="884" max-vertical-offset="5346">
+              <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
               <folding>
                 <element signature="e#3147#3177#0" expanded="true" />
                 <element signature="e#4436#4444#0" expanded="true" />
@@ -2378,8 +2367,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2747253" vertical-offset="884" max-vertical-offset="5346">
-          <caret line="85" column="125" selection-start-line="85" selection-start-column="125" selection-end-line="85" selection-end-column="125" />
+        <state vertical-scroll-proportion="0.35531136" vertical-offset="884" max-vertical-offset="5346">
+          <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
           <folding>
             <element signature="e#3147#3177#0" expanded="true" />
             <element signature="e#4436#4444#0" expanded="true" />
