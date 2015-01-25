@@ -23,8 +23,8 @@ public class ActivitySplash extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        /*if(LoginInfo.isLoggedIn(this))
-            gotoActivity(ActivityMain.class);*/
+        if(LoginInfo.isLoggedIn(this))
+            gotoActivity(ActivityMain.class);
 
         setContentView(R.layout.activity_splash_screen);
 
