@@ -93,6 +93,7 @@
     <string name="followers_num">دنبال کننده</string>
     <string name="friend_requests">درخواست های دوستی</string>
     <string name="accept_or_ignore_requests">درخواست ها را تأیید و یا رد کنید.</string>
+    <string name="invalid_birthday">خطا در تاریخ تولد وارد شده!</string>
 
     <!-- SEARCH -->
     <string name="search_title">عنوان جستجو</string>
