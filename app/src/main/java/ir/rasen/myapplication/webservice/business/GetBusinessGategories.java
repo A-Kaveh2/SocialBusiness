@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -30,9 +31,9 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
     protected ArrayList<String> doInBackground(Void... voids) {
         ArrayList<String> list = new ArrayList<String>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_CATEGORIES);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_CATEGORIES,null);
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {

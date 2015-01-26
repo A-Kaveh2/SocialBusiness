@@ -8,10 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,11 +24,11 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = "GetBusinessSubcategories";
     private WebserviceResponse delegate = null;
-    private String categroy;
+    private String categroyId;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessSubcategories(String categroy,WebserviceResponse delegate) {
-        this.categroy = categroy;
+    public GetBusinessSubcategories(String categroyId,WebserviceResponse delegate) {
+        this.categroyId = categroyId;
         this.delegate = delegate;
     }
 
@@ -34,10 +36,11 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
     protected ArrayList<String> doInBackground(Void... voids) {
         ArrayList<String> list = new ArrayList<String>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_SUBCATEGORIES);
-        webservicePOST.addParam(Params.CATEGORY, categroy);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_SUBCATEGORIES,new ArrayList<>(
+                Arrays.asList(categroyId)));
+
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {

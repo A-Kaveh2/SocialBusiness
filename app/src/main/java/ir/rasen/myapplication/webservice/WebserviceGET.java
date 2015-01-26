@@ -20,8 +20,10 @@ public class WebserviceGET {
 
     public WebserviceGET(String url, ArrayList<String> paramsList) {
         httpclient = new DefaultHttpClient();
-        for (String param: paramsList){
-            url += "/"+param;
+        if (paramsList != null) {
+            for (String param : paramsList) {
+                url += "/" + param;
+            }
         }
         httpGet = new HttpGet(url);
 
@@ -31,15 +33,19 @@ public class WebserviceGET {
         HttpResponse httpResponse = null;
         try {
             httpResponse = httpclient.execute(httpGet);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
         return ServerAnswer.get(httpResponse);
     }
 
     public ServerAnswer executeList() throws Exception {
-        HttpResponse httpResponse = httpclient.execute(httpGet);
+        HttpResponse httpResponse = null;
+        try {
+            httpResponse = httpclient.execute(httpGet);
+        } catch (Exception e) {
+
+        }
 
         return ServerAnswer.getList(httpResponse);
     }
