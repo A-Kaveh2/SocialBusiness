@@ -50,6 +50,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     private WebserviceResponse webserviceResponse;
     private Context context;
     private ArrayList<String> categoryList;
+    public static Activity step1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         webserviceResponse = this;
         context = this;
+        step1=this;
 
         // SET VALUES
         edtBusinessId = (EditTextFont) findViewById(R.id.edt_business_step1_id);

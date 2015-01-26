@@ -45,6 +45,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
     private WebserviceResponse webserviceResponse;
     private Context context;
 
+    private Post post;
 
 	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
 		super(context, R.layout.layout_post_home, posts);
@@ -57,7 +58,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 	@Override
 	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
-        final Post post = mPosts.get(position);
+        post = mPosts.get(position);
         final String postId = post.id;
 
         if (convertView == null) {
@@ -219,10 +220,11 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
     public void showDeletePopup(WebserviceResponse webserviceResponse) {
         //TODO where is business.id and post.id?
+            // TODO ANSWER:: post.businessID and post.id prepared for you
         // SHOWING POPUP WINDOW
         Functions functions = new Functions();
 
-        //"1": business.id
+        //"1": post.businessID
         //"4": post.id
         functions.showPostDeletePopup(getContext(),"1","5",webserviceResponse);
 

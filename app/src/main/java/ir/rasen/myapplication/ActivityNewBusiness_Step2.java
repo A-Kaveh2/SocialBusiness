@@ -85,9 +85,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             new RegisterBusiness(business, webserviceResponse).execute();
         }
 
-
         PassingBusiness.getInstance().setValueStep2(null);
-        //TODO it goes back to the ActivityNewBusiness_Step1
+        ActivityNewBusiness_Step1.step1.finish();
         finish();
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
