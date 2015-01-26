@@ -11,12 +11,17 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 
+import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Permission;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.ui.ButtonFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.UpdateSetting;
 
 /**
  * Created by 'Sina KH'.
  */
-public class ActivitySettings extends Activity {
+public class ActivitySettings extends Activity implements WebserviceResponse {
 
     CheckBox cbFriends, cbBusinesses, cbReviews;
 
@@ -36,21 +41,23 @@ public class ActivitySettings extends Activity {
 
     // SWITCH FRIENDS
     public void switch_friends(View view) {
-        if(cbFriends.isChecked())
+        if (cbFriends.isChecked())
             cbFriends.setChecked(false);
         else
             cbFriends.setChecked(true);
     }
+
     // SWITCH BUSINESSES
     public void switch_businesses(View view) {
-        if(cbBusinesses.isChecked())
+        if (cbBusinesses.isChecked())
             cbBusinesses.setChecked(false);
         else
             cbBusinesses.setChecked(true);
     }
+
     // SWITCH REVIEWS
     public void switch_reviews(View view) {
-        if(cbReviews.isChecked())
+        if (cbReviews.isChecked())
             cbReviews.setChecked(false);
         else
             cbReviews.setChecked(true);
@@ -58,8 +65,16 @@ public class ActivitySettings extends Activity {
 
     // SAVE TOUCHED
     public void save(View view) {
-        // TODO SAVE NOW!
-        // .....
+        Permission permission = new Permission();
+        permission.followedBusiness = cbBusinesses.isChecked();
+        permission.friends = cbFriends.isChecked();
+        permission.reviews = cbReviews.isChecked();
+
+        //TODO remove test part
+        //new UpdateSetting(LoginInfo.getUserId(ActivitySettings.this), permission, ActivitySettings.this).execute();
+
+        //TODO for the test
+        new UpdateSetting("ali_1", permission, ActivitySettings.this).execute();
     }
 
     public void setAnimations() {
@@ -76,12 +91,25 @@ public class ActivitySettings extends Activity {
         animationSetBtn.addAnimation(anim_fromDown);
         ((ButtonFont) findViewById(R.id.btn_settings_save)).startAnimation(animationSetBtn);
     }
+
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
+
     public void back(View view) {
         onBackPressed();
     }
 
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ResultStatus) {
+            //TODO display success status
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+        //TODO display error message
+    }
 }

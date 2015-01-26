@@ -3,11 +3,15 @@ package ir.rasen.myapplication.webservice.user;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -23,22 +27,23 @@ public class UpdateSetting extends AsyncTask<Void, Void, ResultStatus> {
     private Permission permission;
     private ServerAnswer serverAnswer;
 
-    public UpdateSetting(String userID, Permission permission) {
+    public UpdateSetting(String userID, Permission permission,WebserviceResponse delegate) {
         this.userID = userID;
         this.permission = permission;
+        this.delegate = delegate;
 
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_SETTING);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.PERMISSION_FOLLOWED_BUSINESSES, String.valueOf(permission.followedBusiness));
-        webservicePOST.addParam(Params.PERMISSION_FRIENDS, String.valueOf(permission.friends));
-        webservicePOST.addParam(Params.PERMISSION_REVIEWS, String.valueOf(permission.reviews));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.UPDATE_SETTING,new ArrayList<>(
+                Arrays.asList(userID,
+                        String.valueOf(permission.followedBusiness),
+                        String.valueOf(permission.friends),
+                        String.valueOf(permission.reviews))));
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

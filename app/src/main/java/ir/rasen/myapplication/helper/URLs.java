@@ -22,7 +22,7 @@ public class URLs {
     public static String GET_FOLLOWING_BUSINESSES = MAIN_URL+"getUserFollowedBusinesses";
     public static String GET_USER_FRIENDS = MAIN_URL+"get_user_friends";
     public static String GET_USER_FRIEND_REQUEST = MAIN_URL+"get_user_friend_request";
-    public static String UPDATE_SETTING = MAIN_URL+"get_following_businesses";
+    public static String UPDATE_SETTING = MAIN_URL+"updateUserPermission";
     public static String GET_POSTS = MAIN_URL+"get_posts";
     public static String GET_SHARED_POSTS = MAIN_URL+"get_shared_posts";
     public static String LIKE = MAIN_URL+"like";

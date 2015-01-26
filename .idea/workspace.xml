@@ -50,28 +50,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityMain.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/BusinessesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/BusinessesAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/BusinessesAdapterResult.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/BusinessesAdapterResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/CommentsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/CommentsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/FollowersAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/FollowersAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/FriendsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/FriendsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetFollowingBusinesses.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetFollowingBusinesses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetUserHomeInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetUserHomeInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/HomePostsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/HomePostsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/InnerFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/InnerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/PostsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/PostsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/ProfileReviewsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/ProfileReviewsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/RequestConfirmation.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/RequestConfirmation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/RequestsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/RequestsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/ReviewsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/ReviewsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/TextProcessor.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/TextProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/UserResultsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/UserResultsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/UsersBusinessesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/adapters/UsersBusinessesAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/UpdateSetting.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/UpdateSetting.java" />
     </list>
     <ignored path="MyApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -129,14 +110,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FragmentBusinesses.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FragmentBusinesses.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54212457" vertical-offset="3529" max-vertical-offset="4200">
-              <caret line="176" column="50" selection-start-line="176" selection-start-column="50" selection-end-line="176" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3529" max-vertical-offset="4200">
+              <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
               <folding>
                 <element signature="e#6050#6060#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivitySettings.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.2820513" vertical-offset="1104" max-vertical-offset="2575">
+              <caret line="112" column="36" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateSetting.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/UpdateSetting.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1375">
+              <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -146,16 +147,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="393" max-vertical-offset="1575">
               <caret line="48" column="10" selection-start-line="46" selection-start-column="11" selection-end-line="48" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetFollowingBusinesses.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetFollowingBusinesses.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="954" max-vertical-offset="1500">
-              <caret line="62" column="66" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -1176,8 +1167,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/WebservicePOST.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityLogin.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Params.java" />
@@ -1224,9 +1213,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetUserHomeInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/RequestConfirmation.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentProfile.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetFollowingBusinesses.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/UpdateSetting.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java" />
       </list>
     </option>
   </component>
@@ -1492,6 +1483,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myapplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -1737,7 +1754,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1755,7 +1772,7 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47529814" sideWeight="0.5763994" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22844176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22844176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35775128" sideWeight="0.5816944" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1979,30 +1996,17 @@
           <properties />
           <option name="timeStamp" value="89" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java</url>
+          <line>29</line>
+          <properties />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="90" />
+      <option name="time" value="91" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/UpdateBusinessProfileInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3956044" vertical-offset="400" max-vertical-offset="1628">
-          <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile_edit.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.287594" vertical-offset="1409" max-vertical-offset="3146">
-          <caret line="71" column="58" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/PassingBusiness.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43291593" vertical-offset="220" max-vertical-offset="1452">
@@ -2354,34 +2358,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/classes/Business.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="343" max-vertical-offset="1650">
-          <caret line="21" column="87" selection-start-line="21" selection-start-column="87" selection-end-line="21" selection-end-column="87" />
+        <state vertical-scroll-proportion="-0.47584972" vertical-offset="466" max-vertical-offset="1025">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/Login.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48351648" vertical-offset="586" max-vertical-offset="2075">
-          <caret line="49" column="47" selection-start-line="48" selection-start-column="56" selection-end-line="49" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3529" max-vertical-offset="4200">
+          <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
+          <folding>
+            <element signature="e#6050#6060#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="418" max-vertical-offset="1650">
+          <caret line="24" column="72" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/GetFollowingBusinesses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="954" max-vertical-offset="1500">
+        <state vertical-scroll-proportion="0.4047619" vertical-offset="954" max-vertical-offset="1500">
           <caret line="62" column="66" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/classes/Business.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.47584972" vertical-offset="466" max-vertical-offset="1025">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2394,13 +2400,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentBusinesses.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54212457" vertical-offset="3529" max-vertical-offset="4200">
-          <caret line="176" column="50" selection-start-line="176" selection-start-column="50" selection-end-line="176" selection-end-column="50" />
-          <folding>
-            <element signature="e#6050#6060#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.48351648" vertical-offset="586" max-vertical-offset="2075">
+          <caret line="49" column="47" selection-start-line="48" selection-start-column="68" selection-end-line="49" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/UpdateSetting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1375">
+          <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2820513" vertical-offset="1104" max-vertical-offset="2575">
+          <caret line="112" column="36" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
