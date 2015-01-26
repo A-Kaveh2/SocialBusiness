@@ -3,4 +3,4 @@
     android:shape="rectangle">
     <solid android:color="@color/red" />
     <corners android:radius="10dp" />
-</shape><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/drawable/style_textview_on_pic_normal.xml -->
+</shape><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_textview_on_pic_normal.xml -->

@@ -2,6 +2,7 @@ package ir.rasen.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,11 +21,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
 
+import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.Image_M;
@@ -44,8 +52,9 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     EditTextFont edtName, edtAboutMe;
     ImageButton imbProfilePicture;
     TextViewFont txtBirthDate;
+    Spinner spinnerSex;
     String filePath;
-    User user;
+    User user = new User();
     Context context;
 
     @Override
@@ -61,6 +70,26 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         edtAboutMe = (EditTextFont) findViewById(R.id.edt_profile_edit_about_me);
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_profile_edit_picture_set);
         txtBirthDate = (TextViewFont) findViewById(R.id.edt_profile_edit_birthday);
+        spinnerSex = (Spinner) findViewById(R.id.spinner_profile_edit_sex);
+
+        ArrayList<String> sexList = new ArrayList<>();
+        sexList.add(getString(R.string.sex_unknown));
+        sexList.add(getString(R.string.sex_male));
+        sexList.add(getString(R.string.sex_female));
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, R.layout.layout_item_text, sexList);
+        spinnerSex.setAdapter(categoryAdapter);
+        spinnerSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // TODO: SET USER'S SEX
+                //user.sex = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         // SET ANIMATIONS
         setAnimations();
@@ -122,16 +151,50 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     public void changePassword(View view) {
 
         // TODO DISPLAY CHANGE PASSWORD DIALOG
-        user.password = "new password";
+        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_change_password);
+        final EditTextFont pass_old = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_password_old);
+        final EditTextFont pass1 = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_password_new);
+        final EditTextFont pass2 = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_password_new2);
+        dialog.findViewById(R.id.btn_profile_edit_password_change).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!user.password.equals(pass_old.getText().toString())) {
+                    pass_old.requestFocus();
+                    pass_old.setError(getString(R.string.err_profile_edit_password_old_incorrect));
+                    return;
+                }
+                if (!pass1.getText().toString().equals(pass2.getText().toString())) {
+                    pass2.requestFocus();
+                    pass2.setError(getString(R.string.enter_same_passwords));
+                    return;
+                }
+                user.password = pass1.getText().toString();
+                Functions.showMessage(context, getString(R.string.password_will_change));
+            }
+        });
+        dialog.show();
     }
 
     // BIRTHDATE TOUCHED
     public void changeBirthDate(View view) {
-
         // TODO DISPLAY CHANGE BIRTHDATE DIALOG
-        user.birthDate = "new birthdate";
+        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_change_birthday);
+        final EditTextFont year = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_year);
+        final EditTextFont month = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_month);
+        final EditTextFont day = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_day);
+        dialog.findViewById(R.id.btn_profile_edit_birthday_change).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.birthDate = year.getText().toString()+"/"+month.getText().toString()+"/"+day.getText().toString();
+                txtBirthDate.setText(user.birthDate);
+            }
+        });
+        dialog.show();
     }
-
 
     // SAVE TOUCHED
     public void save(View view) {
@@ -149,7 +212,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         if (filePath != null)
             user.profilePicture = Image_M.getBase64String(filePath);
 
-        //TODO user.sex
+        // TODO SET TO USER'S SEX
+        spinnerSex.setSelection(1);
 
         new UpdateUserProfile(user).execute();
     }

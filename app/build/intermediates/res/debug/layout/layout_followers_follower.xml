@@ -46,4 +46,4 @@
         android:layout_height="1dp"
         android:background="@color/gray_lighter"
         android:layout_below="@+id/rl_followers_follower"/>
-</RelativeLayout><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/layout_followers_follower.xml -->
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_followers_follower.xml -->

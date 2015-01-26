@@ -37,10 +37,11 @@
         android:layout_below="@+id/rl_profile_actionbar"
         android:background="@color/background" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btn_profile_edit_picture_set"
@@ -48,7 +49,6 @@
                 android:layout_height="96dp"
                 android:background="@color/background"
                 android:src="@drawable/ic_edittext_name"
-                android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
                 android:layout_margin="8dp"
                 android:onClick="setPicture"/>
@@ -59,13 +59,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:layout_margin="8dp"
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="textEmailAddress"
-                android:layout_below="@+id/btn_profile_edit_picture_set"
                 android:drawableLeft="@drawable/ic_edittext_email" />
 
             <ir.rasen.myapplication.ui.EditTextFont
@@ -74,31 +72,35 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/status"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:layout_margin="8dp"
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="textShortMessage"
                 android:selectAllOnFocus="true"
-                android:layout_below="@+id/edt_profile_edit_name"
                 android:drawableLeft="@drawable/ic_edittext_status" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_profile_edit_sex"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp" />
 
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/edt_profile_edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_centerHorizontal="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:layout_margin="8dp"
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
-                android:layout_below="@+id/edt_profile_edit_status"
                 android:drawableLeft="@drawable/ic_edittext_password"
                 android:text="@string/password_change"
-                android:onClick="changePassword"/>
+                android:onClick="changePassword"
+                android:clickable="true"/>
 
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/edt_profile_edit_birthday"
@@ -112,18 +114,15 @@
                 android:layout_margin="8dp"
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
-                android:layout_below="@+id/edt_profile_edit_password"
                 android:drawableLeft="@drawable/ic_edittext_date"
-                android:onClick="changeBirthDate"/>
-
-
+                android:onClick="changeBirthDate"
+                android:clickable="true"/>
 
             <ir.rasen.myapplication.ui.ButtonFont
                 android:id="@+id/btn_profile_edit_save"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/button_height"
                 android:gravity="center"
-                android:layout_below="@+id/edt_profile_edit_birthday"
                 android:layout_centerHorizontal="true"
                 android:text="@string/save"
                 android:layout_marginTop="8dp"
@@ -132,7 +131,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:onClick="save" />
 
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

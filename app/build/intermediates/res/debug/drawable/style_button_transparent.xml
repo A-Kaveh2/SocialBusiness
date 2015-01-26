@@ -3,4 +3,4 @@
   <item android:state_pressed="true"
    android:drawable="@color/button_on_dark_darker_opacity" /> <!-- pressed -->
   <item android:drawable="@android:color/transparent" /> <!-- default -->
-</selector><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/drawable/style_button_transparent.xml -->
+</selector><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_button_transparent.xml -->

@@ -53,4 +53,4 @@
         android:layout_height="@dimen/activity_vertical_margin_1of4"
         android:layout_below="@+id/img_home_post_business_pic"/>
 
-</RelativeLayout><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/layout_post_header.xml -->
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_post_header.xml -->

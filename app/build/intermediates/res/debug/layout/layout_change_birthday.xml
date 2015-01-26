@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+     <ir.rasen.myapplication.ui.EditTextFont
+         android:id="@+id/edt_profile_edit_birthday_year"
+         android:layout_width="0dp"
+         android:layout_height="@dimen/actionbar_height"
+         android:layout_weight="1"
+		android:gravity="center"
+         android:layout_margin="4dp"
+         android:singleLine="true"
+         android:inputType="textPassword"
+         android:hint="@string/time_year"
+         android:textAppearance="@android:style/TextAppearance.Large" />
+    <ir.rasen.myapplication.ui.EditTextFont
+         android:id="@+id/edt_profile_edit_birthday_month"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_weight="1"
+		android:gravity="center"
+         android:layout_margin="4dp"
+         android:singleLine="true"
+         android:inputType="textPassword"
+         android:hint="@string/time_month"
+         android:textAppearance="@android:style/TextAppearance.Large" />
+	<ir.rasen.myapplication.ui.EditTextFont
+    	android:id="@+id/edt_profile_edit_birthday_day"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+		android:gravity="center"
+        android:singleLine="true"
+         android:inputType="textPassword"
+        android:hint="@string/time_day"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+    </LinearLayout>
+
+	<ir.rasen.myapplication.ui.ButtonFont
+          android:id="@+id/btn_profile_edit_birthday_change"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="4dp"
+        android:background="@drawable/style_button_on_dark"
+          android:text="@string/submit"
+	android:textColor="@android:color/white"
+	android:textAppearance="@android:style/TextAppearance.Large" />
+
+</LinearLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_change_birthday.xml -->

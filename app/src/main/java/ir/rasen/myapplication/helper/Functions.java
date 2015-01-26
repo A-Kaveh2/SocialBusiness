@@ -171,7 +171,7 @@ public class Functions {
         dialog.show();
     }
 
-    void showCustomizedDialog(Context context, AlertDialog.Builder builder) {
+    static void showCustomizedDialog(Context context, AlertDialog.Builder builder) {
         Dialog dialog = builder.show();
         Typeface tf = getTypeface(context);
         ((TextView) dialog.findViewById(android.R.id.message)).setTypeface(tf);
@@ -186,17 +186,16 @@ public class Functions {
     }
 
     public static void showMessage(Context context, String message) {
-        new AlertDialog.Builder(context)
-                .setTitle(R.string.popup_warning)
-                .setMessage(message)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+            .setTitle(R.string.popup_warning)
+            .setMessage(message)
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert);
+        showCustomizedDialog(context, builder);
     }
 
 }

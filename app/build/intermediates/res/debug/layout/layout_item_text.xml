@@ -7,4 +7,4 @@
     android:textColor="@android:color/black"
     android:textSize="@dimen/text_size_normal"
     android:gravity="center"
-    android:minHeight="@dimen/actionbar_height"/><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/layout_item_text.xml -->
+    android:minHeight="@dimen/actionbar_height"/><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_item_text.xml -->

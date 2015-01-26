@@ -97,4 +97,4 @@
         android:layout_below="@+id/rl_reviews_review"
         android:id="@+id/linearLayout"
         android:orientation="horizontal"/>
-</RelativeLayout><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/layout/layout_reviews_review.xml -->
+</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_reviews_review.xml -->

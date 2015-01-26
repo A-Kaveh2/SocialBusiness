@@ -2,4 +2,4 @@
     android:shape="rectangle">
     <solid android:color="@color/opacity5"/>
     <corners android:radius="5dp" />
-</shape><!-- From: file:/E:/Android/Workspace/RASENMyApplication/app/src/main/res/drawable/style_button_splash_pressed.xml -->
+</shape><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_button_splash_pressed.xml -->

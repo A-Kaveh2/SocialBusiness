@@ -24,6 +24,10 @@
     <!-- PROFILE -->
     <string name="profile">حساب کاربری</string>
     <string name="profile_edit_profile">ویرایش حساب</string>
+    <string name="old_password">رمز عبور قبلی</string>
+    <string name="new_password">رمز عبور جدید</string>
+    <string name="change_password">تغییر رمز عبور</string>
+    <string name="password_will_change">کلمه ی عبور پس از ذخیره ی تغییرات تغییر خواهد یافت.</string>
 
     <!-- ERRORS -->
     <string name="enter_valid_username">نام کاربری حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
@@ -53,6 +57,7 @@
     <string name="err_login_server">خطای برقرار ارتباط با سرور.</string>
     <string name="err_login_password_incorrect">رمز عبور اشتباه است. مجددا سعی نمایید</string>
     <string name="err_login_email_incorrect">چنین آدرس پست الکترونیکی ثبت نشده است. مجددا سعی نمایید</string>
+    <string name="err_profile_edit_password_old_incorrect">رمز عبور صحیح نمی باشد.</string>
 
     <string name="err_execution">Execution Error</string>
     <string name="err_none">None</string>
@@ -248,4 +253,9 @@
     <string name="camera">دوربین</string>
     <string name="gallery">گالری</string>
     <string name="choose_photo">انتخاب تصویر</string>
+
+    <!-- SEX -->
+    <string name="sex_unknown">جنسیت انتخاب نشده</string>
+    <string name="sex_male">مرد</string>
+    <string name="sex_female">زن</string>
 </resources>
