@@ -11,9 +11,11 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 
+import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.UpdateSetting;
@@ -105,11 +107,14 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     public void getResult(Object result) {
         if(result instanceof ResultStatus) {
             //TODO display success status
+            Functions.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
         //TODO display error message
+        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+        Functions.showMessage(ActivitySettings.this, errorMessage);
     }
 }

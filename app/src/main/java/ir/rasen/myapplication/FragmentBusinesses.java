@@ -39,6 +39,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     private String userId;
     private static String webServiceUserID;
 
+    private ArrayList<Business> businesses;
+
     public static FragmentBusinesses newInstance(String userId) {
         FragmentBusinesses fragment = new FragmentBusinesses();
 
@@ -89,12 +91,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
         // TODO: Change Adapter to display your content
-        ArrayList<Business> businesses = new ArrayList<Business>();
+        businesses = new ArrayList<Business>();
 
         /*
             for example, i've made some fake data to show ::
         */
-        Business b1 = new Business();
+       /* Business b1 = new Business();
         Business b2 = new Business();
         Business b3 = new Business();
         b1.name = ("RASEN");
@@ -106,7 +108,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
 
         mAdapter = new BusinessesAdapter(getActivity(), businesses);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
-
+*/
         return view;
     }
 
@@ -165,7 +167,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     @Override
     public void getResult(Object result) {
         if (result instanceof ArrayList) {
-            ArrayList<Business> businesses = new ArrayList<Business>();
+            businesses = new ArrayList<Business>();
             Business business = null;
             ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
             for (SearchItemUserBusiness item : searchItemUserBusinesses) {
@@ -175,6 +177,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
                 businesses.add(business);
             }
             //TODO use business to intial listview
+            mAdapter = new BusinessesAdapter(getActivity(), businesses);
+            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
         }
     }
 

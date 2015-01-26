@@ -42,6 +42,8 @@ import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
+import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
@@ -79,6 +81,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     private boolean isBusinessProfile = false;
     private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
     private static RunningWebserviceType runningWebserviceType;
+
+    private ArrayList<Post> posts;
+
+    private Bitmap profile_pic, cover_pic;
 
     public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String profileId) {
         FragmentProfile fragment = new FragmentProfile();
@@ -288,7 +294,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
 
         // TODO: NOW LOAD AND SHOW PROFILES DETAILS BASED ON PROFILE TYPE
         // for example, i've made some fake data in user and business::
-        profile_business = new Business();
+/*        profile_business = new Business();
         profile_business.location_m = new Location_M("35.7014396", "51.3498186");
         profile_business.businessID = "RASEN Corporation";
         profile_business.name = "شرکت نرم افزاری راسن";
@@ -316,56 +322,17 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         profile_user.reviewsNumber = 12;
         profile_user.friendsNumber = 6;
         profile_user.aboutMe = "عشق یعنی انتظار, تو دل یه مادر بی قرار";
+*/
 
-        // TODO: THEN RUN THIS ::
-        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.name);
-            ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(R.string.call_info);
-            // MY OWN BUSINESS
-            if (profileOwn == true) {
-                myOwnBusiness();
-            } else { // SOMEONE'S BUSINESS
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
-                // FRIEND REQUEST
-                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendFollowRequest();
-                    }
-                });
-            }
-        } else if (profileType == Params.ProfileType.PROFILE_USER) {
-            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber + " " + getString(R.string.review));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber + " " + getString(R.string.business));
-            // MY OWN USER'S PROFILE
-            if (profileOwn == true) {
-                myOwnProfile();
-            } else { // SOMEONE'S PROFILE
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
-                // FRIEND REQUEST
-                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendFriendRequest();
-                    }
-                });
-            }
-        }
 
         // TODO:: AFTER LOADING DATA COMPLETELY
         header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.VISIBLE);
         // TODO: Change Adapter to display your content
-        ArrayList<Post> posts = new ArrayList<Post>();
+        posts = new ArrayList<Post>();
         /*
             for example, i've made some fake data to show ::
         */
-        Post post1 = new Post();
+        /*Post post1 = new Post();
         Post post2 = new Post();
         Post post3 = new Post();
         post1.businessID = "راسن";
@@ -394,7 +361,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         post3.title = "عنوان!!";
         post3.lastThreeComments = lastThreeComments;
         posts.add(post3);
-
+*/ // TODO: FOR TEST::
         listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
         grid.setAdapter(gridAdapter);
@@ -521,8 +488,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             String userId = user.userID;
             String name = user.name;
             String aboutMe = user.aboutMe;
-            Bitmap profilePicture = Image_M.getBitmapFromString(user.profilePicture);
-            Bitmap coverPicture = Image_M.getBitmapFromString(user.coverPicture);
+            profile_pic = Image_M.getBitmapFromString(user.profilePicture);
+            cover_pic = Image_M.getBitmapFromString(user.coverPicture);
             int friendRequestNumber = user.friendRequestNumber;
             int reviewsNumber = user.reviewsNumber;
             int followedBusinessNumber = user.followedBusinessesNumber;
@@ -531,6 +498,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
 
             //TODO assign
+            profileType = Params.ProfileType.PROFILE_USER;
+            assignNow();
 
             if (!isBusinessProfile) {
                 new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
@@ -548,12 +517,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             //TODO assign
             if(runningWebserviceType == RunningWebserviceType.getUserPosts){
                 //user shared posts
-                ArrayList<Post> posts = (ArrayList<Post>) result;
+                posts = (ArrayList<Post>) result;
             }
             else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
                 //business posts
-                ArrayList<Post> posts = (ArrayList<Post>) result;
+                posts = (ArrayList<Post>) result;
             }
+            listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
+            gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
+            grid.setAdapter(gridAdapter);
 
         }
         else if (result instanceof Business){
@@ -561,6 +533,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             Business business = (Business)result;
 
             //TODO assign business
+            profileType = Params.ProfileType.PROFILE_BUSINESS;
+            profile_pic = Image_M.getBitmapFromString(business.profilePicture);
+            cover_pic = Image_M.getBitmapFromString(business.coverPicture);
+
+            assignNow();
         }
     }
 
@@ -570,5 +547,50 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         //TODO display error
         String errorMessage = ServerAnswer.getError(cont, errorCode);
         Functions.showMessage(cont, errorMessage);
+    }
+
+    private void assignNow() {
+        // TODO assigning values - uncomment these 2 lines:
+        //((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(profile_pic);
+        //((ImageViewSquare) header.findViewById(R.id.img_profile_cover)).setImageBitmap(cover_pic);
+        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
+            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.name);
+            ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(R.string.call_info);
+            // MY OWN BUSINESS
+            if (profileOwn == true) {
+                myOwnBusiness();
+            } else { // SOMEONE'S BUSINESS
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
+                // FRIEND REQUEST
+                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendFollowRequest();
+                    }
+                });
+            }
+        } else if (profileType == Params.ProfileType.PROFILE_USER) {
+            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber + " " + getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber + " " + getString(R.string.business));
+            // MY OWN USER'S PROFILE
+            if (profileOwn == true) {
+                myOwnProfile();
+            } else { // SOMEONE'S PROFILE
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+                // FRIEND REQUEST
+                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendFriendRequest();
+                    }
+                });
+            }
+        }
     }
 }

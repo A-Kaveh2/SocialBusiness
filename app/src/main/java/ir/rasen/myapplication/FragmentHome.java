@@ -291,8 +291,9 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
-       //TODO
-        String s = "";
+        //TODO display error message
+        String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+        Functions.showMessage(getActivity(), errorMessage);
     }
 /*
     void autoHideActionBar() {
@@ -312,7 +313,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
                             case MotionEvent.ACTION_MOVE:
                                 if(isMovingActionBar) delta = event.getY();
                                 if (actionBarShown && event.getY() - delta < - Params.ActionBarSensitivity.TO_HIDE) {
-                                    // TODO :: HIDE ACTIONBAR
+                                    // HIDE ACTIONBAR
                                     /*final Handler moveHandler = new Handler();
                                     Runnable hider;
                                     //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){ // API_LEVEL <11
@@ -349,7 +350,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
                                     actionBar.setVisibility(View.GONE);
                                     //moveHandler.post(hider);
                                 } else if (!actionBarShown && (event.getY() - delta > Params.ActionBarSensitivity.TO_SHOW)) {// || (((AbsListView) mListView).getChildAt(0).getTop()==0))) {
-                                    // TODO :: SHOW ACTIONBAR
+                                    // SHOW ACTIONBAR
                                     //final Handler moveHandler = new Handler();
                                     //Runnable viewer;
                                     //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // API_LEVEL <11

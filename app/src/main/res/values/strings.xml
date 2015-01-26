@@ -126,6 +126,7 @@
     <string name="reviews">نقد ها</string>
     <string name="review">نقد</string>
     <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
+    <string name="settings_saved">ذخیره سازی انجام شد.</string>
 
     <!-- EDIT -->
     <string name="share">به اشتراک گذاری</string>

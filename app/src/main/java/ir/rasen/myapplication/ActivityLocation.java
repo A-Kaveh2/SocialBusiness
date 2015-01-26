@@ -45,11 +45,6 @@ public class ActivityLocation extends FragmentActivity {
         setUpMapIfNeeded();
     }
 
-    // SET PICTURE
-    public void setPicture(View view) {
-        // TODO SET PICTURE NOW
-    }
-
     // SUBMIT TOUCHED
     public void submit(View view) {
         Intent i = new Intent();
