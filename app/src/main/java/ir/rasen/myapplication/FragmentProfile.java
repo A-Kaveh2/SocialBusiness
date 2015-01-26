@@ -38,17 +38,23 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
+import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
+import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
+import ir.rasen.myapplication.webservice.post.GetSharedPosts;
+import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentProfile extends Fragment implements WebserviceResponse{
+public class FragmentProfile extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentProfile";
 
     private SwipeRefreshLayout swipeView;
@@ -56,7 +62,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
     private ImageButton btnGrid, btnList;
 
     private View view, listFooterView, header;
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private ListAdapter mAdapter;
 
     private int profileType; // returns the type, USER or BUSINESS
@@ -70,8 +76,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
 
     private WebserviceResponse webserviceResponse;
     private static Context cont;
+    private boolean isBusinessProfile = false;
+    private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
+    private static RunningWebserviceType runningWebserviceType;
 
-    public static FragmentProfile newInstance (Context context,int profileType, boolean profileOwn, String profileId){
+    public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String profileId) {
         FragmentProfile fragment = new FragmentProfile();
 
         cont = context;
@@ -101,7 +110,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
             profileOwn = bundle.getBoolean(Params.PROFILE_OWN);
-            profileId=bundle.getString(Params.ID);
+            profileId = bundle.getString(Params.ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -109,12 +118,26 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         }
 
 
-        //TODO remove test part
-        //get user home info by sending user_id
-        //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+        if(!isBusinessProfile) {
+            //get user home info
 
-        //TODO for the test
-        //new GetUserHomeInfo("ali_1",webserviceResponse).execute();
+            //TODO remove test part
+            //get user home info by sending user_id
+            //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+
+
+            //TODO for the test
+            new GetUserHomeInfo("ali_1", webserviceResponse).execute();
+            runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+        }
+        else{
+            //get business home info
+
+            //TODO remove test part
+            new GetBusinessHomeInfo("food_1",FragmentProfile.this).execute();
+            runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
+
+        }
 
     }
 
@@ -124,10 +147,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         this.view = view;
 
-        header = (View)getActivity().getLayoutInflater().inflate(R.layout.fragment_profile_header,null);
+        header = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_profile_header, null);
 
         // check if back button should be visible or not!
-        if(((ActivityMain) getActivity()).fragCount[((ActivityMain) getActivity()).pager.getCurrentItem()] == 0)
+        if (((ActivityMain) getActivity()).fragCount[((ActivityMain) getActivity()).pager.getCurrentItem()] == 0)
             header.findViewById(R.id.btn_profile_back).setVisibility(View.GONE);
 
         btnGrid = (ImageButton) header.findViewById(R.id.btn_profile_grid);
@@ -177,7 +200,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         });
 
         // SLIDING DRAWER
-        if(((ActivityMain) getActivity()).pager.getCurrentItem()==2)
+        if (((ActivityMain) getActivity()).pager.getCurrentItem() == 2)
             ((ActivityMain) getActivity()).rightDrawer();
         header.findViewById(R.id.btn_profile_drawer).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +212,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         ((ImageView) header.findViewById(R.id.img_profile_option1)).setImageResource(R.drawable.ic_menu_user);
         ((ImageView) header.findViewById(R.id.img_profile_option2)).setImageResource(R.drawable.ic_menu_reviews);
         // PROFILE
-        if(profileType==Params.ProfileType.PROFILE_USER) {
+        if (profileType == Params.ProfileType.PROFILE_USER) {
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_businesses);
             // FRIENDS
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
@@ -216,7 +239,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
                 }
             });
             // MY OWN USER'S PROFILE
-            if(profileOwn==true) {
+            if (profileOwn == true) {
                 myOwnProfile();
             } else {
                 // SOMEONE'S PROFILE ( will be processed after loading data )
@@ -224,7 +247,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
             }
         }
         // BUSINESS
-        if(profileType==Params.ProfileType.PROFILE_BUSINESS) {
+        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setVisibility(View.GONE);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setVisibility(View.VISIBLE);
             // TODO: SHOULD BE REPLACED WITH ic_menu_call::
@@ -233,7 +256,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(profile_business==null) return;
+                    if (profile_business == null) return;
                     PassingBusiness.getInstance().setValue(profile_business);
                     InnerFragment innerFragment = new InnerFragment(getActivity());
                     innerFragment.newCallInfo();
@@ -255,7 +278,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
                     innerFragment.newFollowers(profileId);
                 }
             });
-            if(profileOwn) {
+            if (profileOwn) {
                 myOwnBusiness();
             } else {
                 // SOMEONE'S PROFILE ( will be processed after loading data )
@@ -266,7 +289,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         // TODO: NOW LOAD AND SHOW PROFILES DETAILS BASED ON PROFILE TYPE
         // for example, i've made some fake data in user and business::
         profile_business = new Business();
-        profile_business.location_m =  new Location_M("35.7014396","51.3498186");
+        profile_business.location_m = new Location_M("35.7014396", "51.3498186");
         profile_business.businessID = "RASEN Corporation";
         profile_business.name = "شرکت نرم افزاری راسن";
         profile_business.followersNumber = 22;
@@ -275,33 +298,35 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         WorkTime workTime = new WorkTime();
         try {
             workTime.setWorkDaysFromString("0,1,2,3");
-        } catch (Exception e) {}
-        workTime.time_open=600;
-        workTime.time_close=1000;
+        } catch (Exception e) {
+        }
+        workTime.time_open = 600;
+        workTime.time_close = 1000;
         profile_business.workTime = workTime;
-        profile_business.email="rasen@rasen.com";
-        profile_business.mobile="09123456789";
-        profile_business.phone="02123456789";
-        profile_business.rate=(float) 4.5;
-        profile_business.webSite="http://www.rasen.com";
+        profile_business.email = "rasen@rasen.com";
+        profile_business.mobile = "09123456789";
+        profile_business.phone = "02123456789";
+        profile_business.rate = (float) 4.5;
+        profile_business.webSite = "http://www.rasen.com";
 
         profile_user = new User();
-        profile_user.userID="sina_kh";
+        profile_user.userID = "sina_kh";
         profile_user.name = "سینا خلیلی";
-        profile_user.followedBusinessesNumber=24;
-        profile_user.reviewsNumber=12;
-        profile_user.friendsNumber=6;
-        profile_user.aboutMe="عشق یعنی انتظار, تو دل یه مادر بی قرار";
+        profile_user.followedBusinessesNumber = 24;
+        profile_user.reviewsNumber = 12;
+        profile_user.friendsNumber = 6;
+        profile_user.aboutMe = "عشق یعنی انتظار, تو دل یه مادر بی قرار";
 
         // TODO: THEN RUN THIS ::
-        if(profileType==Params.ProfileType.PROFILE_BUSINESS) {
+        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.name);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber+" "+getString(R.string.followers_num));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber+" "+getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
             ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(R.string.call_info);
             // MY OWN BUSINESS
-            if (profileOwn == true) { myOwnBusiness();
+            if (profileOwn == true) {
+                myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
                 ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
                 // FRIEND REQUEST
@@ -312,14 +337,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
                     }
                 });
             }
-        } else if(profileType==Params.ProfileType.PROFILE_USER) {
+        } else if (profileType == Params.ProfileType.PROFILE_USER) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
             ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber+" "+getString(R.string.friend));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber+" "+getString(R.string.review));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber+" "+getString(R.string.business));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber + " " + getString(R.string.review));
+            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber + " " + getString(R.string.business));
             // MY OWN USER'S PROFILE
-            if(profileOwn==true) { myOwnProfile();
+            if (profileOwn == true) {
+                myOwnProfile();
             } else { // SOMEONE'S PROFILE
                 ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
                 // FRIEND REQUEST
@@ -369,7 +395,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         post3.lastThreeComments = lastThreeComments;
         posts.add(post3);
 
-        listAdapter = new PostsAdapter(getActivity(), posts,webserviceResponse);
+        listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
         grid.setAdapter(gridAdapter);
     }
@@ -378,8 +404,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         // TODO: SEND FRIEND REQUEST
     }
 
+
+
     void sendFollowRequest() {
-        // TODO: SEND FOLLOW REQUEST
+
+        //TODO insert business_id here
+        //new FollowBusiness(LoginInfo.getUserId(cont),"food_1",FragmentProfile.this).execute();
+
+        //TODO remove test part
+        new FollowBusiness("ali_1", "food_1", FragmentProfile.this).execute();
     }
 
     void myOwnProfile() {
@@ -394,6 +427,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
             }
         });
     }
+
     void myOwnBusiness() {
         ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_business);
         // EDIT BUSINESS
@@ -429,7 +463,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -478,14 +512,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ResultStatus){
-            //delete post,like post,.... result
-        }
-        else if(result instanceof User){
+        if (result instanceof ResultStatus) {
+            //delete post,follow business
+
+        } else if (result instanceof User) {
             //get user home info
-            User user = (User)result;
+            User user = (User) result;
             String userId = user.userID;
-            String name =  user.name;
+            String name = user.name;
             String aboutMe = user.aboutMe;
             Bitmap profilePicture = Image_M.getBitmapFromString(user.profilePicture);
             Bitmap coverPicture = Image_M.getBitmapFromString(user.coverPicture);
@@ -496,7 +530,37 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
             Permission permissions = user.permissions;
             FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
 
-            //TODO user user home info
+            //TODO assign
+
+            if (!isBusinessProfile) {
+                new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                runningWebserviceType = RunningWebserviceType.getUserPosts;
+            }
+            else {
+                new GetBusinessPosts("food_1", 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                runningWebserviceType = RunningWebserviceType.getBustinessPosts;
+            }
+
+        } else if (result instanceof ArrayList) {
+
+
+
+            //TODO assign
+            if(runningWebserviceType == RunningWebserviceType.getUserPosts){
+                //user shared posts
+                ArrayList<Post> posts = (ArrayList<Post>) result;
+            }
+            else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
+                //business posts
+                ArrayList<Post> posts = (ArrayList<Post>) result;
+            }
+
+        }
+        else if (result instanceof Business){
+            //business home info
+            Business business = (Business)result;
+
+            //TODO assign business
         }
     }
 

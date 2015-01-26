@@ -16,15 +16,15 @@ public class URLs {
     public static String REQUEST_CONFIRMATION = MAIN_URL+"requestUserConfirmation";
     public static String UPDATE_PASSWORD = MAIN_URL+"update_password";
     public static String GET_HOME_INFO = MAIN_URL+"getUserHomeInfo";
-    public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"get_home_info";
+    public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"getBusinessHomeInfo";
     public static String GET_PROFILE_INFO = MAIN_URL+"getUserProfileInfo";
     public static String GET_BUSINESS_PROFILE_INFO = MAIN_URL+"get_profile_info";
     public static String GET_FOLLOWING_BUSINESSES = MAIN_URL+"getUserFollowedBusinesses";
     public static String GET_USER_FRIENDS = MAIN_URL+"get_user_friends";
     public static String GET_USER_FRIEND_REQUEST = MAIN_URL+"get_user_friend_request";
     public static String UPDATE_SETTING = MAIN_URL+"updateUserPermission";
-    public static String GET_POSTS = MAIN_URL+"get_posts";
-    public static String GET_SHARED_POSTS = MAIN_URL+"get_shared_posts";
+    public static String GET_POSTS = MAIN_URL+"getBusinessPosts";
+    public static String GET_SHARED_POSTS = MAIN_URL+"getUserSharedPosts";
     public static String LIKE = MAIN_URL+"like";
     public static String DISLIKE = MAIN_URL+"dislike";
     public static String SEND_COMMENT = MAIN_URL+"send_comment";
@@ -46,7 +46,7 @@ public class URLs {
     public static String SEARCH_BUSINESS_NEAR_BY = MAIN_URL+"search_business_location";
     public static String SEARCH_USER = MAIN_URL+"search_user";
     public static String SEARCH_POST= MAIN_URL+"search_post";
-    public static String GET_BUSINESS_FOLLOWERS= MAIN_URL+"get_business_followers";
+    public static String GET_BUSINESS_FOLLOWERS= MAIN_URL+"getBusinessFollowers";
     public static String DELETE_BUSINESS= MAIN_URL+"delete_business";
     public static String BLOCK_USER= MAIN_URL+"block_user";
     public static String UNBLOCK_USER= MAIN_URL+"unblock_user";
@@ -54,7 +54,7 @@ public class URLs {
     public static String RATE_BUSINESS= MAIN_URL+"rate_business";
     public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"get_announcement_comment";
     public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"get_announcement_comment";
-    public static String FOLLOW_BUSINESS= MAIN_URL+"follow_business";
+    public static String FOLLOW_BUSINESS= MAIN_URL+"followBusiness";
     public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";
     public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"getBusinessSubCategories";
 }

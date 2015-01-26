@@ -23,4 +23,5 @@
     <integer name="interval_time">5000</integer>
     <integer name="image_quality">75</integer>
     <integer name="image_size">640</integer>
+    <integer name="lazy_load_limitation">20</integer>
 </resources>

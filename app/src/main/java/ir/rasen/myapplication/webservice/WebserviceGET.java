@@ -28,8 +28,13 @@ public class WebserviceGET {
     }
 
     public ServerAnswer execute() throws Exception {
-        HttpResponse httpResponse = httpclient.execute(httpGet);
+        HttpResponse httpResponse = null;
+        try {
+            httpResponse = httpclient.execute(httpGet);
+        }
+        catch (Exception e){
 
+        }
         return ServerAnswer.get(httpResponse);
     }
 
