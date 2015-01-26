@@ -43,12 +43,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private boolean singleTapped;
 
     private WebserviceResponse webserviceResponse;
-
+    private Context context;
 	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
         this.webserviceResponse = webserviceResponse;
+        this.context = context;
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 public void onClick(View view) {
                     // TODO:: OPEN COMMENT's USER's PROFILE
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
                 }
             });
             TextProcessor textProcessor = new TextProcessor(getContext());
@@ -152,14 +153,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
             holder.business_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
 
@@ -167,14 +168,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
 

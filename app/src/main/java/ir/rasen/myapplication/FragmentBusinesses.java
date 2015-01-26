@@ -16,31 +16,36 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentBusinesses extends Fragment {
+public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentBusinesses";
 
     private View view, listFooterView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
 
     // business id is received here
     private String userId;
+    private static String webServiceUserID;
 
-    public static FragmentBusinesses newInstance (String userId){
+    public static FragmentBusinesses newInstance(String userId) {
         FragmentBusinesses fragment = new FragmentBusinesses();
 
         Bundle bundle = new Bundle();
         bundle.putString(Params.USER_ID, userId);
         fragment.setArguments(bundle);
-
+        webServiceUserID = userId;
         return fragment;
     }
 
@@ -54,6 +59,13 @@ public class FragmentBusinesses extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO remove test parts
+        //new GetFollowingBusinesses(webServiceUserID,FragmentBusinesses.this).execute();
+
+        //TODO for the test
+        new GetFollowingBusinesses("ali_1", FragmentBusinesses.this).execute();
+
     }
 
     @Override
@@ -67,7 +79,7 @@ public class FragmentBusinesses extends Fragment {
             userId = bundle.getString(Params.USER_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
-            if(getActivity()!=null) {
+            if (getActivity() != null) {
                 getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
@@ -85,9 +97,9 @@ public class FragmentBusinesses extends Fragment {
         Business b1 = new Business();
         Business b2 = new Business();
         Business b3 = new Business();
-        b1.name=("RASEN");
-        b2.name=("IRAN AIR");
-        b3.name=("کبابی محل");
+        b1.name = ("RASEN");
+        b2.name = ("IRAN AIR");
+        b3.name = ("کبابی محل");
         businesses.add(b1);
         businesses.add(b2);
         businesses.add(b3);
@@ -113,7 +125,7 @@ public class FragmentBusinesses extends Fragment {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -150,4 +162,24 @@ public class FragmentBusinesses extends Fragment {
         });
     }
 
+    @Override
+    public void getResult(Object result) {
+        if (result instanceof ArrayList) {
+            ArrayList<Business> businesses = new ArrayList<Business>();
+            Business business = null;
+            ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
+            for (SearchItemUserBusiness item : searchItemUserBusinesses) {
+                new Business();
+                business.name = item.name;
+                business.profilePicture = item.picture;
+                businesses.add(business);
+            }
+            //TODO use business to intial listview
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
+    }
 }

@@ -29,11 +29,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 public class BusinessesAdapterResult extends ArrayAdapter<Business> implements StickyListHeadersAdapter {
 	private ArrayList<Business> mBusinesses;
 	private LayoutInflater mInflater;
+    private Context context;
 
 	public BusinessesAdapterResult(Context context, ArrayList<Business> businesses) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<Business> implements S
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, business.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.businessID);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });

@@ -154,7 +154,7 @@ public class ActivityMain extends FragmentActivity {
                 case 2:
                     // TODO:: SET UserId to profile's user id ( id ye khode karbar )
                     String userId = "!";
-                    return new FragmentProfile().newInstance(Params.ProfileType.PROFILE_USER, true, userId);
+                    return new FragmentProfile().newInstance(ActivityMain.this,Params.ProfileType.PROFILE_USER, true, userId);
             }
             // CASE 0 :
             btnHome.setBackgroundResource(R.color.text_details);

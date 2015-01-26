@@ -75,7 +75,7 @@ public class TextProcessor {
                     public void onClick(View textView) {
                         // username clicked!
                         InnerFragment innerFragment = new InnerFragment(context);
-                        innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, profileId);
+                        innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, profileId);
                     }
                 };
                 wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

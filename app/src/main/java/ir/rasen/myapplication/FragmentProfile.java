@@ -2,6 +2,7 @@ package ir.rasen.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,12 +28,17 @@ import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.FriendshipRelation;
+import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -63,11 +69,12 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
     ListAdapter listAdapter, gridAdapter;
 
     private WebserviceResponse webserviceResponse;
-    private Context context;
+    private static Context cont;
 
     public static FragmentProfile newInstance (Context context,int profileType, boolean profileOwn, String profileId){
         FragmentProfile fragment = new FragmentProfile();
 
+        cont = context;
         Bundle bundle = new Bundle();
         bundle.putInt(Params.PROFILE_TYPE, profileType);
         bundle.putBoolean(Params.PROFILE_OWN, profileOwn);
@@ -102,8 +109,12 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         }
 
 
+        //TODO remove test part
         //get user home info by sending user_id
-        new GetUserHomeInfo(LoginInfo.getUserId())
+        //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+
+        //TODO for the test
+        //new GetUserHomeInfo("ali_1",webserviceResponse).execute();
 
     }
 
@@ -472,11 +483,28 @@ public class FragmentProfile extends Fragment implements WebserviceResponse{
         }
         else if(result instanceof User){
             //get user home info
+            User user = (User)result;
+            String userId = user.userID;
+            String name =  user.name;
+            String aboutMe = user.aboutMe;
+            Bitmap profilePicture = Image_M.getBitmapFromString(user.profilePicture);
+            Bitmap coverPicture = Image_M.getBitmapFromString(user.coverPicture);
+            int friendRequestNumber = user.friendRequestNumber;
+            int reviewsNumber = user.reviewsNumber;
+            int followedBusinessNumber = user.followedBusinessesNumber;
+            int friendsNumber = user.friendsNumber;
+            Permission permissions = user.permissions;
+            FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
+
+            //TODO user user home info
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        String s = "";
+
+        //TODO display error
+        String errorMessage = ServerAnswer.getError(cont, errorCode);
+        Functions.showMessage(cont, errorMessage);
     }
 }

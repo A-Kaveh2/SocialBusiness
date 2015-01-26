@@ -26,12 +26,14 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 	private ArrayList<User> mFollowers;
 	private LayoutInflater mInflater;
     private boolean mOwnFollowers = false;
+    private Context context;
 
 	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers) {
 		super(context, R.layout.layout_businesses_business, followers);
 		mFollowers	= followers;
 		mInflater	= LayoutInflater.from(context);
         mOwnFollowers = ownFollowers;
+        this.context = context;
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, follower.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, follower.userID);
                 }
             });
             if(mOwnFollowers) {

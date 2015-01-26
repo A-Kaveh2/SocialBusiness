@@ -37,8 +37,8 @@ public class InnerFragment {
     }
 
     // add new profile fragment to current place
-    public void newProfile(int profileType, boolean owner, String profileId) {
-        Fragment newFragment = new FragmentProfile().newInstance(profileType, owner, profileId);
+    public void newProfile(Context context,int profileType, boolean owner, String profileId) {
+        Fragment newFragment = new FragmentProfile().newInstance(context,profileType, owner, profileId);
         addFragment(newFragment);
     }
 

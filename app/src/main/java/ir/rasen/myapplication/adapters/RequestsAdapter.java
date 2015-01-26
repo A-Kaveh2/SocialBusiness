@@ -27,11 +27,13 @@ import ir.rasen.myapplication.ui.TextViewFont;
 public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
 	private ArrayList<SearchItemUserBusiness> mRequests;
 	private LayoutInflater mInflater;
+    private Context context;
 
 	public RequestsAdapter(Context context, ArrayList<SearchItemUserBusiness> requests) {
 		super(context, R.layout.layout_requests_request, requests);
 		mRequests 	= requests;
 		mInflater	= LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
                 public void onClick(View view) {
                     // show request sender's profile
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, request.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, request.userID);
                 }
             });
         }

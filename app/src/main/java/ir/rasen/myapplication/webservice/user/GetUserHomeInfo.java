@@ -5,12 +5,16 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -32,10 +36,11 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
     @Override
     protected User doInBackground(Void... voids) {
         User user = new User();
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_HOME_INFO);
-        webservicePOST.addParam(Params.USER_ID, userID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_HOME_INFO,new ArrayList<>(
+                Arrays.asList(userID)));
+
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();

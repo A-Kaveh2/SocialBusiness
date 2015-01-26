@@ -43,6 +43,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
     private boolean singleTapped;
     private WebserviceResponse webserviceResponse;
+    private Context context;
 
 
 	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
@@ -50,6 +51,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 		mPosts 	= posts;
         this.webserviceResponse = webserviceResponse;
 		mInflater	= LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 public void onClick(View view) {
                     // TODO:: OPEN COMMENT's USER's PROFILE
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
                 }
             });
             TextProcessor textProcessor = new TextProcessor(getContext());
@@ -113,14 +115,14 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
 
@@ -253,14 +255,14 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             @Override
             public void onClick(View view) {
                 InnerFragment innerFragment = new InnerFragment(getContext());
-                innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
             }
         });
         holder.business_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InnerFragment innerFragment = new InnerFragment(getContext());
-                innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
             }
         });
 

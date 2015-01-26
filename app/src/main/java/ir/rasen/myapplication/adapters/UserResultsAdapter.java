@@ -24,11 +24,13 @@ import ir.rasen.myapplication.ui.TextViewFont;
 public class UserResultsAdapter extends ArrayAdapter<User> {
 	private ArrayList<User> mFriends;
 	private LayoutInflater mInflater;
+    private Context context;
 
 	public UserResultsAdapter(Context context, ArrayList<User> friends, boolean ownFriends) {
 		super(context, R.layout.layout_friends_friend, friends);
 		mFriends 	= friends;
 		mInflater	= LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, friend.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.userID);
                 }
             });
         }

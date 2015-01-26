@@ -25,12 +25,14 @@ public class FriendsAdapter extends ArrayAdapter<User> {
 	private ArrayList<User> mFriends;
 	private LayoutInflater mInflater;
     private boolean mOwnFriends = false;
+    private Context context;
 
 	public FriendsAdapter(Context context, ArrayList<User> friends, boolean ownFriends) {
 		super(context, R.layout.layout_friends_friend, friends);
 		mFriends 	= friends;
 		mInflater	= LayoutInflater.from(context);
         mOwnFriends = ownFriends;
+        this.context = context;
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, friend.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.userID);
                 }
             });
             if(mOwnFriends) {

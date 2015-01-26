@@ -25,11 +25,13 @@ import ir.rasen.myapplication.ui.TextViewFont;
 public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
 	private ArrayList<Business> mBusinesses;
 	private LayoutInflater mInflater;
+    private Context context;
 
 	public UsersBusinessesAdapter(Context context, ArrayList<Business> businesses) {
 		super(context, R.layout.layout_drawer_businesses, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_BUSINESS, true, business.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, true, business.businessID);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });

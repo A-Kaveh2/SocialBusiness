@@ -27,11 +27,13 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
 	private ArrayList<Review> mReviews;
 	private LayoutInflater mInflater;
     int idOfView;
+    private Context context;
 
 	public ReviewsAdapter(Context context, ArrayList<Review> reviews) {
 		super(context, R.layout.layout_reviews_review, reviews);
 		mReviews 	= reviews;
 		mInflater	= LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, review.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, review.userID);
                 }
             });
         }

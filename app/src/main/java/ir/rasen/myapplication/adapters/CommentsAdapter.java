@@ -28,11 +28,13 @@ import ir.rasen.myapplication.ui.TextViewFont;
 public class CommentsAdapter extends ArrayAdapter<Comment> {
 	private ArrayList<Comment> mComments;
 	private LayoutInflater mInflater;
+    private Context context;
 
 	public CommentsAdapter(Context context, ArrayList<Comment> comments) {
 		super(context, R.layout.layout_comments_comment, comments);
 		mComments 	= comments;
 		mInflater	= LayoutInflater.from(context);
+        this.context = context;
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 public void onClick(View view) {
                     // TODO:: navigate to comment's user's profile...
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false, comment.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, comment.userID);
                 }
             });
             TextProcessor textProcessor = new TextProcessor(getContext());
