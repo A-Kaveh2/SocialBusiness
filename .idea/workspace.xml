@@ -49,23 +49,7 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_change_birthday.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_change_password.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityUserProfileEdit.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityUserProfileEdit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Functions.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Functions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/ir/rasen/myapplication/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/ir/rasen/myapplication/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_edit.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_edit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="" />
     <ignored path="MyApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -120,10 +104,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivityUserProfileEdit.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ActivityUserProfileEdit.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityUserProfileEdit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.224719" vertical-offset="370" max-vertical-offset="4148">
+            <state vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="4148">
               <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <element signature="e#2898#2929#0" expanded="true" />
@@ -141,6 +125,16 @@
                 <element signature="e#10433#10469#0" expanded="true" />
                 <element signature="e#11742#11806#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivitySettings.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.66785717" vertical-offset="153" max-vertical-offset="1751">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1818,14 +1812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1751">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/Functions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3820225" vertical-offset="1994" max-vertical-offset="2941">
@@ -1974,7 +1960,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityUserProfileEdit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.224719" vertical-offset="370" max-vertical-offset="4148">
+        <state vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="4148">
           <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <element signature="e#2898#2929#0" expanded="true" />
@@ -1992,6 +1978,14 @@
             <element signature="e#10433#10469#0" expanded="true" />
             <element signature="e#11742#11806#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivitySettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66785717" vertical-offset="153" max-vertical-offset="1751">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
