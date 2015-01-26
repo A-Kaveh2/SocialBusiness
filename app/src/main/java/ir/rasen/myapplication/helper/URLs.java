@@ -16,7 +16,7 @@ public class URLs {
     public static String REQUEST_CONFIRMATION = MAIN_URL+"requestUserConfirmation";
     public static String UPDATE_PASSWORD = MAIN_URL+"update_password";
     public static String GET_HOME_INFO = MAIN_URL+"getUserHomeInfo";
-    public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"get_home_info";
+    public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"getBusinessHomeInfo";
     public static String GET_PROFILE_INFO = MAIN_URL+"getUserProfileInfo";
     public static String GET_BUSINESS_PROFILE_INFO = MAIN_URL+"get_profile_info";
     public static String GET_FOLLOWING_BUSINESSES = MAIN_URL+"getUserFollowedBusinesses";

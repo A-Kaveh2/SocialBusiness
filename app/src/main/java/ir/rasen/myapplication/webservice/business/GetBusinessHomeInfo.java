@@ -5,10 +5,14 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -21,17 +25,18 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
     private String businessID;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessHomeInfo(String businessID) {
+    public GetBusinessHomeInfo(String businessID,WebserviceResponse delegate) {
         this.businessID = businessID;
+        this.delegate = delegate;
     }
 
     @Override
     protected Business doInBackground(Void... voids) {
         Business business = new Business();
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_HOME_INFO);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_HOME_INFO,new ArrayList<>(
+                Arrays.asList(businessID)));
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();

@@ -45,6 +45,7 @@ import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
+import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
 import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
 import ir.rasen.myapplication.webservice.post.GetSharedPosts;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
@@ -76,7 +77,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     private WebserviceResponse webserviceResponse;
     private static Context cont;
     private boolean isBusinessProfile = false;
-    private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts};
+    private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
     private static RunningWebserviceType runningWebserviceType;
 
     public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String profileId) {
@@ -117,13 +118,26 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         }
 
 
-        //TODO remove test part
-        //get user home info by sending user_id
-        //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+        if(!isBusinessProfile) {
+            //get user home info
 
-        //TODO for the test
-        new GetUserHomeInfo("ali_1", webserviceResponse).execute();
-        runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+            //TODO remove test part
+            //get user home info by sending user_id
+            //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+
+
+            //TODO for the test
+            new GetUserHomeInfo("ali_1", webserviceResponse).execute();
+            runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+        }
+        else{
+            //get business home info
+
+            //TODO remove test part
+            new GetBusinessHomeInfo("food_1",FragmentProfile.this).execute();
+            runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
+
+        }
 
     }
 
@@ -528,17 +542,25 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             }
 
         } else if (result instanceof ArrayList) {
-            ArrayList<Post> posts = (ArrayList<Post>) result;
+
 
 
             //TODO assign
             if(runningWebserviceType == RunningWebserviceType.getUserPosts){
                 //user shared posts
+                ArrayList<Post> posts = (ArrayList<Post>) result;
             }
             else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
                 //business posts
+                ArrayList<Post> posts = (ArrayList<Post>) result;
             }
 
+        }
+        else if (result instanceof Business){
+            //business home info
+            Business business = (Business)result;
+
+            //TODO assign business
         }
     }
 
