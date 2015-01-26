@@ -41,10 +41,11 @@ import ir.rasen.myapplication.webservice.post.UpdatePost;
 public class ActivityNewPost extends Activity implements WebserviceResponse {
 
     private EditTextFont name, description, price, code;
-    ImageButton btn_register_picture_set;
-    String filePath;
-    Context context;
-    boolean isEditing = false;
+    private ImageButton btn_register_picture_set;
+    private String filePath;
+    private Context context;
+    private String businessId;
+    private boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +66,20 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
         setAnimations();
 
         if (PassingPosts.getInstance().getValue() != null) {
+            // TODO EDIT THIS POST
             Post post = PassingPosts.getInstance().getValue().get(0);
             PassingPosts.getInstance().setValue(null);
             name.setText(post.title);
             description.setText(post.description);
             price.setText(post.price);
             code.setText(post.code);
-
+            businessId = post.businessID;
             btn_register_picture_set.setImageBitmap(Image_M.getBitmapFromString(post.picture));
             isEditing = true;
-
+        } else {
+            businessId = getIntent().getStringExtra(Params.BUSINESS_ID);
         }
+        // TODO :: BusinessId contains businessId now...
     }
 
     // SET PICTURE
