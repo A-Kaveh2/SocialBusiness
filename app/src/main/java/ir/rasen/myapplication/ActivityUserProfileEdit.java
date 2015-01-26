@@ -38,6 +38,7 @@ import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PersianDate;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ButtonFont;
@@ -180,7 +181,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     // BIRTHDATE TOUCHED
     public void changeBirthDate(View view) {
         // TODO DISPLAY CHANGE BIRTHDATE DIALOG
-        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_birthday);
         final EditTextFont year = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_year);
@@ -189,8 +190,20 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         dialog.findViewById(R.id.btn_profile_edit_birthday_change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.birthDate = year.getText().toString()+"/"+month.getText().toString()+"/"+day.getText().toString();
-                txtBirthDate.setText(user.birthDate);
+            try {
+                if(!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
+                    Functions.showMessage(context, getString(R.string.invalid_birthday));
+                    dialog.dismiss();
+                    return;
+                }
+            } catch(Exception e) {
+                Functions.showMessage(context, getString(R.string.invalid_birthday));
+                dialog.dismiss();
+                return;
+            }
+            user.birthDate = year.getText().toString()+"/"+month.getText().toString()+"/"+day.getText().toString();
+            txtBirthDate.setText(user.birthDate);
+            dialog.dismiss();
             }
         });
         dialog.show();
