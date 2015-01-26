@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentFollowers extends Fragment {
+public class FragmentFollowers extends Fragment implements WebserviceResponse{
     private static final String TAG = "FragmentFollowers";
 
     private View view, listFooterView, listHeaderView;
@@ -65,6 +67,7 @@ public class FragmentFollowers extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new GetBusinessFollowers("food_1",FragmentFollowers.this).execute();
     }
 
     @Override
@@ -151,5 +154,18 @@ public class FragmentFollowers extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ArrayList){
+            //result from executing getBusinessFollowers
+            //ArrayList<>
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }

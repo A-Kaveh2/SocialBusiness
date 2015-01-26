@@ -114,6 +114,15 @@ public class ServerAnswer {
     }
 
     public static ServerAnswer getList(HttpResponse httpResponse) throws Exception {
+        if(httpResponse == null){
+            ServerAnswer serverAnswer = new ServerAnswer();
+            serverAnswer.setSuccessStatus(false);
+            serverAnswer.setResult(null);
+            serverAnswer.setErrorCode(EXECUTION_ERROR);
+
+            return serverAnswer;
+        }
+
         String responseBody = EntityUtils.toString(httpResponse.getEntity());
         JSONObject json = new JSONObject(responseBody);
 
@@ -127,6 +136,14 @@ public class ServerAnswer {
 
     public static ServerAnswer get(HttpResponse httpResponse) throws Exception {
 
+        if(httpResponse == null){
+            ServerAnswer serverAnswer = new ServerAnswer();
+            serverAnswer.setSuccessStatus(false);
+            serverAnswer.setResult(null);
+            serverAnswer.setErrorCode(EXECUTION_ERROR);
+
+            return serverAnswer;
+        }
         String responseBody = EntityUtils.toString(httpResponse.getEntity());
         JSONObject json = new JSONObject(responseBody);
 
