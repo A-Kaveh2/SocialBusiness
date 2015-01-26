@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 
@@ -160,7 +161,19 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
     public void getResult(Object result) {
         if(result instanceof ArrayList){
             //result from executing getBusinessFollowers
-            //ArrayList<>
+            ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
+            ArrayList<User> followers = new ArrayList<User>();
+            User user = null;
+            for(SearchItemUserBusiness item:businessesFollowers){
+                user = new User();
+                user.name = item.name;
+                user.profilePicture = item.picture;
+                followers.add(user);
+            }
+
+            //TODO use followers to intiate listview
+
+
         }
     }
 

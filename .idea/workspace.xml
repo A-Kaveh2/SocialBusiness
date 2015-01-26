@@ -50,18 +50,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85e36f3f-37ac-4327-9955-e42ed2df1bd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/ActivityNewBusiness_Step1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/FollowBusiness.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/user/FollowBusiness.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentFollowers.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentFollowers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessFollowers.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessFollowers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/post/GetBusinessPosts.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/post/GetBusinessPosts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/post/GetSharedPosts.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/post/GetSharedPosts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/ServerAnswer.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/ServerAnswer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/helper/URLs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/WebserviceGET.java" afterPath="$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/WebserviceGET.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -151,9 +140,11 @@
       <file leaf-file-name="FragmentFollowers.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentFollowers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45054945" vertical-offset="3279" max-vertical-offset="3900">
-              <caret line="162" column="10" selection-start-line="162" selection-start-column="10" selection-end-line="162" selection-end-column="10" />
-              <folding />
+            <state vertical-scroll-proportion="-0.37362638" vertical-offset="3654" max-vertical-offset="4200">
+              <caret line="160" column="25" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="25" />
+              <folding>
+                <element signature="e#5984#5990#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1740,7 +1731,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1759,7 +1750,7 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47529814" sideWeight="0.5763994" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22844176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22844176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35775128" sideWeight="0.5816944" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2363,14 +2354,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessFollowers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="1525">
-          <caret line="63" column="65" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -2466,11 +2449,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/webservice/business/GetBusinessFollowers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="1525">
+          <caret line="63" column="65" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ir/rasen/myapplication/FragmentFollowers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45054945" vertical-offset="3279" max-vertical-offset="3900">
-          <caret line="162" column="10" selection-start-line="162" selection-start-column="10" selection-end-line="162" selection-end-column="10" />
-          <folding />
+        <state vertical-scroll-proportion="-0.37362638" vertical-offset="3654" max-vertical-offset="4200">
+          <caret line="160" column="25" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="25" />
+          <folding>
+            <element signature="e#5984#5990#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
