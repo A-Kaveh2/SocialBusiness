@@ -81,7 +81,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             ((TextViewFont) findViewById(R.id.txt_business_step1_title)).setText(R.string.profile_edit_business);
 
             Business business = PassingBusiness.getInstance().getValue();
-            PassingBusiness.getInstance().setValueStep1(null);
             edtBusinessId.setText(business.businessID);
             edtName.setText(business.name);
             edtDescription.setText(business.description);
@@ -195,7 +194,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
-        PassingBusiness.getInstance().setValueStep1(business);
+        PassingBusiness.getInstance().setValue(business);
         Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
         startActivity(intent);
@@ -225,7 +224,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     }
 
     public void onBackPressed() {
-        PassingBusiness.getInstance().setValueStep1(null);
+        PassingBusiness.getInstance().setValue(null);
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
@@ -278,7 +277,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getError(Integer errorCode) {
-        if(closed) return;
 
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
         Functions.showMessage(context, errorMessage);

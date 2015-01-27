@@ -415,7 +415,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         view.findViewById(R.id.btn_profile_new_post).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ActivityNewPost.class);
+                Intent intent = new Intent(getActivity(), ActivityNewPost_Step1.class);
                 intent.putExtra(Params.BUSINESS_ID, profileId);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ir.rasen.myapplication.ActivityMain;
-import ir.rasen.myapplication.ActivityNewPost;
+import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Functions;
@@ -200,7 +200,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     ArrayList<Post> posts = new ArrayList<Post>();
                     posts.add(mPosts.get(position));
                     PassingPosts.getInstance().setValue(posts);
-                    Intent intent = new Intent(getContext(), ActivityNewPost.class);
+                    Intent intent = new Intent(getContext(), ActivityNewPost_Step1.class);
                     getContext().startActivity(intent);
                     ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
                     pw.dismiss();

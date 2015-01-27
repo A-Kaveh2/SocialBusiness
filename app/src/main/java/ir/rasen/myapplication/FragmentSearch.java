@@ -58,7 +58,16 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ListView listViewCategories, listViewSubCategories;
     private boolean closed=false;
 
-    // TODO: Rename and change types of parameters
+    public static FragmentSearch newInstance(String hashtag) {
+        FragmentSearch fragment = new FragmentSearch();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Params.SEARCH_TEXT, hashtag);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     public static FragmentSearch newInstance() {
         FragmentSearch fragment = new FragmentSearch();
         return fragment;
@@ -70,6 +79,10 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            ((AutoCompleteTextViewFontClickable) view.findViewById(R.id.txt_search_text)).setText(bundle.getString(Params.SEARCH_TEXT));
+        }
         new GetBusinessGategories(FragmentSearch.this).execute();
     }
 

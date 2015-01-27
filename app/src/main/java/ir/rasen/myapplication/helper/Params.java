@@ -18,6 +18,8 @@ public class Params {
     public static int COMMENT_TEXT_MIN_LENGTH = 3;
     public static int COMMENT_TEXT_MAX_LENGTH = 255;
 
+    public static int HASHTAG_MIN_LENGTH = 2;
+
     public static String BUSINESS = "business";
     public static int HOME = 0;
     public static int SEARCH = 1;

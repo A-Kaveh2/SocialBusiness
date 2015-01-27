@@ -31,20 +31,20 @@ import java.util.Calendar;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.AddPost;
 import ir.rasen.myapplication.webservice.post.UpdatePost;
 
-public class ActivityNewPost extends Activity implements WebserviceResponse {
+public class ActivityNewPost_Step1 extends Activity implements WebserviceResponse {
 
-    private EditTextFont name, description, price, code;
-    private ImageButton btn_register_picture_set;
-    private String filePath;
     private Context context;
-    private String businessId;
+    private String img;
     private boolean isEditing = false;
 
     @Override
@@ -52,34 +52,24 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_post_step_1);
         context = this;
-
-        // SET VALUES
-        name = ((EditTextFont) findViewById(R.id.edt_post_name));
-        description = ((EditTextFont) findViewById(R.id.edt_post_text));
-        price = ((EditTextFont) findViewById(R.id.edt_post_price));
-        code = ((EditTextFont) findViewById(R.id.edt_post_code));
-        btn_register_picture_set = ((ImageButton) findViewById(R.id.btn_register_picture_set));
 
         // SET ANIMATIONS
         setAnimations();
 
         if (PassingPosts.getInstance().getValue() != null) {
             // TODO EDIT THIS POST
-            Post post = PassingPosts.getInstance().getValue().get(0);
-            PassingPosts.getInstance().setValue(null);
-            name.setText(post.title);
-            description.setText(post.description);
-            price.setText(post.price);
-            code.setText(post.code);
-            businessId = post.businessID;
-            btn_register_picture_set.setImageBitmap(Image_M.getBitmapFromString(post.picture));
+            ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
+                    .setImageBitmap(Image_M.getBitmapFromString(PassingPosts.getInstance().getValue().get(0).picture));
             isEditing = true;
         } else {
-            businessId = getIntent().getStringExtra(Params.BUSINESS_ID);
+            ArrayList<Post> post = new ArrayList<>();
+            Post postTemp = new Post();
+            postTemp.businessID = getIntent().getStringExtra(Params.BUSINESS_ID);
+            post.add(postTemp);
+            PassingPosts.getInstance().setValue(post);
         }
-        // TODO :: BusinessId contains businessId now...
     }
 
     // SET PICTURE
@@ -113,7 +103,7 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
                 String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
                 displayCropedImage(filePath);
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
-                filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
+                String filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(filePath);
             }
         }
@@ -125,7 +115,9 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             try {
-                btn_register_picture_set.setImageBitmap(myBitmap);
+                ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
+                        .setImageBitmap(myBitmap);
+                PassingPosts.getInstance().getValue().get(0).picture = Image_M.getBase64String(filePath);
             } catch (Exception e) {
                 String s = e.getMessage();
             }
@@ -134,62 +126,11 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
 
     // SUBMIT TOUCHED
     public void submit(View view) {
-        // SET ON TEXT CHANGE LISTENERS (FOR ERRORS)
-        setOnTextChangeListeners();
-        // CHECK INPUT DATA
-        if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
-            name.requestFocus();
-            name.setError(getString(R.string.enter_valid_name));
-            return;
-        }
-
-        if (isEditing) {
-            //update existing post
-            Post post = PassingPosts.getInstance().getValue().get(0);
-            post.title = name.getText().toString();
-            if (filePath != null)
-                post.picture = Image_M.getBase64String(filePath);
-            else
-                post.picture = "";
-
-            post.price = price.getText().toString();
-            post.code = code.getText().toString();
-
-            //TODO where is hashtag list
-            post.hashtagList = new ArrayList<>(
-                    Arrays.asList("hashtag1", "hashtag2"));
-
-            new UpdatePost(post, ActivityNewPost.this).execute();
-
-        } else {
-
-            //Add new post
-            Post post = new Post();
-
-            //TODO set business id
-            post.businessID = "1";
-
-            Calendar calander = Calendar.getInstance();
-            String day = String.valueOf(calander.get(Calendar.DAY_OF_MONTH));
-            String month = String.valueOf(calander.get(Calendar.MONTH) + 1);
-            String year = String.valueOf(calander.get(Calendar.YEAR));
-            post.creationDate = day + "/" + month + "/" + year;
-            post.title = name.getText().toString();
-            if (filePath != null)
-                post.picture = Image_M.getBase64String(filePath);
-            else
-                post.picture = "";
-
-            post.price = price.getText().toString();
-            post.code = code.getText().toString();
-
-            //TODO where is hashtag list
-            post.hashtagList = new ArrayList<>(
-                    Arrays.asList("hashtag1", "hashtag2"));
-
-            new AddPost(post, ActivityNewPost.this).execute();
-
-        }
+        // next step
+        Intent intent = new Intent(getBaseContext(), ActivityNewPost_Step2.class);
+        intent.putExtra(Params.EDIT_MODE, isEditing);
+        startActivity(intent);
+        overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
     // HELP TOUCHED
@@ -214,25 +155,8 @@ public class ActivityNewPost extends Activity implements WebserviceResponse {
         ((TextViewFont) findViewById(R.id.btn_post_help)).startAnimation(animationSetBtn);
     }
 
-    public void setOnTextChangeListeners() {
-        name.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                //name.setText(name.getText().toString().trim());
-                name.setError(null);
-                if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
-                    name.setError(getString(R.string.enter_valid_name));
-                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
-    }
-
     public void onBackPressed() {
+        PassingPosts.getInstance().setValue(null);
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }

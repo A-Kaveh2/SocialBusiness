@@ -12,6 +12,8 @@
     <dimen name="font_large_x">20dp</dimen>
     <dimen name="font_large_xx">50dp</dimen>
 
+    <dimen name="edt_multi_line_min_height">100dp</dimen>
+
     <integer name="dialog_header_weight">10</integer>
     <integer name="dialog_body_weight">2</integer>
     <dimen name="demo_dialog_txt">14dp</dimen>

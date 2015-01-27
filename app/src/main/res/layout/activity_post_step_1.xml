@@ -28,7 +28,7 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:text = "@string/new_product" />
+            android:text = "@string/product_picture" />
     </RelativeLayout>
 
     <ScrollView
@@ -44,10 +44,10 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_register_picture_set"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+            <ir.rasen.myapplication.ui.ImageViewSquare
+                android:id="@+id/btn_post_picture_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_edittext_name"
                 android:scaleType="centerInside"
@@ -55,62 +55,12 @@
                 android:contentDescription="@null"
                 android:onClick="setPicture"/>
 
-            <ir.rasen.myapplication.ui.EditTextFont
-                android:id="@+id/edt_post_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
-                android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:textSize="@dimen/text_size_normal"
-                android:inputType="text"
-                android:drawableLeft="@drawable/ic_edittext_email"
-                android:hint="@string/product_name" />
-
-            <ir.rasen.myapplication.ui.EditTextFont
-                android:id="@+id/edt_post_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
-                android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:textSize="@dimen/text_size_normal"
-                android:inputType="text"
-                android:drawableLeft="@drawable/ic_edittext_email"
-                android:hint="@string/product_price" />
-
-            <ir.rasen.myapplication.ui.EditTextFont
-                android:id="@+id/edt_post_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/product_description"
-                android:gravity="center"
-                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
-                android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:textSize="@dimen/text_size_normal"
-                android:inputType="textMultiLine"
-                android:selectAllOnFocus="true"
-                android:drawableLeft="@drawable/ic_edittext_password" />
-
-            <ir.rasen.myapplication.ui.EditTextFont
-                android:id="@+id/edt_post_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/product_code"
-                android:gravity="center"
-                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
-                android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:textSize="@dimen/text_size_normal"
-                android:inputType="textWebEditText"
-                android:selectAllOnFocus="true"
-                android:drawableLeft="@drawable/ic_edittext_status" />
-
             <ir.rasen.myapplication.ui.ButtonFont
                 android:id="@+id/btn_post_submit"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/button_height"
                 android:gravity="center"
-                android:text="@string/submit"
+                android:text="@string/next_step"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/style_button_on_dark"

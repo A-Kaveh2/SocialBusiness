@@ -69,7 +69,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dialog" />
         <activity
-            android:name=".ActivityNewPost"
+            android:name=".ActivityNewPost_Step1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityNewPost_Step2"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ActivityCamera"

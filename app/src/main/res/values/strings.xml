@@ -199,6 +199,8 @@
     <string name="product_name">نام محصول</string>
     <string name="product_price">قیمت</string>
     <string name="product_code">کد کالا</string>
+    <string name="product_picture">تصویر محصول</string>
+    <string name="product_info">اطلاعات محصول</string>
 
     <!-- PRODUCT -->
     <string name="new_product">محصول جدید</string>

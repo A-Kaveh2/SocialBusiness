@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import ir.rasen.myapplication.R;
@@ -29,7 +30,7 @@ public class TextProcessor {
 
     // processing comments for owner and profile tags
     public void process(final String text, TextView textView) {
-        String TAG = "TextProcessor->processComment";
+        String TAG = "TextProcessor->processText";
 
         int index_end = 0;
         Spannable wordtoSpan = new SpannableString(text);
@@ -83,8 +84,69 @@ public class TextProcessor {
             }
         }
 
+        // TODO:: FIND AND LINK HASHTAGS!
+        index_temp = 0;
+        while ((index_temp = text.indexOf("#", index_temp)) != -1 && index_temp<=text.length()-1-Params.HASHTAG_MIN_LENGTH) {
+
+            // detect the place of supposed tag
+            index_end=index_temp+Params.HASHTAG_MIN_LENGTH;
+            while(index_end<=text.length()-1) { //&& text.substring(index_temp+1, index_end).toString().matches(Params.USER_USERNAME_VALIDATION)) {
+                index_end++;
+            }
+            index_temp++;
+            index_end--;
+
+            // if found tag is really acceptable
+            if(text.substring(index_temp, index_end).toString().length()>=Params.USER_NAME_MIN_LENGTH && text.substring(index_temp, index_end).toString().matches(Params.USER_NAME_VALIDATION)) {
+
+                final String hashtag = text.substring(index_temp, index_end);
+                wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), index_temp-1, index_end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                        // username clicked!
+                        InnerFragment innerFragment = new InnerFragment(context);
+                        innerFragment.newSearchFragment(hashtag);
+                    }
+                };
+                wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            }
+        }
+
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(wordtoSpan);
 
+    }
+
+    public static ArrayList<String> getHashtags(String text) {
+        String TAG = "TextProcessor->getHashtags";
+
+        ArrayList<String> hashtags = new ArrayList<>();
+
+        int index_end = 0;
+        // TODO:: FIND AND LIST HASHTAGS!
+        int index_temp = 0;
+
+        index_temp = 0;
+        while ((index_temp = text.indexOf("#", index_temp)) != -1 && index_temp<=text.length()-1-Params.HASHTAG_MIN_LENGTH) {
+
+            // detect the place of supposed tag
+            index_end=index_temp+Params.HASHTAG_MIN_LENGTH;
+            while(index_end<=text.length()-1) { //&& text.substring(index_temp+1, index_end).toString().matches(Params.USER_USERNAME_VALIDATION)) {
+                index_end++;
+            }
+            index_temp++;
+            index_end--;
+
+            // if found tag is really acceptable
+            if(text.substring(index_temp, index_end).toString().length()>=Params.USER_NAME_MIN_LENGTH && text.substring(index_temp, index_end).toString().matches(Params.USER_NAME_VALIDATION)) {
+
+                hashtags.add(text.substring(index_temp, index_end));
+
+            }
+        }
+
+        return hashtags;
     }
 }
