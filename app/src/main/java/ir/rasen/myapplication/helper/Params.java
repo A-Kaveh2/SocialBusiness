@@ -53,12 +53,10 @@ public class Params {
     public static int INTENT_ERROR = -1;
     public static int INTENT_OK = 1;
 
-    public static String WORK_TIME_OPEN_HOUR= "work_time_open_hour";
-    public static String WORK_TIME_OPEN_MINUTE= "work_time_open_minute";
-    public static String WORK_TIME_CLOSE_HOUR= "work_time_close_hour";
-    public static String WORK_TIME_CLOSE_MINUTE= "work_time_close_minute";
-
     public static String EDIT_MODE = "edit_mode";
+
+    public static int LOCATION_REFRESH = 60000;
+    public static int LOCATION_REFRESH_DISTANCE = 10;
 
     /**
      * Created by android on 12/15/2014.

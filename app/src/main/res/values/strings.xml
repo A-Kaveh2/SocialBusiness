@@ -20,6 +20,7 @@
     <string name="search">جستجو</string>
     <string name="products">محصولات</string>
     <string name="enter_search_keywords">متنی را جهت جستجو وارد نمایید.</string>
+    <string name="no_location_found">مکان شما تشخیص داده نشده است, لطفأ مکانی را جهت جستجو انتخاب نمایید.</string>
 
     <!-- PROFILE -->
     <string name="profile">حساب کاربری</string>

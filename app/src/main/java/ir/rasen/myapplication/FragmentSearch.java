@@ -3,6 +3,9 @@ package ir.rasen.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +27,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
+import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
@@ -46,6 +50,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ArrayList<String> subCategories;
     private DrawerLayout drawerLayout;
     private Location_M locationM;
+    private LocationManager mLocationManager;
 
     private HistoryDatabase database;
     private ArrayList<String> categories;
@@ -56,10 +61,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public FragmentSearch() {
     }
 
@@ -104,6 +105,10 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             }
         });
 
+        mLocationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Params.LOCATION_REFRESH,
+                Params.LOCATION_REFRESH_DISTANCE, mLocationListener);
 
         return view;
     }
@@ -116,9 +121,14 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         }
     }
 
-    void searchNow() {
+    private void searchNow() {
         // TODO:: Start search fragment
         if (text.getText().toString().trim().length() > 0) {
+            if(locationM==null) {
+                setLocation();
+                Functions.showMessage(getActivity(), getString(R.string.no_location_found));
+                return;
+            }
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                     Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
@@ -335,4 +345,23 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     public void getError(Integer errorCode) {
 
     }
+
+    // location listener
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            //location changed
+            if(nearby)
+                locationM = new Location_M(location.getLatitude()+"", location.getLongitude()+"");
+        }
+        @Override
+        public void onStatusChanged(String string, int i, Bundle bundle) {
+        }
+        @Override
+        public void onProviderEnabled(String string) {
+        }
+        @Override
+        public void onProviderDisabled(String string) {
+        }
+    };
 }
