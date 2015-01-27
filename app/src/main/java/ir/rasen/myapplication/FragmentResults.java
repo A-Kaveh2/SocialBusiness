@@ -35,7 +35,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     private View view, listFooterView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private StickyListHeadersListView list;
     private StickyListHeadersAdapter mAdapter;
@@ -47,8 +47,8 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     Boolean nearby;
     private static Context cont;
 
-    public static FragmentResults newInstance (Context context,String searchString, String category, boolean nearby
-            , Location_M location_m, int searchType){
+    public static FragmentResults newInstance(Context context, String searchString, String category, boolean nearby
+            , Location_M location_m, int searchType) {
         cont = context;
         FragmentResults fragment = new FragmentResults();
 
@@ -105,9 +105,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         setUpListView();
 
         // TODO: Change Adapter to display your content after loading data
-        if(searchType== Params.SearchType.PRODUCTS) {
+        if (searchType == Params.SearchType.PRODUCTS) {
 
-            new SearchPost(LoginInfo.getUserId(cont),searchString,FragmentResults.this).execute();
+            new SearchPost(LoginInfo.getUserId(cont), searchString, FragmentResults.this).execute();
 
             // ArrayList to show
             ArrayList<Post> posts = new ArrayList<Post>();
@@ -142,10 +142,10 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             post3.title = "عنوان!!";
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
+            mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse);
             list.setAdapter(mAdapter);
         } else {
-            new SearchBusinessesLocation()
+            new SearchBusinessesLocation(LoginInfo.getUserId(cont), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
 
             ArrayList<Business> businesses = new ArrayList<Business>();
             /*
@@ -154,9 +154,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             Business b1 = new Business();
             Business b2 = new Business();
             Business b3 = new Business();
-            b1.name=("RASEN");
-            b2.name=("IRAN AIR");
-            b3.name=("کبابی محل");
+            b1.name = ("RASEN");
+            b2.name = ("IRAN AIR");
+            b3.name = ("کبابی محل");
             businesses.add(b1);
             businesses.add(b2);
             businesses.add(b3);
@@ -182,7 +182,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -221,11 +221,21 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ArrayList){
-            ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
-            searchResult = (ArrayList<SearchItemUserBusiness>)result;
+        if (result instanceof ArrayList) {
+            if (searchType == Params.SearchType.PRODUCTS) {
 
-            //TODO assgin searchResult
+                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+
+                //TODO assgin searchResult
+
+                //TODO change adapter to display search result as gridview
+            } else {
+                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+
+                //TODO assgin searchResult
+            }
         }
     }
 

@@ -7,12 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -26,27 +28,28 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
 
     private String userID;
     private String searchText;
-    private Location_M location_m;
+    private String location_latitude;
+    private String location_longitude;
     private ServerAnswer serverAnswer;
 
-    public SearchBusinessesLocation(String userID, String searchText, Location_M location_m) {
+    public SearchBusinessesLocation(String userID, String searchText, String location_latitude,String location_longitude,WebserviceResponse delegate) {
         this.userID = userID;
         this.searchText = searchText;
-        this.location_m = location_m;
+        this.location_latitude = location_latitude;
+        this.location_longitude = location_longitude;
+        this.delegate = delegate;
     }
 
     @Override
     protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.SEARCH_BUSINESS_LOCATION);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.SEARCH_TEXT, searchText);
-        webservicePOST.addParam(Params.LOCATION_LATITUDE, location_m.getLatitude());
-        webservicePOST.addParam(Params.LOCATION_LONGITUDE, location_m.getLongitude());
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_BUSINESS_LOCATION,new ArrayList<>(
+                Arrays.asList(userID, searchText,location_latitude,location_longitude)));
+
 
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
