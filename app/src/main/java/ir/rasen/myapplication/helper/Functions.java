@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 
+import ir.rasen.myapplication.FragmentSearch;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
@@ -118,6 +119,20 @@ public class Functions {
         showCustomizedDialog(context, builder);
     }
 
+    public void showReviewDeletePopup(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.delete_review)
+                .setMessage(R.string.popup_delete_review)
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: DELETE REVIEW
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
     public void showFollowerBlockPopup(Context context, final String userId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
@@ -169,6 +184,20 @@ public class Functions {
             }
         });
         dialog.show();
+    }
+
+    public void showLocationNotFoundPopup(final FragmentSearch fragmentSearch, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragmentSearch.getActivity())
+                .setTitle(R.string.popup_warning)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        fragmentSearch.setLocation();
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert);
+        showCustomizedDialog(fragmentSearch.getActivity(), builder);
     }
 
     static void showCustomizedDialog(Context context, AlertDialog.Builder builder) {

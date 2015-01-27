@@ -1,17 +1,21 @@
 package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
@@ -65,12 +69,20 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             TextProcessor textProcessor = new TextProcessor(getContext());
             textProcessor.process(review.text, holder.review);
 
-            holder.options.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                // TODO:: SHOW OPTIONS POPUP
-                // showOptionsPopup(view);
+            // TODO: CHECK IS MINE OR NOT
+            //if(review.userID.equals(myId))
+            boolean isMine=true;
+            if(isMine) {
+                holder.options.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                    // TODO:: SHOW OPTIONS POPUP
+                    showOptionsPopup(view);
+                    }
+                });
+                holder.options.setVisibility(View.VISIBLE);
+            } else {
+                holder.options.setVisibility(View.GONE);
             }
-            });
 
             holder.profile_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,10 +102,9 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         RatingBar ratingBar;
         int id;
     }
-/*
+
     public void showOptionsPopup(View view) {
-        // TODO: CHECK IS MINE
-        Boolean isMine = true;
+        // TODO review is mine because we've checked it before calling this method...
         // SHOWING POPUP WINDOW
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
         final View layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
@@ -103,21 +114,23 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         pw.setOutsideTouchable(true);
         pw.showAsDropDown(view);
         // SETTING ON CLICK LISTENERS
-        if(isMine) {
+        //if(isMine) {
             // EDIT OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
+            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setVisibility(View.GONE);
+            /*((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                // TODO: EDIT POST
+                // TODO: EDIT REVIEW (disable for now)
                 }
-            });
+            });*/
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                // TODO DELETE POST
-                showDeletePopup();
+                    // TODO DELETE REVIEW
+                    Functions functions = new Functions();
+                    functions.showReviewDeletePopup(getContext());
                 }
             });
-        }
+        //}
     }
-*/
+
 }
