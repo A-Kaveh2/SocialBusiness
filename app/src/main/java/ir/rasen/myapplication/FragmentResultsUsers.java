@@ -15,17 +15,21 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.search.SearchUser;
 
 /**
  * Created by 'Sina KH' on '01/22/2015'.
  */
-public class FragmentResultsUsers extends Fragment {
+public class FragmentResultsUsers extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentFriends";
 
     private View view, listFooterView, listHeaderView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
@@ -33,7 +37,7 @@ public class FragmentResultsUsers extends Fragment {
     // user id is received here
     private String searchString;
 
-    public static FragmentResultsUsers newInstance (String searchString){
+    public static FragmentResultsUsers newInstance(String searchString) {
         FragmentResultsUsers fragment = new FragmentResultsUsers();
 
         Bundle bundle = new Bundle();
@@ -47,7 +51,8 @@ public class FragmentResultsUsers extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public FragmentResultsUsers() {}
+    public FragmentResultsUsers() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,8 @@ public class FragmentResultsUsers extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             searchString = bundle.getString(Params.SEARCH_TEXT);
+
+            new SearchUser(LoginInfo.getUserId(getActivity()), searchString, FragmentResultsUsers.this).execute();
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -75,6 +82,9 @@ public class FragmentResultsUsers extends Fragment {
         // setUp ListView
         setUpListView();
 
+        // TODO remove test parts
+
+
         // TODO: Change Adapter to display your content
         ArrayList<User> friends = new ArrayList<User>();
 
@@ -84,9 +94,9 @@ public class FragmentResultsUsers extends Fragment {
         User User1 = new User();
         User User2 = new User();
         User User3 = new User();
-        User1.name=("SINA");
-        User2.name=("HASAN");
-        User3.name=("HOSSEIN");
+        User1.name = ("SINA");
+        User2.name = ("HASAN");
+        User3.name = ("HOSSEIN");
         friends.add(User1);
         friends.add(User2);
         friends.add(User3);
@@ -112,7 +122,7 @@ public class FragmentResultsUsers extends Fragment {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -149,4 +159,20 @@ public class FragmentResultsUsers extends Fragment {
         });
     }
 
+    @Override
+    public void getResult(Object result) {
+        if (result instanceof ArrayList) {
+
+            ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+            searchResult = (ArrayList<SearchItemUserBusiness>) result;
+
+            //TODO assgin searchResult
+
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
+    }
 }
