@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,8 +18,12 @@ import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Location_M;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.search.SearchBusinessesLocation;
+import ir.rasen.myapplication.webservice.search.SearchPost;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -40,9 +45,11 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     String searchString, category, location_latitude, location_longitude;
     Boolean nearby;
+    private static Context cont;
 
-    public static FragmentResults newInstance (String searchString, String category, boolean nearby
+    public static FragmentResults newInstance (Context context,String searchString, String category, boolean nearby
             , Location_M location_m, int searchType){
+        cont = context;
         FragmentResults fragment = new FragmentResults();
 
         Bundle bundle = new Bundle();
@@ -99,11 +106,13 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
         // TODO: Change Adapter to display your content after loading data
         if(searchType== Params.SearchType.PRODUCTS) {
+
+            new SearchPost(LoginInfo.getUserId(cont),searchString,FragmentResults.this).execute();
+
             // ArrayList to show
             ArrayList<Post> posts = new ArrayList<Post>();
-            /*
-                for example, i've made some fake data to show ::
-            */
+
+            //TODO: remvoe test parts
             Post post1 = new Post();
             Post post2 = new Post();
             Post post3 = new Post();
@@ -136,6 +145,8 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
             list.setAdapter(mAdapter);
         } else {
+            new SearchBusinessesLocation()
+
             ArrayList<Business> businesses = new ArrayList<Business>();
             /*
                 for example, i've made some fake data to show ::
@@ -210,7 +221,12 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        if(result instanceof ArrayList){
+            ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+            searchResult = (ArrayList<SearchItemUserBusiness>)result;
 
+            //TODO assgin searchResult
+        }
     }
 
     @Override

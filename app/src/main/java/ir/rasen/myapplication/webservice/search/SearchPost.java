@@ -7,11 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -19,7 +22,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class SearchPost extends AsyncTask<Void, Void, ArrayList<Post>> {
+public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemUserBusiness>> {
     private static final String TAG = "SearchPost";
 
     private WebserviceResponse delegate = null;
@@ -28,27 +31,30 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<Post>> {
     private String searchText;
     private ServerAnswer serverAnswer;
 
-    public SearchPost(String userID, String searchText) {
+    public SearchPost(String userID, String searchText,WebserviceResponse delegate) {
         this.userID = userID;
         this.searchText = searchText;
+        this.delegate = delegate;
 
     }
 
     @Override
-    protected ArrayList<Post> doInBackground(Void... voids) {
-        ArrayList<Post> list = new ArrayList<Post>();
+    protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
+        ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.SEARCH_POST);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.SEARCH_TEXT, searchText);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_POST,new ArrayList<>(
+                Arrays.asList(userID,searchText)));
+
 
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(Post.getFromJSONObject(jsonObject));
+                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                            jsonObject.getString(Params.PICTURE),
+                            jsonObject.getString(Params.NAME)));
                 }
                 return list;
             }
@@ -60,7 +66,7 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<Post>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Post> result) {
+    protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
         if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else

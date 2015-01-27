@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.business;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,20 +26,19 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private String userID;
     private ServerAnswer serverAnswer;
 
-    public DeleteBusiness(String userID,String businessID) {
-        this.businessID=businessID;
+    public DeleteBusiness(String userID, String businessID) {
+        this.businessID = businessID;
         this.userID = userID;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.DELETE_BUSINESS);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.USER_ID, userID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_BUSINESS, new ArrayList<>(
+                Arrays.asList(businessID, userID)));
 
         try {
-            serverAnswer = webservicePOST.execute();
-            if(serverAnswer.getSuccessStatus())
+            serverAnswer = webserviceGET.execute();
+            if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -48,6 +51,6 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
         if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else
-        delegate.getResult(result);
+            delegate.getResult(result);
     }
 }

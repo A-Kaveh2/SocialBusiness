@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
@@ -30,13 +31,16 @@ import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
+import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     private int searchType = Params.SearchType.BUSINESSES;
     private AutoCompleteTextViewFontClickable text;
     private String category;
-    private boolean nearby=true;
+    private boolean nearby = true;
     private View view;
     private TextViewFont btnBusinesses, btnUsers;
     private ArrayList<String> subCategories;
@@ -44,9 +48,10 @@ public class FragmentSearch extends Fragment {
     private Location_M locationM;
 
     private HistoryDatabase database;
+    private ArrayList<String> categories;
 
     // TODO: Rename and change types of parameters
-    public static FragmentSearch newInstance (){
+    public static FragmentSearch newInstance() {
         FragmentSearch fragment = new FragmentSearch();
         return fragment;
     }
@@ -61,6 +66,7 @@ public class FragmentSearch extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new GetBusinessGategories(FragmentSearch.this).execute();
     }
 
     @Override
@@ -87,9 +93,11 @@ public class FragmentSearch extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 setUpHistory();
@@ -110,11 +118,11 @@ public class FragmentSearch extends Fragment {
 
     void searchNow() {
         // TODO:: Start search fragment
-        if(text.getText().toString().trim().length()>0) {
+        if (text.getText().toString().trim().length() > 0) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                     Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(text.getWindowToken(), 0);
-            database = new HistoryDatabase(getActivity(), searchType==Params.SearchType.BUSINESSES ? HistoryDatabase.TABLE_HISTORY_BUSINESS : HistoryDatabase.TABLE_HISTORY_PRODUCTS);
+            database = new HistoryDatabase(getActivity(), searchType == Params.SearchType.BUSINESSES ? HistoryDatabase.TABLE_HISTORY_BUSINESS : HistoryDatabase.TABLE_HISTORY_PRODUCTS);
             database.insert(text.getText().toString().trim());
             setUpHistory();
             InnerFragment innerFragment = new InnerFragment(getActivity());
@@ -135,7 +143,13 @@ public class FragmentSearch extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
                 ((TextViewFont) view.findViewById(R.id.txt_search_category)).setText(categories.get(i) + ":");
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.VISIBLE);
-                //TODO:: AFTER LOADING SUB CATEGORIES
+
+                //TODO where is "position" field? Is it "i"?
+                new GetBusinessSubcategories(adapterView.getItemAtPosition(i).toString()
+                        , FragmentSearch.this).execute();
+
+
+                //TODO:remove this part
                 subCategories = new ArrayList<String>();
                 subCategories.add("تلویزیون");
                 subCategories.add("یخچال");
@@ -151,7 +165,7 @@ public class FragmentSearch extends Fragment {
                 switchDrawer();
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.INVISIBLE);
                 category = subCategories.get(i);
-                ((TextViewFont) view.findViewById(R.id.txt_search_filter)).setText(getString(R.string.filter) + " " +subCategories.get(i));
+                ((TextViewFont) view.findViewById(R.id.txt_search_filter)).setText(getString(R.string.filter) + " " + subCategories.get(i));
             }
         });
         // back on click listener
@@ -186,7 +200,7 @@ public class FragmentSearch extends Fragment {
     public void setLocation() {
         Intent intent = new Intent(getActivity(), ActivityLocation.class);
         intent.putExtra(Params.SET_LOCATION_TYPE, Params.SEARCH);
-        if(locationM!=null) {
+        if (locationM != null) {
             intent.putExtra(Params.LOCATION_LATITUDE, locationM.getLatitude());
             intent.putExtra(Params.LOCATION_LONGITUDE, locationM.getLongitude());
         }
@@ -197,10 +211,10 @@ public class FragmentSearch extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==Params.INTENT_LOCATION && resultCode==Params.INTENT_OK) {
+        if (requestCode == Params.INTENT_LOCATION && resultCode == Params.INTENT_OK) {
             locationM = new Location_M(data.getStringExtra(Params.LOCATION_LATITUDE), data.getStringExtra(Params.LOCATION_LONGITUDE));
             ((TextViewFont) view.findViewById(R.id.txt_search_title)).setText(R.string.selected_location);
-            nearby=false;
+            nearby = false;
         }
 
     }
@@ -252,7 +266,7 @@ public class FragmentSearch extends Fragment {
         text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(view.isFocused()) {
+                if (view.isFocused()) {
                     if (drawerLayout.isDrawerOpen(Gravity.RIGHT))
                         drawerLayout.closeDrawer(Gravity.RIGHT);
                 } else {
@@ -284,7 +298,7 @@ public class FragmentSearch extends Fragment {
 
     // set recents
     void setUpHistory() {
-        database = new HistoryDatabase(getActivity(), searchType==Params.SearchType.BUSINESSES ? HistoryDatabase.TABLE_HISTORY_BUSINESS : HistoryDatabase.TABLE_HISTORY_PRODUCTS);
+        database = new HistoryDatabase(getActivity(), searchType == Params.SearchType.BUSINESSES ? HistoryDatabase.TABLE_HISTORY_BUSINESS : HistoryDatabase.TABLE_HISTORY_PRODUCTS);
         Cursor cursor = database.getHistory(text.getText().toString());
         String[] columns = new String[]{HistoryDatabase.FIELD_HISTORY};
         int[] columnTextId = new int[]{android.R.id.text1};
@@ -295,4 +309,30 @@ public class FragmentSearch extends Fragment {
         text.setAdapter(simple);
     }
 
+    @Override
+    public void getResult(Object result) {
+        if (result instanceof ArrayList) {
+
+            if (categories == null) {
+                //result from executing getBusinessCategories
+                categories = new ArrayList<String>();
+                categories = (ArrayList<String>) result;
+
+                //TODO assign categories to the spinner
+
+            }
+            else {
+                //result from executing getBusinessSubcategories
+                ArrayList<String> businessSubcategories = new ArrayList<String>();
+                businessSubcategories = (ArrayList<String>)result;
+
+                //TODO assign businessSubcategories to the spinner
+            }
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
+    }
 }

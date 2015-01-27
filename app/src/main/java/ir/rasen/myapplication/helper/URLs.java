@@ -45,7 +45,7 @@ public class URLs {
     public static String SEARCH_BUSINESS_LOCATION = MAIN_URL+"search_business_location";
     public static String SEARCH_BUSINESS_NEAR_BY = MAIN_URL+"search_business_location";
     public static String SEARCH_USER = MAIN_URL+"search_user";
-    public static String SEARCH_POST= MAIN_URL+"search_post";
+    public static String SEARCH_POST= MAIN_URL+"searchPost";
     public static String GET_BUSINESS_FOLLOWERS= MAIN_URL+"getBusinessFollowers";
     public static String DELETE_BUSINESS= MAIN_URL+"deleteBusiness";
     public static String BLOCK_USER= MAIN_URL+"block_user";
