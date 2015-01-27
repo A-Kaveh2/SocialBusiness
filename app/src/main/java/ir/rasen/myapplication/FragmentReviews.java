@@ -19,12 +19,17 @@ import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
+import ir.rasen.myapplication.webservice.review.ReviewBusiness;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.
  */
-public class FragmentReviews extends Fragment {
+public class FragmentReviews extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentReviews";
 
     private View view, listFooterView;
@@ -49,6 +54,11 @@ public class FragmentReviews extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO remove test part
+        new GetBusinessReviews("food_1",0,
+                getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                ,FragmentReviews.this).execute();
     }
 
     @Override
@@ -58,6 +68,8 @@ public class FragmentReviews extends Fragment {
 
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+
+        //TODO remove test parts
 
         // TODO: Change Adapter to display your content
         ArrayList<Review> reviews = new ArrayList<Review>();
@@ -102,8 +114,14 @@ public class FragmentReviews extends Fragment {
     }
 
     public void sendReview(View view) {
-        // TODO: SEND REVIEW HERE
+        // TODO: remove test parts
+
         String reviewText = ((EditTextFont) view.findViewById(R.id.txt_reviews_review)).getText().toString();
+        new ReviewBusiness(LoginInfo.getUserId(getActivity()),
+                "food_1",
+                reviewText,
+                FragmentReviews.this).execute();
+
     }
 
     // TODO: LOAD MORE DATA
@@ -156,5 +174,25 @@ public class FragmentReviews extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ArrayList){
+            ArrayList<Review> reviews = new ArrayList<Review>();
+            reviews = (ArrayList<Review>)result;
+
+            //TODO assign reviews
+        }
+        else if(result instanceof ResultStatus){
+            //executing from ReviewBusiness
+
+            //TODO display success message
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }
