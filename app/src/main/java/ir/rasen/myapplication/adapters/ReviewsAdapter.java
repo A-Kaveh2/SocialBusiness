@@ -70,6 +70,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             textProcessor.process(review.text, holder.review);
 
             // TODO: CHECK IS MINE OR NOT
+            //if(review.userID.equals(myId))
             boolean isMine=true;
             if(isMine) {
                 holder.options.setOnClickListener(new View.OnClickListener() {
