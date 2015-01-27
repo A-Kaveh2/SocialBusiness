@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.post;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,19 +26,20 @@ public class Like extends AsyncTask<Void, Void, ResultStatus> {
     private String postID;
     private ServerAnswer serverAnswer;
 
-    public Like(String userID, String postID) {
+    public Like(String userID, String postID,WebserviceResponse delegate) {
         this.userID = userID;
         this.postID = postID;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.LIKE);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.POST_ID, postID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.LIKE,new ArrayList<>(
+                Arrays.asList(userID,postID)));
+
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

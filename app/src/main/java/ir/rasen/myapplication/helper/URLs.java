@@ -25,7 +25,7 @@ public class URLs {
     public static String UPDATE_SETTING = MAIN_URL+"updateUserPermission";
     public static String GET_POSTS = MAIN_URL+"getBusinessPosts";
     public static String GET_SHARED_POSTS = MAIN_URL+"getUserSharedPosts";
-    public static String LIKE = MAIN_URL+"like";
+    public static String LIKE = MAIN_URL+"likePost";
     public static String DISLIKE = MAIN_URL+"dislike";
     public static String SEND_COMMENT = MAIN_URL+"send_comment";
     public static String UPDATE_COMMENT = MAIN_URL+"update_comment";

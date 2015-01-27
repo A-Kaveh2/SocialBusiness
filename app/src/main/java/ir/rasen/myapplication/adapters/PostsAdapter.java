@@ -24,12 +24,14 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.post.Like;
 
 /**
  * Created by 'Sina KH'.
@@ -42,13 +44,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
     private boolean singleTapped;
 
-    private WebserviceResponse webserviceResponse;
+    private WebserviceResponse delegate;
     private Context context;
-	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
+	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
-        this.webserviceResponse = webserviceResponse;
+        this.delegate = delegate;
         this.context = context;
 	}
 
@@ -115,7 +117,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 public void onClick(View view) {
                     if (singleTapped) {
                         holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                        likeNow();
+                        likeNow(mPosts.get(position).id);
                     } else {
                         singleTapped=true;
                         Handler handler = new Handler();
@@ -134,7 +136,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 public void onClick(View view) {
                     // like now!
                     holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                    likeNow();
+                    likeNow(mPosts.get(position).id);
                 }
             });
 
@@ -231,15 +233,15 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
                 // TODO where is business.id and post.id
                 Functions functions = new Functions();
-                functions.showPostDeletePopup(getContext(),"1","3",webserviceResponse);
+                functions.showPostDeletePopup(getContext(),LoginInfo.getUserId(context),"3",delegate);
                 pw.dismiss();
                 }
             });
         }
     }
 
-    void likeNow() {
-        // TODO:: LIKE NOW
+    void likeNow(String post_id) {
+       new Like(LoginInfo.getUserId(context),post_id,delegate).execute();
     }
 
 }
