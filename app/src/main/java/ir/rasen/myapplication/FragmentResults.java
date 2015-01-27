@@ -9,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.BusinessesAdapterResult;
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
+import ir.rasen.myapplication.adapters.PostsGridAdapterResult;
+import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
@@ -37,16 +41,15 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
-    private StickyListHeadersListView list;
-    private StickyListHeadersAdapter mAdapter;
+    private ListView list;
+    private ListAdapter mAdapter;
     private int searchType;
 
     private WebserviceResponse webserviceResponse;
 
     String searchString, category, location_latitude, location_longitude;
-    Boolean nearby;
 
-    public static FragmentResults newInstance(String searchString, String category, boolean nearby
+    public static FragmentResults newInstance(String searchString, String category
             , Location_M location_m, int searchType) {
 
         FragmentResults fragment = new FragmentResults();
@@ -54,7 +57,6 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         Bundle bundle = new Bundle();
         bundle.putString(Params.SEARCH_TEXT, searchString);
         bundle.putString(Params.CATEGORY, category);
-        bundle.putBoolean(Params.NEAR_BY, nearby);
         bundle.putString(Params.LOCATION_LATITUDE, location_m.getLatitude());
         bundle.putString(Params.LOCATION_LONGITUDE, location_m.getLongitude());
         bundle.putInt(Params.SEARCH_TYPE, searchType);
@@ -80,7 +82,6 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         if (bundle != null) {
             searchString = bundle.getString(Params.SEARCH_TEXT);
             category = bundle.getString(Params.CATEGORY);
-            nearby = bundle.getBoolean(Params.NEAR_BY);
             location_latitude = bundle.getString(Params.LOCATION_LATITUDE);
             location_longitude = bundle.getString(Params.LOCATION_LONGITUDE);
             searchType = bundle.getInt(Params.SEARCH_TYPE);
@@ -97,7 +98,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
         this.view = view;
 
-        list = (StickyListHeadersListView) view.findViewById(R.id.list_results_results);
+        list = (ListView) view.findViewById(R.id.list_results_results);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
         // setUp ListView
@@ -105,62 +106,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
         // TODO: Change Adapter to display your content after loading data
         if (searchType == Params.SearchType.PRODUCTS) {
-
             new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
-
-            // ArrayList to show
-            ArrayList<Post> posts = new ArrayList<Post>();
-
-            //TODO: remvoe test parts
-            Post post1 = new Post();
-            Post post2 = new Post();
-            Post post3 = new Post();
-            post1.businessID = "راسن";
-            post1.description = "یک نرم افزار عالی!!";
-            post1.price = "100.000";
-            post1.code = "30";
-            ArrayList<Comment> lastThreeComments = new ArrayList<>();
-            Comment comment = new Comment();
-            comment.userID = "SINA";
-            comment.text = "سلام";
-            lastThreeComments.add(comment);
-            post1.lastThreeComments = lastThreeComments;
-            post1.title = "عنوان!!";
-            posts.add(post1);
-            post2.businessID = "sina";
-            post2.description = "programmer - RASEN CO.";
-            post2.price = "123.456";
-            post2.code = "30";
-            post2.title = "عنوان!!";
-            post2.lastThreeComments = lastThreeComments;
-            posts.add(post2);
-            post3.businessID = "sina";
-            post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
-            post3.price = "125.234";
-            post3.code = "30";
-            post3.title = "عنوان!!";
-            post3.lastThreeComments = lastThreeComments;
-            posts.add(post3);
-            mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse);
-            list.setAdapter(mAdapter);
         } else {
             new SearchBusinessesLocation(LoginInfo.getUserId(getActivity()), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
-
-            ArrayList<Business> businesses = new ArrayList<Business>();
-            /*
-                for example, i've made some fake data to show ::
-            */
-            Business b1 = new Business();
-            Business b2 = new Business();
-            Business b3 = new Business();
-            b1.name = ("RASEN");
-            b2.name = ("IRAN AIR");
-            b3.name = ("کبابی محل");
-            businesses.add(b1);
-            businesses.add(b2);
-            businesses.add(b3);
-            mAdapter = new BusinessesAdapterResult(getActivity(), businesses);
-            list.setAdapter(mAdapter);
         }
 
         return view;
@@ -227,13 +175,16 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                 searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
                 //TODO assgin searchResult
+                mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
+                list.setAdapter(mAdapter);
 
-                //TODO change adapter to display search result as gridview
             } else {
                 ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
                 searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
                 //TODO assgin searchResult
+                mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);
+                list.setAdapter(mAdapter);
             }
         }
     }
