@@ -44,8 +44,8 @@ public class InnerFragment {
     }
 
     // add new comments fragment to current place
-    public void newComments(String userId, String postId) {
-        Fragment newFragment = new FragmentComments();
+    public void newComments(String postId) {
+        Fragment newFragment = new FragmentComments().newInstance(postId);
         addFragment(newFragment);
     }
 

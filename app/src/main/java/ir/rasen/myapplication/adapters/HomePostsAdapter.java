@@ -107,8 +107,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 public void onClick(View view) {
                     // TODO: SHOW COMMENTS
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    String userId="1";
-                    innerFragment.newComments(userId, postId);
+                    innerFragment.newComments(postId);
                 }
             });
 

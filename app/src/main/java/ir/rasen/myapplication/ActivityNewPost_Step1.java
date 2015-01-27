@@ -21,30 +21,20 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
-import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.post.AddPost;
-import ir.rasen.myapplication.webservice.post.UpdatePost;
 
 public class ActivityNewPost_Step1 extends Activity implements WebserviceResponse {
 
-    private Context context;
-    private String img;
     private boolean isEditing = false;
 
     @Override
@@ -53,7 +43,6 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_post_step_1);
-        context = this;
 
         // SET ANIMATIONS
         setAnimations();

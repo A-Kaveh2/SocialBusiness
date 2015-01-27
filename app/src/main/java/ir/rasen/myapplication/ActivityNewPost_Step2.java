@@ -47,6 +47,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     private String img;
     private boolean isEditing = false;
     private String businessId;
+    private boolean canceled=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         }
 
         Post post = PassingPosts.getInstance().getValue().get(0);
-        ((ImageView) findViewById(R.id.img_new_post_step2_post)).setImageBitmap(Image_M.getBitmapFromString(post.picture));
+        if(!post.picture.equals(post.picture))
+            ((ImageView) findViewById(R.id.img_new_post_step2_post)).setImageBitmap(Image_M.getBitmapFromString(post.picture));
         name.setText(post.title);
         description.setText(post.description);
         price.setText(post.price);
@@ -202,16 +204,17 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
 
     public void back(View v) {
+        canceled=true;
         onBackPressed();
     }
 
     @Override
     public void getResult(Object result) {
-
+        if(canceled) return;
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        if(canceled) return;
     }
 }

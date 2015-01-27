@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,15 @@ public class FragmentComments extends Fragment {
 
     private ListView list;
 
-    public static FragmentComments newInstance (){
+    private String postId;
+
+    public static FragmentComments newInstance (String postId){
         FragmentComments fragment = new FragmentComments();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Params.POST_ID, postId);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -49,6 +57,15 @@ public class FragmentComments extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            postId = bundle.getString(Params.POST_ID);
+        } else {
+            Log.e(TAG, "bundle is null!!");
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+        }
     }
 
     @Override

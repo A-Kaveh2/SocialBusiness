@@ -144,7 +144,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 public void onClick(View view) {
                     // TODO: SHOW COMMENTS
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newComments(post.businessID, post.id);
+                    innerFragment.newComments(post.id);
                 }
             });
 
