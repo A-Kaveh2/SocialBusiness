@@ -39,8 +39,9 @@ public class URLs {
     public static String REQUEST_FRIENDSHIP = MAIN_URL+"request_friendship";
     public static String ANSWER_REQUEST_FRIENDSHIP = MAIN_URL+"request_friendship";
     public static String GET_USER_REVIEWS = MAIN_URL+"get_user_reviews";
-    public static String GET_BUSINESS_REVIEWS = MAIN_URL+"get_user_reviews";
+    public static String GET_BUSINESS_REVIEWS = MAIN_URL+"getBusinessReviews";
     public static String UPDATE_REVIEW = MAIN_URL+"update_review";
+    public static String REVIEW_BUSINESS = MAIN_URL+"reviewBusiness";
     public static String DELETE_REVIEW = MAIN_URL+"delete_review";
     public static String SEARCH_BUSINESS_LOCATION = MAIN_URL+"searchBusinessByLocation";
     public static String SEARCH_BUSINESS_NEAR_BY = MAIN_URL+"search_business_location";

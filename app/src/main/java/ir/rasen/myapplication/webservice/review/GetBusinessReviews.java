@@ -7,11 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -23,26 +25,25 @@ public class GetBusinessReviews extends AsyncTask<Void, Void, ArrayList<Review>>
     private static final String TAG = "GetBusinessReviews";
     private WebserviceResponse delegate = null;
     private String businessID;
-    private int fromIndex;
-    private int untilIndex;
+    private int afterThisID;
+    private int limitation;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessReviews(String businessID, int fromIndex, int untilIndex) {
+    public GetBusinessReviews(String businessID, int afterThisID, int limitation,WebserviceResponse delegate) {
         this.businessID = businessID;
-        this.fromIndex = fromIndex;
-        this.untilIndex = untilIndex;
+        this.afterThisID = afterThisID;
+        this.limitation = limitation;
+        this.delegate = delegate;
     }
 
     @Override
     protected ArrayList<Review> doInBackground(Void... voids) {
         ArrayList<Review> list = new ArrayList<Review>();
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_REVIEWS);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.FROM_INDEX, String.valueOf(fromIndex));
-        webservicePOST.addParam(Params.UNTIL_INDEX, String.valueOf(untilIndex));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_REVIEWS,new ArrayList<>(
+                Arrays.asList(businessID,String.valueOf(afterThisID),String.valueOf(limitation))));
 
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {

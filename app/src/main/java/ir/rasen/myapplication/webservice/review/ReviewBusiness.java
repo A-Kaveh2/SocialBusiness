@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.review;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -23,21 +27,20 @@ public class ReviewBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private String review;
     private ServerAnswer serverAnswer;
 
-    public ReviewBusiness(String userID, String businessID, String review) {
+    public ReviewBusiness(String userID, String businessID, String review,WebserviceResponse delegate) {
         this.userID = userID;
         this.businessID = businessID;
         this.review = review;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_REVIEW);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.TEXT, review);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.REVIEW_BUSINESS,new ArrayList<>(
+                Arrays.asList(userID,businessID,review)));
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {
