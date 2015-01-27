@@ -196,7 +196,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse {
     public void getResult(Object result) {
         if(result instanceof ResultStatus){
             //result from executing SendComment
-            
+
         }
     }
 

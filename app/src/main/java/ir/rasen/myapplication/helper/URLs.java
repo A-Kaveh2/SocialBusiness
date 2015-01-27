@@ -32,7 +32,7 @@ public class URLs {
     public static String DELETE_COMMENT = MAIN_URL+"delete_comment";
     public static String GET_COMMENTS = MAIN_URL+"get_comments";
     public static String SHARE = MAIN_URL+"share";
-    public static String REPORT = MAIN_URL+"report";
+    public static String REPORT = MAIN_URL+"reportPost";
     public static String ADD_POST = MAIN_URL+"addPost";
     public static String UPDATE_POST = MAIN_URL+"updatePost";
     public static String DELETE_POST = MAIN_URL+"deletePost";
