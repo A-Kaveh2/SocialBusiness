@@ -38,7 +38,7 @@ public class URLs {
     public static String DELETE_POST = MAIN_URL+"deletePost";
     public static String REQUEST_FRIENDSHIP = MAIN_URL+"request_friendship";
     public static String ANSWER_REQUEST_FRIENDSHIP = MAIN_URL+"request_friendship";
-    public static String GET_USER_REVIEWS = MAIN_URL+"get_user_reviews";
+    public static String GET_USER_REVIEWS = MAIN_URL+"getUserReviews";
     public static String GET_BUSINESS_REVIEWS = MAIN_URL+"getBusinessReviews";
     public static String UPDATE_REVIEW = MAIN_URL+"update_review";
     public static String REVIEW_BUSINESS = MAIN_URL+"reviewBusiness";
