@@ -45,11 +45,10 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     String searchString, category, location_latitude, location_longitude;
     Boolean nearby;
-    private static Context cont;
 
-    public static FragmentResults newInstance(Context context, String searchString, String category, boolean nearby
+    public static FragmentResults newInstance(String searchString, String category, boolean nearby
             , Location_M location_m, int searchType) {
-        cont = context;
+
         FragmentResults fragment = new FragmentResults();
 
         Bundle bundle = new Bundle();
@@ -107,7 +106,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         // TODO: Change Adapter to display your content after loading data
         if (searchType == Params.SearchType.PRODUCTS) {
 
-            new SearchPost(LoginInfo.getUserId(cont), searchString, FragmentResults.this).execute();
+            new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
 
             // ArrayList to show
             ArrayList<Post> posts = new ArrayList<Post>();
@@ -145,7 +144,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse);
             list.setAdapter(mAdapter);
         } else {
-            new SearchBusinessesLocation(LoginInfo.getUserId(cont), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
+            new SearchBusinessesLocation(LoginInfo.getUserId(getActivity()), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
 
             ArrayList<Business> businesses = new ArrayList<Business>();
             /*
