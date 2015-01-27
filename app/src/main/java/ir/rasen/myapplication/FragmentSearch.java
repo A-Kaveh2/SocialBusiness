@@ -56,6 +56,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ArrayList<String> categories;
 
     private ListView listViewCategories, listViewSubCategories;
+    private boolean closed=false;
 
     // TODO: Rename and change types of parameters
     public static FragmentSearch newInstance() {
@@ -313,6 +314,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        if(closed) return;
         if (result instanceof ArrayList) {
 
             if (categories == null) {
@@ -342,7 +344,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
-
+        if(closed) return;
     }
 
     // location listener

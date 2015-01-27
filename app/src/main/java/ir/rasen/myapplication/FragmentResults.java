@@ -104,7 +104,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
-        // TODO: Change Adapter to display your content after loading data
+        // load results
         if (searchType == Params.SearchType.PRODUCTS) {
             new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
         } else {

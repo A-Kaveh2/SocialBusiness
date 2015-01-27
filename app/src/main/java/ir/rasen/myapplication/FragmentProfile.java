@@ -81,6 +81,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     private boolean isBusinessProfile = false;
     private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
     private static RunningWebserviceType runningWebserviceType;
+    private boolean closed=false;
 
     private ArrayList<Post> posts;
 
@@ -480,6 +481,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+
+        if(closed) return;
+
         if (result instanceof ResultStatus) {
             //delete post,follow business
 
@@ -544,6 +548,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
+
+        if(closed) return;
 
         //TODO display error
         String errorMessage = ServerAnswer.getError(cont, errorCode);
