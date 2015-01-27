@@ -18,6 +18,7 @@ import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -26,12 +27,12 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by 'Sina KH' on 01/13/2015.
  */
 // TODO: FRIENDS LIST ADAPTER
-public class BusinessesAdapterResult extends ArrayAdapter<Business> implements StickyListHeadersAdapter {
-	private ArrayList<Business> mBusinesses;
+public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness> {
+	private ArrayList<SearchItemUserBusiness> mBusinesses;
 	private LayoutInflater mInflater;
     private Context context;
 
-	public BusinessesAdapterResult(Context context, ArrayList<Business> businesses) {
+	public BusinessesAdapterResult(Context context, ArrayList<SearchItemUserBusiness> businesses) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
@@ -41,7 +42,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<Business> implements S
 	@Override
 	public View getView(int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
-        final Business business = mBusinesses.get(position);
+        final SearchItemUserBusiness business = mBusinesses.get(position);
 
         if (convertView == null) {
             holder = new ViewHolder();
@@ -63,7 +64,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<Business> implements S
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.userID);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });
@@ -76,18 +77,6 @@ public class BusinessesAdapterResult extends ArrayAdapter<Business> implements S
         ImageViewCircle picture;
         TextViewFont name;
         int id;
-    }
-
-    @Override
-    public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        return new View(getContext());
-    }
-    @Override
-    public long getHeaderId(int position) {
-        return position;
-    }
-
-    class HeaderViewHolder {
     }
 
 }

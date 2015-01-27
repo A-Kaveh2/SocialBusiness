@@ -37,6 +37,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     boolean isEditing = false;
     private WebserviceResponse webserviceResponse;
     private Context context;
+    private boolean closed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     }*/
     public void onBackPressed() {
         // TODO PUT DATA IN PASSING BUSINESS
+        closed=true;
         putDataInPassingBusiness();
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
@@ -231,11 +233,13 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
+        if(closed) return;
         Functions.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
     }
 
     @Override
     public void getError(Integer errorCode) {
+        if(closed) return;
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
         Functions.showMessage(context, errorMessage);
     }

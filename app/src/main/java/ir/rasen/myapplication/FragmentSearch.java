@@ -55,6 +55,9 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private HistoryDatabase database;
     private ArrayList<String> categories;
 
+    private ListView listViewCategories, listViewSubCategories;
+    private boolean closed=false;
+
     // TODO: Rename and change types of parameters
     public static FragmentSearch newInstance() {
         FragmentSearch fragment = new FragmentSearch();
@@ -145,8 +148,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     void setUpCategoriesFitler() {
 
         final ArrayList<String> categories = new ArrayList<>();
-        final ListView listViewSubCategories = (ListView) view.findViewById(R.id.list_search_subcategories);
-        final ListView listViewCategories = (ListView) view.findViewById(R.id.list_search_categories);
+        listViewSubCategories = (ListView) view.findViewById(R.id.list_search_subcategories);
+        listViewCategories = (ListView) view.findViewById(R.id.list_search_categories);
         // Categories on item click listener
         listViewCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -154,18 +157,9 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 ((TextViewFont) view.findViewById(R.id.txt_search_category)).setText(categories.get(i) + ":");
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.VISIBLE);
 
-                //TODO where is "position" field? Is it "i"?
+                // getting sub categories
                 new GetBusinessSubcategories(adapterView.getItemAtPosition(i).toString()
                         , FragmentSearch.this).execute();
-
-
-                //TODO:remove this part
-                subCategories = new ArrayList<String>();
-                subCategories.add("تلویزیون");
-                subCategories.add("یخچال");
-                ArrayAdapter<String> subcategoriesAdapter =
-                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
-                listViewSubCategories.setAdapter(subcategoriesAdapter);
             }
         });
         // sub categories on item click listener
@@ -186,14 +180,13 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             }
         });
 
-        // TODO:: AFTER GETTING CATEGORIES FROM INTERNET:: {{{
-        // set categories adapter
+        /*// set categories adapter
         categories.add("لوازم الکترونیکی");
         categories.add("فست فود");
         ArrayAdapter<String> categoriesAdapter =
                 new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
         listViewCategories.setAdapter(categoriesAdapter);
-        // TODO:: }}}
+        // */
     }
 
     void setUpSuggestions() {
@@ -321,6 +314,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        if(closed) return;
         if (result instanceof ArrayList) {
 
             if (categories == null) {
@@ -330,20 +324,27 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
                 //TODO assign categories to the spinner
 
+                ArrayAdapter<String> categoriesAdapter =
+                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
+                listViewCategories.setAdapter(categoriesAdapter);
             }
             else {
                 //result from executing getBusinessSubcategories
-                ArrayList<String> businessSubcategories = new ArrayList<String>();
-                businessSubcategories = (ArrayList<String>)result;
+                subCategories = new ArrayList<String>();
+                subCategories = (ArrayList<String>)result;
 
                 //TODO assign businessSubcategories to the spinner
+
+                ArrayAdapter<String> subcategoriesAdapter =
+                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
+                listViewSubCategories.setAdapter(subcategoriesAdapter);
             }
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        if(closed) return;
     }
 
     // location listener

@@ -51,6 +51,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     private Context context;
     private ArrayList<String> categoryList;
     public static Activity step1;
+    private boolean closed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,7 +230,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
 
-    public void back(View v) {
+    public void back(View v)
+    {
+        closed=true;
         onBackPressed();
     }
 
@@ -240,6 +243,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
+        if(closed) return;
 
         if (result instanceof ArrayList) {
             Business business = PassingBusiness.getInstance().getValue();
@@ -274,6 +278,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getError(Integer errorCode) {
+        if(closed) return;
+
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
         Functions.showMessage(context, errorMessage);
     }
