@@ -27,7 +27,7 @@ public class URLs {
     public static String GET_SHARED_POSTS = MAIN_URL+"getUserSharedPosts";
     public static String LIKE = MAIN_URL+"likePost";
     public static String DISLIKE = MAIN_URL+"dislike";
-    public static String SEND_COMMENT = MAIN_URL+"send_comment";
+    public static String SEND_COMMENT = MAIN_URL+"commentOnPost";
     public static String UPDATE_COMMENT = MAIN_URL+"update_comment";
     public static String DELETE_COMMENT = MAIN_URL+"delete_comment";
     public static String GET_COMMENTS = MAIN_URL+"get_comments";
