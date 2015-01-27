@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.comment;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -23,21 +27,21 @@ public class SendComment extends AsyncTask<Void, Void, ResultStatus> {
     private String comment;
     private ServerAnswer serverAnswer;
 
-    public SendComment(String userID, String postID, String comment) {
+    public SendComment(String userID, String postID, String comment,WebserviceResponse delegate) {
         this.userID = userID;
         this.postID = postID;
         this.comment = comment;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.SEND_COMMENT);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.POST_ID, postID);
-        webservicePOST.addParam(Params.COMMENT, comment);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEND_COMMENT,new ArrayList<>(
+                Arrays.asList(userID, postID,comment)));
+
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

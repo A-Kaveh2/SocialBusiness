@@ -18,18 +18,22 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.comment.SendComment;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentComments extends Fragment {
+public class FragmentComments extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentComments";
 
     private View view, listFooterView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListAdapter mAdapter;
 
@@ -37,7 +41,7 @@ public class FragmentComments extends Fragment {
 
     private String postId;
 
-    public static FragmentComments newInstance (String postId){
+    public static FragmentComments newInstance(String postId) {
         FragmentComments fragment = new FragmentComments();
 
         Bundle bundle = new Bundle();
@@ -88,12 +92,12 @@ public class FragmentComments extends Fragment {
         Comment comment1 = new Comment();
         Comment comment2 = new Comment();
         Comment comment3 = new Comment();
-        comment1.userID="Sina";
-        comment1.text=("سلام!!");
-        comment2.userID="Hossein";
-        comment2.text=("چطوری @سینا؟");
-        comment3.text="SINA";
-        comment3.text=("فدایت عزیز");
+        comment1.userID = "Sina";
+        comment1.text = ("سلام!!");
+        comment2.userID = "Hossein";
+        comment2.text = ("چطوری @سینا؟");
+        comment3.text = "SINA";
+        comment3.text = ("فدایت عزیز");
         comments.add(comment1);
         comments.add(comment2);
         comments.add(comment3);
@@ -109,7 +113,7 @@ public class FragmentComments extends Fragment {
         ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean b) {
-                if(!view.isFocused()) {
+                if (!view.isFocused()) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.edt_comments_comment)).getWindowToken(), 0);
@@ -121,15 +125,19 @@ public class FragmentComments extends Fragment {
 
     public void sendComment(View view) {
         EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
-        if(commentText.length()< Params.COMMENT_TEXT_MIN_LENGTH) {
+        if (commentText.length() < Params.COMMENT_TEXT_MIN_LENGTH) {
             commentText.setError(getString(R.string.comment_is_too_short));
             return;
         }
-        if(commentText.length()>Params.COMMENT_TEXT_MAX_LENGTH) {
+        if (commentText.length() > Params.COMMENT_TEXT_MAX_LENGTH) {
             commentText.setError(getString(R.string.enter_is_too_long));
             return;
         }
-        // TODO: SEND COMMENT HERE
+
+        new SendComment(LoginInfo.getUserId(getActivity()),
+                postId,
+                commentText.getText().toString(),
+                FragmentComments.this).execute();
     }
 
     // TODO: LOAD MORE DATA
@@ -147,7 +155,7 @@ public class FragmentComments extends Fragment {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -182,5 +190,18 @@ public class FragmentComments extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ResultStatus){
+            //result from executing SendComment
+
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }
