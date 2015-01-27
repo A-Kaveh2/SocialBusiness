@@ -68,7 +68,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
             for example, i've made some fake data to show ::
         */
 
-        mAdapter = new ReviewsAdapter(getActivity(), reviews);
+        mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
 
         return view;
@@ -128,9 +128,9 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ArrayList){
+        if (result instanceof ArrayList) {
             ArrayList<Review> reviews = new ArrayList<Review>();
-            reviews = (ArrayList<Review>)result;
+            reviews = (ArrayList<Review>) result;
 
             //TODO assign reviews
         }

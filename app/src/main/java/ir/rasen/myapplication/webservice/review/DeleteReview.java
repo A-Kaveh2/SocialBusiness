@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.review;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,19 +26,20 @@ public class DeleteReview extends AsyncTask<Void, Void, ResultStatus> {
     private String reviewID;
     private ServerAnswer serverAnswer;
 
-    public DeleteReview(String userID, String reviewID) {
+    public DeleteReview(String userID, String reviewID,WebserviceResponse delegate) {
         this.userID = userID;
         this.reviewID = reviewID;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.DELETE_REVIEW);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.REVIEW_ID, reviewID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_REVIEW,new ArrayList<>(
+                Arrays.asList(userID, reviewID)));
+
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

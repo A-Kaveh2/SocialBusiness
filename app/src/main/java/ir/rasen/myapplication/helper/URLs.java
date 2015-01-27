@@ -42,7 +42,7 @@ public class URLs {
     public static String GET_BUSINESS_REVIEWS = MAIN_URL+"getBusinessReviews";
     public static String UPDATE_REVIEW = MAIN_URL+"update_review";
     public static String REVIEW_BUSINESS = MAIN_URL+"reviewBusiness";
-    public static String DELETE_REVIEW = MAIN_URL+"delete_review";
+    public static String DELETE_REVIEW = MAIN_URL+"deleteReview";
     public static String SEARCH_BUSINESS_LOCATION = MAIN_URL+"searchBusinessByLocation";
     public static String SEARCH_BUSINESS_NEAR_BY = MAIN_URL+"search_business_location";
     public static String SEARCH_USER = MAIN_URL+"searchUser";
