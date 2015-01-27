@@ -2,7 +2,6 @@ package ir.rasen.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,18 +22,14 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
@@ -172,7 +167,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     return;
                 }
                 user.password = pass1.getText().toString();
-                Functions.showMessage(context, getString(R.string.password_will_change));
+                Dialogs.showMessage(context, getString(R.string.password_will_change));
             }
         });
         dialog.show();
@@ -192,12 +187,12 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             public void onClick(View view) {
             try {
                 if(!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
-                    Functions.showMessage(context, getString(R.string.invalid_birthday));
+                    Dialogs.showMessage(context, getString(R.string.invalid_birthday));
                     dialog.dismiss();
                     return;
                 }
             } catch(Exception e) {
-                Functions.showMessage(context, getString(R.string.invalid_birthday));
+                Dialogs.showMessage(context, getString(R.string.invalid_birthday));
                 dialog.dismiss();
                 return;
             }
@@ -288,13 +283,13 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             txtBirthDate.setText(user.birthDate);
         } else if (result instanceof ResultStatus) {
             // result from executing UpdateUserProfileInfo
-            Functions.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(context, errorMessage);
+        Dialogs.showMessage(context, errorMessage);
     }
 }

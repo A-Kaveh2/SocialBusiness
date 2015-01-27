@@ -1,8 +1,6 @@
 package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,20 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import ir.rasen.myapplication.ActivityMain;
-import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -157,7 +151,8 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
             holder.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    showOptionsPopup(view, position,webserviceResponse);
+                    OptionsPost optionsPost = new OptionsPost(getContext());
+                    optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse);
                 }
             });
 
@@ -177,56 +172,6 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         ImageButton options;
         LinearLayout likes, comments;
         int id;
-    }
-
-    public void showOptionsPopup(View view, final int position, final WebserviceResponse webserviceResponse) {
-        // TODO: CHECK IS MINE
-        Boolean isMine = true;
-        // SHOWING POPUP WINDOW
-        final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
-        final View layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
-                new LinearLayout(getContext()));
-        final PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        pw.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pw.setOutsideTouchable(true);
-        pw.showAsDropDown(view);
-        // SETTING ON CLICK LISTENERS
-        if(isMine) {
-            // EDIT OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    // TODO: EDIT POST
-                    ArrayList<Post> posts = new ArrayList<Post>();
-                    posts.add(mPosts.get(position));
-                    PassingPosts.getInstance().setValue(posts);
-                    Intent intent = new Intent(getContext(), ActivityNewPost_Step1.class);
-                    getContext().startActivity(intent);
-                    ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
-                    pw.dismiss();
-                }
-            });
-            // DELETE OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                // TODO DELETE POST
-                showDeletePopup(webserviceResponse);
-
-                    pw.dismiss();
-                }
-            });
-        }
-    }
-
-    public void showDeletePopup(WebserviceResponse webserviceResponse) {
-        //TODO where is business.id and post.id?
-            // TODO ANSWER:: post.businessID and post.id prepared for you
-        // SHOWING POPUP WINDOW
-        Functions functions = new Functions();
-
-        //"1": post.businessID
-        //"4": post.id
-        functions.showPostDeletePopup(getContext(),"1","5",webserviceResponse);
-
     }
 
     @Override
@@ -249,7 +194,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
         // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
         // FOR TEST ONLY!
-        holder.time.setText(Functions.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+        holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
         // ON CLICK LISTENERS FOR business pic and name
         holder.business_pic.setOnClickListener(new View.OnClickListener() {

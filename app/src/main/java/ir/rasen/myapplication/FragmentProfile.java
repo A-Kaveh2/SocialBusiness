@@ -16,37 +16,27 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.RatingBar;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.PostsAdapter;
 import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.FriendshipRelation;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
-import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
-import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
-import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.GridViewHeader;
-import ir.rasen.myapplication.ui.ImageViewCircle;
-import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
 import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
 import ir.rasen.myapplication.webservice.post.GetSharedPosts;
@@ -403,10 +393,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
             @Override
             public void onClick(View v) {
                 // Edit business now
-                Business business = new Business();
-                // TODO:: PUT BUSINESS DATA HERE
-                PassingBusiness.getInstance().setValue(business);
-                Intent intent = new Intent(getActivity(), ActivityNewBusiness_Step1.class);
+                PassingBusiness.getInstance().setValue(profile_business);
+                Intent intent = new Intent(getActivity(), ActivityBusinessSettings.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
@@ -553,7 +541,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
 
         //TODO display error
         String errorMessage = ServerAnswer.getError(cont, errorCode);
-        Functions.showMessage(cont, errorMessage);
+        Dialogs.showMessage(cont, errorMessage);
     }
 
     private void assignNow() {

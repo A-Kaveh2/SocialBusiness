@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,9 +24,8 @@ import android.widget.ImageButton;
 import java.io.File;
 
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
-import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -216,6 +214,6 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     @Override
     public void getError(Integer errorCode) {
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(context, errorMessage);
+        Dialogs.showMessage(context, errorMessage);
     }
 }

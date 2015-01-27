@@ -28,6 +28,39 @@ public class TextProcessor {
         this.context = context;
     }
 
+    public static String timeToTimeAgo (Context context, int time)
+    {
+
+        if(time<60)
+            return context.getString(R.string.time_now) ;
+
+        String result = "";
+
+        int[] values = new int[] {
+                31536000,
+                2592000,
+                604800,
+                86400,
+                3600,
+                60
+        };
+        String[] results = new String[] {
+                context.getString(R.string.time_year),
+                context.getString(R.string.time_month),
+                context.getString(R.string.time_week),
+                context.getString(R.string.time_day),
+                context.getString(R.string.time_hour),
+                context.getString(R.string.time_minute)
+        };
+
+        for (int i=0; i<values.length; i++) {
+            if (time >= values[i])
+                return ((int)(time / values[i]))+" "+results[i]+" "+context.getString(R.string.time_ago);
+        }
+
+        return "";
+    }
+
     // processing comments for owner and profile tags
     public void process(final String text, TextView textView) {
         String TAG = "TextProcessor->processText";

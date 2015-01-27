@@ -89,6 +89,8 @@
     <string name="status">توضیحات</string>
     <string name="friend_request">درخواست دوستی</string>
     <string name="profile_edit_business">ویرایش اطلاعات کسب و کار</string>
+    <string name="profile_edit_business_text">اطلاعات کسب و کار خود را مشاهده و در صورت تمایل تغییراتی در آن اعمال کنید.</string>
+    <string name="profile_edit_delete_text">این کسب و کار و تمام محصولات آن را از حساب خود حذف کنید.</string>
     <string name="follow_request">دنبال کردن</string>
     <string name="followers">دنبال کنندگان</string>
     <string name="followers_num">دنبال کننده</string>
@@ -116,6 +118,8 @@
     <!-- BUSINESSES -->
     <string name="comments">نظرات</string>
     <string name="business_id">شناسه ی کسب و کار</string>
+    <string name="business_settings">تنظیمات کسب و کار</string>
+    <string name="delete_business">حذف کسب و کار</string>
 
     <!-- SETTINGS -->
     <string name="friends">دوستان</string>
@@ -146,6 +150,8 @@
     <!-- POPUP -->
     <string name="delete_post">حذف مطلب</string>
     <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
+    <string name="popup_share">آیا میخواهید این مطلب را به اشتراک بگذارید؟</string>
+    <string name="popup_report">آیا میخواهید گزارش تخلف این مطلب را ثبت کنید؟</string>
     <string name="delete_comment">حذف نظر</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
     <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
@@ -155,6 +161,7 @@
     <string name="popup_delete_review">آیا میخواهید نقد خود را حذف نمایید؟</string>
     <string name="block_follower">مسدود سازی دنبال کننده</string>
     <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
+    <string name="popup_delete_business">با این کار تمام محصولات این کسب و کار برای همیشه حذف خواهند شد.\n\nاز تصمیم خود مطمئن هستید؟</string>
     <string name="popup_warning">توجه!</string>
 
     <!-- COMMENTS -->

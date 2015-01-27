@@ -23,11 +23,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
@@ -141,8 +140,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         // TODO:: Start search fragment
         if (text.getText().toString().trim().length() > 0) {
             if(locationM==null) {
-                Functions functions = new Functions();
-                functions.showLocationNotFoundPopup(this, getString(R.string.no_location_found));
+                Dialogs dialogs = new Dialogs();
+                dialogs.showLocationNotFoundPopup(this, getString(R.string.no_location_found));
                 return;
             }
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(

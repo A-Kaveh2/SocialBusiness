@@ -1,32 +1,25 @@
 package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import ir.rasen.myapplication.ActivityMain;
-import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -91,7 +84,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                     + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            holder.time.setText(Functions.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
             holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +100,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                showOptionsPopup(view, position);
+                OptionsPost optionsPost = new OptionsPost(getContext());
+                // TODO:: SET WEB SERVICE RESPONSE
+                //optionsPost.showOptionsPopup(mPosts.get(position), view, );
             }
             });
 
@@ -196,48 +191,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         ImageViewCircle business_pic, comment1_pic;
         LinearLayout likes, comments;
         int id;
-    }
-
-    public void showOptionsPopup(View view, final int position) {
-        // TODO: CHECK IS MINE
-        Boolean isMine = true;
-        // SHOWING POPUP WINDOW
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
-        View layout;
-        if (isMine)
-            layout = inflater.inflate(R.layout.layout_menu_post_options_owner,new LinearLayout(getContext()));
-        else
-            layout = inflater.inflate(R.layout.layout_menu_post_options,new LinearLayout(getContext()));
-        final PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        pw.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pw.setOutsideTouchable(true);
-        pw.showAsDropDown(view);
-        // SETTING ON CLICK LISTENERS
-        if(isMine) {
-            // EDIT OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                // TODO: EDIT POST
-                ArrayList<Post> posts = new ArrayList<Post>();
-                posts.add(mPosts.get(position));
-                PassingPosts.getInstance().setValue(posts);
-                Intent intent = new Intent(getContext(), ActivityNewPost_Step1.class);
-                getContext().startActivity(intent);
-                ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
-                pw.dismiss();
-                }
-            });
-            // DELETE OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                // TODO where is business.id and post.id
-                Functions functions = new Functions();
-                functions.showPostDeletePopup(getContext(),LoginInfo.getUserId(context),"3",delegate);
-                pw.dismiss();
-                }
-            });
-        }
     }
 
     void likeNow(String post_id) {

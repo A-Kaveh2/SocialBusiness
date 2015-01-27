@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -293,7 +293,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
     public void getError(Integer errorCode) {
         //TODO display error message
         String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-        Functions.showMessage(getActivity(), errorMessage);
+        Dialogs.showMessage(getActivity(), errorMessage);
     }
 /*
     void autoHideActionBar() {
