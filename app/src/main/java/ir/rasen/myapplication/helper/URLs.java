@@ -47,7 +47,7 @@ public class URLs {
     public static String SEARCH_USER = MAIN_URL+"search_user";
     public static String SEARCH_POST= MAIN_URL+"search_post";
     public static String GET_BUSINESS_FOLLOWERS= MAIN_URL+"getBusinessFollowers";
-    public static String DELETE_BUSINESS= MAIN_URL+"delete_business";
+    public static String DELETE_BUSINESS= MAIN_URL+"deleteBusiness";
     public static String BLOCK_USER= MAIN_URL+"block_user";
     public static String UNBLOCK_USER= MAIN_URL+"unblock_user";
     public static String GET_BLOCKED_USERS= MAIN_URL+"get_blocked_users";
