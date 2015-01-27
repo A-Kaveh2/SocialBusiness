@@ -102,7 +102,7 @@ public class ActivityLocation extends FragmentActivity {
         findViewById(R.id.map).setVisibility(View.INVISIBLE);
 
         // SHOWING POPUP WINDOW
-        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLocation.this);
         builder
             .setTitle(R.string.error)
             .setMessage(R.string.error_google_play_services)
