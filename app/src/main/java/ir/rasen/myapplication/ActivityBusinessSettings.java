@@ -22,15 +22,12 @@ public class ActivityBusinessSettings extends Activity {
 
         business = PassingBusiness.getInstance().getValue();
         PassingBusiness.getInstance().setValue(null);
-        Intent intent = new Intent(ActivityBusinessSettings.this, ActivityNewBusiness_Step1.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.to_0, R.anim.to_left);
 
     }
 
     public void edit(View view) {
         PassingBusiness.getInstance().setValue(business);
-        Intent intent = new Intent(ActivityBusinessSettings.this, ActivityBusinessSettings.class);
+        Intent intent = new Intent(ActivityBusinessSettings.this, ActivityNewBusiness_Step1.class);
         startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
@@ -44,6 +41,10 @@ public class ActivityBusinessSettings extends Activity {
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+    }
+
+    public void back(View view) {
+        onBackPressed();
     }
 
 }

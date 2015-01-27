@@ -387,7 +387,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     }
 
     void myOwnBusiness() {
-        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_business);
+        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.business_settings);
         // EDIT BUSINESS
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
