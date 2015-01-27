@@ -125,8 +125,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         // TODO:: Start search fragment
         if (text.getText().toString().trim().length() > 0) {
             if(locationM==null) {
-                setLocation();
-                Functions.showMessage(getActivity(), getString(R.string.no_location_found));
+                Functions functions = new Functions();
+                functions.showLocationNotFoundPopup(this, getString(R.string.no_location_found));
                 return;
             }
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
