@@ -15,21 +15,24 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.review.GetUserReviews;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.
  */
-public class FragmentUserReviews extends Fragment {
+public class FragmentUserReviews extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentReviews";
 
     private View view, listFooterView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
 
-    public static FragmentUserReviews newInstance (){
+    public static FragmentUserReviews newInstance() {
         FragmentUserReviews fragment = new FragmentUserReviews();
         return fragment;
     }
@@ -44,6 +47,9 @@ public class FragmentUserReviews extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new GetUserReviews(LoginInfo.getUserId(getActivity()),
+                0, getResources().getInteger(R.integer.lazy_load_limitation)).execute();
     }
 
     @Override
@@ -62,7 +68,7 @@ public class FragmentUserReviews extends Fragment {
             for example, i've made some fake data to show ::
         */
 
-        mAdapter = new ReviewsAdapter(getActivity(), reviews);
+        mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
 
         return view;
@@ -83,7 +89,7 @@ public class FragmentUserReviews extends Fragment {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -118,5 +124,20 @@ public class FragmentUserReviews extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if (result instanceof ArrayList) {
+            ArrayList<Review> reviews = new ArrayList<Review>();
+            reviews = (ArrayList<Review>) result;
+
+            //TODO assign reviews
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }

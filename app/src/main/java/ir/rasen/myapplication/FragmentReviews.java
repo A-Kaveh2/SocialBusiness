@@ -90,7 +90,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
         review2.rate = 5;
         reviews.add(review2);
 
-        mAdapter = new ReviewsAdapter(getActivity(), reviews);
+        mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this);
         list.setAdapter(mAdapter);
         view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
             @Override

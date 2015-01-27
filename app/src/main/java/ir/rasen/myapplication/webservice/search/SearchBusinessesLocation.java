@@ -45,8 +45,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_BUSINESS_LOCATION,new ArrayList<>(
-                Arrays.asList(userID, searchText,location_latitude,location_longitude)));
-
+                Arrays.asList(userID, searchText,location_latitude)));
 
         try {
             serverAnswer = webserviceGET.executeList();

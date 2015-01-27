@@ -21,6 +21,7 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.DeletePost;
+import ir.rasen.myapplication.webservice.review.DeleteReview;
 
 public class Functions {
 
@@ -119,14 +120,14 @@ public class Functions {
         showCustomizedDialog(context, builder);
     }
 
-    public void showReviewDeletePopup(Context context) {
+    public void showReviewDeletePopup(Context context, final String userId, final String review_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_review)
                 .setMessage(R.string.popup_delete_review)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE REVIEW
+                       new DeleteReview(userId,review_id,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
