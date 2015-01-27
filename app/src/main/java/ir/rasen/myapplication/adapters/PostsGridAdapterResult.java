@@ -48,9 +48,9 @@ public class PostsGridAdapterResult extends ArrayAdapter<SearchItemUserBusiness>
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO get the post here and call ::
+                    // TODO get the post of post.id here and then::
                     //InnerFragment innerFragment = new InnerFragment(getContext());
-                    // innerFragment.newPostFragment(post);
+                    // innerFragment.newPostFragment(fullPost);
                 }
             });
         }
