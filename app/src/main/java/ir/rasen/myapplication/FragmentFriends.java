@@ -18,17 +18,21 @@ import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.friend.GetUserFriends;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentFriends extends Fragment {
+public class FragmentFriends extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentFriends";
 
     private View view, listFooterView, listHeaderView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
@@ -36,7 +40,7 @@ public class FragmentFriends extends Fragment {
     // user id is received here
     private String userId;
 
-    public static FragmentFriends newInstance (String userId){
+    public static FragmentFriends newInstance(String userId) {
         FragmentFriends fragment = new FragmentFriends();
 
         Bundle bundle = new Bundle();
@@ -50,7 +54,8 @@ public class FragmentFriends extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public FragmentFriends() {}
+    public FragmentFriends() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,9 @@ public class FragmentFriends extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             userId = bundle.getString(Params.USER_ID);
+
+            new GetUserFriends(userId, FragmentFriends.this).execute();
+
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -78,6 +86,9 @@ public class FragmentFriends extends Fragment {
         // setUp ListView
         setUpListView();
 
+
+        //TODO remove test parts
+
         // TODO: Change Adapter to display your content
         ArrayList<User> friends = new ArrayList<User>();
 
@@ -87,9 +98,9 @@ public class FragmentFriends extends Fragment {
         User User1 = new User();
         User User2 = new User();
         User User3 = new User();
-        User1.name=("SINA");
-        User2.name=("HASAN");
-        User3.name=("HOSSEIN");
+        User1.name = ("SINA");
+        User2.name = ("HASAN");
+        User3.name = ("HOSSEIN");
         friends.add(User1);
         friends.add(User2);
         friends.add(User3);
@@ -98,7 +109,7 @@ public class FragmentFriends extends Fragment {
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
 
         // TODO:: check if new requests received or not
-        if(true) { // new requests received or not!
+        if (true) { // new requests received or not!
             int requestsNum = 2; // number of new requests
             listHeaderView.setVisibility(View.VISIBLE);
             ((TextViewFont) listHeaderView.findViewById(R.id.txt_friends_requests)).setText(
@@ -123,7 +134,7 @@ public class FragmentFriends extends Fragment {
 
     void setUpListView() {
         // add requests header::
-        listHeaderView = (View)getActivity().getLayoutInflater().inflate(R.layout.layout_friends_requests,null);
+        listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_friends_requests, null);
         list.addHeaderView(listHeaderView);
         // SwipeRefreshLayout
         swipeView.setColorScheme(R.color.button_on_dark, R.color.red, R.color.green);
@@ -133,7 +144,7 @@ public class FragmentFriends extends Fragment {
                 swipeView.setRefreshing(true);
                 // TODO: CANCEL LOADING MORE AND REFRESH HERE...
                 listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -173,5 +184,20 @@ public class FragmentFriends extends Fragment {
     void showFriendRequests() {
         InnerFragment innerFragment = new InnerFragment(getActivity());
         innerFragment.newRequestsFragment(userId);
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if (result instanceof ArrayList) {
+            ArrayList<SearchItemUserBusiness> friends = new ArrayList<SearchItemUserBusiness>();
+            friends = (ArrayList<SearchItemUserBusiness>) result;
+
+            //TODO: use friends to assign view
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }
