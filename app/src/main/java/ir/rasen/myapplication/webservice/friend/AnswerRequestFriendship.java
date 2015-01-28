@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.friend;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -22,21 +26,21 @@ public class AnswerRequestFriendship extends AsyncTask<Void, Void, ResultStatus>
     private boolean answer;
     private ServerAnswer serverAnswer;
 
-    public AnswerRequestFriendship(String requestedUserID, String applicatorUserID, boolean answer) {
+    public AnswerRequestFriendship(String requestedUserID, String applicatorUserID, boolean answer,WebserviceResponse delegate) {
         this.applicatorUserID = applicatorUserID;
         this.requestedUserID = requestedUserID;
         this.answer = answer;
+        this.delegate = delegate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.ANSWER_REQUEST_FRIENDSHIP);
-        webservicePOST.addParam(Params.APPLICATOR_USER_ID, applicatorUserID);
-        webservicePOST.addParam(Params.REQUESTED_USER_ID, requestedUserID);
-        webservicePOST.addParam(Params.ANSWER, String.valueOf(answer));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.ANSWER_REQUEST_FRIENDSHIP, new ArrayList<>(
+                Arrays.asList(applicatorUserID,requestedUserID,String.valueOf(answer))));
+
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

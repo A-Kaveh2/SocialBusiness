@@ -13,11 +13,14 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 
 /**
  * Created by 'Sina KH' on '01/21/2015'.
@@ -28,12 +31,14 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
 	private ArrayList<SearchItemUserBusiness> mRequests;
 	private LayoutInflater mInflater;
     private Context context;
+    private WebserviceResponse delegate;
 
-	public RequestsAdapter(Context context, ArrayList<SearchItemUserBusiness> requests) {
+	public RequestsAdapter(Context context, ArrayList<SearchItemUserBusiness> requests,WebserviceResponse delegate) {
 		super(context, R.layout.layout_requests_request, requests);
 		mRequests 	= requests;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
+        this.delegate = delegate;
 	}
 
 	@Override
@@ -63,14 +68,14 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO:: ACCEPT NOW!!
+                    new AnswerRequestFriendship(request.userID,LoginInfo.getUserId(context),true,delegate).execute();
                 }
             });
 
             holder.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO:: REJECT NOW!!
+                    new AnswerRequestFriendship(request.userID,LoginInfo.getUserId(context),false,delegate).execute();
                 }
             });
             convertView.setOnClickListener(new View.OnClickListener() {
