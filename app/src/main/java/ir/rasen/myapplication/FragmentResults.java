@@ -21,10 +21,12 @@ import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.search.SearchBusinessesLocation;
 import ir.rasen.myapplication.webservice.search.SearchPost;
@@ -168,29 +170,36 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof ArrayList) {
-            if (searchType == Params.SearchType.PRODUCTS) {
+        try {
+            if (result instanceof ArrayList) {
+                if (searchType == Params.SearchType.PRODUCTS) {
 
-                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
-                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                    ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                    searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
-                //TODO assgin searchResult
-                mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
-                list.setAdapter(mAdapter);
+                    mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
+                    list.setAdapter(mAdapter);
 
-            } else {
-                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
-                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                } else {
+                    ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                    searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
-                //TODO assgin searchResult
-                mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);
-                list.setAdapter(mAdapter);
+                    mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);
+                    list.setAdapter(mAdapter);
+                }
             }
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

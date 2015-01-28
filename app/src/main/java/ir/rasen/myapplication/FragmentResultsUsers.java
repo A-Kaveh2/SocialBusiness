@@ -15,9 +15,11 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.search.SearchUser;
 
@@ -25,7 +27,7 @@ import ir.rasen.myapplication.webservice.search.SearchUser;
  * Created by 'Sina KH' on '01/22/2015'.
  */
 public class FragmentResultsUsers extends Fragment implements WebserviceResponse {
-    private static final String TAG = "FragmentFriends";
+    private static final String TAG = "FragmentResultsUsers";
 
     private View view, listFooterView, listHeaderView;
 
@@ -36,6 +38,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
 
     // user id is received here
     private String searchString;
+    private ArrayList<User> users;
 
     public static FragmentResultsUsers newInstance(String searchString) {
         FragmentResultsUsers fragment = new FragmentResultsUsers();
@@ -82,26 +85,8 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         // setUp ListView
         setUpListView();
 
-        // TODO remove test parts
-
-
-        // TODO: Change Adapter to display your content
-        ArrayList<User> friends = new ArrayList<User>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        User User1 = new User();
-        User User2 = new User();
-        User User3 = new User();
-        User1.name = ("SINA");
-        User2.name = ("HASAN");
-        User3.name = ("HOSSEIN");
-        friends.add(User1);
-        friends.add(User2);
-        friends.add(User3);
-
-        mAdapter = new FriendsAdapter(getActivity(), friends, true);
+        users = new ArrayList<User>();
+        mAdapter = new FriendsAdapter(getActivity(), users, true);
         list.setAdapter(mAdapter);
 
         return view;
@@ -161,18 +146,35 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof ArrayList) {
+        try {
+            if (result instanceof ArrayList) {
 
-            ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
-            searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                User user = null;
+                for (SearchItemUserBusiness item : searchResult) {
+                    user = new User();
+                    user.name = item.name;
+                    user.profilePicture = item.picture;
+                    users.add(user);
+                }
 
-            //TODO assgin searchResult
-
+                users = new ArrayList<User>();
+                mAdapter = new FriendsAdapter(getActivity(), users, true);
+                list.setAdapter(mAdapter);
+            }
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

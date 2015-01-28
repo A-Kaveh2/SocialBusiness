@@ -3,6 +3,7 @@ package ir.rasen.myapplication;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,10 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetUserReviews;
 
@@ -31,6 +35,8 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
+
+    private ArrayList<Review> reviews;
 
     public static FragmentUserReviews newInstance() {
         FragmentUserReviews fragment = new FragmentUserReviews();
@@ -61,13 +67,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
         list = (ListView) view.findViewById(R.id.list_user_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-        // TODO: Change Adapter to display your content
-        ArrayList<Review> reviews = new ArrayList<Review>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-
+        reviews = new ArrayList<Review>();
         mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
 
@@ -128,16 +128,24 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof ArrayList) {
-            ArrayList<Review> reviews = new ArrayList<Review>();
-            reviews = (ArrayList<Review>) result;
-
-            //TODO assign reviews
+        try {
+            if (result instanceof ArrayList) {
+                reviews = (ArrayList<Review>) result;
+                mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
+                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }
