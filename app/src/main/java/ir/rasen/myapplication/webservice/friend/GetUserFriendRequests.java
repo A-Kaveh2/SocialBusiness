@@ -7,11 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -26,19 +28,20 @@ public class GetUserFriendRequests extends AsyncTask<Void, Void, ArrayList<Searc
     private String userID;
     private ServerAnswer serverAnswer;
 
-    public GetUserFriendRequests(String userID) {
+    public GetUserFriendRequests(String userID,WebserviceResponse delegate) {
         this.userID = userID;
+        this.delegate = delegate;
     }
 
     @Override
     protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_USER_FRIEND_REQUEST);
-        webservicePOST.addParam(Params.USER_ID, userID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_USER_FRIEND_REQUEST, new ArrayList<>(
+                Arrays.asList(userID)));
 
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {

@@ -17,6 +17,7 @@ import ir.rasen.myapplication.adapters.RequestsAdapter;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.friend.GetUserFriendRequests;
 
 /**
  * Created by 'Sina KH' on 1/21/2015.
@@ -57,6 +58,8 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             userId = bundle.getString(Params.USER_ID);
+
+            new GetUserFriendRequests(userId,FragmentRequests.this).execute();
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -146,7 +149,12 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        if(result instanceof ArrayList){
+            ArrayList<SearchItemUserBusiness> requests = new ArrayList<>();
+            requests = (ArrayList<SearchItemUserBusiness>)result;
 
+            //TODO assign 
+        }
     }
 
     @Override
