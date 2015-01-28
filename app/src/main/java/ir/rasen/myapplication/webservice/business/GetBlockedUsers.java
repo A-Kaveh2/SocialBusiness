@@ -7,11 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -26,19 +28,20 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
     private String businessID;
     private ServerAnswer serverAnswer;
 
-    public GetBlockedUsers(String businessID) {
+    public GetBlockedUsers(String businessID,WebserviceResponse delegate) {
         this.businessID = businessID;
+        this.delegate = delegate;
     }
 
     @Override
     protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BLOCKED_USERS);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BLOCKED_USERS, new ArrayList<>(
+                Arrays.asList(businessID)));
 
         try {
-            serverAnswer = webservicePOST.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {

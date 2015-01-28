@@ -5,11 +5,15 @@ import android.util.Log;
 
 import com.google.android.gms.internal.id;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -24,18 +28,21 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     private Comment comment;
     private ServerAnswer serverAnswer;
 
-    public DeleteComment(Comment comment) {
+    public DeleteComment(Comment comment,WebserviceResponse delegate)
+    {
         this.comment = comment;
+        this.delegate = delegate;
     }
+
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.DELETE_COMMENT);
-        webservicePOST.addParam(Params.BUSINESS_ID, comment.businessID);
-        webservicePOST.addParam(Params.COMMENT_ID, comment.id);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_COMMENT, new ArrayList<>(
+                Arrays.asList(comment.businessID, comment.id)));
+
 
         try {
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

@@ -29,7 +29,7 @@ public class URLs {
     public static String DISLIKE = MAIN_URL+"dislike";
     public static String SEND_COMMENT = MAIN_URL+"commentOnPost";
     public static String UPDATE_COMMENT = MAIN_URL+"update_comment";
-    public static String DELETE_COMMENT = MAIN_URL+"delete_comment";
+    public static String DELETE_COMMENT = MAIN_URL+"deleteComment";
     public static String GET_COMMENTS = MAIN_URL+"get_comments";
     public static String SHARE = MAIN_URL+"share";
     public static String REPORT = MAIN_URL+"reportPost";
@@ -49,9 +49,9 @@ public class URLs {
     public static String SEARCH_POST= MAIN_URL+"searchPost";
     public static String GET_BUSINESS_FOLLOWERS= MAIN_URL+"getBusinessFollowers";
     public static String DELETE_BUSINESS= MAIN_URL+"deleteBusiness";
-    public static String BLOCK_USER= MAIN_URL+"block_user";
-    public static String UNBLOCK_USER= MAIN_URL+"unblock_user";
-    public static String GET_BLOCKED_USERS= MAIN_URL+"get_blocked_users";
+    public static String BLOCK_USER= MAIN_URL+"blockUser";
+    public static String UNBLOCK_USER= MAIN_URL+"unBlockUser";
+    public static String GET_BLOCKED_USERS= MAIN_URL+"getBlockedUsersList";
     public static String RATE_BUSINESS= MAIN_URL+"rate_business";
     public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"get_announcement_comment";
     public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"get_announcement_comment";
