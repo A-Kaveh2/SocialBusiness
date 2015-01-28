@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -39,6 +40,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse {
 
     // user id is received here
     private String userId;
+
+    private ArrayList<User> friends;
 
     public static FragmentFriends newInstance(String userId) {
         FragmentFriends fragment = new FragmentFriends();
@@ -86,25 +89,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
-
-        //TODO remove test parts
-
-        // TODO: Change Adapter to display your content
-        ArrayList<User> friends = new ArrayList<User>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        User User1 = new User();
-        User User2 = new User();
-        User User3 = new User();
-        User1.name = ("SINA");
-        User2.name = ("HASAN");
-        User3.name = ("HOSSEIN");
-        friends.add(User1);
-        friends.add(User2);
-        friends.add(User3);
-
+        friends = new ArrayList<User>();
         mAdapter = new FriendsAdapter(getActivity(), friends, true);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
 
@@ -188,16 +173,35 @@ public class FragmentFriends extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof ArrayList) {
-            ArrayList<SearchItemUserBusiness> friends = new ArrayList<SearchItemUserBusiness>();
-            friends = (ArrayList<SearchItemUserBusiness>) result;
+        try {
+            if (result instanceof ArrayList) {
+                ArrayList<SearchItemUserBusiness> usersFriends = new ArrayList<SearchItemUserBusiness>();
+                usersFriends = (ArrayList<SearchItemUserBusiness>) result;
+                friends = new ArrayList<User>();
+                User user = null;
+                for (SearchItemUserBusiness item : usersFriends) {
+                    user = new User();
+                    user.name = item.name;
+                    user.profilePicture = item.picture;
+                    friends.add(user);
+                }
 
-            //TODO: use friends to assign view
+                friends = new ArrayList<User>();
+                mAdapter = new FriendsAdapter(getActivity(), friends, true);
+                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

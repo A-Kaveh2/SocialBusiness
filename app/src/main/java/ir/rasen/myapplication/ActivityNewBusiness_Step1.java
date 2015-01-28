@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +34,7 @@ import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -38,6 +42,7 @@ import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
 import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
 public class ActivityNewBusiness_Step1 extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityNewBusiness_Step1";
 
     private Spinner spnCategory, spnSubcategory;
     private EditTextFont edtBusinessId, edtName, edtDescription;
@@ -48,7 +53,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     private Context context;
     private ArrayList<String> categoryList;
     public static Activity step1;
-    private boolean closed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,24 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 // your code here
             }
 
+        });
+
+        edtDescription.addTextChangedListener(new TextWatcher() {
+            String oldText;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                oldText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(charSequence.toString().equals(oldText))
+                    return;
+                TextProcessor textProcessor = new TextProcessor(context);
+                textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -188,6 +210,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.category = spnCategory.getSelectedItem().toString();
         business.subcategory = spnSubcategory.getSelectedItem().toString();
         business.description = edtDescription.getText().toString();
+        business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
@@ -228,7 +251,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     public void back(View v)
     {
-        closed=true;
         onBackPressed();
     }
 
@@ -239,43 +261,47 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
-        if(closed) return;
+        try {
+            if (result instanceof ArrayList) {
+                Business business = PassingBusiness.getInstance().getValue();
+                if (categoryList == null) {
+                    //result from executing GetBusinessCategories
+                    categoryList = (ArrayList<String>) result;
+                    ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryList);
+                    spnCategory.setAdapter(categoryAdapter);
+                    if (isEditing) {
 
-        if (result instanceof ArrayList) {
-            Business business = PassingBusiness.getInstance().getValue();
-            if(categoryList == null) {
-                //result from executing GetBusinessCategories
-                categoryList = (ArrayList<String>) result;
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryList);
-                spnCategory.setAdapter(categoryAdapter);
-                if(isEditing){
-
-                    for (int i = 0;i<categoryList.size();i++){
-                        if(categoryList.get(i).equals(business.category))
-                            spnCategory.setSelection(i);
+                        for (int i = 0; i < categoryList.size(); i++) {
+                            if (categoryList.get(i).equals(business.category))
+                                spnCategory.setSelection(i);
+                        }
+                    }
+                } else {
+                    //result from executing GetBusinessSubcategories
+                    ArrayList<String> subcategoryList = (ArrayList<String>) result;
+                    ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, subcategoryList);
+                    spnSubcategory.setAdapter(subcategoryAdapter);
+                    if (isEditing) {
+                        for (int i = 0; i < subcategoryList.size(); i++) {
+                            if (subcategoryList.get(i).equals(business.subcategory))
+                                spnSubcategory.setSelection(i);
+                        }
                     }
                 }
             }
-            else{
-                //result from executing GetBusinessSubcategories
-                ArrayList<String> subcategoryList = (ArrayList<String>) result;
-                ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, subcategoryList);
-                spnSubcategory.setAdapter(subcategoryAdapter);
-                if(isEditing){
-                    for (int i = 0;i<subcategoryList.size();i++){
-                        if(subcategoryList.get(i).equals(business.subcategory))
-                            spnSubcategory.setSelection(i);
-                    }
-                }
-            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
 
     }
 
     @Override
     public void getError(Integer errorCode) {
-
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(context, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+            Dialogs.showMessage(getBaseContext(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

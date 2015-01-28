@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,14 +27,17 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 public class ActivityNewPost_Step1 extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityNewPost_Step1";
 
     private boolean isEditing = false;
 
@@ -157,11 +161,15 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
 
     @Override
     public void getResult(Object result) {
-
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+            Dialogs.showMessage(getBaseContext(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

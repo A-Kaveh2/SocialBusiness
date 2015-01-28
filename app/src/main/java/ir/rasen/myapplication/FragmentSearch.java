@@ -31,6 +31,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.HistoryDatabase;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -334,8 +335,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 categories = new ArrayList<String>();
                 categories = (ArrayList<String>) result;
 
-                //TODO assign categories to the spinner
-
                 ArrayAdapter<String> categoriesAdapter =
                         new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
                 listViewCategories.setAdapter(categoriesAdapter);
@@ -344,8 +343,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 //result from executing getBusinessSubcategories
                 subCategories = new ArrayList<String>();
                 subCategories = (ArrayList<String>)result;
-
-                //TODO assign businessSubcategories to the spinner
 
                 ArrayAdapter<String> subcategoriesAdapter =
                         new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
@@ -357,6 +354,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     @Override
     public void getError(Integer errorCode) {
         if(closed) return;
+        String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+        Dialogs.showMessage(getActivity(), errorMessage);
     }
 
     // location listener

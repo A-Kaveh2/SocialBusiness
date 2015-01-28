@@ -132,6 +132,7 @@
     <string name="reviews">نقد ها</string>
     <string name="review">نقد</string>
     <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
+    <string name="new_review">نقد کنید</string>
     <string name="settings_saved">ذخیره سازی انجام شد.</string>
 
     <!-- EDIT -->
@@ -161,6 +162,8 @@
     <string name="popup_delete_review">آیا میخواهید نقد خود را حذف نمایید؟</string>
     <string name="block_follower">مسدود سازی دنبال کننده</string>
     <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
+    <string name="unblock_follower">آزادسازی حساب</string>
+    <string name="popup_unblock_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را آزاد نمایید؟</string>
     <string name="popup_delete_business">با این کار تمام محصولات این کسب و کار برای همیشه حذف خواهند شد.\n\nاز تصمیم خود مطمئن هستید؟</string>
     <string name="popup_warning">توجه!</string>
 
@@ -272,4 +275,8 @@
     <string name="sex_unknown">جنسیت انتخاب نشده</string>
     <string name="sex_male">مرد</string>
     <string name="sex_female">زن</string>
+
+    <!-- BLOCKEDS -->
+    <string name="blockeds">مسدود شده ها</string>
+    <string name="manage_blockeds">کاربران مسدود شده را مدیریت کنید.</string>
 </resources>

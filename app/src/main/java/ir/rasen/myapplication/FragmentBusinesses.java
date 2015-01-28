@@ -16,9 +16,11 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 
@@ -166,24 +168,33 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof ArrayList) {
-            businesses = new ArrayList<Business>();
-            Business business = null;
-            ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
-            for (SearchItemUserBusiness item : searchItemUserBusinesses) {
-                new Business();
-                business.name = item.name;
-                business.profilePicture = item.picture;
-                businesses.add(business);
+        try {
+            if (result instanceof ArrayList) {
+                businesses = new ArrayList<Business>();
+                Business business = null;
+                ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
+                for (SearchItemUserBusiness item : searchItemUserBusinesses) {
+                    new Business();
+                    business.name = item.name;
+                    business.profilePicture = item.picture;
+                    businesses.add(business);
+                }
+
+                mAdapter = new BusinessesAdapter(getActivity(), businesses);
+                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
             }
-            //TODO use business to intial listview
-            mAdapter = new BusinessesAdapter(getActivity(), businesses);
-            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

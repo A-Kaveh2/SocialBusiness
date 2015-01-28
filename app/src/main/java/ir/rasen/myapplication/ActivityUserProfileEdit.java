@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,6 +45,7 @@ import ir.rasen.myapplication.webservice.user.GetUserProfileInfo;
 import ir.rasen.myapplication.webservice.user.UpdateUserProfile;
 
 public class ActivityUserProfileEdit extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityUserProfileEdit";
 
     EditTextFont edtName, edtAboutMe;
     ImageButton imbProfilePicture;
@@ -271,25 +273,33 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
     @Override
     public void getResult(Object result) {
-        if (result instanceof User) {
-            // result from executing GetUserProfileInfo
-            //initialing profile info
-            user = (User) result;
-            edtName.setText(user.name);
-            edtAboutMe.setText(user.aboutMe);
-            byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
-            Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
-            imbProfilePicture.setImageBitmap(bitmapProfilePicture);
-            txtBirthDate.setText(user.birthDate);
-        } else if (result instanceof ResultStatus) {
-            // result from executing UpdateUserProfileInfo
-            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+        try {
+            if (result instanceof User) {
+                // result from executing GetUserProfileInfo
+                //initialing profile info
+                user = (User) result;
+                edtName.setText(user.name);
+                edtAboutMe.setText(user.aboutMe);
+                byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
+                Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
+                imbProfilePicture.setImageBitmap(bitmapProfilePicture);
+                txtBirthDate.setText(user.birthDate);
+            } else if (result instanceof ResultStatus) {
+                // result from executing UpdateUserProfileInfo
+                Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(context, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+            Dialogs.showMessage(context, errorMessage);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

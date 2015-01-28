@@ -14,23 +14,22 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import ir.rasen.myapplication.adapters.BlockedsAdapter;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
-import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentFollowers extends Fragment implements WebserviceResponse{
-    private static final String TAG = "FragmentFollowers";
+public class FragmentBlockeds extends Fragment implements WebserviceResponse{
+    private static final String TAG = "FragmentBlockeds";
 
-    private View view, listFooterView, listHeaderView;
+    private View view, listFooterView;
 
     private boolean isLoadingMore=false;
     private SwipeRefreshLayout swipeView;
@@ -40,10 +39,8 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
     // business id is received here
     private String businessId;
 
-    ArrayList<User> followers;
-
-    public static FragmentFollowers newInstance (String businessId){
-        FragmentFollowers fragment = new FragmentFollowers();
+    public static FragmentBlockeds newInstance (String businessId){
+        FragmentBlockeds fragment = new FragmentBlockeds();
 
         Bundle bundle = new Bundle();
         bundle.putString(Params.BUSINESS_ID, businessId);
@@ -56,7 +53,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public FragmentFollowers() {
+    public FragmentBlockeds() {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -73,24 +70,39 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetBusinessFollowers("food_1",FragmentFollowers.this).execute();
+        new GetBusinessFollowers("food_1",FragmentBlockeds.this).execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_followers, container, false);
+        View view = inflater.inflate(R.layout.fragment_blockeds, container, false);
         this.view = view;
 
-        list = (ListView) view.findViewById(R.id.list_followers_followers);
+        list = (ListView) view.findViewById(R.id.list_blockeds_blockeds);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
         // setUp ListView
         setUpListView();
 
-        followers = new ArrayList<User>();
-        mAdapter = new FollowersAdapter(getActivity(), followers, true);
-        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
+        // TODO: Change Adapter to display your content
+        ArrayList<User> blockeds = new ArrayList<User>();
+
+        /*
+            for example, i've made some fake data to show ::
+        */
+        User User1 = new User();
+        User User2 = new User();
+        User User3 = new User();
+        User1.name=("SINA");
+        User2.name=("HASAN");
+        User3.name=("HOSSEIN");
+        blockeds.add(User1);
+        blockeds.add(User2);
+        blockeds.add(User3);
+
+        mAdapter = new BlockedsAdapter(getActivity(), blockeds);
+        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
 
         return view;
     }
@@ -102,22 +114,6 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
     }
 
     void setUpListView() {
-        // manage blockeds header::
-        listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_followers_blockeds, null);
-        list.addHeaderView(listHeaderView);
-        // TODO:: If I'm the owner of business and we have blocked users...
-        boolean isMine = true;
-        if(isMine) {
-            listHeaderView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newBlockedsFragment(businessId);
-                }
-            });
-            listHeaderView.setVisibility(View.VISIBLE);
-        } else
-            listHeaderView.setVisibility(View.GONE);
         // SwipeRefreshLayout
         swipeView.setColorScheme(R.color.button_on_dark, R.color.red, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -165,36 +161,27 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
 
     @Override
     public void getResult(Object result) {
-        try {
-            if (result instanceof ArrayList) {
-                //result from executing getBusinessFollowers
-                ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>) result;
-                followers = new ArrayList<User>();
-                User user = null;
-                for (SearchItemUserBusiness item : businessesFollowers) {
-                    user = new User();
-                    user.name = item.name;
-                    user.profilePicture = item.picture;
-                    followers.add(user);
-                }
-
-                followers = new ArrayList<User>();
-                mAdapter = new FollowersAdapter(getActivity(), followers, true);
-                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
-
+        if(result instanceof ArrayList){
+            //result from executing getBusinessFollowers
+            ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
+            ArrayList<User> blockeds = new ArrayList<User>();
+            User user = null;
+            for(SearchItemUserBusiness item:businessesFollowers){
+                user = new User();
+                user.name = item.name;
+                user.profilePicture = item.picture;
+                blockeds.add(user);
             }
-        } catch (Exception e) {
-            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+            mAdapter = new BlockedsAdapter(getActivity(), blockeds);
+            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
+
+            //TODO use followers to intiate listview
+
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        try {
-            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
-        } catch(Exception e) {
-            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
-        }
+
     }
 }

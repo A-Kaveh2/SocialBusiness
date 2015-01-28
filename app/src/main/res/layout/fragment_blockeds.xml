@@ -6,7 +6,7 @@
     android:background="@android:color/white" >
 
     <RelativeLayout
-        android:id="@+id/rl_reviews_actionbar"
+        android:id="@+id/rl_blockeds_actionbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
         android:background="@color/button_on_dark" >
@@ -27,39 +27,20 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:text = "@string/reviews" />
+            android:text = "@string/blockeds" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_reviews_actionbar"
-        android:layout_above="@+id/ll_reviews_review">
+        android:layout_below="@id/rl_blockeds_actionbar">
         <ListView
-            android:id="@+id/list_reviews_review"
+            android:id="@+id/list_blockeds_blockeds"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
             android:dividerHeight="@dimen/activity_vertical_margin_1of8"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <RelativeLayout
-        android:id="@+id/ll_reviews_review"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/btn_reviews_send"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/actionbar_height"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/style_button_on_dark_second"
-            android:text="@string/new_review"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_largest"
-            android:textColor="@android:color/white"
-            android:clickable="true"/>
-    </RelativeLayout>
 </RelativeLayout>

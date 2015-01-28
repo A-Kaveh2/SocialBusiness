@@ -145,6 +145,20 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
+    public void showFollowerUnblockPopup(Context context, final String userId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.unblock_follower)
+                .setMessage(R.string.popup_unblock_follower)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: UNBLOCK FOLLOWER ( ID is in userId )
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
     public void showChooseCategoryFirstPopup(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder

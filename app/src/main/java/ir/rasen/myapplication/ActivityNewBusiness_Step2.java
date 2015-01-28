@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,6 +30,7 @@ import ir.rasen.myapplication.webservice.business.RegisterBusiness;
 import ir.rasen.myapplication.webservice.business.UpdateBusinessProfileInfo;
 
 public class ActivityNewBusiness_Step2 extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityNewBusiness_Step2";
 
     private EditTextFont edtPhone, edtWebsite, edtEmail, edtMobile;
     WorkTime workTime;
@@ -232,14 +234,20 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
-        if(closed) return;
-        Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+        try {
+            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        if(closed) return;
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(context, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+            Dialogs.showMessage(context, errorMessage);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

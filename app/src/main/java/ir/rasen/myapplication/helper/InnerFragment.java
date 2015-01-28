@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.FragmentBlockeds;
 import ir.rasen.myapplication.FragmentBusinesses;
 import ir.rasen.myapplication.FragmentCallInfo;
 import ir.rasen.myapplication.FragmentComments;
@@ -58,6 +59,12 @@ public class InnerFragment {
     // add new followers fragment to current place
     public void newFollowers(String businessId) {
         Fragment newFragment = new FragmentFollowers().newInstance(businessId);
+        addFragment(newFragment);
+    }
+
+    // add new followers fragment to current place
+    public void newBlockedsFragment(String businessId) {
+        Fragment newFragment = new FragmentBlockeds().newInstance(businessId);
         addFragment(newFragment);
     }
 

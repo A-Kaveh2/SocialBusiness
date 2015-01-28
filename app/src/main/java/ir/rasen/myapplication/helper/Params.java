@@ -17,7 +17,7 @@ public class Params {
     public static int BUSINESS_DESCRIPTION_MIN_LENGTH = 5;
     public static int COMMENT_TEXT_MIN_LENGTH = 3;
     public static int COMMENT_TEXT_MAX_LENGTH = 255;
-
+    public static String TEXT_HASHTAG_VALIDATION = "[0-9a-zA-Z._\\u0600-\\u06FF\\uFB8A\\u067E\\u0686\\u06AF]*";
     public static int HASHTAG_MIN_LENGTH = 2;
 
     public static String BUSINESS = "business";
@@ -64,6 +64,8 @@ public class Params {
 
     public static int LOCATION_REFRESH = 60000;
     public static int LOCATION_REFRESH_DISTANCE = 10;
+
+    public static String CLOSED_BEFORE_RESPONSE = "fragment closed before webservice response...";
 
     /**
      * Created by android on 12/15/2014.

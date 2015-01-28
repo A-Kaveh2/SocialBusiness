@@ -2,6 +2,7 @@ package ir.rasen.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
@@ -12,6 +13,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -23,6 +25,7 @@ import ir.rasen.myapplication.webservice.user.UpdateSetting;
  * Created by 'Sina KH'.
  */
 public class ActivitySettings extends Activity implements WebserviceResponse {
+    private String TAG = "ActivitySettings";
 
     CheckBox cbFriends, cbBusinesses, cbReviews;
 
@@ -104,16 +107,22 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ResultStatus) {
-            //TODO display success status
-            Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
+        try {
+            if(result instanceof ResultStatus) {
+                Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        //TODO display error message
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(ActivitySettings.this, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+            Dialogs.showMessage(getBaseContext(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }
