@@ -53,7 +53,7 @@ public class URLs {
     public static String UNBLOCK_USER= MAIN_URL+"unBlockUser";
     public static String GET_BLOCKED_USERS= MAIN_URL+"getBlockedUsersList";
     public static String RATE_BUSINESS= MAIN_URL+"rate_business";
-    public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"get_announcement_comment";
+    public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"getLastCommentNotification";
     public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"get_announcement_comment";
     public static String FOLLOW_BUSINESS= MAIN_URL+"followBusiness";
     public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";

@@ -153,7 +153,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
             ArrayList<SearchItemUserBusiness> requests = new ArrayList<>();
             requests = (ArrayList<SearchItemUserBusiness>)result;
 
-            //TODO assign 
+            //TODO assign
         }
     }
 
