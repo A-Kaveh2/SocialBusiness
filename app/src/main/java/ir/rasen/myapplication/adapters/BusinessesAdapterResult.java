@@ -9,19 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.R;
-import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.helper.Functions;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * Created by 'Sina KH' on 01/13/2015.

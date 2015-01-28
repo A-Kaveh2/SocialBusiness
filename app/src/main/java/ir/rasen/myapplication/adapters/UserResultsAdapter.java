@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -71,8 +70,8 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
 
     private void showDeletePopup(String friendId) {
         // SHOWING POPUP WINDOW
-        Functions functions = new Functions();
-        functions.showFriendDeletePopup(getContext(), friendId);
+        Dialogs dialogs = new Dialogs();
+        dialogs.showFriendDeletePopup(getContext(), friendId);
     }
 
 }

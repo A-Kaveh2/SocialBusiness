@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
@@ -131,8 +131,8 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO DELETE REVIEW
-                Functions functions = new Functions();
-                functions.showReviewDeletePopup(getContext(), LoginInfo.getUserId(context), mReviews.get(position).id, delegate);
+                Dialogs dialogs = new Dialogs();
+                dialogs.showReviewDeletePopup(getContext(), LoginInfo.getUserId(context), mReviews.get(position).id, delegate);
             }
         });
         //}

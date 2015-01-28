@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,13 +21,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
@@ -236,8 +233,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     }
 
     void showChooseCategoryDialog() {
-        Functions functions = new Functions();
-        functions.showChooseCategoryFirstPopup(ActivityNewBusiness_Step1.this);
+        Dialogs dialogs = new Dialogs();
+        dialogs.showChooseCategoryFirstPopup(ActivityNewBusiness_Step1.this);
     }
 
     @Override
@@ -279,6 +276,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     public void getError(Integer errorCode) {
 
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(context, errorMessage);
+        Dialogs.showMessage(context, errorMessage);
     }
 }

@@ -23,43 +23,10 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
 
-public class Functions {
+public class Dialogs {
 
     public static Typeface getTypeface(Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/font.ttf");
-    }
-
-    public static String timeToTimeAgo (Context context, int time)
-    {
-
-        if(time<60)
-            return context.getString(R.string.time_now) ;
-
-        String result = "";
-
-        int[] values = new int[] {
-            31536000,
-            2592000,
-            604800,
-            86400,
-            3600,
-            60
-        };
-        String[] results = new String[] {
-            context.getString(R.string.time_year),
-            context.getString(R.string.time_month),
-            context.getString(R.string.time_week),
-            context.getString(R.string.time_day),
-            context.getString(R.string.time_hour),
-            context.getString(R.string.time_minute)
-        };
-
-        for (int i=0; i<values.length; i++) {
-            if (time >= values[i])
-                return ((int)(time / values[i]))+" "+results[i]+" "+context.getString(R.string.time_ago);
-        }
-
-        return "";
     }
 
     //business_id= business.id
@@ -72,6 +39,36 @@ public class Functions {
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         new DeletePost(buisness_id,post_id,delegate).execute();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
+    public void showPostSharePopup(Context context, final String post_id, final WebserviceResponse delegate) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.share)
+                .setMessage(R.string.popup_share)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: SHARE NOW
+                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
+    public void showPostReportPopup(Context context, final String post_id, final WebserviceResponse delegate) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.report)
+                .setMessage(R.string.popup_report)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: REPORT NOW
+                        //new DeletePost(buisness_id,post_id,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -199,6 +196,21 @@ public class Functions {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert);
         showCustomizedDialog(fragmentSearch.getActivity(), builder);
+    }
+
+    public void showBusinessDeletePopup(Context context, final String businessId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.delete_business)
+                .setMessage(R.string.popup_delete_business)
+                .setPositiveButton(R.string.delete_business, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: DELETE BUSINESS NOW
+                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
     }
 
     static void showCustomizedDialog(Context context, AlertDialog.Builder builder) {

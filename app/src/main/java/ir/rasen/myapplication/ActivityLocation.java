@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
@@ -102,14 +103,12 @@ public class ActivityLocation extends FragmentActivity {
         findViewById(R.id.map).setVisibility(View.INVISIBLE);
 
         // SHOWING POPUP WINDOW
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLocation.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLocation.this);
         builder
             .setTitle(R.string.error)
             .setMessage(R.string.error_google_play_services)
-            .setPositiveButton(R.string.download, new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog, int id)
-                {
+            .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
                     // TODO RECEIVE AND INSTALL
                     Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms"));
                     startActivity(marketIntent);
@@ -117,8 +116,11 @@ public class ActivityLocation extends FragmentActivity {
                     overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
                 }
             })
-            .setNegativeButton(R.string.not_now, null)
-            .create().show();
+            .setNegativeButton(R.string.not_now, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            }).create().show();
     }
 
     private void setUpMapEvents() {

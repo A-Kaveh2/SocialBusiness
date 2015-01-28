@@ -56,8 +56,12 @@
             android:name=".ActivityUserProfileEdit"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ActivityBusinessSettings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dialog" />
+        <activity
             android:name=".ActivitySettings"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ActivityNewBusiness_Step1"
             android:screenOrientation="portrait" />

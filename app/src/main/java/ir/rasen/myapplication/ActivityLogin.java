@@ -1,13 +1,10 @@
 package ir.rasen.myapplication;
 
-import ir.rasen.myapplication.helper.ForgetPasswordDialog;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
-import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.user.ForgetPassword;
 import ir.rasen.myapplication.webservice.user.Login;
 
 import android.app.Activity;
@@ -138,6 +135,6 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     @Override
     public void getError(Integer errorCode) {
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(cotext, errorMessage);
+        Dialogs.showMessage(cotext, errorMessage);
     }
 }

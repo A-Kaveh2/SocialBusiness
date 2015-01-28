@@ -12,10 +12,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.Spinner;
 
 import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
@@ -234,13 +233,13 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     @Override
     public void getResult(Object result) {
         if(closed) return;
-        Functions.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+        Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
     }
 
     @Override
     public void getError(Integer errorCode) {
         if(closed) return;
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(context, errorMessage);
+        Dialogs.showMessage(context, errorMessage);
     }
 }

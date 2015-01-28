@@ -10,9 +10,8 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
-import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -86,8 +85,8 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 
     private void showBlockPopup(String userId) {
         // SHOWING POPUP WINDOW
-        Functions functions = new Functions();
-        functions.showFollowerBlockPopup(getContext(), userId);
+        Dialogs dialogs = new Dialogs();
+        dialogs.showFollowerBlockPopup(getContext(), userId);
     }
 
 }

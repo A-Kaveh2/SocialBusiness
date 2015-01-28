@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
-import ir.rasen.myapplication.helper.Functions;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
@@ -108,8 +108,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO: EDIT COMMENT
-                    Functions functions = new Functions();
-                    functions.showCommentEditPopup(getContext(), comment);
+                    Dialogs dialogs = new Dialogs();
+                    dialogs.showCommentEditPopup(getContext(), comment);
                     pw.dismiss();
                 }
             });
@@ -117,8 +117,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO DELETE COMMENT
-                    Functions functions = new Functions();
-                    functions.showCommentDeletePopup(getContext());
+                    Dialogs dialogs = new Dialogs();
+                    dialogs.showCommentDeletePopup(getContext());
                     pw.dismiss();
                 }
             });
@@ -127,8 +127,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO DELETE POST
-                    Functions functions = new Functions();
-                    functions.showCommentDeleteFromMyBusinessPopup(getContext());
+                    Dialogs dialogs = new Dialogs();
+                    dialogs.showCommentDeleteFromMyBusinessPopup(getContext());
                     pw.dismiss();
                 }
             });

@@ -11,8 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 
-import ir.rasen.myapplication.helper.Functions;
-import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -107,7 +106,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     public void getResult(Object result) {
         if(result instanceof ResultStatus) {
             //TODO display success status
-            Functions.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
+            Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
         }
     }
 
@@ -115,6 +114,6 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     public void getError(Integer errorCode) {
         //TODO display error message
         String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Functions.showMessage(ActivitySettings.this, errorMessage);
+        Dialogs.showMessage(ActivitySettings.this, errorMessage);
     }
 }
