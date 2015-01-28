@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.Adapter;
@@ -51,6 +52,8 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     private BaseAdapter mAdapter;
     private String businessId;
     ArrayList<Review> reviews;
+
+    Dialog dialog;
 
     public static FragmentReviews newInstance (String businessId) {
         FragmentReviews fragment = new FragmentReviews();
@@ -192,6 +195,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
                 }
             } else if (result instanceof ResultStatus) {
                 Dialogs.showMessage(getActivity(), getString(R.string.success));
+                dialog.dismiss();
             }
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -209,11 +213,13 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     }
 
     private void showReviewDialog() {
-        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_new_review);
         dialog.findViewById(R.id.btn_new_review_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String review = ((TextViewFont) dialog.findViewById(R.id.txt_new_review_review)).getText().toString();
+                String review = ((EditTextFont) dialog.findViewById(R.id.edt_new_review_review)).getText().toString();
                 float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
                 if(rate>0) {
                     sendReview(review, rate);

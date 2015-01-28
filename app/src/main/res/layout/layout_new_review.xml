@@ -39,7 +39,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/ll_reviews_review"
+        android:id="@+id/rl_reviews_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_new_review_actionbar"
@@ -51,7 +51,7 @@
             android:layout_centerHorizontal="true"
             style="?android:attr/ratingBarStyle"/>
         <ir.rasen.myapplication.ui.EditTextFont
-            android:id="@+id/txt_new_review_review"
+            android:id="@+id/edt_new_review_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/edt_multi_line_min_height"
@@ -66,4 +66,8 @@
             android:singleLine="false"
             android:inputType="text"/>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_vertical_margin_half"
+        android:layout_below="@+id/rl_reviews_review"/>
 </RelativeLayout>
