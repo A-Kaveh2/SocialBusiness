@@ -16,11 +16,12 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.RequestsAdapter;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH' on 1/21/2015.
  */
-public class FragmentRequests extends Fragment {
+public class FragmentRequests extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentRequests";
 
     private View view, listFooterView;
@@ -85,7 +86,7 @@ public class FragmentRequests extends Fragment {
 
         requests.add(request);
 
-        mAdapter = new RequestsAdapter(getActivity(), requests);
+        mAdapter = new RequestsAdapter(getActivity(), requests, FragmentRequests.this);
         list.setAdapter(mAdapter);
 
         return view;
@@ -141,5 +142,15 @@ public class FragmentRequests extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void getResult(Object result) {
+
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }

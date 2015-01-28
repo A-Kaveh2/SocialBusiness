@@ -50,7 +50,6 @@ public class ForgetPasswordDialog extends ParentDialog {
         editTextFont.setHint(context.getResources().getString(R.string.email));
         editTextFont.setHintTextColor(context.getResources().getColor(R.color.gray));
 
-
         LinearLayout ll = new LinearLayout(context);
         params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,(int) context.getResources().getDimension(R.dimen.dialog_button_hieght));
 
