@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -36,7 +38,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * with a GridView.
  * <p/>
  */
-public class FragmentHome extends Fragment implements WebserviceResponse {
+public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentHome";
 
     /**
@@ -64,6 +66,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
     private int homeType;
     private String homeTitle;
     private WebserviceResponse webserviceResponse;
+    private Edit editDelegate;
 
     // as home fragment
     public static FragmentHome newInstance (){
@@ -108,6 +111,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
         super.onCreate(savedInstanceState);
 
         webserviceResponse = this;
+        editDelegate = this;
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -137,7 +141,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
             if(posts.size()==1) {
                 singlePost = true;
             }
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegate);
 
         } else if(homeType==Params.HomeType.HOME_HOME) {
 
@@ -177,7 +181,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
 
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegate);
 
         }
     }
@@ -294,6 +298,15 @@ public class FragmentHome extends Fragment implements WebserviceResponse {
         //TODO display error message
         String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
         Dialogs.showMessage(getActivity(), errorMessage);
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 /*
     void autoHideActionBar() {

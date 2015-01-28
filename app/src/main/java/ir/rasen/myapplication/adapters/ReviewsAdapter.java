@@ -1,10 +1,14 @@
 package ir.rasen.myapplication.adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,13 +20,17 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
+import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.review.DeleteReview;
 
 /**
  * Created by 'Sina KH'.
@@ -35,13 +43,16 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
     int idOfView;
     private Context context;
     private WebserviceResponse delegate;
+    private Dialog dialog;
+    private Edit editDelegate;
 
-    public ReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate) {
+    public ReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, Edit editDelegate) {
         super(context, R.layout.layout_reviews_review, reviews);
         mReviews = reviews;
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.delegate = delegate;
+        this.editDelegate = editDelegate;
     }
 
     @Override
@@ -79,8 +90,9 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             if (isMine) {
                 holder.options.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
-                        // TODO:: SHOW OPTIONS POPUP
-                        showOptionsPopup(view, position);
+                    // TODO:: SHOW OPTIONS POPUP
+                    OptionsReview optionsReview = new OptionsReview(context);
+                    optionsReview.showOptionsPopup(mReviews.get(position),view,delegate, editDelegate);
                     }
                 });
                 holder.options.setVisibility(View.VISIBLE);
@@ -106,36 +118,6 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         ImageViewCircle profile_pic;
         RatingBar ratingBar;
         int id;
-    }
-
-    public void showOptionsPopup(View view, final int position) {
-        // TODO review is mine because we've checked it before calling this method...
-        // SHOWING POPUP WINDOW
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
-        final View layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
-                new LinearLayout(getContext()));
-        PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        pw.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pw.setOutsideTouchable(true);
-        pw.showAsDropDown(view);
-        // SETTING ON CLICK LISTENERS
-        //if(isMine) {
-        // EDIT OPTION
-        ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setVisibility(View.GONE);
-            /*((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                // TODO: EDIT REVIEW (disable for now)
-                }
-            });*/
-        // DELETE OPTION
-        ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // TODO DELETE REVIEW
-                Dialogs dialogs = new Dialogs();
-                dialogs.showReviewDeletePopup(getContext(), LoginInfo.getUserId(context), mReviews.get(position).id, delegate);
-            }
-        });
-        //}
     }
 
 }

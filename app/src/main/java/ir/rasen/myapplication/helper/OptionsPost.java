@@ -1,6 +1,7 @@
 package ir.rasen.myapplication.helper;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -24,7 +25,7 @@ public class OptionsPost {
         this.context = context;
     }
 
-    public void showOptionsPopup(final Post post, View view, final WebserviceResponse webserviceResponse) {
+    public void showOptionsPopup(final Post post, View view, final WebserviceResponse webserviceResponse, final Edit editDelegate) {
         // TODO: CHECK IS MINE
         Boolean isMine = true;
         // SHOWING POPUP WINDOW
@@ -55,6 +56,7 @@ public class OptionsPost {
                 public void onClick(View v) {
                     // TODO DELETE POST
                     showDeletePopup(post, webserviceResponse);
+                    editDelegate.setEditing(post.id,null,null);
                     pw.dismiss();
                 }
             });

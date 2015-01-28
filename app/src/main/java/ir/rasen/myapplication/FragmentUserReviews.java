@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -17,8 +19,10 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetUserReviews;
@@ -26,7 +30,7 @@ import ir.rasen.myapplication.webservice.review.GetUserReviews;
 /**
  * Created by 'Sina KH' on 1/13/2015.
  */
-public class FragmentUserReviews extends Fragment implements WebserviceResponse {
+public class FragmentUserReviews extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentReviews";
 
     private View view, listFooterView;
@@ -34,7 +38,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     private ArrayList<Review> reviews;
 
@@ -68,7 +72,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
         reviews = new ArrayList<Review>();
-        mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
+        mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this, FragmentUserReviews.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
 
         return view;
@@ -131,8 +135,26 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
         try {
             if (result instanceof ArrayList) {
                 reviews = (ArrayList<Review>) result;
-                mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this);
+                mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this, FragmentUserReviews.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
+            } else if (result instanceof ResultStatus) {
+                int reviewPosition = -1;
+                for (int i = 0; i < reviews.size(); i++) {
+                    if (reviews.get(i).id.equals(editingId)) {
+                        reviewPosition = i;
+                        break;
+                    }
+                }
+                if (reviewPosition > -1) {
+                    if (editingText.equals(null)) {
+                        reviews.remove(reviewPosition);
+                    } else {
+                        reviews.get(reviewPosition).text = editingText;
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+                Dialogs.showMessage(getActivity(), getString(R.string.success));
+                editingDialog.dismiss();
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -147,5 +169,14 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse 
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId=id;
+        editingText=text;
+        editingDialog=dialog;
     }
 }

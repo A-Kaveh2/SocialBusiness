@@ -17,6 +17,7 @@ import java.util.Random;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
@@ -37,16 +38,18 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
     private boolean singleTapped;
     private WebserviceResponse webserviceResponse;
+    private Edit editDelegate;
     private Context context;
 
     private Post post;
 
-	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse) {
+	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse, Edit editDelegate) {
 		super(context, R.layout.layout_post_home, posts);
 		mPosts 	= posts;
         this.webserviceResponse = webserviceResponse;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
+        this.editDelegate = editDelegate;
 	}
 
 	@Override
@@ -152,7 +155,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     OptionsPost optionsPost = new OptionsPost(getContext());
-                    optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse);
+                    optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse, editDelegate);
                 }
             });
 

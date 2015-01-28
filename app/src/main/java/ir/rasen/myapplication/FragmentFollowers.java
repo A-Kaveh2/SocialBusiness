@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -27,7 +29,7 @@ import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentFollowers extends Fragment implements WebserviceResponse{
+public class FragmentFollowers extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentFollowers";
 
     private View view, listFooterView, listHeaderView;
@@ -89,7 +91,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
         setUpListView();
 
         followers = new ArrayList<User>();
-        mAdapter = new FollowersAdapter(getActivity(), followers, true);
+        mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
 
         return view;
@@ -179,7 +181,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
                 }
 
                 followers = new ArrayList<User>();
-                mAdapter = new FollowersAdapter(getActivity(), followers, true);
+                mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
 
             }
@@ -196,5 +198,14 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

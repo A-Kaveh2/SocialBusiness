@@ -1,5 +1,6 @@
 package ir.rasen.myapplication.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -26,13 +28,15 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 	private LayoutInflater mInflater;
     private boolean mOwnFollowers = false;
     private Context context;
+    private Edit editDelegate;
 
-	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers) {
+	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers, Edit editDelegate) {
 		super(context, R.layout.layout_businesses_business, followers);
 		mFollowers	= followers;
 		mInflater	= LayoutInflater.from(context);
         mOwnFollowers = ownFollowers;
         this.context = context;
+        this.editDelegate = editDelegate;
 	}
 
 	@Override
@@ -69,6 +73,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                     @Override
                     public void onClick(View view) {
                         showBlockPopup(follower.userID);
+                        editDelegate.setEditing(follower.userID, null, null);
                     }
                 });
             } else

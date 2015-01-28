@@ -11,11 +11,14 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH'.
@@ -27,16 +30,20 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
 	private LayoutInflater mInflater;
     int idOfView;
     private Context context;
+    WebserviceResponse delegate;
+    Edit editDelegate;
 
-	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews) {
+	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, Edit editDelegate) {
 		super(context, R.layout.layout_reviews_review, reviews);
 		mReviews 	= reviews;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
+        this.editDelegate = editDelegate;
+        this.delegate = delegate;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup group) {
+	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Review review = mReviews.get(position);
         final String postId = review.id;
@@ -64,7 +71,8 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // TODO:: SHOW OPTIONS POPUP
-                // showOptionsPopup(view);
+                OptionsReview optionsReview = new OptionsReview(context);
+                optionsReview.showOptionsPopup(mReviews.get(position), view, delegate, editDelegate);
             }
             });
 

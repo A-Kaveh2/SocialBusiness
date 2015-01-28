@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -26,7 +28,7 @@ import ir.rasen.myapplication.webservice.search.SearchUser;
 /**
  * Created by 'Sina KH' on '01/22/2015'.
  */
-public class FragmentResultsUsers extends Fragment implements WebserviceResponse {
+public class FragmentResultsUsers extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentResultsUsers";
 
     private View view, listFooterView, listHeaderView;
@@ -86,7 +88,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         setUpListView();
 
         users = new ArrayList<User>();
-        mAdapter = new FriendsAdapter(getActivity(), users, true);
+        mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
         list.setAdapter(mAdapter);
 
         return view;
@@ -160,7 +162,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                 }
 
                 users = new ArrayList<User>();
-                mAdapter = new FriendsAdapter(getActivity(), users, true);
+                mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
                 list.setAdapter(mAdapter);
             }
         } catch(Exception e) {
@@ -176,5 +178,14 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

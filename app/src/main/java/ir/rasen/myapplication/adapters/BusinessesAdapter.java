@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -27,11 +28,13 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
 	private ArrayList<Business> mBusinesses;
 	private LayoutInflater mInflater;
     private Context context;
+    private boolean deleteAvailable;
 
-	public BusinessesAdapter(Context context, ArrayList<Business> businesses) {
+	public BusinessesAdapter(Context context, ArrayList<Business> businesses, boolean deleteAvailable) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
+        this.deleteAvailable = deleteAvailable;
         this.context = context;
 	}
 
@@ -47,6 +50,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
             holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_businesses_business_image);
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_businesses_business_name);
             holder.item = (RelativeLayout) convertView.findViewById(R.id.rl_businesses_business);
+            holder.delete = (ImageButton) convertView.findViewById(R.id.btn_businesses_business_delete);
 
             convertView.setTag(holder);
         } else {
@@ -64,6 +68,17 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });
+            if(deleteAvailable) {
+                holder.delete.setVisibility(View.VISIBLE);
+                holder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // todo:: show unfollow business popup
+                    }
+                });
+            } else {
+                holder.delete.setVisibility(View.INVISIBLE);
+            }
         }
 
         return  convertView;
@@ -72,6 +87,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
         RelativeLayout item;
         ImageViewCircle picture;
         TextViewFont name;
+        ImageButton delete;
         int id;
     }
 

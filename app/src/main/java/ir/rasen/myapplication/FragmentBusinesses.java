@@ -114,7 +114,6 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         listFooterView.setVisibility(View.VISIBLE);
-
     }
 
     void setUpListView() {
@@ -177,7 +176,9 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
                     businesses.add(business);
                 }
 
-                mAdapter = new BusinessesAdapter(getActivity(), businesses);
+                // todo: check if the business is mine or not!
+                boolean deleteAvailable = true;
+                mAdapter = new BusinessesAdapter(getActivity(), businesses, deleteAvailable);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
             }
         } catch (Exception e) {

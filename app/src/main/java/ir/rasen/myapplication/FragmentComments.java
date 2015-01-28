@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
@@ -28,7 +30,7 @@ import ir.rasen.myapplication.webservice.comment.SendComment;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentComments extends Fragment implements WebserviceResponse {
+public class FragmentComments extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentComments";
 
     private View view, listFooterView;
@@ -101,7 +103,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse {
         comments.add(comment1);
         comments.add(comment2);
         comments.add(comment3);
-        mAdapter = new CommentsAdapter(getActivity(), comments);
+        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.btn_comments_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,5 +205,14 @@ public class FragmentComments extends Fragment implements WebserviceResponse {
     @Override
     public void getError(Integer errorCode) {
 
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

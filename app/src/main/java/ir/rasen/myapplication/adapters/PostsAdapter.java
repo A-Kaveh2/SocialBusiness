@@ -1,8 +1,6 @@
 package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,21 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import ir.rasen.myapplication.ActivityMain;
-import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -44,13 +38,16 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private boolean singleTapped;
 
     private WebserviceResponse delegate;
+    private Edit editDelegate;
     private Context context;
-	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate) {
+
+	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate, Edit editDelegate) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
         this.delegate = delegate;
         this.context = context;
+        this.editDelegate = editDelegate;
 	}
 
 	@Override
@@ -106,7 +103,8 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                showOptionsPopup(view, position);
+                OptionsPost optionsPost = new OptionsPost(context);
+                optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegate);
             }
             });
 
@@ -195,49 +193,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         ImageViewCircle business_pic, comment1_pic;
         LinearLayout likes, comments;
         int id;
-    }
-
-    public void showOptionsPopup(View view, final int position) {
-        // TODO: CHECK IS MINE
-        Boolean isMine = true;
-        // SHOWING POPUP WINDOW
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
-        View layout;
-        if (isMine)
-            layout = inflater.inflate(R.layout.layout_menu_post_options_owner,new LinearLayout(getContext()));
-        else
-            layout = inflater.inflate(R.layout.layout_menu_post_options,new LinearLayout(getContext()));
-        final PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        pw.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pw.setOutsideTouchable(true);
-        pw.showAsDropDown(view);
-        // SETTING ON CLICK LISTENERS
-        if(isMine) {
-            // EDIT OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                // TODO: EDIT POST
-                ArrayList<Post> posts = new ArrayList<Post>();
-                posts.add(mPosts.get(position));
-                PassingPosts.getInstance().setValue(posts);
-                Intent intent = new Intent(getContext(), ActivityNewPost_Step1.class);
-                getContext().startActivity(intent);
-                ((ActivityMain) getContext()).overridePendingTransition(R.anim.to_0, R.anim.to_left);
-                pw.dismiss();
-                }
-            });
-
-            // DELETE OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                // TODO where is business.id and post.id
-                Dialogs functions = new Dialogs();
-                functions.showPostDeletePopup(getContext(),"1","3",delegate);
-                pw.dismiss();
-                }
-            });
-        }
     }
 
     void likeNow(String post_id) {

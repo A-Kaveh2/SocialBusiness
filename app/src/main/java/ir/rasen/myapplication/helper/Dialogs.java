@@ -6,19 +6,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
-
 import ir.rasen.myapplication.FragmentSearch;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
@@ -124,7 +120,7 @@ public class Dialogs {
                 .setMessage(R.string.popup_delete_review)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                       new DeleteReview(userId,review_id,delegate).execute();
+                        new DeleteReview(userId,review_id,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -168,7 +164,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showCommentEditPopup(final Context context, final Comment comment) {
+    public Dialog showCommentEditPopup(final Context context, final Comment comment) {
         final Dialog dialog = new Dialog(context,R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_edit_comment);
@@ -196,6 +192,7 @@ public class Dialogs {
             }
         });
         dialog.show();
+        return dialog;
     }
 
     public void showLocationNotFoundPopup(final FragmentSearch fragmentSearch, String message) {
@@ -227,7 +224,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    static void showCustomizedDialog(Context context, AlertDialog.Builder builder) {
+    static Dialog showCustomizedDialog(Context context, AlertDialog.Builder builder) {
         Dialog dialog = builder.show();
         Typeface tf = getTypeface(context);
         ((TextView) dialog.findViewById(android.R.id.message)).setTypeface(tf);
@@ -239,6 +236,7 @@ public class Dialogs {
         TextView tv = (TextView) dialog.findViewById(textViewId);
         tv.setTypeface(tf);
         //tv.setTextColor(getResources().getColor(R.color.red_dark));
+        return dialog;
     }
 
     public static void showMessage(Context context, String message) {

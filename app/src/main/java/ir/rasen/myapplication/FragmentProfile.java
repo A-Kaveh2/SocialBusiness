@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
@@ -46,7 +48,7 @@ import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentProfile extends Fragment implements WebserviceResponse {
+public class FragmentProfile extends Fragment implements WebserviceResponse, Edit{
     private static final String TAG = "FragmentProfile";
 
     private SwipeRefreshLayout swipeView;
@@ -69,6 +71,16 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     private WebserviceResponse webserviceResponse;
     private static Context cont;
     private boolean isBusinessProfile = false;
+
+    String editingId, editingText;
+    Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
+    }
+
     private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
     private static RunningWebserviceType runningWebserviceType;
 
@@ -352,7 +364,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
         post3.lastThreeComments = lastThreeComments;
         posts.add(post3);
 */ // TODO: FOR TEST::
-        listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
+        listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
         grid.setAdapter(gridAdapter);
     }
@@ -512,7 +524,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
                     //business posts
                     posts = (ArrayList<Post>) result;
                 }
-                listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
+                listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
                 gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
                 grid.setAdapter(gridAdapter);
 

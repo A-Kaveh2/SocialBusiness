@@ -1,7 +1,6 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,30 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
-import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
-import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
-import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
@@ -41,7 +32,7 @@ import ir.rasen.myapplication.webservice.review.ReviewBusiness;
 /**
  * Created by 'Sina KH' on 1/13/2015.
  */
-public class FragmentReviews extends Fragment implements WebserviceResponse {
+public class FragmentReviews extends Fragment implements WebserviceResponse, Edit{
     private static final String TAG = "FragmentReviews";
 
     private View view, listFooterView;
@@ -97,7 +88,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
         ArrayList<Review> reviews = new ArrayList<Review>();
-        mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this);
+        mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
         list.setAdapter(mAdapter);
 
         view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
@@ -190,12 +181,34 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
                     listFooterView.setVisibility(View.INVISIBLE);
                 } else {
                     reviews = (ArrayList<Review>) result;
-                    mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentReviews.this);
+                    mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentReviews.this, FragmentReviews.this);
                     list.setAdapter(mAdapter);
                 }
             } else if (result instanceof ResultStatus) {
+                int reviewPosition = -1;
+                if(editingId.equals(null)) {
+                    // new review submitted
+                    Dialogs.showMessage(getActivity(), getString(R.string.success));
+                    dialog.dismiss();
+                    return;
+                }
+                // review-> deleted or modified
+                for(int i=0; i<reviews.size(); i++) {
+                    if (reviews.get(i).id.equals(editingId)) {
+                        reviewPosition = i;
+                        break;
+                    }
+                }
+                if(reviewPosition>-1) {
+                    if (editingText.equals(null)) {
+                        reviews.remove(reviewPosition);
+                    } else {
+                        reviews.get(reviewPosition).text=editingText;
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
                 Dialogs.showMessage(getActivity(), getString(R.string.success));
-                dialog.dismiss();
+                editingDialog.dismiss();
             }
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -222,6 +235,9 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
                 String review = ((EditTextFont) dialog.findViewById(R.id.edt_new_review_review)).getText().toString();
                 float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
                 if(rate>0) {
+                    editingId = null;
+                    editingText = null;
+                    editingDialog = null;
                     sendReview(review, rate);
                 } else {
                     Dialogs.showMessage(getActivity(), getString(R.string.rate_needed));
@@ -235,5 +251,14 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
             }
         });
         dialog.show();
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId=id;
+        editingText=text;
+        editingDialog=dialog;
     }
 }

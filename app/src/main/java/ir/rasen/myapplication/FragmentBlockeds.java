@@ -26,7 +26,7 @@ import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentBlockeds extends Fragment implements WebserviceResponse{
+public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentBlockeds";
 
     private View view, listFooterView;
