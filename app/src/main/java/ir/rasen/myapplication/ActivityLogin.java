@@ -2,6 +2,7 @@ package ir.rasen.myapplication;
 
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -11,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +26,7 @@ import android.view.animation.TranslateAnimation;
  * Created by 'Sina KH'.
  */
 public class ActivityLogin extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityLogin";
 
     EditTextFont edtEmail, edtPassword;
     Context cotext;
@@ -127,14 +130,21 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        boolean b = LoginInfo.isLoggedIn(cotext);
-
-        startActivity(new Intent(cotext, ActivityMain.class));
+        try {
+            boolean b = LoginInfo.isLoggedIn(cotext);
+            startActivity(new Intent(cotext, ActivityMain.class));
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(cotext, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+            Dialogs.showMessage(getBaseContext(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

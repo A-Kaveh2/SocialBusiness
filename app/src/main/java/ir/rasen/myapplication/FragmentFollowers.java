@@ -16,9 +16,11 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 
@@ -37,6 +39,8 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
 
     // business id is received here
     private String businessId;
+
+    ArrayList<User> followers;
 
     public static FragmentFollowers newInstance (String businessId){
         FragmentFollowers fragment = new FragmentFollowers();
@@ -84,22 +88,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
         // setUp ListView
         setUpListView();
 
-        // TODO: Change Adapter to display your content
-        ArrayList<User> followers = new ArrayList<User>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        User User1 = new User();
-        User User2 = new User();
-        User User3 = new User();
-        User1.name=("SINA");
-        User2.name=("HASAN");
-        User3.name=("HOSSEIN");
-        followers.add(User1);
-        followers.add(User2);
-        followers.add(User3);
-
+        followers = new ArrayList<User>();
         mAdapter = new FollowersAdapter(getActivity(), followers, true);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
 
@@ -179,7 +168,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
         if(result instanceof ArrayList){
             //result from executing getBusinessFollowers
             ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
-            ArrayList<User> followers = new ArrayList<User>();
+            followers = new ArrayList<User>();
             User user = null;
             for(SearchItemUserBusiness item:businessesFollowers){
                 user = new User();
@@ -188,14 +177,20 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
                 followers.add(user);
             }
 
-            //TODO use followers to intiate listview
-
+            followers = new ArrayList<User>();
+            mAdapter = new FollowersAdapter(getActivity(), followers, true);
+            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
 
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

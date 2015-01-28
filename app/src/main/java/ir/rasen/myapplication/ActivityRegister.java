@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,6 +27,7 @@ import java.io.File;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -33,6 +35,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.RegisterUser;
 
 public class ActivityRegister extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityRegister";
 
     EditTextFont username, name, email, password, password_repeat;
     ImageButton btn_register_picture_set;
@@ -155,13 +158,13 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             password_repeat.setError(getString(R.string.enter_same_passwords));
             return;
         }*/
-
+    try {
         User user = new User();
-       /* user.userID = username.getText().toString();
-        user.name = name.getText().toString();
-        user.email = email.getText().toString();
-        user.password = password.getText().toString();
-*/
+           /* user.userID = username.getText().toString();
+            user.name = name.getText().toString();
+            user.email = email.getText().toString();
+            user.password = password.getText().toString();
+    */
         user.userID = "ali_8";
         user.name = "ali8";
         user.email = "ali8@gmail.com";
@@ -173,7 +176,10 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             user.profilePicture = "";
 
 
-        new RegisterUser(context,user,ActivityRegister.this).execute();
+        new RegisterUser(context, user, ActivityRegister.this).execute();
+    } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+    }
     }
 
     // HELP TOUCHED
@@ -213,7 +219,11 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
-        String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-        Dialogs.showMessage(context, errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
+            Dialogs.showMessage(context, errorMessage);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

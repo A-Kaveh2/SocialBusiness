@@ -65,6 +65,8 @@ public class Params {
     public static int LOCATION_REFRESH = 60000;
     public static int LOCATION_REFRESH_DISTANCE = 10;
 
+    public static String CLOSED_BEFORE_RESPONSE = "fragment closed before webservice response...";
+
     /**
      * Created by android on 12/15/2014.
      */
