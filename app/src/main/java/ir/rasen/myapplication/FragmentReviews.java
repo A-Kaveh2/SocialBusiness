@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
@@ -97,32 +100,19 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
         view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendReview(view);
-            }
-        });
-
-        ((EditTextFont) view.findViewById(R.id.txt_reviews_review)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean b) {
-                if(!view.isFocused()) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(((EditTextFont) view.findViewById(R.id.txt_reviews_review)).getWindowToken(), 0);
-                }
+                showReviewDialog();
             }
         });
 
         return view;
     }
 
-    public void sendReview(View view) {
-
-        String reviewText = ((EditTextFont) view.findViewById(R.id.txt_reviews_review)).getText().toString();
+    public void sendReview(String review_text, float review_rate) {
         new ReviewBusiness(LoginInfo.getUserId(getActivity()),
                 businessId,
-                reviewText,
+                review_text,
                 FragmentReviews.this).execute();
-
+        // TODO:: SEND RATE
     }
 
     // TODO: LOAD MORE DATA
@@ -216,5 +206,28 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private void showReviewDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
+        dialog.findViewById(R.id.btn_new_review_send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String review = ((TextViewFont) dialog.findViewById(R.id.txt_new_review_review)).getText().toString();
+                float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
+                if(rate>0) {
+                    sendReview(review, rate);
+                } else {
+                    Dialogs.showMessage(getActivity(), getString(R.string.rate_needed));
+                }
+            }
+        });
+        dialog.findViewById(R.id.btn_new_review_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

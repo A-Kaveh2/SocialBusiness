@@ -14,8 +14,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.RequestsAdapter;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.friend.GetUserFriendRequests;
 
@@ -34,6 +36,8 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
 
     String userId;
     Boolean nearby;
+
+    ArrayList<SearchItemUserBusiness> requests;
 
     public static FragmentRequests newInstance (String userId){
         FragmentRequests fragment = new FragmentRequests();
@@ -79,16 +83,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
-        // TODO: Change Adapter to display your content after loading data
-        ArrayList<SearchItemUserBusiness> requests = new ArrayList<SearchItemUserBusiness>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        SearchItemUserBusiness request = new SearchItemUserBusiness("SINA","","سینا");
-
-        requests.add(request);
-
+        requests = new ArrayList<SearchItemUserBusiness>();
         mAdapter = new RequestsAdapter(getActivity(), requests, FragmentRequests.this);
         list.setAdapter(mAdapter);
 
@@ -149,16 +144,24 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ArrayList){
-            ArrayList<SearchItemUserBusiness> requests = new ArrayList<>();
-            requests = (ArrayList<SearchItemUserBusiness>)result;
-
-            //TODO assign
+        try {
+            if (result instanceof ArrayList) {
+                requests = (ArrayList<SearchItemUserBusiness>) result;
+                mAdapter = new RequestsAdapter(getActivity(), requests, FragmentRequests.this);
+                list.setAdapter(mAdapter);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

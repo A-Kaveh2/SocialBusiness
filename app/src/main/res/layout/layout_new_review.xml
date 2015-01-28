@@ -12,15 +12,14 @@
         android:background="@color/button_on_dark" >
 
         <ImageButton
+            android:id="@+id/btn_new_review_back"
             android:layout_width="@dimen/actionbar_height"
             android:layout_height="@dimen/actionbar_height"
             android:background="@drawable/style_button_menu"
             android:src="@drawable/ic_menu_back"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:onClick="back"
             android:contentDescription="@null"/>
-
         <ir.rasen.myapplication.ui.TextViewFont
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
@@ -28,6 +27,15 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:text = "@string/new_review" />
+        <ImageButton
+            android:id="@+id/btn_new_review_send"
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_check"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@null"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -37,35 +45,21 @@
         android:layout_below="@+id/rl_new_review_actionbar"
         android:layout_margin="@dimen/activity_vertical_margin_1of8">
         <RatingBar
-            android:id="@+id/ratingBar_reviews"
+            android:id="@+id/ratingBar_new_review_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             style="?android:attr/ratingBarStyle"/>
-        <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/btn_reviews_send"
-            android:layout_width="@dimen/button_width_min"
-            android:layout_height="@dimen/actionbar_height"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ratingBar_reviews"
-            android:layout_alignBottom="@+id/txt_reviews_review"
-            android:background="@drawable/style_button_on_dark_second"
-            android:text="@string/send"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_normal"
-            android:textColor="@android:color/white"
-            android:clickable="true"/>
         <ir.rasen.myapplication.ui.EditTextFont
-            android:id="@+id/txt_reviews_review"
+            android:id="@+id/txt_new_review_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/actionbar_height"
+            android:minHeight="@dimen/edt_multi_line_min_height"
             android:background="@drawable/style_view_corners"
             android:hint="@string/enter_your_review"
             android:textColorHint="@color/gray"
-            android:layout_below="@+id/ratingBar_reviews"
+            android:layout_below="@+id/ratingBar_new_review_rate"
             android:layout_marginLeft="@dimen/activity_vertical_margin_1of8"
-            android:layout_toRightOf="@+id/btn_reviews_send"
             android:gravity="center|right"
             android:textSize="@dimen/text_size_normal"
             android:padding="@dimen/activity_vertical_margin_1of8"

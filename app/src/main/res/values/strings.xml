@@ -280,4 +280,6 @@
     <!-- BLOCKEDS -->
     <string name="blockeds">مسدود شده ها</string>
     <string name="manage_blockeds">کاربران مسدود شده را مدیریت کنید.</string>
+
+    <string name="rate_needed">لطفأ برای کسب و کار امتیازی در نظر بگیرید.</string>
 </resources>
