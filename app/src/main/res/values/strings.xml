@@ -261,6 +261,7 @@
     <string name="dialog_update_success">اطلاعات به روز رسانی شد</string>
     <string name="dialog_success">اطلاعات ثبت شد</string>
 
+    <string name="success">درخواست شما با موفقیت انجام شد.</string>
 
     <!--ChOOSE PICTURE-->
     <string-array name="camera_or_gallery">

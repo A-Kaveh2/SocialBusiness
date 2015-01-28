@@ -39,7 +39,6 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
 
     // business id is received here
     private String userId;
-    private static String webServiceUserID;
 
     private ArrayList<Business> businesses;
 
@@ -49,7 +48,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
         Bundle bundle = new Bundle();
         bundle.putString(Params.USER_ID, userId);
         fragment.setArguments(bundle);
-        webServiceUserID = userId;
+
         return fragment;
     }
 
@@ -63,13 +62,6 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //TODO remove test parts
-        //new GetFollowingBusinesses(webServiceUserID,FragmentBusinesses.this).execute();
-
-        //TODO for the test
-        new GetFollowingBusinesses("ali_1", FragmentBusinesses.this).execute();
-
     }
 
     @Override
@@ -111,6 +103,10 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
         mAdapter = new BusinessesAdapter(getActivity(), businesses);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
 */
+
+        //TODO remove test parts
+        new GetFollowingBusinesses(userId,FragmentBusinesses.this).execute();
+
         return view;
     }
 
@@ -118,6 +114,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         listFooterView.setVisibility(View.VISIBLE);
+
     }
 
     void setUpListView() {
