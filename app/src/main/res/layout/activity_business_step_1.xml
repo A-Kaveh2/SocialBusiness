@@ -81,7 +81,6 @@
                 android:id="@+id/spinner_business_step1_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:textSize="@dimen/text_size_normal" />
@@ -90,14 +89,11 @@
                 android:id="@+id/spinner_business_step1_subcategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
                 android:layout_centerHorizontal="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:textSize="@dimen/text_size_normal"
-                android:inputType="textPassword"
-                android:selectAllOnFocus="true"
-                android:drawableLeft="@drawable/ic_edittext_password" />
+                android:selectAllOnFocus="true" />
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_business_step1_description"
@@ -105,7 +101,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/business_description"
                 android:layout_centerHorizontal="true"
-                android:inputType="text"
+                android:background="@drawable/style_view"
+                android:minHeight="@dimen/edt_multi_line_min_height"
+                android:layout_margin="@dimen/activity_vertical_margin_1of4"
+                android:inputType="textMultiLine"
                 android:selectAllOnFocus="true"
                 android:drawableLeft="@drawable/ic_edittext_status" />
 
@@ -113,7 +112,6 @@
                 android:id="@+id/btn_business_submit"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/button_height"
-                android:layout_below="@+id/edt_business_step1_description"
                 android:layout_centerHorizontal="true"
                 android:text="@string/next_step"
                 android:layout_marginTop="16dp"
@@ -126,7 +124,6 @@
                 android:id="@+id/btn_business_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_business_submit"
                 android:layout_marginTop="16dp"
                 android:layout_centerHorizontal="true"
                 android:text="@string/help"

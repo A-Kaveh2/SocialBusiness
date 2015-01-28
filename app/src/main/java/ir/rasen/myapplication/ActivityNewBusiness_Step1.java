@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +33,7 @@ import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -100,6 +103,24 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 // your code here
             }
 
+        });
+
+        edtDescription.addTextChangedListener(new TextWatcher() {
+            String oldText;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                oldText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(charSequence.toString().equals(oldText))
+                    return;
+                TextProcessor textProcessor = new TextProcessor(context);
+                textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -188,6 +209,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.category = spnCategory.getSelectedItem().toString();
         business.subcategory = spnSubcategory.getSelectedItem().toString();
         business.description = edtDescription.getText().toString();
+        business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
