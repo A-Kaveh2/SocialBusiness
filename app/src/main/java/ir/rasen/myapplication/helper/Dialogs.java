@@ -150,7 +150,7 @@ public class Dialogs {
         builder
                 .setTitle(R.string.unblock_follower)
                 .setMessage(R.string.popup_unblock_follower)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO:: UNBLOCK FOLLOWER ( ID is in userId )
                     }

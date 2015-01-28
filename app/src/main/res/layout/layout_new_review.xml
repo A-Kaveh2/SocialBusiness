@@ -2,11 +2,11 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white" >
 
     <RelativeLayout
-        android:id="@+id/rl_reviews_actionbar"
+        android:id="@+id/rl_new_review_actionbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
         android:background="@color/button_on_dark" >
@@ -27,39 +27,49 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:text = "@string/reviews" />
+            android:text = "@string/new_review" />
     </RelativeLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rl_reviews_actionbar"
-        android:layout_above="@+id/ll_reviews_review">
-        <ListView
-            android:id="@+id/list_reviews_review"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/activity_vertical_margin_1of8"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/ll_reviews_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
+        android:layout_below="@+id/rl_new_review_actionbar"
+        android:layout_margin="@dimen/activity_vertical_margin_1of8">
+        <RatingBar
+            android:id="@+id/ratingBar_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            style="?android:attr/ratingBarStyle"/>
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/btn_reviews_send"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/button_width_min"
             android:layout_height="@dimen/actionbar_height"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ratingBar_reviews"
+            android:layout_alignBottom="@+id/txt_reviews_review"
             android:background="@drawable/style_button_on_dark_second"
-            android:text="@string/new_review"
+            android:text="@string/send"
             android:gravity="center"
-            android:textSize="@dimen/text_size_largest"
+            android:textSize="@dimen/text_size_normal"
             android:textColor="@android:color/white"
             android:clickable="true"/>
+        <ir.rasen.myapplication.ui.EditTextFont
+            android:id="@+id/txt_reviews_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/actionbar_height"
+            android:background="@drawable/style_view_corners"
+            android:hint="@string/enter_your_review"
+            android:textColorHint="@color/gray"
+            android:layout_below="@+id/ratingBar_reviews"
+            android:layout_marginLeft="@dimen/activity_vertical_margin_1of8"
+            android:layout_toRightOf="@+id/btn_reviews_send"
+            android:gravity="center|right"
+            android:textSize="@dimen/text_size_normal"
+            android:padding="@dimen/activity_vertical_margin_1of8"
+            android:singleLine="false"
+            android:inputType="text"/>
     </RelativeLayout>
 </RelativeLayout>
