@@ -165,22 +165,26 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse{
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ArrayList){
-            //result from executing getBusinessFollowers
-            ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
-            followers = new ArrayList<User>();
-            User user = null;
-            for(SearchItemUserBusiness item:businessesFollowers){
-                user = new User();
-                user.name = item.name;
-                user.profilePicture = item.picture;
-                followers.add(user);
+        try {
+            if (result instanceof ArrayList) {
+                //result from executing getBusinessFollowers
+                ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>) result;
+                followers = new ArrayList<User>();
+                User user = null;
+                for (SearchItemUserBusiness item : businessesFollowers) {
+                    user = new User();
+                    user.name = item.name;
+                    user.profilePicture = item.picture;
+                    followers.add(user);
+                }
+
+                followers = new ArrayList<User>();
+                mAdapter = new FollowersAdapter(getActivity(), followers, true);
+                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
+
             }
-
-            followers = new ArrayList<User>();
-            mAdapter = new FollowersAdapter(getActivity(), followers, true);
-            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
-
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 

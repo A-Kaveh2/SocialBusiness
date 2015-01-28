@@ -335,8 +335,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 categories = new ArrayList<String>();
                 categories = (ArrayList<String>) result;
 
-                //TODO assign categories to the spinner
-
                 ArrayAdapter<String> categoriesAdapter =
                         new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
                 listViewCategories.setAdapter(categoriesAdapter);
@@ -345,8 +343,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 //result from executing getBusinessSubcategories
                 subCategories = new ArrayList<String>();
                 subCategories = (ArrayList<String>)result;
-
-                //TODO assign businessSubcategories to the spinner
 
                 ArrayAdapter<String> subcategoriesAdapter =
                         new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
