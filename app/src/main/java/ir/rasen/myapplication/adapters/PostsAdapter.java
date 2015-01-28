@@ -227,13 +227,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 pw.dismiss();
                 }
             });
+
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
                 // TODO where is business.id and post.id
                 Functions functions = new Functions();
-                functions.showPostDeletePopup(getContext(),LoginInfo.getUserId(context),"3",delegate);
+                functions.showPostDeletePopup(getContext(),"1","3",delegate);
                 pw.dismiss();
                 }
             });
