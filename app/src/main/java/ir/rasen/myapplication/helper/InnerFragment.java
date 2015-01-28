@@ -76,7 +76,7 @@ public class InnerFragment {
 
     // add new reviews fragment to current place
     public void newReviews(String businessId) {
-        Fragment newFragment = new FragmentReviews().newInstance();
+        Fragment newFragment = new FragmentReviews().newInstance(businessId);
         addFragment(newFragment);
     }
 

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -19,8 +22,13 @@ import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
@@ -37,17 +45,20 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     private boolean isLoadingMore=false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
+    private String businessId;
+    ArrayList<Review> reviews;
 
-    public static FragmentReviews newInstance (){
+    public static FragmentReviews newInstance (String businessId) {
         FragmentReviews fragment = new FragmentReviews();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Params.BUSINESS_ID, businessId);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public FragmentReviews() {
     }
 
@@ -55,8 +66,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO remove test part
-        new GetBusinessReviews("food_1",0,
+        new GetBusinessReviews(businessId,0,
                 getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                 ,FragmentReviews.this).execute();
     }
@@ -66,32 +76,24 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_reviews, container, false);
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            businessId = bundle.getString(Params.BUSINESS_ID);
+        } else {
+            Log.e(TAG, "bundle is null!!");
+            if (getActivity() != null) {
+                getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+            }
+        }
+
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-        //TODO remove test parts
-
-        // TODO: Change Adapter to display your content
         ArrayList<Review> reviews = new ArrayList<Review>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        Review review = new Review();
-        review.businessID="RASEN";
-        review.text="کسب و کار خوبیه, خوشم اومد!\nمحصولاتش سطح بالاس..";
-        review.userID="SINA";
-        review.rate = 4;
-        reviews.add(review);
-        Review review2 = new Review();
-        review2.businessID="RASEN";
-        review2.text="من سایت کالاکاویشو پیشنهاد میدم خخخ...";
-        review2.userID="HASAM";
-        review2.rate = 5;
-        reviews.add(review2);
-
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this);
         list.setAdapter(mAdapter);
+
         view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,11 +116,10 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     }
 
     public void sendReview(View view) {
-        // TODO: remove test parts
 
         String reviewText = ((EditTextFont) view.findViewById(R.id.txt_reviews_review)).getText().toString();
         new ReviewBusiness(LoginInfo.getUserId(getActivity()),
-                "food_1",
+                businessId,
                 reviewText,
                 FragmentReviews.this).execute();
 
@@ -127,7 +128,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
-        listFooterView.setVisibility(View.VISIBLE);
+        if (reviews != null) {
+            new GetBusinessReviews(businessId,Integer.parseInt(reviews.get(reviews.size()-1).id),
+                    getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                    ,FragmentReviews.this).execute();
+            listFooterView.setVisibility(View.VISIBLE);
+        }
     }
 
     void setUpListView() {
@@ -136,10 +142,11 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -178,21 +185,36 @@ public class FragmentReviews extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ArrayList){
-            ArrayList<Review> reviews = new ArrayList<Review>();
-            reviews = (ArrayList<Review>)result;
-
-            //TODO assign reviews
-        }
-        else if(result instanceof ResultStatus){
-            //executing from ReviewBusiness
-
-            //TODO display success message
+        try {
+            if (result instanceof ArrayList) {
+                if (isLoadingMore) {
+                    ArrayList<Review> loadedReviews = new ArrayList<>();
+                    for (Review item : loadedReviews) {
+                        reviews.add(item);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    isLoadingMore=false;
+                    listFooterView.setVisibility(View.INVISIBLE);
+                } else {
+                    reviews = (ArrayList<Review>) result;
+                    mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentReviews.this);
+                    list.setAdapter(mAdapter);
+                }
+            } else if (result instanceof ResultStatus) {
+                Dialogs.showMessage(getActivity(), getString(R.string.success));
+            }
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }
