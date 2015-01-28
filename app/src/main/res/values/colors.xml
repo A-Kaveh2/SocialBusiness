@@ -30,9 +30,7 @@
     <color name="menu_bg">#f5e1f5fe</color>
     <color name="dark_blue">#004185</color>
     <color name="light_blue">#1BB2C2</color>
-    <color name="pink">#E6037F</color>
     <color name="pink_accent">#5499BA</color>
-    <color name="dark_pink">#B9126D</color>
     <color name="light_gray">#EBEBEB</color>
     <color name="dark_gray">#B2B2B2</color>
     <color name="darker_gray">#595959</color>
