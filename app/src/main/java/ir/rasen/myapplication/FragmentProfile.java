@@ -71,7 +71,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     private boolean isBusinessProfile = false;
     private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
     private static RunningWebserviceType runningWebserviceType;
-    private boolean closed=false;
 
     private ArrayList<Post> posts;
 
@@ -470,78 +469,79 @@ public class FragmentProfile extends Fragment implements WebserviceResponse {
     @Override
     public void getResult(Object result) {
 
-        if(closed) return;
+        try {
 
-        if (result instanceof ResultStatus) {
-            //delete post,follow business
+            if (result instanceof ResultStatus) {
+                //delete post,follow business
 
-        } else if (result instanceof User) {
-            //get user home info
-            User user = (User) result;
-            String userId = user.userID;
-            String name = user.name;
-            String aboutMe = user.aboutMe;
-            profile_pic = Image_M.getBitmapFromString(user.profilePicture);
-            cover_pic = Image_M.getBitmapFromString(user.coverPicture);
-            int friendRequestNumber = user.friendRequestNumber;
-            int reviewsNumber = user.reviewsNumber;
-            int followedBusinessNumber = user.followedBusinessesNumber;
-            int friendsNumber = user.friendsNumber;
-            Permission permissions = user.permissions;
-            FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
+            } else if (result instanceof User) {
+                //get user home info
+                User user = (User) result;
+                String userId = user.userID;
+                String name = user.name;
+                String aboutMe = user.aboutMe;
+                profile_pic = Image_M.getBitmapFromString(user.profilePicture);
+                cover_pic = Image_M.getBitmapFromString(user.coverPicture);
+                int friendRequestNumber = user.friendRequestNumber;
+                int reviewsNumber = user.reviewsNumber;
+                int followedBusinessNumber = user.followedBusinessesNumber;
+                int friendsNumber = user.friendsNumber;
+                Permission permissions = user.permissions;
+                FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
 
-            //TODO assign
-            profileType = Params.ProfileType.PROFILE_USER;
-            assignNow();
+                //TODO assign
+                profileType = Params.ProfileType.PROFILE_USER;
+                assignNow();
 
-            if (!isBusinessProfile) {
-                new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
-                runningWebserviceType = RunningWebserviceType.getUserPosts;
+                if (!isBusinessProfile) {
+                    new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                    runningWebserviceType = RunningWebserviceType.getUserPosts;
+                } else {
+                    new GetBusinessPosts("food_1", 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                    runningWebserviceType = RunningWebserviceType.getBustinessPosts;
+                }
+
+            } else if (result instanceof ArrayList) {
+
+
+                //TODO assign
+                if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
+                    //user shared posts
+                    posts = (ArrayList<Post>) result;
+                } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
+                    //business posts
+                    posts = (ArrayList<Post>) result;
+                }
+                listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
+                gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
+                grid.setAdapter(gridAdapter);
+
+            } else if (result instanceof Business) {
+                //business home info
+                Business business = (Business) result;
+
+                //TODO assign business
+                profileType = Params.ProfileType.PROFILE_BUSINESS;
+                profile_pic = Image_M.getBitmapFromString(business.profilePicture);
+                cover_pic = Image_M.getBitmapFromString(business.coverPicture);
+
+                assignNow();
             }
-            else {
-                new GetBusinessPosts("food_1", 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
-                runningWebserviceType = RunningWebserviceType.getBustinessPosts;
-            }
 
-        } else if (result instanceof ArrayList) {
-
-
-
-            //TODO assign
-            if(runningWebserviceType == RunningWebserviceType.getUserPosts){
-                //user shared posts
-                posts = (ArrayList<Post>) result;
-            }
-            else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
-                //business posts
-                posts = (ArrayList<Post>) result;
-            }
-            listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse);
-            gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
-            grid.setAdapter(gridAdapter);
-
-        }
-        else if (result instanceof Business){
-            //business home info
-            Business business = (Business)result;
-
-            //TODO assign business
-            profileType = Params.ProfileType.PROFILE_BUSINESS;
-            profile_pic = Image_M.getBitmapFromString(business.profilePicture);
-            cover_pic = Image_M.getBitmapFromString(business.coverPicture);
-
-            assignNow();
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
-        if(closed) return;
-
-        //TODO display error
-        String errorMessage = ServerAnswer.getError(cont, errorCode);
-        Dialogs.showMessage(cont, errorMessage);
+        try {
+            //TODO display error
+            String errorMessage = ServerAnswer.getError(cont, errorCode);
+            Dialogs.showMessage(cont, errorMessage);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     private void assignNow() {
