@@ -11,6 +11,7 @@ import ir.rasen.myapplication.classes.CommentNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -26,16 +27,17 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
     private Context context;
     private ServerAnswer serverAnswer;
 
-    public GetLastCommentNotification(Context context, String userID) {
+    public GetLastCommentNotification(Context context, String userID,WebserviceResponse delegate) {
         this.userID = userID;
         this.context = context;
+        this.delegate = delegate;
     }
 
     @Override
     protected CommentNotification doInBackground(Void... voids) {
 
 
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_LAST_COMMENT_NOTIFICATION);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_LAST_COMMENT_NOTIFICATION);
         webservicePOST.addParam(Params.USER_ID, userID);
 
         try {
