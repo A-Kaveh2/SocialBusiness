@@ -21,6 +21,7 @@ import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
@@ -89,7 +90,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                     + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            holder.time.setText(Functions.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
             holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
@@ -231,7 +232,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 public void onClick(View v) {
 
                 // TODO where is business.id and post.id
-                Functions functions = new Functions();
+                Dialogs functions = new Dialogs();
                 functions.showPostDeletePopup(getContext(),"1","3",delegate);
                 pw.dismiss();
                 }
