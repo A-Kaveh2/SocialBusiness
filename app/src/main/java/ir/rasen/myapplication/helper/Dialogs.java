@@ -224,6 +224,21 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
+    public void showBusinessUnfollowPopup(Context context, final String businessId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(R.string.unfollow_business)
+                .setMessage(R.string.popup_unfollow_business)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO:: UNFOLLOW BUSINESS NOW
+                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(context, builder);
+    }
+
     static Dialog showCustomizedDialog(Context context, AlertDialog.Builder builder) {
         Dialog dialog = builder.show();
         Typeface tf = getTypeface(context);

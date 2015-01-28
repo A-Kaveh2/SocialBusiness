@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -27,7 +29,7 @@ import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentBusinesses extends Fragment implements WebserviceResponse {
+public class FragmentBusinesses extends Fragment implements WebserviceResponse, Edit {
     private static final String TAG = "FragmentBusinesses";
 
     private View view, listFooterView;
@@ -176,9 +178,9 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
                     businesses.add(business);
                 }
 
-                // todo: check if the business is mine or not!
-                boolean deleteAvailable = true;
-                mAdapter = new BusinessesAdapter(getActivity(), businesses, deleteAvailable);
+                // todo:: check if userId.equals(myId) or not
+                boolean unFollowAvailable = true;
+                mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
             }
         } catch (Exception e) {
@@ -194,5 +196,14 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse {
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private String editingId, editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(String id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

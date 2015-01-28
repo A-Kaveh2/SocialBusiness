@@ -1,5 +1,6 @@
 package ir.rasen.myapplication.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Edit;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -28,14 +31,16 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
 	private ArrayList<Business> mBusinesses;
 	private LayoutInflater mInflater;
     private Context context;
-    private boolean deleteAvailable;
+    private boolean unfollowAvailable;
+    private Edit editDelegate;
 
-	public BusinessesAdapter(Context context, ArrayList<Business> businesses, boolean deleteAvailable) {
+	public BusinessesAdapter(Context context, ArrayList<Business> businesses, Edit editDelegate, boolean unfollowAvailable) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
-        this.deleteAvailable = deleteAvailable;
+        this.unfollowAvailable = unfollowAvailable;
         this.context = context;
+        this.editDelegate = editDelegate;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
             holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_businesses_business_image);
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_businesses_business_name);
             holder.item = (RelativeLayout) convertView.findViewById(R.id.rl_businesses_business);
-            holder.delete = (ImageButton) convertView.findViewById(R.id.btn_businesses_business_delete);
+            holder.delete = (ImageButton) convertView.findViewById(R.id.btn_businesses_business_unfollow);
 
             convertView.setTag(holder);
         } else {
@@ -68,12 +73,15 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });
-            if(deleteAvailable) {
+            if(unfollowAvailable) {
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // todo:: show unfollow business popup
+                        // show unfollow dialog
+                        Dialogs dialogs = new Dialogs();
+                        dialogs.showBusinessUnfollowPopup(context, business.businessID);
+                        editDelegate.setEditing(business.id, null, null);
                     }
                 });
             } else {

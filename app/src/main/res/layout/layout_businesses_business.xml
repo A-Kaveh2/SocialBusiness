@@ -31,7 +31,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"/>
     <ImageButton
-        android:id="@+id/btn_businesses_business_delete"
+        android:id="@+id/btn_businesses_business_unfollow"
         android:layout_width="@dimen/profile_pic_small"
         android:layout_height="@dimen/profile_pic_small"
         android:layout_alignParentLeft="true"

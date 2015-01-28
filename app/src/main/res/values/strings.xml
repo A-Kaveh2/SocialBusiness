@@ -120,6 +120,8 @@
     <string name="business_id">شناسه ی کسب و کار</string>
     <string name="business_settings">تنظیمات کسب و کار</string>
     <string name="delete_business">حذف کسب و کار</string>
+    <string name="unfollow_business">خارج کردن از لیست کسب و کار ها</string>
+    <string name="popup_unfollow_business">آیا میخواهید این کسب و کار را از لیست کسب و کار های دنبال شده ی خود حذف کنید؟</string>
 
     <!-- SETTINGS -->
     <string name="friends">دوستان</string>
