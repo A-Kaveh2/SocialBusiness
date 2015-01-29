@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/RASENMyApplication.iml" filepath="$PROJECT_DIR$/RASENMyApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/SocialBusiness.iml" filepath="$PROJECT_DIR$/SocialBusiness.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crop-lib/crop-lib.iml" filepath="$PROJECT_DIR$/crop-lib/crop-lib.iml" />
     </modules>
   </component>
 </project>

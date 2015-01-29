@@ -74,7 +74,7 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 		ADDED from AndroidManifest.xml:32:9
 	android:theme
 		ADDED from AndroidManifest.xml:34:9
-activity#ir.rasen.myapplication.ActivitySplash
+activity#ir.rasen.myapplication.ActivityWelcome
 ADDED from AndroidManifest.xml:35:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:38:13
@@ -120,71 +120,95 @@ ADDED from AndroidManifest.xml:55:9
 		ADDED from AndroidManifest.xml:57:13
 	android:name
 		ADDED from AndroidManifest.xml:56:13
-activity#ir.rasen.myapplication.ActivitySettings
+activity#ir.rasen.myapplication.ActivityBusinessSettings
 ADDED from AndroidManifest.xml:58:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:60:13
+	android:theme
+		ADDED from AndroidManifest.xml:61:13
 	android:name
 		ADDED from AndroidManifest.xml:59:13
-activity#ir.rasen.myapplication.ActivityNewBusiness_Step1
-ADDED from AndroidManifest.xml:61:9
+activity#ir.rasen.myapplication.ActivitySettings
+ADDED from AndroidManifest.xml:62:9
 	android:screenOrientation
+		ADDED from AndroidManifest.xml:64:13
+	android:name
 		ADDED from AndroidManifest.xml:63:13
-	android:name
-		ADDED from AndroidManifest.xml:62:13
-activity#ir.rasen.myapplication.ActivityNewBusiness_Step2
-ADDED from AndroidManifest.xml:64:9
+activity#ir.rasen.myapplication.ActivityNewBusiness_Step1
+ADDED from AndroidManifest.xml:65:9
 	android:screenOrientation
+		ADDED from AndroidManifest.xml:67:13
+	android:name
 		ADDED from AndroidManifest.xml:66:13
-	android:name
-		ADDED from AndroidManifest.xml:65:13
-activity#ir.rasen.myapplication.ActivityLocation
-ADDED from AndroidManifest.xml:67:9
+activity#ir.rasen.myapplication.ActivityNewBusiness_Step2
+ADDED from AndroidManifest.xml:68:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:69:13
-	android:theme
 		ADDED from AndroidManifest.xml:70:13
 	android:name
-		ADDED from AndroidManifest.xml:68:13
-activity#ir.rasen.myapplication.ActivityNewPost
+		ADDED from AndroidManifest.xml:69:13
+activity#ir.rasen.myapplication.ActivityLocation
 ADDED from AndroidManifest.xml:71:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:73:13
+	android:theme
+		ADDED from AndroidManifest.xml:74:13
 	android:name
 		ADDED from AndroidManifest.xml:72:13
-activity#ir.rasen.myapplication.ActivityCamera
-ADDED from AndroidManifest.xml:74:9
+activity#ir.rasen.myapplication.ActivityNewPost_Step1
+ADDED from AndroidManifest.xml:75:9
 	android:screenOrientation
+		ADDED from AndroidManifest.xml:77:13
+	android:name
 		ADDED from AndroidManifest.xml:76:13
-	android:name
-		ADDED from AndroidManifest.xml:75:13
-activity#ir.rasen.myapplication.ActivityGallery
-ADDED from AndroidManifest.xml:77:9
+activity#ir.rasen.myapplication.ActivityNewPost_Step2
+ADDED from AndroidManifest.xml:78:9
 	android:screenOrientation
+		ADDED from AndroidManifest.xml:80:13
+	android:name
 		ADDED from AndroidManifest.xml:79:13
-	android:name
-		ADDED from AndroidManifest.xml:78:13
-activity#ir.rasen.myapplication.ActivityWorkTime
-ADDED from AndroidManifest.xml:80:9
+activity#ir.rasen.myapplication.ActivityCamera
+ADDED from AndroidManifest.xml:81:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:82:13
-	android:theme
 		ADDED from AndroidManifest.xml:83:13
 	android:name
-		ADDED from AndroidManifest.xml:81:13
+		ADDED from AndroidManifest.xml:82:13
+activity#eu.janmuller.android.simplecropimage.CropImage
+ADDED from AndroidManifest.xml:84:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:86:13
+	android:name
+		ADDED from AndroidManifest.xml:85:13
+activity#ir.rasen.myapplication.ActivityGallery
+ADDED from AndroidManifest.xml:87:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:89:13
+	android:name
+		ADDED from AndroidManifest.xml:88:13
+activity#ir.rasen.myapplication.ActivityWorkTime
+ADDED from AndroidManifest.xml:90:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:92:13
+	android:theme
+		ADDED from AndroidManifest.xml:93:13
+	android:name
+		ADDED from AndroidManifest.xml:91:13
 meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:85:9
+ADDED from AndroidManifest.xml:95:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
 	android:value
-		ADDED from AndroidManifest.xml:87:13
+		ADDED from AndroidManifest.xml:97:13
 	android:name
-		ADDED from AndroidManifest.xml:86:13
+		ADDED from AndroidManifest.xml:96:13
 meta-data#com.google.android.maps.v2.API_KEY
-ADDED from AndroidManifest.xml:88:9
+ADDED from AndroidManifest.xml:98:9
 	android:value
-		ADDED from AndroidManifest.xml:90:13
+		ADDED from AndroidManifest.xml:100:13
 	android:name
-		ADDED from AndroidManifest.xml:89:13
+		ADDED from AndroidManifest.xml:99:13
+receiver#ir.rasen.myapplication.alarm.AlarmReciever
+ADDED from AndroidManifest.xml:102:9
+	android:name
+		ADDED from AndroidManifest.xml:102:19
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:21.0.3:15:5
@@ -193,6 +217,7 @@ MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5
 MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from se.emilsjolander:stickylistheaders:2.5.2:7:5
+MERGED from SocialBusiness:crop-lib:unspecified:7:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0

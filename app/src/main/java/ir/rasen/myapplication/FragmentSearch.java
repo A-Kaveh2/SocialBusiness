@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
 import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
 public class FragmentSearch extends Fragment implements WebserviceResponse {
+    private static String TAG = "FragmentSearch";
 
     private int searchType = Params.SearchType.BUSINESSES;
     private AutoCompleteTextViewFontClickable text;
@@ -56,7 +58,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ArrayList<String> categories;
 
     private ListView listViewCategories, listViewSubCategories;
-    private boolean closed=false;
 
     public static FragmentSearch newInstance(String hashtag) {
         FragmentSearch fragment = new FragmentSearch();
@@ -327,35 +328,40 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        if(closed) return;
-        if (result instanceof ArrayList) {
+        try {
+            if (result instanceof ArrayList) {
 
-            if (categories == null) {
-                //result from executing getBusinessCategories
-                categories = new ArrayList<String>();
-                categories = (ArrayList<String>) result;
+                if (categories == null) {
+                    //result from executing getBusinessCategories
+                    categories = new ArrayList<String>();
+                    categories = (ArrayList<String>) result;
 
-                ArrayAdapter<String> categoriesAdapter =
-                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
-                listViewCategories.setAdapter(categoriesAdapter);
+                    ArrayAdapter<String> categoriesAdapter =
+                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
+                    listViewCategories.setAdapter(categoriesAdapter);
+                } else {
+                    //result from executing getBusinessSubcategories
+                    subCategories = new ArrayList<String>();
+                    subCategories = (ArrayList<String>) result;
+
+                    ArrayAdapter<String> subcategoriesAdapter =
+                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
+                    listViewSubCategories.setAdapter(subcategoriesAdapter);
+                }
             }
-            else {
-                //result from executing getBusinessSubcategories
-                subCategories = new ArrayList<String>();
-                subCategories = (ArrayList<String>)result;
-
-                ArrayAdapter<String> subcategoriesAdapter =
-                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
-                listViewSubCategories.setAdapter(subcategoriesAdapter);
-            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        if(closed) return;
-        String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-        Dialogs.showMessage(getActivity(), errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     // location listener

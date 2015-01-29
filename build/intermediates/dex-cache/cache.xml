@@ -43,5 +43,12 @@
         sha1="9f0808c3f609d8fe93018a8108d5a3d7c9cb5458">
         <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-0bb152d91876bed3b8b4a8ece1da886945fc0802.jar" />
     </item>
+    <item
+        jar="F:\Android Projects\SocialBusiness\app\build\intermediates\exploded-aar\SocialBusiness\crop-lib\unspecified\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="607959e5b115a2492ad2acc243ae8da7ce5e8be6">
+        <dex dex="F:\Android Projects\SocialBusiness\app\build\intermediates\pre-dexed\debug\classes-2227f5e4af2db35fd37824e6cab7bf2be900a2b0.jar" />
+    </item>
 
 </items>

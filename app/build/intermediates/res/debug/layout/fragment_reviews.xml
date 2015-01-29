@@ -48,42 +48,18 @@
         android:id="@+id/ll_reviews_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/activity_vertical_margin_1of8">
-        <RatingBar
-            android:id="@+id/ratingBar_reviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            style="?android:attr/ratingBarStyle"/>
+        android:layout_alignParentBottom="true">
+
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/btn_reviews_send"
-            android:layout_width="@dimen/button_width_min"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ratingBar_reviews"
-            android:layout_alignBottom="@+id/txt_reviews_review"
             android:background="@drawable/style_button_on_dark_second"
-            android:text="@string/send"
+            android:text="@string/new_review"
             android:gravity="center"
-            android:textSize="@dimen/text_size_normal"
+            android:textSize="@dimen/text_size_largest"
             android:textColor="@android:color/white"
             android:clickable="true"/>
-        <ir.rasen.myapplication.ui.EditTextFont
-            android:id="@+id/txt_reviews_review"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/actionbar_height"
-            android:background="@drawable/style_view_corners"
-            android:hint="@string/enter_your_review"
-            android:textColorHint="@color/gray"
-            android:layout_below="@+id/ratingBar_reviews"
-            android:layout_marginLeft="@dimen/activity_vertical_margin_1of8"
-            android:layout_toRightOf="@+id/btn_reviews_send"
-            android:gravity="center|right"
-            android:textSize="@dimen/text_size_normal"
-            android:padding="@dimen/activity_vertical_margin_1of8"
-            android:singleLine="false"
-            android:inputType="text"/>
     </RelativeLayout>
 </RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/fragment_reviews.xml -->

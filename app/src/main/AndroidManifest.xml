@@ -82,6 +82,9 @@
             android:name=".ActivityCamera"
             android:screenOrientation="portrait" />
         <activity
+            android:name="eu.janmuller.android.simplecropimage.CropImage"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ActivityGallery"
             android:screenOrientation="portrait" />
         <activity

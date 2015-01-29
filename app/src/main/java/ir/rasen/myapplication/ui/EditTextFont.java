@@ -31,7 +31,7 @@ public class EditTextFont extends EditText {
   }
 
     public void setErrorC(String error) {
-        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.black));
+        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.white));
         SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
         ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
         setError(ssbuilder);

@@ -69,7 +69,6 @@
     <color name="cover_background">#AD256070</color>
     <color name="dark_blue">#004185</color>
     <color name="dark_gray">#B2B2B2</color>
-    <color name="dark_pink">#B9126D</color>
     <color name="darker_gray">#595959</color>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
@@ -115,7 +114,6 @@
     <color name="opacity3">#33ffffff</color>
     <color name="opacity5">#77ffffff</color>
     <color name="opacity8">#BBffffff</color>
-    <color name="pink">#E6037F</color>
     <color name="pink_accent">#5499BA</color>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
@@ -276,6 +274,7 @@
     <dimen name="drawer_width">200dp</dimen>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
+    <dimen name="edt_multi_line_min_height">100dp</dimen>
     <dimen name="font_circle_button">@dimen/font_large</dimen>
     <dimen name="font_large">17dp</dimen>
     <dimen name="font_large_x">20dp</dimen>
@@ -329,6 +328,7 @@
     <integer name="image_quality">75</integer>
     <integer name="image_size">640</integer>
     <integer name="interval_time">5000</integer>
+    <integer name="lazy_load_limitation">20</integer>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="ABAN">آبان</string>
@@ -381,13 +381,16 @@
     <string name="app_name">نرم افزار راسن</string>
     <string name="back">بازگشت</string>
     <string name="birthday">روز تولد</string>
+    <string name="block">مسدود سازی</string>
     <string name="block_follower">مسدود سازی دنبال کننده</string>
+    <string name="blockeds">مسدود شده ها</string>
     <string name="business">کسب و کار</string>
     <string name="business_address">موقعیت کسب و کار را تعیین کنید</string>
     <string name="business_description">توضیحات کسب و کار</string>
     <string name="business_id">شناسه ی کسب و کار</string>
     <string name="business_location">موقعیت کسب و کار</string>
     <string name="business_name">نام کسب و کار</string>
+    <string name="business_settings">تنظیمات کسب و کار</string>
     <string name="businesses">کسب و کار ها</string>
     <string name="businesses_set">با فعال کردن این گزینه به دوستان خود امکان می دهید کسب و کار های مورد علاقه ی شما را مشاهده کنند.</string>
     <string name="call_info">اطلاعات تماس</string>
@@ -437,9 +440,11 @@
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="delete">حذف</string>
+    <string name="delete_business">حذف کسب و کار</string>
     <string name="delete_comment">حذف نظر</string>
     <string name="delete_friend">حذف دوست</string>
     <string name="delete_post">حذف مطلب</string>
+    <string name="delete_review">حذف نظر</string>
     <string name="dialog_forget_password">بازیابی رمز عبور</string>
     <string name="dialog_ok">تایید</string>
     <string name="dialog_success">اطلاعات ثبت شد</string>
@@ -520,17 +525,27 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="help">راهنما</string>
     <string name="image_file_path">/Image/</string>
     <string name="in">در</string>
+    <string name="invalid_birthday">خطا در تاریخ تولد وارد شده!</string>
     <string name="lat">عرض جغرافیایی:</string>
     <string name="login">ورود</string>
     <string name="lon">طول جغرافیایی:</string>
+    <string name="manage_blockeds">کاربران مسدود شده را مدیریت کنید.</string>
     <string name="mobile">تلفن همراه</string>
     <string name="name">نام</string>
     <string name="nearby">نزدیک من</string>
     <string name="new_business">کسب و کار جدید</string>
     <string name="new_password">رمز عبور جدید</string>
     <string name="new_product">محصول جدید</string>
+    <string name="new_review">نقد کنید</string>
     <string name="next_step">مرحله ی بعد</string>
     <string name="no">خیر</string>
+    <string name="no_location_found">مکان شما تشخیص داده نشده است, لطفأ مکانی را جهت جستجو انتخاب نمایید.</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="no_storage_card">No storage card</string>
+    <string name="not_enough_space">Not enough space</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="not_now">الآن نه</string>
     <string name="ok">تأیید</string>
     <string name="old_password">رمز عبور قبلی</string>
@@ -541,25 +556,46 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="phone">تلفن تماس</string>
     <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
     <string name="popup_delete">آیا میخواهید مطلب خود را حذف نمایید؟</string>
+    <string name="popup_delete_business">با این کار تمام محصولات این کسب و کار برای همیشه حذف خواهند شد.\n\nاز تصمیم خود مطمئن هستید؟</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
     <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
+    <string name="popup_delete_review">آیا میخواهید نقد خود را حذف نمایید؟</string>
+    <string name="popup_report">آیا میخواهید گزارش تخلف این مطلب را ثبت کنید؟</string>
+    <string name="popup_share">آیا میخواهید این مطلب را به اشتراک بگذارید؟</string>
+    <string name="popup_unblock_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را آزاد نمایید؟</string>
+    <string name="popup_unfollow_business">آیا میخواهید این کسب و کار را از لیست کسب و کار های دنبال شده ی خود حذف کنید؟</string>
     <string name="popup_warning">توجه!</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="preparing_card">Preparing card</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="product_code">کد کالا</string>
     <string name="product_description">توضیحات محصول</string>
+    <string name="product_info">اطلاعات محصول</string>
     <string name="product_name">نام محصول</string>
+    <string name="product_picture">تصویر محصول</string>
     <string name="product_price">قیمت</string>
     <string name="products">محصولات</string>
     <string name="profile">حساب کاربری</string>
     <string name="profile_edit">مشخصات</string>
     <string name="profile_edit_business">ویرایش اطلاعات کسب و کار</string>
+    <string name="profile_edit_business_text">اطلاعات کسب و کار خود را مشاهده و در صورت تمایل تغییراتی در آن اعمال کنید.</string>
+    <string name="profile_edit_delete_text">این کسب و کار و تمام محصولات آن را از حساب خود حذف کنید.</string>
     <string name="profile_edit_profile">ویرایش حساب</string>
+    <string name="rate_needed">لطفأ برای کسب و کار امتیازی در نظر بگیرید.</string>
     <string name="register">ثبت نام</string>
     <string name="report">گزارش تخلف</string>
     <string name="review">نقد</string>
     <string name="reviews">نقد ها</string>
     <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
     <string name="save">ذخیره</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="saving_image">Saving image</string>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="search">جستجو</string>
     <string name="search_businesses">جستجوی کسب و کار ها</string>
     <string name="search_in">جستجو در</string>
@@ -572,7 +608,8 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="send">ارسال</string>
     <string name="send_new_password">ارسال رمز عبور جدید</string>
     <string name="settings">تنظیمات</string>
-    <string name="sex_female">مونث</string>
+    <string name="settings_saved">ذخیره سازی انجام شد.</string>
+    <string name="sex_female">زن</string>
     <string name="sex_male">مرد</string>
     <string name="sex_unknown">جنسیت انتخاب نشده</string>
     <string name="share">به اشتراک گذاری</string>
@@ -586,6 +623,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="submit">ثبت</string>
+    <string name="success">درخواست شما با موفقیت انجام شد.</string>
     <string name="time_ago">پیش</string>
     <string name="time_day">روز</string>
     <string name="time_end">زمان پایان کار</string>
@@ -597,6 +635,8 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="time_week">هفته</string>
     <string name="time_year">سال</string>
     <string name="title_activity_add_location">Map</string>
+    <string name="unblock_follower">آزادسازی حساب</string>
+    <string name="unfollow_business">خارج کردن از لیست کسب و کار ها</string>
     <string name="username">نام کاربری</string>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
@@ -604,6 +644,9 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="website">وب سایت</string>
+    <string name="welcome_1">سلام! خوش اومدین!</string>
+    <string name="welcome_2">we R BEST!\n\nBELEAVE US....</string>
+    <string name="welcome_3">some text here... some ! text !!</string>
     <string name="working_time">ساعات کاری</string>
     <string name="yes">بله</string>
     <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
@@ -1378,6 +1421,20 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="CheckBoxAppTheme" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/apptheme_btn_check_holo_light</item>
     </style>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="CropButton">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_crop_button</item>
+    </style>
+    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
     <style name="EditTextAppTheme" parent="android:Widget.EditText">
         <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
         <item name="android:textColorHint">@color/gray_dark</item>

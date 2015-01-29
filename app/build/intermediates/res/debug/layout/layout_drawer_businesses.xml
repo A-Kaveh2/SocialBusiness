@@ -24,5 +24,15 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_menu_options_settings"
             android:layout_margin="4dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_home_options"
+            android:layout_width="@dimen/menu_pic"
+            android:layout_height="@dimen/menu_pic"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_options"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@null"/>
 </RelativeLayout>
 <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_drawer_businesses.xml -->

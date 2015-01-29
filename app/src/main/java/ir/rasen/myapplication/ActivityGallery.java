@@ -3,10 +3,12 @@ package ir.rasen.myapplication;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import eu.janmuller.android.simplecropimage.CropImage;
 
 public class ActivityGallery extends Activity  {
 
@@ -58,24 +61,19 @@ public class ActivityGallery extends Activity  {
             if (requestCode == GALLERY_CAPTURE) {
                 performCrop(data.getData());
             } else if (requestCode == PIC_CROP) {
-                Bundle extras = data.getExtras();
+                String path = data.getStringExtra(CropImage.IMAGE_PATH);
 
-                Bitmap bitmap = extras.getParcelable("data");
-                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-                File file = getOutputMediaFile();
-                FileOutputStream out = null;
-
-                try {
-                    out = new FileOutputStream(file);
-                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, out);
-                    out.flush();
-                    out.close();
-                } catch (Exception e) {
-
+                // if nothing received
+                if (path == null) {
+                    Intent i = getIntent();
+                    i.putExtra(ActivityGallery.FILE_PATH, path);
+                    setResult(RESULT_CANCELED, i);
+                    finish();
+                    return;
                 }
 
                 Intent i = getIntent();
-                i.putExtra(ActivityGallery.FILE_PATH, file.getAbsolutePath());
+                i.putExtra(ActivityGallery.FILE_PATH, path);
                 setResult(RESULT_OK, i);
                 finish();
 
@@ -86,22 +84,24 @@ public class ActivityGallery extends Activity  {
 
     private void performCrop(Uri uri) {
         try {
-            //call the standard crop action intent (the user device may not support it)
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
-            cropIntent.setDataAndType(uri, "image");
-            //set crop properties
-            cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
-            //retrieve data on return
-            cropIntent.putExtra("return-data", true);
-            //start the activity - we handle returning in onActivityResult
-            startActivityForResult(cropIntent, PIC_CROP);
+            // create explicit intent
+            Intent intent = new Intent(this, CropImage.class);
+
+            // tell CropImage activity to look for image to crop
+            String filePath = getRealPathFromURI(uri);
+            intent.putExtra(CropImage.IMAGE_PATH, filePath);
+
+            // allow CropImage activity to rescale image
+            intent.putExtra(CropImage.SCALE, true);
+
+            // if the aspect ratio is fixed to ratio 1/1
+            intent.putExtra(CropImage.ASPECT_X, 1);
+            intent.putExtra(CropImage.ASPECT_Y, 1);
+
+            // start activity CropImage with certain request code and listen
+            // for result
+            startActivityForResult(intent, PIC_CROP);
+
         } catch (ActivityNotFoundException anfe) {
             //display an error message
             String errorMessage = "Whoops - your device doesn't support the crop action!";
@@ -138,4 +138,17 @@ public class ActivityGallery extends Activity  {
         return mediaFile;
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 }

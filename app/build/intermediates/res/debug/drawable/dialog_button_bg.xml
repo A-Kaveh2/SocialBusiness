@@ -1,10 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <solid android:color="@color/pink" />
-
-
+    <solid android:color="@color/button_on_dark" />
     <corners
         android:bottomLeftRadius="18dp"
         android:bottomRightRadius="18dp" />
-
 </shape><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/dialog_button_bg.xml -->
