@@ -61,7 +61,7 @@ public class FragmentWelcome extends Fragment {
                 image.setImageResource(R.drawable.welcome_1);
                 text.setText(getString(R.string.welcome_1));
                 text.setTextColor(Color.WHITE);
-                welcome.setBackgroundResource(R.drawable.style_background);
+                welcome.setBackgroundResource(R.color.button_on_dark);
                 break;
             case 1:
                 image.setImageResource(R.drawable.welcome_2);
@@ -72,7 +72,7 @@ public class FragmentWelcome extends Fragment {
                 image.setImageResource(R.drawable.welcome_3);
                 text.setText(getString(R.string.welcome_3));
                 text.setTextColor(Color.WHITE);
-                welcome.setBackgroundResource(R.drawable.style_background);
+                welcome.setBackgroundResource(R.color.button_on_dark);
                 break;
         }
 

@@ -128,6 +128,16 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 }
             });
         } else if(isMyBusiness) {
+            // BLOCK OPTION
+            ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_block)).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // TODO DELETE POST
+                    Dialogs dialogs = new Dialogs();
+                    dialogs.showFollowerBlockPopup(getContext(), comment.userID);
+                    editDelegate.setEditing(comment.id, comment.text, null);
+                    pw.dismiss();
+                }
+            });
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

@@ -162,6 +162,7 @@
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="delete_review">حذف نظر</string>
     <string name="popup_delete_review">آیا میخواهید نقد خود را حذف نمایید؟</string>
+    <string name="block">مسدود سازی</string>
     <string name="block_follower">مسدود سازی دنبال کننده</string>
     <string name="popup_block_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را مسدود نمایید؟</string>
     <string name="unblock_follower">آزادسازی حساب</string>
