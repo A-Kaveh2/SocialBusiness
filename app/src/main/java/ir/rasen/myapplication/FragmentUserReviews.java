@@ -59,7 +59,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         super.onCreate(savedInstanceState);
 
         new GetUserReviews(LoginInfo.getUserId(getActivity()),
-                0, getResources().getInteger(R.integer.lazy_load_limitation)).execute();
+                0, getResources().getInteger(R.integer.lazy_load_limitation), FragmentUserReviews.this).execute();
     }
 
     @Override

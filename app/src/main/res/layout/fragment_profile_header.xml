@@ -65,19 +65,28 @@
 
         <!-- PROFILE PICTURE -->
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="47"
-            android:weightSum="5"
-            android:orientation="vertical">
-            <ir.rasen.myapplication.ui.ImageViewCircle
-                android:id="@+id/img_profile_pic"
-                android:layout_width="wrap_content"
+            android:layout_weight="47">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_half"
-                android:src="@drawable/test_ic"
-                app:border_width="4dp"
-                app:border_color="@color/red"/>
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ir.rasen.myapplication.ui.ImageViewCircle
+                    android:id="@+id/img_profile_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+                    android:src="@drawable/test_ic"
+                    android:layout_weight="2"
+                    app:border_width="4dp"
+                    app:border_color="@color/red"/>
+                </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_profile_on_pic"
                 android:layout_width="wrap_content"

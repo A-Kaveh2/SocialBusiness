@@ -181,11 +181,11 @@ public class Dialogs {
             public void onClick(View view) {
                 newComment.setText(newComment.getText().toString().trim());
                 if (newComment.length() < Params.COMMENT_TEXT_MIN_LENGTH) {
-                    newComment.setError(context.getString(R.string.comment_is_too_short));
+                    newComment.setErrorC(context.getString(R.string.comment_is_too_short));
                     return;
                 }
                 if (newComment.length() > Params.COMMENT_TEXT_MAX_LENGTH) {
-                    newComment.setError(context.getString(R.string.enter_is_too_long));
+                    newComment.setErrorC(context.getString(R.string.enter_is_too_long));
                     return;
                 }
                 // TODO:: edit comment

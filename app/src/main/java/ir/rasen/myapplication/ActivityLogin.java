@@ -58,12 +58,12 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
 
        /* if (!android.util.Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
             edtEmail.requestFocus();
-            edtEmail.setError(getString(R.string.enter_valid_email));
+            edtEmail.setErrorC(getString(R.string.enter_valid_email));
             return;
         }
         if (edtPassword.getText().length() < Params.USER_PASSWORD_MIN_LENGTH) {
             edtPassword.requestFocus();
-            edtPassword.setError(getString(R.string.enter_password_5_digits));
+            edtPassword.setErrorC(getString(R.string.enter_password_5_digits));
             return;
         }*/
 

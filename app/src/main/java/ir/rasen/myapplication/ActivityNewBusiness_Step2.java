@@ -119,9 +119,9 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         name.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
                 //name.setText(name.getText().toString().trim());
-                name.setError(null);
+                name.setErrorC(null);
                 if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()<Params.USER_NAME_MIN_LENGTH) {
-                    name.setError(getString(R.string.enter_valid_name));
+                    name.setErrorC(getString(R.string.enter_valid_name));
                 }
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}

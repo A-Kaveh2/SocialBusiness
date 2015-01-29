@@ -160,12 +160,12 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             public void onClick(View view) {
                 if (!user.password.equals(pass_old.getText().toString())) {
                     pass_old.requestFocus();
-                    pass_old.setError(getString(R.string.err_profile_edit_password_old_incorrect));
+                    pass_old.setErrorC(getString(R.string.err_profile_edit_password_old_incorrect));
                     return;
                 }
                 if (!pass1.getText().toString().equals(pass2.getText().toString())) {
                     pass2.requestFocus();
-                    pass2.setError(getString(R.string.enter_same_passwords));
+                    pass2.setErrorC(getString(R.string.enter_same_passwords));
                     return;
                 }
                 user.password = pass1.getText().toString();
@@ -212,7 +212,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         // CHECK INPUT DATA
         if (!edtName.getText().toString().matches(Params.USER_NAME_VALIDATION) || edtName.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             edtName.requestFocus();
-            edtName.setError(getString(R.string.enter_valid_name));
+            edtName.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
 
@@ -248,9 +248,9 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         edtName.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 //name.setText(name.getText().toString().trim());
-                edtName.setError(null);
+                edtName.setErrorC(null);
                 if (!edtName.getText().toString().matches(Params.USER_NAME_VALIDATION) || edtName.getText().length() < Params.USER_NAME_MIN_LENGTH) {
-                    edtName.setError(getString(R.string.enter_valid_name));
+                    edtName.setErrorC(getString(R.string.enter_valid_name));
                 }
             }
 

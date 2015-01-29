@@ -111,7 +111,7 @@ public class ForgetPasswordDialog extends ParentDialog {
             public void onClick(View v) {
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(editTextFont.getText().toString()).matches()) {
                     editTextFont.requestFocus();
-                    editTextFont.setError(context.getResources().getString(R.string.enter_valid_email));
+                    editTextFont.setErrorC(context.getResources().getString(R.string.enter_valid_email));
                     return;
                 }
 

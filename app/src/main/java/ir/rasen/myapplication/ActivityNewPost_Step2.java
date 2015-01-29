@@ -137,7 +137,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         // CHECK INPUT DATA
         if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
-            name.setError(getString(R.string.enter_valid_name));
+            name.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
 

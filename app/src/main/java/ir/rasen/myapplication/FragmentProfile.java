@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RatingBar;
 
@@ -209,11 +210,16 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         // SLIDING DRAWER
         if (((ActivityMain) getActivity()).pager.getCurrentItem() == 2)
+                //&& ((ActivityMain) getActivity()).fragCount[2]==0)
             ((ActivityMain) getActivity()).rightDrawer();
         header.findViewById(R.id.btn_profile_drawer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityMain) getActivity()).openDrawer(Gravity.RIGHT);
+                //if(((ActivityMain) getActivity()).fragCount[2]==0)
+                    ((ActivityMain) getActivity()).openDrawer(Gravity.RIGHT);
+                //else {
+                    //showPopup();
+                //}
             }
         });
 
@@ -251,7 +257,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 myOwnProfile();
             } else {
                 // SOMEONE'S PROFILE ( will be processed after loading data )
-                header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
+                //header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
             }
         }
         // BUSINESS
@@ -290,7 +296,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 myOwnBusiness();
             } else {
                 // SOMEONE'S PROFILE ( will be processed after loading data )
-                header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
+                //header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
             }
         }
 
@@ -328,7 +334,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
 
         // TODO:: AFTER LOADING DATA COMPLETELY
-        header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.VISIBLE);
+        ///header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.VISIBLE);
         // TODO: Change Adapter to display your content
         posts = new ArrayList<Post>();
         /*
@@ -385,7 +391,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
     void myOwnProfile() {
-        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_profile);
+        /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_profile);
         // EDIT PROFILE
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -394,11 +400,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
-        });
+        });*/
     }
 
     void myOwnBusiness() {
-        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.business_settings);
+        /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.business_settings);
         // EDIT BUSINESS
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -419,7 +425,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
-        });
+        });*/
     }
 
     void setUpGridView() {
@@ -570,14 +576,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn == true) {
                 myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
+                /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
                 // FRIEND REQUEST
                 header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sendFollowRequest();
                     }
-                });
+                });*/
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
@@ -589,14 +595,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn == true) {
                 myOwnProfile();
             } else { // SOMEONE'S PROFILE
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+                /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
                 // FRIEND REQUEST
                 header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sendFriendRequest();
                     }
-                });
+                });*/
             }
         }
     }

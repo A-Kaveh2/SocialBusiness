@@ -128,11 +128,11 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     public void sendComment(View view) {
         EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
         if (commentText.length() < Params.COMMENT_TEXT_MIN_LENGTH) {
-            commentText.setError(getString(R.string.comment_is_too_short));
+            commentText.setErrorC(getString(R.string.comment_is_too_short));
             return;
         }
         if (commentText.length() > Params.COMMENT_TEXT_MAX_LENGTH) {
-            commentText.setError(getString(R.string.enter_is_too_long));
+            commentText.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }
 

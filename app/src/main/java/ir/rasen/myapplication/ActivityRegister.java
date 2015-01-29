@@ -120,42 +120,42 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         // CHECK INPUT DATA
  /*       if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();
-            username.setError(getString(R.string.enter_valid_username));
+            username.setErrorC(getString(R.string.enter_valid_username));
             return;
         }
         if(username.getText().length()>Params.USER_USERNAME_MAX_LENGTH) {
             username.requestFocus();
-            username.setError(getString(R.string.enter_is_too_long));
+            username.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }
         if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()< Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
-            name.setError(getString(R.string.enter_valid_name));
+            name.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
         if(name.getText().length()>Params.USER_NAME_MAX_LENGTH) {
             name.requestFocus();
-            name.setError(getString(R.string.enter_is_too_long));
+            name.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
             email.requestFocus();
-            email.setError(getString(R.string.enter_valid_email));
+            email.setErrorC(getString(R.string.enter_valid_email));
             return;
         }
         if(password.getText().length()<Params.USER_PASSWORD_MIN_LENGTH) {
             password.requestFocus();
-            password.setError(getString(R.string.enter_password_5_digits));
+            password.setErrorC(getString(R.string.enter_password_5_digits));
             return;
         }
         if(password_repeat.getText().length()<Params.USER_PASSWORD_MIN_LENGTH) {
             password.requestFocus();
-            password.setError(getString(R.string.enter_password_5_digits));
+            password.setErrorC(getString(R.string.enter_password_5_digits));
             return;
         }
         if(!password.getText().toString().equals(password_repeat.getText().toString())) {
             password_repeat.requestFocus();
-            password_repeat.setError(getString(R.string.enter_same_passwords));
+            password_repeat.setErrorC(getString(R.string.enter_same_passwords));
             return;
         }*/
     try {

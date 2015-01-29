@@ -154,7 +154,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             InnerFragment innerFragment = new InnerFragment(getActivity());
             innerFragment.newResultsFragment("", "", false, new Location_M("", ""), searchType);
         } else {
-            text.setError(getString(R.string.enter_search_keywords));
+            text.setErrorC(getString(R.string.enter_search_keywords));
         }
     }
 

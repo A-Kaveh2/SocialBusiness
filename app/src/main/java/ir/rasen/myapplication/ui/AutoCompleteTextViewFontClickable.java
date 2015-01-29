@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.AutoCompleteTextView;
@@ -188,4 +190,10 @@ public class AutoCompleteTextViewFontClickable extends AutoCompleteTextView {
         this.clickListener = listener;
     }
 
+    public void setErrorC(String error) {
+        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.black));
+        SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
+        ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
+        setError(ssbuilder);
+    }
 }

@@ -29,10 +29,11 @@ public class GetUserReviews extends AsyncTask<Void, Void, ArrayList<Review>> {
     private int limitation;
     private ServerAnswer serverAnswer;
 
-    public GetUserReviews(String userID, int afterThisIndex, int limitation) {
+    public GetUserReviews(String userID, int afterThisIndex, int limitation,WebserviceResponse delegate) {
         this.userID = userID;
         this.afterThisIndex = afterThisIndex;
         this.limitation = limitation;
+        this.delegate = delegate;
     }
 
     @Override

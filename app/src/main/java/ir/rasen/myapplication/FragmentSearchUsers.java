@@ -87,7 +87,7 @@ public class FragmentSearchUsers extends Fragment {
             InnerFragment innerFragment = new InnerFragment(getActivity());
             innerFragment.newResultsUsersFragment(text.getText().toString());
         } else {
-            text.setError(getString(R.string.enter_search_keywords));
+            text.setErrorC(getString(R.string.enter_search_keywords));
         }
     }
 

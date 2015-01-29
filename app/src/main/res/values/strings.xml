@@ -244,6 +244,11 @@
     <!-- REVIEWS -->
     <string name="enter_your_review">نقد خود را بنویسید&#8230;</string>
 
+    <!-- WELCOME -->
+    <string name="welcome_1">سلام! خوش اومدین!</string>
+    <string name="welcome_2">we R BEST!\n\nBELEAVE US....</string>
+    <string name="welcome_3">some text here... some ! text !!</string>
+
     <!-- SPLASH SCREEN -->
     <string name="splash_register">ثبت نام</string>
     <string name="splash_login">ورود به حساب</string>

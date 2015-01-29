@@ -181,12 +181,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         // CHECK INPUT DATA
         if (!edtBusinessId.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || edtBusinessId.getText().length() < Params.USER_USERNAME_MIN_LENGTH) {
             edtBusinessId.requestFocus();
-            edtBusinessId.setError(getString(R.string.enter_valid_username));
+            edtBusinessId.setErrorC(getString(R.string.enter_valid_username));
             return;
         }
         if (!edtName.getText().toString().matches(Params.USER_NAME_VALIDATION) || edtName.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             edtName.requestFocus();
-            edtName.setError(getString(R.string.enter_valid_name));
+            edtName.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
         if (spnCategory.getSelectedItem() == null || spnSubcategory.getSelectedItem() == null) {
@@ -195,7 +195,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         }
         if (edtDescription.getText().length() < Params.BUSINESS_DESCRIPTION_MIN_LENGTH) {
             edtDescription.requestFocus();
-            edtDescription.setError(getString(R.string.enter_business_description));
+            edtDescription.setErrorC(getString(R.string.enter_business_description));
             return;
         }
         // to next page
