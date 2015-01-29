@@ -391,7 +391,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
     void myOwnProfile() {
-        /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_profile);
+        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.profile_edit_profile);
         // EDIT PROFILE
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,11 +400,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
-        });*/
+        });
     }
 
     void myOwnBusiness() {
-        /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.business_settings);
+        ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.business_settings);
         // EDIT BUSINESS
         header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,7 +425,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
-        });*/
+        });
     }
 
     void setUpGridView() {
@@ -576,14 +576,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn == true) {
                 myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
-                /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
                 // FRIEND REQUEST
                 header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sendFollowRequest();
                     }
-                });*/
+                });
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
@@ -595,14 +595,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn == true) {
                 myOwnProfile();
             } else { // SOMEONE'S PROFILE
-                /*((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
                 // FRIEND REQUEST
                 header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sendFriendRequest();
                     }
-                });*/
+                });
             }
         }
     }

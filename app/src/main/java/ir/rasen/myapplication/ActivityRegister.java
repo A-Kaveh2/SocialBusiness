@@ -118,7 +118,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     public void register(View view) {
 
         // CHECK INPUT DATA
- /*       if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
+        if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();
             username.setErrorC(getString(R.string.enter_valid_username));
             return;
@@ -157,7 +157,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             password_repeat.requestFocus();
             password_repeat.setErrorC(getString(R.string.enter_same_passwords));
             return;
-        }*/
+        }
     try {
         User user = new User();
            /* user.userID = username.getText().toString();

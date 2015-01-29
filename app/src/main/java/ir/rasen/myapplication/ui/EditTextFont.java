@@ -2,6 +2,7 @@ package ir.rasen.myapplication.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
@@ -31,9 +32,13 @@ public class EditTextFont extends EditText {
   }
 
     public void setErrorC(String error) {
-        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.white));
-        SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
-        ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
-        setError(ssbuilder);
+        if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.black));
+            SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
+            ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
+            setError(ssbuilder);
+        } else {
+            setError(error);
+        }
     }
 }

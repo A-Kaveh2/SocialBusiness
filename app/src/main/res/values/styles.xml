@@ -43,6 +43,7 @@
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
+        <item name="android:ellipsize">start</item>
     </style>
 
     <style name="AutoCompleteTextViewAppTheme" parent="android:Widget.AutoCompleteTextView">
