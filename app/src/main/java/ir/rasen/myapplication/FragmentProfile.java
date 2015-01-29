@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RatingBar;
 
@@ -26,7 +25,7 @@ import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
@@ -49,7 +48,7 @@ import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentProfile extends Fragment implements WebserviceResponse, Edit{
+public class FragmentProfile extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentProfile";
 
     private SwipeRefreshLayout swipeView;

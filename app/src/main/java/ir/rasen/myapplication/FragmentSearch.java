@@ -211,6 +211,12 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         ArrayAdapter<String> suggestionsAdapter =
                 new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, suggestions);
         ((ListView) view.findViewById(R.id.list_search_suggests)).setAdapter(suggestionsAdapter);
+        ((ListView) view.findViewById(R.id.list_search_suggests)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                text.setText(suggestions.get(i));
+            }
+        });
     }
 
     // open set location dialog

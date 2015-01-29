@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.classes.Comment;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
@@ -30,7 +30,7 @@ import ir.rasen.myapplication.webservice.comment.SendComment;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentComments extends Fragment implements WebserviceResponse, Edit {
+public class FragmentComments extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentComments";
 
     private View view, listFooterView;

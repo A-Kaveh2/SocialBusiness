@@ -32,7 +32,7 @@ public class EditTextFont extends EditText {
   }
 
     public void setErrorC(String error) {
-        if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if(android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD) {
             ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.black));
             SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
             ssbuilder.setSpan(fgcspan, 0, error.length(), 0);

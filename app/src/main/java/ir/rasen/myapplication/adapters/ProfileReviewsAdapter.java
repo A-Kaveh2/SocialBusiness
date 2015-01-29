@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
@@ -31,14 +31,14 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
     int idOfView;
     private Context context;
     WebserviceResponse delegate;
-    Edit editDelegate;
+    EditInterface editDelegateInterface;
 
-	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, Edit editDelegate) {
+	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_reviews_review, reviews);
 		mReviews 	= reviews;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
         this.delegate = delegate;
 	}
 
@@ -72,7 +72,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
             public void onClick(View view) {
                 // TODO:: SHOW OPTIONS POPUP
                 OptionsReview optionsReview = new OptionsReview(context);
-                optionsReview.showOptionsPopup(mReviews.get(position), view, delegate, editDelegate);
+                optionsReview.showOptionsPopup(mReviews.get(position), view, delegate, editDelegateInterface);
             }
             });
 

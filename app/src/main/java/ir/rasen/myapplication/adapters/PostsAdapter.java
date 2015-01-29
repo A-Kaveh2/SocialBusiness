@@ -15,7 +15,7 @@ import java.util.Random;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsPost;
@@ -38,16 +38,16 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private boolean singleTapped;
 
     private WebserviceResponse delegate;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
     private Context context;
 
-	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate, Edit editDelegate) {
+	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
         this.delegate = delegate;
         this.context = context;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 OptionsPost optionsPost = new OptionsPost(context);
-                optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegate);
+                optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface);
             }
             });
 

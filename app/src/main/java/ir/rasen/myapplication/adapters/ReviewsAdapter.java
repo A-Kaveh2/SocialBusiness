@@ -1,36 +1,26 @@
 package ir.rasen.myapplication.adapters;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
-import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
-import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.review.DeleteReview;
 
 /**
  * Created by 'Sina KH'.
@@ -44,15 +34,15 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
     private Context context;
     private WebserviceResponse delegate;
     private Dialog dialog;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
 
-    public ReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, Edit editDelegate) {
+    public ReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, EditInterface editDelegateInterface) {
         super(context, R.layout.layout_reviews_review, reviews);
         mReviews = reviews;
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.delegate = delegate;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
     }
 
     @Override
@@ -92,7 +82,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
                     public void onClick(View view) {
                     // TODO:: SHOW OPTIONS POPUP
                     OptionsReview optionsReview = new OptionsReview(context);
-                    optionsReview.showOptionsPopup(mReviews.get(position),view,delegate, editDelegate);
+                    optionsReview.showOptionsPopup(mReviews.get(position),view,delegate, editDelegateInterface);
                     }
                 });
                 holder.options.setVisibility(View.VISIBLE);

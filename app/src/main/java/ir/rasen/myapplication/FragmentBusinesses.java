@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
-import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -29,7 +28,7 @@ import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentBusinesses extends Fragment implements WebserviceResponse, Edit {
+public class FragmentBusinesses extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentBusinesses";
 
     private View view, listFooterView;

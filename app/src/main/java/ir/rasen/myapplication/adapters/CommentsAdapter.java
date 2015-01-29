@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
@@ -31,14 +31,14 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
 	private ArrayList<Comment> mComments;
 	private LayoutInflater mInflater;
     private Context context;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
 
-	public CommentsAdapter(Context context, ArrayList<Comment> comments, Edit editDelegate) {
+	public CommentsAdapter(Context context, ArrayList<Comment> comments, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_comments_comment, comments);
 		mComments 	= comments;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                     // TODO: EDIT COMMENT
                     Dialogs dialogs = new Dialogs();
                     Dialog dialog = dialogs.showCommentEditPopup(getContext(), comment);
-                    editDelegate.setEditing(comment.id, comment.text, dialog);
+                    editDelegateInterface.setEditing(comment.id, comment.text, dialog);
                     pw.dismiss();
                 }
             });
@@ -134,7 +134,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                     // TODO DELETE POST
                     Dialogs dialogs = new Dialogs();
                     dialogs.showFollowerBlockPopup(getContext(), comment.userID);
-                    editDelegate.setEditing(comment.id, comment.text, null);
+                    editDelegateInterface.setEditing(comment.id, comment.text, null);
                     pw.dismiss();
                 }
             });
@@ -144,7 +144,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                     // TODO DELETE POST
                     Dialogs dialogs = new Dialogs();
                     dialogs.showCommentDeleteFromMyBusinessPopup(getContext());
-                    editDelegate.setEditing(comment.id, comment.text, null);
+                    editDelegateInterface.setEditing(comment.id, comment.text, null);
                     pw.dismiss();
                 }
             });

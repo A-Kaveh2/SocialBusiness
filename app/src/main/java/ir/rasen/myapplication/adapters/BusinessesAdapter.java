@@ -1,6 +1,5 @@
 package ir.rasen.myapplication.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,9 +14,8 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -32,15 +30,15 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
 	private LayoutInflater mInflater;
     private Context context;
     private boolean unfollowAvailable;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
 
-	public BusinessesAdapter(Context context, ArrayList<Business> businesses, Edit editDelegate, boolean unfollowAvailable) {
+	public BusinessesAdapter(Context context, ArrayList<Business> businesses, EditInterface editDelegateInterface, boolean unfollowAvailable) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
         this.unfollowAvailable = unfollowAvailable;
         this.context = context;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
 	}
 
 	@Override
@@ -81,7 +79,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                         // show unfollow dialog
                         Dialogs dialogs = new Dialogs();
                         dialogs.showBusinessUnfollowPopup(context, business.businessID);
-                        editDelegate.setEditing(business.id, null, null);
+                        editDelegateInterface.setEditing(business.id, null, null);
                     }
                 });
             } else {

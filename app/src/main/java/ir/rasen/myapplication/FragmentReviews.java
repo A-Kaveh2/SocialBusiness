@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
@@ -32,7 +32,7 @@ import ir.rasen.myapplication.webservice.review.ReviewBusiness;
 /**
  * Created by 'Sina KH' on 1/13/2015.
  */
-public class FragmentReviews extends Fragment implements WebserviceResponse, Edit{
+public class FragmentReviews extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentReviews";
 
     private View view, listFooterView;

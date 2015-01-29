@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -30,7 +30,7 @@ import ir.rasen.myapplication.webservice.friend.GetUserFriends;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentFriends extends Fragment implements WebserviceResponse, Edit {
+public class FragmentFriends extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentFriends";
 
     private View view, listFooterView, listHeaderView;

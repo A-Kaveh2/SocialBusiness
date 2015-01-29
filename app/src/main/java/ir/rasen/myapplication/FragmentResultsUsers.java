@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.FriendsAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -28,7 +28,7 @@ import ir.rasen.myapplication.webservice.search.SearchUser;
 /**
  * Created by 'Sina KH' on '01/22/2015'.
  */
-public class FragmentResultsUsers extends Fragment implements WebserviceResponse, Edit {
+public class FragmentResultsUsers extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentResultsUsers";
 
     private View view, listFooterView, listHeaderView;

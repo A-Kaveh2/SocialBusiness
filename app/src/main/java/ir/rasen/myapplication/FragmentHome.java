@@ -18,7 +18,7 @@ import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -38,7 +38,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * with a GridView.
  * <p/>
  */
-public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
+public class FragmentHome extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentHome";
 
     /**
@@ -66,7 +66,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
     private int homeType;
     private String homeTitle;
     private WebserviceResponse webserviceResponse;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
 
     // as home fragment
     public static FragmentHome newInstance (){
@@ -111,7 +111,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
         super.onCreate(savedInstanceState);
 
         webserviceResponse = this;
-        editDelegate = this;
+        editDelegateInterface = this;
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -141,7 +141,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
             if(posts.size()==1) {
                 singlePost = true;
             }
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegate);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
 
         } else if(homeType==Params.HomeType.HOME_HOME) {
 
@@ -181,7 +181,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, Edit {
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
 
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegate);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
 
         }
     }

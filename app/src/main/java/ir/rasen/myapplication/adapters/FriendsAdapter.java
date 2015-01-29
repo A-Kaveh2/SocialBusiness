@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
-import ir.rasen.myapplication.helper.Edit;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -26,15 +26,15 @@ public class FriendsAdapter extends ArrayAdapter<User> {
 	private LayoutInflater mInflater;
     private boolean mOwnFriends = false;
     private Context context;
-    private Edit editDelegate;
+    private EditInterface editDelegateInterface;
 
-	public FriendsAdapter(Context context, ArrayList<User> friends, boolean ownFriends, Edit editDelegate) {
+	public FriendsAdapter(Context context, ArrayList<User> friends, boolean ownFriends, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_friends_friend, friends);
 		mFriends 	= friends;
 		mInflater	= LayoutInflater.from(context);
         mOwnFriends = ownFriends;
         this.context = context;
-        this.editDelegate = editDelegate;
+        this.editDelegateInterface = editDelegateInterface;
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
                     @Override
                     public void onClick(View view) {
                         showDeletePopup(friend.userID);
-                        editDelegate.setEditing(friend.userID, null, null);
+                        editDelegateInterface.setEditing(friend.userID, null, null);
                     }
                 });
             } else

@@ -3,7 +3,6 @@ package ir.rasen.myapplication.helper;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ public class OptionsReview {
     }
 
 
-    public void showOptionsPopup(final Review review, View view, final WebserviceResponse webserviceResponse, final Edit editDelegate) {
+    public void showOptionsPopup(final Review review, View view, final WebserviceResponse webserviceResponse, final EditInterface editDelegateInterface) {
         // TODO review is mine because we've checked it before calling this method...
         // SHOWING POPUP WINDOW
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -47,7 +46,7 @@ public class OptionsReview {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO: EDIT REVIEW
-                    showReviewEditDialog(review, editDelegate);
+                    showReviewEditDialog(review, editDelegateInterface);
                 }
             });
             // DELETE OPTION
@@ -56,13 +55,13 @@ public class OptionsReview {
                     // TODO DELETE REVIEW
                     Dialogs dialogs = new Dialogs();
                     dialogs.showReviewDeletePopup(context, LoginInfo.getUserId(context), review.id, webserviceResponse);
-                    editDelegate.setEditing(review.id, null, null);
+                    editDelegateInterface.setEditing(review.id, null, null);
                 }
             });
         }
     }
 
-    void showReviewEditDialog(final Review review, final Edit editDelegate) {
+    void showReviewEditDialog(final Review review, final EditInterface editDelegateInterface) {
         dialog = new Dialog(context, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_new_review);
@@ -74,7 +73,7 @@ public class OptionsReview {
                 String reviewText = ((EditTextFont) dialog.findViewById(R.id.edt_new_review_review)).getText().toString();
                 float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
                 if(rate>0) {
-                    editDelegate.setEditing(review.id, reviewText, dialog);
+                    editDelegateInterface.setEditing(review.id, reviewText, dialog);
                     editReview(review.businessID, reviewText, rate);
                 } else {
                     Dialogs.showMessage(context, context.getString(R.string.rate_needed));
