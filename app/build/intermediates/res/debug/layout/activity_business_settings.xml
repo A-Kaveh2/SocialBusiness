@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/rl_business_settings_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:background="@color/button_on_dark">
+
+        <ImageButton
+            android:layout_width="@dimen/actionbar_height"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@drawable/style_button_menu"
+            android:src="@drawable/ic_menu_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerInside"
+            android:onClick="back"
+            android:contentDescription="@null"/>
+
+        <ir.rasen.myapplication.ui.TextViewFont
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text = "@string/business_settings" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_business_settings_actionbar"
+        android:background="@color/gray_light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <!-- EDIT -->
+            <RelativeLayout
+                android:id="@+id/rl_business_settings_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/style_view"
+                android:clickable="true"
+                android:onClick="edit">
+                <!-- TITLE OF SET -->
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/ll_settings_friends_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:text="@string/profile_edit_business"
+                    android:textColor="@android:color/white"
+                    android:background="@color/green"
+                    android:textSize="@dimen/text_size_large"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:gravity="right|center"/>
+                <!-- DESCRIBTION OF SET -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_settings_friends_title"
+                    android:orientation="horizontal">
+
+                    <ir.rasen.myapplication.ui.TextViewFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_edit_business_text"
+                        android:layout_margin="@dimen/activity_horizontal_margin_half"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- DELETE -->
+            <RelativeLayout
+                android:id="@+id/rl_business_settings_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_below="@+id/rl_business_settings_edit"
+                android:background="@drawable/style_view"
+                android:clickable="true"
+                android:onClick="delete">
+                <!-- TITLE OF SET -->
+                <ir.rasen.myapplication.ui.TextViewFont
+                    android:id="@+id/ll_settings_businesses_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_height"
+                    android:text="@string/delete_business"
+                    android:textColor="@android:color/white"
+                    android:background="@color/green"
+                    android:textSize="@dimen/text_size_large"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:gravity="right|center"/>
+                <!-- DESCRIBTION OF SET -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_settings_businesses_title"
+                    android:orientation="horizontal">
+
+                    <ir.rasen.myapplication.ui.TextViewFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_edit_delete_text"
+                        android:layout_margin="@dimen/activity_horizontal_margin_half"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:layout_below="@+id/rl_business_settings_delete"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/layout/activity_business_settings.xml -->

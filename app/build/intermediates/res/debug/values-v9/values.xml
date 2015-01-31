@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values-v9/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values-v9/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="@style/_AppTheme">
         <item name="android:textSelectHandleLeft">@drawable/apptheme_text_select_handle_left</item>

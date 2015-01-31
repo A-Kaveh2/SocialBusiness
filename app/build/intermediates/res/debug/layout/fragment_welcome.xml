@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_welcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/img_welcome_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+    <ir.rasen.myapplication.ui.TextViewFont
+        android:id="@+id/txt_welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/img_welcome_img"
+        android:layout_alignRight="@+id/img_welcome_img"
+        android:layout_below="@+id/img_welcome_img"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:textSize="@dimen/font_large_x"/>
+
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/layout/fragment_welcome.xml -->

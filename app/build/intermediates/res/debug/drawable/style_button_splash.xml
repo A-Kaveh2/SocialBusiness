@@ -3,4 +3,4 @@
   <item android:state_pressed="true"
    android:drawable="@drawable/style_button_splash_pressed" /> <!-- pressed -->
   <item android:drawable="@drawable/style_button_splash_default" /> <!-- default -->
-</selector><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/style_button_splash.xml -->
+</selector><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/drawable/style_button_splash.xml -->

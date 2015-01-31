@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string-array name="camera_or_gallery">
         <item>@string/camera</item>
         <item>@string/gallery</item>
     </string-array>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
@@ -24,18 +24,18 @@
     <color name="abc_search_url_text_selected">@android:color/black</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="background">#EEEEEE</color>
     <color name="background_dark">#1C2127</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="background_floating_material_dark">#ff424242</color>
     <color name="background_floating_material_light">#ffeeeeee</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="background_light">#696D76</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
@@ -47,12 +47,12 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="button_on_dark">#539CB0</color>
     <color name="button_on_dark_darker">#3F6F94</color>
     <color name="button_on_dark_darker_opacity">#80256070</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
     <eat-comment/>
     <color name="common_action_bar_splitter">#d2d2d2</color>
     <color name="common_signin_btn_dark_text_default">@android:color/white</color>
@@ -64,19 +64,19 @@
     <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
     <color name="common_signin_btn_light_text_focused">#FF737373</color>
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="cover_background">#AD256070</color>
     <color name="dark_blue">#004185</color>
     <color name="dark_gray">#B2B2B2</color>
     <color name="darker_gray">#595959</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="gray">#484F54</color>
     <color name="gray_dark">#2D3138</color>
@@ -84,22 +84,22 @@
     <color name="gray_lighter">#FAFAFA</color>
     <color name="green">#44AA44</color>
     <color name="green_dark">#338833</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="hint_color">#c7c7c7</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="light_blue">#1BB2C2</color>
     <color name="light_gray">#EBEBEB</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
@@ -108,14 +108,14 @@
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="menu_bg">#f5e1f5fe</color>
     <color name="opacity3">#33ffffff</color>
     <color name="opacity5">#77ffffff</color>
     <color name="opacity8">#BBffffff</color>
     <color name="pink_accent">#5499BA</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="primary_dark_material_dark">#ff000000</color>
     <color name="primary_dark_material_light">#ff757575</color>
@@ -125,11 +125,11 @@
     <color name="primary_text_default_material_light">#de000000</color>
     <color name="primary_text_disabled_material_dark">#4Dffffff</color>
     <color name="primary_text_disabled_material_light">#39000000</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="red">#F5524F</color>
     <color name="red_dark">#F04540</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="ripple_material_dark">#40ffffff</color>
     <color name="ripple_material_light">#40000000</color>
@@ -137,17 +137,17 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="splash_screen_background">#AD256070</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="text_details">#5EB4BF</color>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
@@ -192,7 +192,7 @@
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
     <declare-styleable name="WalletFragmentOptions"><attr format="enum" name="appTheme"><enum name="holo_dark" value="0"/><enum name="holo_light" value="1"/></attr><attr format="enum" name="environment"><enum name="production" value="1"/><enum name="sandbox" value="0"/><enum name="strict_sandbox" value="2"/></attr><attr format="reference" name="fragmentStyle"/><attr format="enum" name="fragmentMode"><enum name="buyButton" value="1"/><enum name="selectionDetails" value="2"/></attr></declare-styleable>
     <declare-styleable name="WalletFragmentStyle"><attr format="dimension" name="buyButtonHeight"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="dimension" name="buyButtonWidth"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="enum" name="buyButtonText"><enum name="buy_with_google" value="1"/><enum name="buy_now" value="2"/><enum name="book_now" value="3"/><enum name="donate_with_google" value="4"/></attr><attr format="enum" name="buyButtonAppearance"><enum name="classic" value="1"/><enum name="grayscale" value="2"/><enum name="monochrome" value="3"/></attr><attr format="reference" name="maskedWalletDetailsTextAppearance"/><attr format="reference" name="maskedWalletDetailsHeaderTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsBackground"/><attr format="reference" name="maskedWalletDetailsButtonTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsButtonBackground"/><attr format="color" name="maskedWalletDetailsLogoTextColor"/><attr format="enum" name="maskedWalletDetailsLogoImageType"><enum name="classic" value="1"/><enum name="monochrome" value="2"/></attr></declare-styleable>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -231,7 +231,7 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <dimen name="actionbar_height">48dp</dimen>
     <dimen name="actionbar_height_half">24dp</dimen>
@@ -251,17 +251,17 @@
     <dimen name="corner_size">2dp</dimen>
     <dimen name="corner_size_dialog">20dp</dimen>
     <item format="float" name="cover_scale" type="dimen">0.85</item>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="demo_dialog_txt">14dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <dimen name="dialog_body_height">72dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="dialog_button">12dp</dimen>
     <dimen name="dialog_button_hieght">48dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
@@ -269,10 +269,10 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <dimen name="drawer_width">200dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="edt_multi_line_min_height">100dp</dimen>
     <dimen name="font_circle_button">@dimen/font_large</dimen>
@@ -285,7 +285,7 @@
     <dimen name="font_small_v">9dp</dimen>
     <dimen name="font_small_x">12dp</dimen>
     <dimen name="line_height">4dp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <dimen name="menu_pic">24dp</dimen>
     <dimen name="menu_pic_large">36dp</dimen>
@@ -299,12 +299,12 @@
     <dimen name="text_size_largest">24sp</dimen>
     <dimen name="text_size_normal">15sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <drawable name="list_clicked">#ffe09cee</drawable>
     <drawable name="list_selected">#E0E</drawable>
     <drawable name="transparent">@android:color/transparent</drawable>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -316,20 +316,20 @@
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <integer name="dialog_body_weight">2</integer>
     <integer name="dialog_header_weight">10</integer>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">6587000</integer>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <integer name="image_quality">75</integer>
     <integer name="image_size">640</integer>
     <integer name="interval_time">5000</integer>
     <integer name="lazy_load_limitation">20</integer>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="ABAN">آبان</string>
     <string name="AZAR">آذر</string>
@@ -350,7 +350,7 @@
     <string name="SHANBE">شنبه</string>
     <string name="TIR">تیر</string>
     <string name="YEK_SHANBE">یک شنبه</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -368,13 +368,13 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="about">درباره ی ما</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="accept_or_ignore_requests">درخواست ها را تأیید و یا رد کنید.</string>
     <string name="address_defined">موقعیت تعیین شد:</string>
@@ -402,7 +402,7 @@
     <string name="choose_photo">انتخاب تصویر</string>
     <string name="comment_is_too_short">نظر خود را با حدأقل 3 حرف وارد کنید.</string>
     <string name="comments">نظرات</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
     <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
     <string name="common_android_wear_update_text">This app won\'t run unless you update the Android Wear app.</string>
@@ -432,12 +432,12 @@
     <string name="common_open_on_phone">Open on phone</string>
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
     <string name="decline">Decline</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="delete">حذف</string>
     <string name="delete_business">حذف کسب و کار</string>
@@ -503,7 +503,7 @@
     <string name="friends">دوستان</string>
     <string name="friends_set">با فعال کردن این گزینه به دوستان خود امکان می دهید لیست دوستان شما را مشاهده کنند.</string>
     <string name="gallery">گالری</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/debug/res/values/google_maps_api.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/debug/res/values/google_maps_api.xml -->
     <eat-comment/>
     <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAfBDs59qUbLJi1FAQ1RPpCGVJ-uyFmA8Y</string>
     <string name="google_maps_key_instructions" templateMergeStrategy="replace"><!--
@@ -520,7 +520,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     --></string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="help">راهنما</string>
     <string name="image_file_path">/Image/</string>
@@ -540,11 +540,11 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="next_step">مرحله ی بعد</string>
     <string name="no">خیر</string>
     <string name="no_location_found">مکان شما تشخیص داده نشده است, لطفأ مکانی را جهت جستجو انتخاب نمایید.</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="no_storage_card">No storage card</string>
     <string name="not_enough_space">Not enough space</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="not_now">الآن نه</string>
     <string name="ok">تأیید</string>
@@ -566,10 +566,10 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="popup_unblock_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را آزاد نمایید؟</string>
     <string name="popup_unfollow_business">آیا میخواهید این کسب و کار را از لیست کسب و کار های دنبال شده ی خود حذف کنید؟</string>
     <string name="popup_warning">توجه!</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="preparing_card">Preparing card</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="product_code">کد کالا</string>
     <string name="product_description">توضیحات محصول</string>
@@ -591,10 +591,10 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="reviews">نقد ها</string>
     <string name="reviews_set">با فعال کردن این گزینه به دوستان خود امکان می دهید نقد های شما را مشاهده کنند.</string>
     <string name="save">ذخیره</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="saving_image">Saving image</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="search">جستجو</string>
     <string name="search_businesses">جستجوی کسب و کار ها</string>
@@ -616,11 +616,11 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="splash_login">ورود به حساب</string>
     <string name="splash_register">ثبت نام</string>
     <string name="status">توضیحات</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="submit">ثبت</string>
     <string name="success">درخواست شما با موفقیت انجام شد.</string>
@@ -638,10 +638,10 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="unblock_follower">آزادسازی حساب</string>
     <string name="unfollow_business">خارج کردن از لیست کسب و کار ها</string>
     <string name="username">نام کاربری</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="website">وب سایت</string>
     <string name="welcome_1">سلام! خوش اومدین!</string>
@@ -649,7 +649,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <string name="welcome_3">some text here... some ! text !!</string>
     <string name="working_time">ساعات کاری</string>
     <string name="yes">بله</string>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="@style/_AppTheme"/>
     <style name="AppTheme.Dialog" parent="@style/_AppTheme.Dialog"/>
@@ -658,7 +658,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
         <item name="android:textColor">#000000</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -1412,7 +1412,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="ButtonAppTheme" parent="android:Widget.Button">
         <item name="android:textSize">@dimen/text_size_normal</item>
@@ -1421,7 +1421,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="CheckBoxAppTheme" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/apptheme_btn_check_holo_light</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/SocialBusiness/crop-lib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="CropButton">
         <item name="android:layout_margin">1dp</item>
@@ -1433,7 +1433,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/selector_crop_button</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="EditTextAppTheme" parent="android:Widget.EditText">
         <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
@@ -1444,8 +1444,9 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
+        <item name="android:ellipsize">start</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1572,7 +1573,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:listChoiceIndicatorMultiple">@drawable/abc_btn_check_material</item>
     </style>
     <style name="Platform.AppCompat.Light.Dialog" parent="Platform.AppCompat.Dialog"/>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="ProgressBarAppTheme" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/apptheme_progress_horizontal_holo_light</item>
@@ -1586,7 +1587,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="android:minHeight">16dip</item>
         <item name="android:maxHeight">16dip</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|left</item>
@@ -1629,7 +1630,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="RtlOverlay.Widget.AppCompat.SearchView.MagIcon" parent="android:Widget">
         <item name="android:layout_marginLeft">@dimen/abc_dropdownitem_text_padding_left</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="SpinnerAppTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
@@ -1638,7 +1639,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="SpinnerDropDownItemAppTheme" parent="android:Widget.DropDownItem.Spinner">
         <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.AppCompat" parent="Base.TextAppearance.AppCompat"/>
     <style name="TextAppearance.AppCompat.Body1" parent="Base.TextAppearance.AppCompat.Body1"/>
@@ -1684,14 +1685,14 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="TextAppearance.Widget.AppCompat.ExpandedMenu.Item" parent="Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"/>
     <style name="TextAppearance.Widget.AppCompat.Toolbar.Subtitle" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"/>
     <style name="TextAppearance.Widget.AppCompat.Toolbar.Title" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="TextViewAppTheme" parent="android:Widget.TextView">
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Theme.AppCompat" parent="Base.Theme.AppCompat"/>
     <style name="Theme.AppCompat.CompactMenu" parent="Base.Theme.AppCompat.CompactMenu"/>
@@ -1709,7 +1710,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
     <eat-comment/>
     <style name="Theme.IAPTheme" parent="android:Theme">
     <item name="android:windowIsTranslucent">true</item>
@@ -1719,14 +1720,14 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">false</item>
   </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
         <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
@@ -1760,7 +1761,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         <item name="maskedWalletDetailsLogoTextColor">@color/wallet_bright_foreground_holo_dark</item>
         <item name="maskedWalletDetailsLogoImageType">classic</item>
     </style>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar"/>
     <style name="Widget.AppCompat.ActionBar.Solid" parent="Base.Widget.AppCompat.ActionBar.Solid"/>
@@ -1815,7 +1816,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Base.Widget.AppCompat.Spinner.DropDown.ActionBar"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

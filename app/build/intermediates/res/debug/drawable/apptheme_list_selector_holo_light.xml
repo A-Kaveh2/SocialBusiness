@@ -26,4 +26,4 @@
     <item android:state_focused="true"                                                             android:drawable="@drawable/apptheme_list_focused_holo" />
 
 </selector>
-<!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/drawable/apptheme_list_selector_holo_light.xml -->
+<!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/drawable/apptheme_list_selector_holo_light.xml -->

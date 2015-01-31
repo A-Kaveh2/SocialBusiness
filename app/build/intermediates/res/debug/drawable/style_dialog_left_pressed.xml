@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <solid android:color="@color/button_on_dark_darker" />
+    <corners
+        android:bottomLeftRadius="18dp" />
+</shape><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/drawable/style_dialog_left_pressed.xml -->

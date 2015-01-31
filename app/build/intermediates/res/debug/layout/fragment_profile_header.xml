@@ -260,4 +260,4 @@
             android:clickable="true"
             android:background="@drawable/selected_tab"/>
     </LinearLayout>
-</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/fragment_profile_header.xml -->
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/layout/fragment_profile_header.xml -->

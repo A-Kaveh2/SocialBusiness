@@ -10,4 +10,4 @@
         android:id="@+id/progressBar"
         android:indeterminate="true"
         android:layout_centerHorizontal="true" />
-</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_loading_more.xml -->
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/layout/layout_loading_more.xml -->

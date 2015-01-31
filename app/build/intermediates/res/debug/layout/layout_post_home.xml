@@ -197,4 +197,4 @@
         android:layout_height="@dimen/activity_vertical_margin"
         android:layout_below="@+id/rl_home_post_all"/>
 
-</RelativeLayout><!-- From: file:/F:/Android%20Projects/SocialBusiness/app/src/main/res/layout/layout_post_home.xml -->
+</RelativeLayout><!-- From: file:/E:/Android/Workspace/SocialBusiness/app/src/main/res/layout/layout_post_home.xml -->
