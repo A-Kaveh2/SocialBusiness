@@ -36,6 +36,9 @@
     <color name="darker_gray">#595959</color>
     <color name="hint_color">#c7c7c7</color>
 
+
+    <color name="notification_text">#FFFFFF</color>
+
     <drawable name="list_clicked">#ffe09cee</drawable>
     <drawable name="list_selected">#E0E</drawable>
     <drawable name="transparent">@android:color/transparent</drawable>

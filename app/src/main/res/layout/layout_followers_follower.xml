@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ir.rasen.myapplication.ui.ImageViewCircle
+
             android:id="@+id/img_followers_follower_image"
             android:layout_width="@dimen/profile_pic"
             android:layout_height="@dimen/profile_pic"

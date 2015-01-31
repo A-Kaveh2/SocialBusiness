@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,7 +23,9 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
+import ir.rasen.myapplication.alarm.AlarmReciever;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
 
@@ -77,6 +80,9 @@ public class ActivityWelcome extends FragmentActivity {
         });
         pager.setCurrentItem(0);
         page.setImageResource(R.drawable.ic_menu_user);
+
+        MyNotification myNotification = new MyNotification();
+        myNotification.Notify(this,R.drawable.ic_launcher,"Title","TEXXT", Color.RED);
 
     }
 
