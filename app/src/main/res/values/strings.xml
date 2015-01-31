@@ -287,7 +287,11 @@
 
     <!-- BLOCKEDS -->
     <string name="blockeds">مسدود شده ها</string>
-    <string name="manage_blockeds">کاربران مسدود شده را مدیریت کنید.</string>
+
 
     <string name="rate_needed">لطفأ برای کسب و کار امتیازی در نظر بگیرید.</string>
+
+
+    <!--DOWNLOAD IMAGES -->
+    <string name="download_storage_path">/Charsoo/cache/images</string>
 </resources>

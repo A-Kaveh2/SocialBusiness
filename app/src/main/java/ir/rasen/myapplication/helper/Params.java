@@ -141,6 +141,7 @@ public class Params {
     public static String INTERVAL_TIME = "IntervalTime";
     public static String ERROR_CODE = "ErrorCode";
     public static String ACCESS_TOKEN = "AccessToken";
+    public static String IMAGE = "image";
 
 
 }

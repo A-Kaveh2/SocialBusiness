@@ -58,4 +58,5 @@ public class URLs {
     public static String FOLLOW_BUSINESS= MAIN_URL+"followBusiness";
     public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";
     public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"getBusinessSubCategories";
+    public static String DOWNLOAD_IMAGE= MAIN_URL+"downloadImage";
 }

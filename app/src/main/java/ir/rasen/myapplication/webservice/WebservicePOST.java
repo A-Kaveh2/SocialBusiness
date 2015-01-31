@@ -24,8 +24,6 @@ public class WebservicePOST {
         httpclient = new DefaultHttpClient();
         httpPost = new HttpPost(url);
         postParameters = new ArrayList<NameValuePair>();
-
-
     }
 
     public void addParam(String paramName, String paramValue) {
