@@ -53,7 +53,8 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
 
         if (PassingPosts.getInstance().getValue() != null) {
             // TODO EDIT THIS POST
-            ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
+            if(PassingPosts.getInstance().getValue().get(0).picture!=null)
+                ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
                     .setImageBitmap(Image_M.getBitmapFromString(PassingPosts.getInstance().getValue().get(0).picture));
             isEditing = true;
         } else {
