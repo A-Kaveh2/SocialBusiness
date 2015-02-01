@@ -31,15 +31,16 @@ public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.ADD_POST);
-        webservicePOST.addParam(Params.BUSINESS_ID, post.businessID);
-        webservicePOST.addParam(Params.TITLE, post.title);
-        webservicePOST.addParam(Params.PICTURE, post.picture);
-        webservicePOST.addParam(Params.DESCRIPTION, post.description);
-        webservicePOST.addParam(Params.PRICE, post.price);
-        webservicePOST.addParam(Params.CODE, post.code);
-        webservicePOST.addParam(Params.HASHTAG_LIST, Hashtag.getStringFromList(post.hashtagList));
 
         try {
+            webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(post.businessID));
+            webservicePOST.addParam(Params.TITLE, post.title);
+            webservicePOST.addParam(Params.PICTURE, post.picture);
+            webservicePOST.addParam(Params.DESCRIPTION, post.description);
+            webservicePOST.addParam(Params.PRICE, post.price);
+            webservicePOST.addParam(Params.CODE, post.code);
+            webservicePOST.addParam(Params.HASHTAG_LIST, Hashtag.getStringFromList(post.hashtagList));
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

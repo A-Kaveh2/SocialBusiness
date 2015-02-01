@@ -7,5 +7,5 @@ import android.view.View;
  * Created by Sina KH on 1/28/2015.
  */
 public interface EditInterface {
-    public void setEditing(String id, String text, Dialog dialog);
+    public void setEditing(int id, String text, Dialog dialog);
 }

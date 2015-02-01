@@ -28,8 +28,7 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     private Comment comment;
     private ServerAnswer serverAnswer;
 
-    public DeleteComment(Comment comment,WebserviceResponse delegate)
-    {
+    public DeleteComment(Comment comment, WebserviceResponse delegate) {
         this.comment = comment;
         this.delegate = delegate;
     }
@@ -38,7 +37,7 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_COMMENT, new ArrayList<>(
-                Arrays.asList(comment.businessID, comment.id)));
+                Arrays.asList(String.valueOf(comment.businessID), String.valueOf(comment.id))));
 
 
         try {

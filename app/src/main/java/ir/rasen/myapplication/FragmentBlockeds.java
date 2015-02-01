@@ -70,7 +70,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetBusinessFollowers("food_1",FragmentBlockeds.this).execute();
+        new GetBusinessFollowers(1,FragmentBlockeds.this).execute();
     }
 
     @Override

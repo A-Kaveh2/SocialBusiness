@@ -18,11 +18,11 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "DeleteComment ";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
-    private String commentID;
+    private int businessID;
+    private int commentID;
     private ServerAnswer serverAnswer;
 
-    public DeleteComment(String businessID, String commentID) {
+    public DeleteComment(int businessID, int commentID) {
         this.businessID = businessID;
         this.commentID = commentID;
     }
@@ -30,10 +30,11 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.DELETE_COMMENT);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.COMMENT_ID, commentID);
 
         try {
+            webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(businessID));
+            webservicePOST.addParam(Params.COMMENT_ID, String.valueOf(commentID));
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

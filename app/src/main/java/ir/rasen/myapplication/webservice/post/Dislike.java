@@ -18,11 +18,11 @@ public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "Dislike";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String postID;
+    private int userID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public Dislike(String userID, String postID) {
+    public Dislike(int userID, int postID) {
         this.userID = userID;
         this.postID = postID;
     }
@@ -30,10 +30,11 @@ public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.DISLIKE);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.POST_ID, postID);
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(userID));
+            webservicePOST.addParam(Params.POST_ID, String.valueOf(postID));
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

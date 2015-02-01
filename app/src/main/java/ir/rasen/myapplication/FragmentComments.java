@@ -41,13 +41,13 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     private ListView list;
 
-    private String postId;
+    private int postId;
 
-    public static FragmentComments newInstance(String postId) {
+    public static FragmentComments newInstance(int postId) {
         FragmentComments fragment = new FragmentComments();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.POST_ID, postId);
+        bundle.putInt(Params.POST_ID, postId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -66,7 +66,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            postId = bundle.getString(Params.POST_ID);
+            postId = bundle.getInt(Params.POST_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -94,9 +94,9 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         Comment comment1 = new Comment();
         Comment comment2 = new Comment();
         Comment comment3 = new Comment();
-        comment1.userID = "Sina";
+        comment1.userID = 1;
         comment1.text = ("سلام!!");
-        comment2.userID = "Hossein";
+        comment2.userID = 2;
         comment2.text = ("چطوری @سینا؟");
         comment3.text = "SINA";
         comment3.text = ("فدایت عزیز");
@@ -207,10 +207,11 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

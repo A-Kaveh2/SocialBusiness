@@ -61,7 +61,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private int profileType; // returns the type, USER or BUSINESS
     private boolean profileOwn; // true if user is the owner of user or business
-    private String profileId; // id of user of business
+    private int profileId; // id of user of business
 
     private Business profile_business;
     private User profile_user;
@@ -72,30 +72,34 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     private static Context cont;
     private boolean isBusinessProfile = false;
 
-    String editingId, editingText;
+    int editingId;
+    String editingText;
     Dialog editingDialog;
+
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;
     }
 
-    private enum RunningWebserviceType{getUserHomeInfo,getUserPosts,getBustinessPosts,getBusinessHomeInfo};
+    private enum RunningWebserviceType {getUserHomeInfo, getUserPosts, getBustinessPosts, getBusinessHomeInfo}
+
+    ;
     private static RunningWebserviceType runningWebserviceType;
 
     private ArrayList<Post> posts;
 
     private Bitmap profile_pic, cover_pic;
 
-    public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String profileId) {
+    public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, int profileId) {
         FragmentProfile fragment = new FragmentProfile();
 
         cont = context;
         Bundle bundle = new Bundle();
         bundle.putInt(Params.PROFILE_TYPE, profileType);
         bundle.putBoolean(Params.PROFILE_OWN, profileOwn);
-        bundle.putString(Params.ID, profileId);
+        bundle.putInt(Params.ID, profileId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -118,7 +122,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
             profileOwn = bundle.getBoolean(Params.PROFILE_OWN);
-            profileId = bundle.getString(Params.ID);
+            profileId = bundle.getInt(Params.ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -126,7 +130,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
 
 
-        if(!isBusinessProfile) {
+        if (!isBusinessProfile) {
             //get user home info
 
             //TODO remove test part
@@ -135,14 +139,13 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
 
             //TODO for the test
-            new GetUserHomeInfo("ali_1", webserviceResponse).execute();
+            new GetUserHomeInfo(1, webserviceResponse).execute();
             runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
-        }
-        else{
+        } else {
             //get business home info
 
             //TODO remove test part
-            new GetBusinessHomeInfo("food_1",FragmentProfile.this).execute();
+            new GetBusinessHomeInfo("food_1", FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
 
         }
@@ -209,15 +212,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         // SLIDING DRAWER
         if (((ActivityMain) getActivity()).pager.getCurrentItem() == 2)
-                //&& ((ActivityMain) getActivity()).fragCount[2]==0)
+            //&& ((ActivityMain) getActivity()).fragCount[2]==0)
             ((ActivityMain) getActivity()).rightDrawer();
         header.findViewById(R.id.btn_profile_drawer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //if(((ActivityMain) getActivity()).fragCount[2]==0)
-                    ((ActivityMain) getActivity()).openDrawer(Gravity.RIGHT);
+                ((ActivityMain) getActivity()).openDrawer(Gravity.RIGHT);
                 //else {
-                    //showPopup();
+                //showPopup();
                 //}
             }
         });
@@ -379,14 +382,13 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
 
-
     void sendFollowRequest() {
 
         //TODO insert business_id here
         //new FollowBusiness(LoginInfo.getUserId(cont),"food_1",FragmentProfile.this).execute();
 
         //TODO remove test part
-        new FollowBusiness("ali_1", "food_1", FragmentProfile.this).execute();
+        new FollowBusiness(1, 1, FragmentProfile.this).execute();
     }
 
     void myOwnProfile() {
@@ -494,7 +496,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             } else if (result instanceof User) {
                 //get user home info
                 User user = (User) result;
-                String userId = user.userID;
+                int userID = user.id;
+                String userName = user.userName;
                 String name = user.name;
                 String aboutMe = user.aboutMe;
                 profile_pic = Image_M.getBitmapFromString(user.profilePicture);
@@ -514,7 +517,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
-                    new GetBusinessPosts("food_1", 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                    new GetBusinessPosts(1, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
                     runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 }
 
@@ -545,7 +548,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 assignNow();
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }

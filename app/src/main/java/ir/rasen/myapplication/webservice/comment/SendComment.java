@@ -22,12 +22,12 @@ public class SendComment extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "SendComment";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String postID;
+    private int userID;
+    private int postID;
     private String comment;
     private ServerAnswer serverAnswer;
 
-    public SendComment(String userID, String postID, String comment,WebserviceResponse delegate) {
+    public SendComment(int userID, int postID, String comment, WebserviceResponse delegate) {
         this.userID = userID;
         this.postID = postID;
         this.comment = comment;
@@ -36,8 +36,8 @@ public class SendComment extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEND_COMMENT,new ArrayList<>(
-                Arrays.asList(userID, postID,comment)));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEND_COMMENT, new ArrayList<>(
+                Arrays.asList(String.valueOf(userID), String.valueOf(postID), comment)));
 
 
         try {

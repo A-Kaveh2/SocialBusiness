@@ -25,10 +25,10 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
     private static final String TAG = "GetUserFriends";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public GetUserFriends(String userID,WebserviceResponse delegate) {
+    public GetUserFriends(int userID,WebserviceResponse delegate) {
         this.userID = userID;
         this.delegate = delegate;
     }
@@ -38,7 +38,7 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_USER_FRIENDS, new ArrayList<>(
-                Arrays.asList(userID)));
+                Arrays.asList(String.valueOf(userID))));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -46,7 +46,7 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

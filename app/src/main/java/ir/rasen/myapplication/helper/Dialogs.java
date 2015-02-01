@@ -27,7 +27,7 @@ public class Dialogs {
 
     //business_id= business.id
     //post_id = post.id
-    public void showPostDeletePopup(Context context, final String buisness_id, final String post_id, final WebserviceResponse delegate) {
+    public void showPostDeletePopup(Context context, final int buisness_id, final int post_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_post)
@@ -41,7 +41,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showPostSharePopup(Context context, final String post_id, final WebserviceResponse delegate) {
+    public void showPostSharePopup(Context context, final int post_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.share)
@@ -56,7 +56,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showPostReportPopup(Context context, final String post_id, final WebserviceResponse delegate) {
+    public void showPostReportPopup(Context context, final int post_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.report)
@@ -99,7 +99,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFriendDeletePopup(Context context, final String friendId) {
+    public void showFriendDeletePopup(Context context, final int friendId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_friend)
@@ -113,7 +113,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showReviewDeletePopup(Context context, final String userId, final String review_id, final WebserviceResponse delegate) {
+    public void showReviewDeletePopup(Context context, final int userId, final int review_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_review)
@@ -127,7 +127,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerBlockPopup(Context context, final String userId) {
+    public void showFollowerBlockPopup(Context context, final int userId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.block_follower)
@@ -141,7 +141,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerUnblockPopup(Context context, final String userId) {
+    public void showFollowerUnblockPopup(Context context, final int userId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.unblock_follower)
@@ -209,7 +209,7 @@ public class Dialogs {
         showCustomizedDialog(fragmentSearch.getActivity(), builder);
     }
 
-    public void showBusinessDeletePopup(Context context, final String businessId) {
+    public void showBusinessDeletePopup(Context context, final int businessId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_business)
@@ -224,7 +224,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showBusinessUnfollowPopup(Context context, final String businessId) {
+    public void showBusinessUnfollowPopup(Context context, final int businessId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.unfollow_business)

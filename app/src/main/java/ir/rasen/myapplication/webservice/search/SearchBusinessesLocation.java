@@ -26,13 +26,13 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
 
     private WebserviceResponse delegate = null;
 
-    private String userID;
+    private int userID;
     private String searchText;
     private String location_latitude;
     private String location_longitude;
     private ServerAnswer serverAnswer;
 
-    public SearchBusinessesLocation(String userID, String searchText, String location_latitude,String location_longitude,WebserviceResponse delegate) {
+    public SearchBusinessesLocation(int userID, String searchText, String location_latitude,String location_longitude,WebserviceResponse delegate) {
         this.userID = userID;
         this.searchText = searchText;
         this.location_latitude = location_latitude;
@@ -45,7 +45,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_BUSINESS_LOCATION,new ArrayList<>(
-                Arrays.asList(userID, searchText,location_latitude)));
+                Arrays.asList(String.valueOf(userID), searchText,location_latitude)));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -53,7 +53,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

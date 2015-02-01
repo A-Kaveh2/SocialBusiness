@@ -82,7 +82,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             ((TextViewFont) findViewById(R.id.txt_business_step1_title)).setText(R.string.profile_edit_business);
 
             Business business = PassingBusiness.getInstance().getValue();
-            edtBusinessId.setText(business.businessID);
+            edtBusinessId.setText(business.id);
             edtName.setText(business.name);
             edtDescription.setText(business.description);
 
@@ -205,7 +205,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             business = PassingBusiness.getInstance().getValue();
         else
             business = new Business();
-        business.businessID = edtBusinessId.getText().toString();
+        business.businessUserName = edtBusinessId.getText().toString();
         business.name = edtName.getText().toString();
         business.category = spnCategory.getSelectedItem().toString();
         business.subcategory = spnSubcategory.getSelectedItem().toString();

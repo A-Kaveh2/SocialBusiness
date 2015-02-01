@@ -29,11 +29,12 @@ public class UpdateReview extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_REVIEW);
-        webservicePOST.addParam(Params.USER_ID, review.userID);
-        webservicePOST.addParam(Params.REVIEW_ID, review.id);
-        webservicePOST.addParam(Params.TEXT, review.text);
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(review.userID));
+            webservicePOST.addParam(Params.REVIEW_ID,String.valueOf( review.id));
+            webservicePOST.addParam(Params.TEXT, review.text);
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

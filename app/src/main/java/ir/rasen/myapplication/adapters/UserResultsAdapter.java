@@ -56,7 +56,7 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.id);
                 }
             });
         }
@@ -68,7 +68,7 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
         TextViewFont user_name;
     }
 
-    private void showDeletePopup(String friendId) {
+    private void showDeletePopup(int friendId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
         dialogs.showFriendDeletePopup(getContext(), friendId);

@@ -18,10 +18,11 @@ public class UpdatePassword extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "UpdatePassword";
 
     private WebserviceResponse delegate = null;
-    private String userID, newPassword;
+    private int userID;
+    private String newPassword;
     private ServerAnswer serverAnswer;
 
-    public UpdatePassword(String userID, String newPassword) {
+    public UpdatePassword(int userID, String newPassword) {
         this.userID = userID;
         this.newPassword = newPassword;
     }
@@ -29,10 +30,11 @@ public class UpdatePassword extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_PASSWORD);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.PASSWORD_NEW, newPassword);
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(userID));
+            webservicePOST.addParam(Params.PASSWORD_NEW, newPassword);
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

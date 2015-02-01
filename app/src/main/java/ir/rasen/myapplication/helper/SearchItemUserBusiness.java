@@ -5,11 +5,11 @@ package ir.rasen.myapplication.helper;
  */
 
 public class SearchItemUserBusiness {
-    public String userID;
+    public int userID;
     public String picture;
     public String name;
 
-    public SearchItemUserBusiness(String userID, String picture, String name){
+    public SearchItemUserBusiness(int userID, String picture, String name){
         this.userID = userID;
         this.picture = picture;
         this.name = name;

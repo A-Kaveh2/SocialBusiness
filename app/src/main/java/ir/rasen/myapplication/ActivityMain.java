@@ -153,7 +153,7 @@ public class ActivityMain extends FragmentActivity {
                     return new FragmentSearch();
                 case 2:
                     // TODO:: SET UserId to profile's user id ( id ye khode karbar )
-                    String userId = "!";
+                    int userId = 0;
                     return new FragmentProfile().newInstance(ActivityMain.this,Params.ProfileType.PROFILE_USER, true, userId);
             }
             // CASE 0 :

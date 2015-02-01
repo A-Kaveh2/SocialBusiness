@@ -31,10 +31,12 @@ public class UpdateComment extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_COMMENT);
-        webservicePOST.addParam(Params.ID, comment.id);
-        webservicePOST.addParam(Params.TEXT, comment.text);
 
         try {
+            webservicePOST.addParam(Params.ID, String.valueOf(comment.id));
+            webservicePOST.addParam(Params.TEXT, comment.text);
+
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

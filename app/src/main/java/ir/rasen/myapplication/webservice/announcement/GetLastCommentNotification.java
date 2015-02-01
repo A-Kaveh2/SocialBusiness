@@ -34,11 +34,11 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
     private static final String TAG = "GetCommentAnnouncement";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private Context context;
     private ServerAnswer serverAnswer;
 
-    public GetLastCommentNotification(Context context, String userID,WebserviceResponse delegate) {
+    public GetLastCommentNotification(Context context, int userID,WebserviceResponse delegate) {
         this.userID = userID;
         this.context = context;
         this.delegate = delegate;
@@ -49,7 +49,7 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
 
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_LAST_COMMENT_NOTIFICATION, new ArrayList<>(
-                Arrays.asList(userID)));
+                Arrays.asList(String.valueOf(userID))));
 
 
         try {
@@ -57,9 +57,9 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
                 CommentNotification commentNotification = new CommentNotification(
-                        jsonObject.getString(Params.COMMENT_ID),
-                        jsonObject.getString(Params.POST_ID),
-                        jsonObject.getString(Params.USER_ID),
+                        jsonObject.getInt(Params.COMMENT_ID),
+                        jsonObject.getInt(Params.POST_ID),
+                        jsonObject.getInt(Params.USER_ID),
                         jsonObject.getString(Params.POST_PICUTE),
                         jsonObject.getString(Params.USER_PICUTE),
                         jsonObject.getString(Params.TEXT),

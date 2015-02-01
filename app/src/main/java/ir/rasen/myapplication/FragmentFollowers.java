@@ -44,11 +44,11 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     ArrayList<User> followers;
 
-    public static FragmentFollowers newInstance (String businessId){
+    public static FragmentFollowers newInstance (int businessId){
         FragmentFollowers fragment = new FragmentFollowers();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.BUSINESS_ID, businessId);
+        bundle.putInt(Params.BUSINESS_ID, businessId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -75,7 +75,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetBusinessFollowers("food_1",FragmentFollowers.this).execute();
+        new GetBusinessFollowers(1,FragmentFollowers.this).execute();
     }
 
     @Override
@@ -200,10 +200,11 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         }
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

@@ -79,7 +79,7 @@ public class OptionsPost {
         Dialogs dialogs = new Dialogs();
         //"1": post.businessID
         //"4": post.id
-        dialogs.showPostDeletePopup(context,"1","5",webserviceResponse);
+        dialogs.showPostDeletePopup(context,1,1,webserviceResponse);
     }
 
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {

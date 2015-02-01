@@ -22,11 +22,11 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "DeleteBusiness";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
-    private String userID;
+    private int businessID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public DeleteBusiness(String userID, String businessID) {
+    public DeleteBusiness(int userID, int businessID) {
         this.businessID = businessID;
         this.userID = userID;
     }
@@ -34,7 +34,7 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_BUSINESS, new ArrayList<>(
-                Arrays.asList(businessID, userID)));
+                Arrays.asList(String.valueOf(businessID),String.valueOf( userID))));
 
         try {
             serverAnswer = webserviceGET.execute();

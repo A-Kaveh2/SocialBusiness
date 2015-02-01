@@ -22,11 +22,11 @@ public class Like extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "Like";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String postID;
+    private int userID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public Like(String userID, String postID,WebserviceResponse delegate) {
+    public Like(int userID, int postID,WebserviceResponse delegate) {
         this.userID = userID;
         this.postID = postID;
         this.delegate = delegate;
@@ -35,7 +35,7 @@ public class Like extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.LIKE,new ArrayList<>(
-                Arrays.asList(userID,postID)));
+                Arrays.asList(String.valueOf(userID),String.valueOf(postID))));
 
 
         try {

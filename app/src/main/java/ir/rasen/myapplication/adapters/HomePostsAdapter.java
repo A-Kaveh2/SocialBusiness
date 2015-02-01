@@ -55,7 +55,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         post = mPosts.get(position);
-        final String postId = post.id;
+        final int postId = post.id;
 
         if (convertView == null) {
             holder = new ViewHolder();

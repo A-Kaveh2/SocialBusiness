@@ -41,9 +41,6 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-       /* WebservicePOST webservicePOST = new WebservicePOST(URLs.LOGIN);
-        webservicePOST.addParam(Params.EMAIL, email);
-        webservicePOST.addParam(Params.PASSWORD, password);*/
 
         //params: email,password
         WebserviceGET webserviceGET = new WebserviceGET(URLs.LOGIN, new ArrayList<>(
@@ -51,8 +48,6 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
 
 
         try {
-            //serverAnswer = webservicePOST.execute();
-
             serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();

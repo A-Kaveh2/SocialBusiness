@@ -110,6 +110,7 @@ public class Params {
     public static String REQUESTED_USER_ID= "RequestedId";
     public static String ANSWER= "Answer";
     public static String BUSINESS_ID= "BusinessId";
+    public static String BUSINESS_USER_NAME= "BusinessUserName";
     public static String REVIEW_ID= "ReviewId";
     public static String SEARCH_TEXT= "SearchText";
     public static String LOCATION_LATITUDE= "LocationLatitude";

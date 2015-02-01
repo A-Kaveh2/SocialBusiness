@@ -59,7 +59,7 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
         } else {
             ArrayList<Post> post = new ArrayList<>();
             Post postTemp = new Post();
-            postTemp.businessID = getIntent().getStringExtra(Params.BUSINESS_ID);
+            postTemp.businessID = getIntent().getIntExtra(Params.BUSINESS_ID,0);
             post.add(postTemp);
             PassingPosts.getInstance().setValue(post);
         }

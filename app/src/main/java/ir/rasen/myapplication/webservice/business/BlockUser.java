@@ -21,11 +21,11 @@ public class BlockUser extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "BlockUser";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
-    private String userID;
+    private int businessID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public BlockUser(String businessID, String userID,WebserviceResponse delegate) {
+    public BlockUser(int businessID, int userID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.userID = userID;
         this.delegate = delegate;
@@ -34,7 +34,8 @@ public class BlockUser extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.BLOCK_USER, new ArrayList<>(
-                Arrays.asList(businessID,userID)));
+                Arrays.asList(String.valueOf(businessID)
+                        ,String.valueOf(userID))));
 
 
         try {

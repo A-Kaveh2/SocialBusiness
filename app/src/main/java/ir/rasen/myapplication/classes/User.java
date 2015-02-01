@@ -9,7 +9,8 @@ import ir.rasen.myapplication.helper.Sex;
  */
 public class User {
 
-    public String userID;
+    public int id;
+    public String userName;
     public String name;
     public String email;
     public boolean isEmailConfirmed;

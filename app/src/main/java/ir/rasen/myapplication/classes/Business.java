@@ -10,8 +10,8 @@ import ir.rasen.myapplication.helper.WorkTime;
  * Created by android on 12/1/2014.
  */
 public class Business {
-    public String id;
-    public String businessID;
+    public int id;
+    public String businessUserName;
     public String userID;
     public String name;
     public String coverPicture;

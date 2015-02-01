@@ -24,12 +24,12 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessReviews extends AsyncTask<Void, Void, ArrayList<Review>> {
     private static final String TAG = "GetBusinessReviews";
     private WebserviceResponse delegate = null;
-    private String businessID;
+    private int businessID;
     private int afterThisID;
     private int limitation;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessReviews(String businessID, int afterThisID, int limitation,WebserviceResponse delegate) {
+    public GetBusinessReviews(int businessID, int afterThisID, int limitation, WebserviceResponse delegate) {
         this.businessID = businessID;
         this.afterThisID = afterThisID;
         this.limitation = limitation;
@@ -39,8 +39,8 @@ public class GetBusinessReviews extends AsyncTask<Void, Void, ArrayList<Review>>
     @Override
     protected ArrayList<Review> doInBackground(Void... voids) {
         ArrayList<Review> list = new ArrayList<Review>();
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_REVIEWS,new ArrayList<>(
-                Arrays.asList(businessID,String.valueOf(afterThisID),String.valueOf(limitation))));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_REVIEWS, new ArrayList<>(
+                Arrays.asList(String.valueOf(businessID), String.valueOf(afterThisID), String.valueOf(limitation))));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -49,9 +49,9 @@ public class GetBusinessReviews extends AsyncTask<Void, Void, ArrayList<Review>>
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     Review review = new Review();
-                    review.id = jsonObject.getString(Params.ID);
-                    review.businessID = jsonObject.getString(Params.BUSINESS_ID);
-                    review.userID = jsonObject.getString(Params.USER_ID);
+                    review.id = jsonObject.getInt(Params.ID);
+                    review.businessID = jsonObject.getInt(Params.BUSINESS_ID);
+                    review.userID = jsonObject.getInt(Params.USER_ID);
                     review.userPicutre = jsonObject.getString(Params.USER_PICUTE);
                     review.text = jsonObject.getString(Params.REVIEW);
                     list.add(review);

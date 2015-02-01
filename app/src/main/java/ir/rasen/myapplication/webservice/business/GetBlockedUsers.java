@@ -25,10 +25,10 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
     private static final String TAG = "GetBlockedUsers";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
+    private int businessID;
     private ServerAnswer serverAnswer;
 
-    public GetBlockedUsers(String businessID,WebserviceResponse delegate) {
+    public GetBlockedUsers(int businessID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.delegate = delegate;
     }
@@ -38,7 +38,7 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BLOCKED_USERS, new ArrayList<>(
-                Arrays.asList(businessID)));
+                Arrays.asList(String.valueOf(businessID))));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -46,7 +46,7 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

@@ -25,10 +25,10 @@ public class GetBusinessFollowers extends AsyncTask<Void, Void, ArrayList<Search
     private static final String TAG = "GetBusinessFollowers";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
+    private int businessID;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessFollowers(String businessID,WebserviceResponse delegate) {
+    public GetBusinessFollowers(int businessID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.delegate = delegate;
     }
@@ -38,7 +38,7 @@ public class GetBusinessFollowers extends AsyncTask<Void, Void, ArrayList<Search
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_FOLLOWERS,new ArrayList<>(
-                Arrays.asList(businessID)));
+                Arrays.asList(String.valueOf(businessID))));
 
 
         try {
@@ -47,7 +47,7 @@ public class GetBusinessFollowers extends AsyncTask<Void, Void, ArrayList<Search
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

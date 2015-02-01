@@ -25,11 +25,11 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     private static final String TAG = "GetUserProfileInfo";
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private ServerAnswer serverAnswer;
     private ArrayList<String> params;
 
-    public GetUserProfileInfo(String userID) {
+    public GetUserProfileInfo(int userID) {
         this.userID = userID;
     }
 
@@ -38,7 +38,7 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
         User user = new User();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_PROFILE_INFO,
-                new ArrayList<>(Arrays.asList(userID)));
+                new ArrayList<>(Arrays.asList(String.valueOf(userID))));
 
         try {
             serverAnswer = webserviceGET.execute();

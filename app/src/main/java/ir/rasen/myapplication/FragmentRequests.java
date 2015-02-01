@@ -34,16 +34,16 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
     private ListView list;
     private ListAdapter mAdapter;
 
-    String userId;
+    int userId;
     Boolean nearby;
 
     ArrayList<SearchItemUserBusiness> requests;
 
-    public static FragmentRequests newInstance (String userId){
+    public static FragmentRequests newInstance (int userId){
         FragmentRequests fragment = new FragmentRequests();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.USER_ID, userId);
+        bundle.putInt(Params.USER_ID, userId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -61,7 +61,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            userId = bundle.getString(Params.USER_ID);
+            userId = bundle.getInt(Params.USER_ID);
 
             new GetUserFriendRequests(userId,FragmentRequests.this).execute();
         } else {

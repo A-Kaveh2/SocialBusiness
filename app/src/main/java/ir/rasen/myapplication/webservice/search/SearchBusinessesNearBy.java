@@ -24,12 +24,12 @@ public class SearchBusinessesNearBy extends AsyncTask<Void, Void, ArrayList<Sear
 
     private WebserviceResponse delegate = null;
 
-    private String userID;
+    private int  userID;
     private String searchText;
     private String nearBy;
     private ServerAnswer serverAnswer;
 
-    public SearchBusinessesNearBy(String userID, String searchText, String nearBy) {
+    public SearchBusinessesNearBy(int userID, String searchText, String nearBy) {
         this.userID = userID;
         this.searchText = searchText;
         this.nearBy = nearBy;
@@ -40,17 +40,18 @@ public class SearchBusinessesNearBy extends AsyncTask<Void, Void, ArrayList<Sear
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebservicePOST webservicePOST = new WebservicePOST(URLs.SEARCH_BUSINESS_NEAR_BY);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.SEARCH_TEXT, searchText);
-        webservicePOST.addParam(Params.NEAR_BY, nearBy);
 
         try {
+            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
+            webservicePOST.addParam(Params.SEARCH_TEXT, searchText);
+            webservicePOST.addParam(Params.NEAR_BY, nearBy);
+
             serverAnswer = webservicePOST.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.BUSINESS_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.BUSINESS_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

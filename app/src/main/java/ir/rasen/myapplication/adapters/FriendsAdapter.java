@@ -62,7 +62,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, friend.id);
                 }
             });
             if(mOwnFriends) {
@@ -70,8 +70,8 @@ public class FriendsAdapter extends ArrayAdapter<User> {
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showDeletePopup(friend.userID);
-                        editDelegateInterface.setEditing(friend.userID, null, null);
+                        showDeletePopup(friend.id);
+                        editDelegateInterface.setEditing(friend.id, null, null);
                     }
                 });
             } else
@@ -86,7 +86,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
         ImageButton delete;
     }
 
-    private void showDeletePopup(String friendId) {
+    private void showDeletePopup(int friendId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
         dialogs.showFriendDeletePopup(getContext(), friendId);

@@ -36,16 +36,17 @@ public class RegisterUser extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.REGISTER_USER);
-        webservicePOST.addParam(Params.USER_ID, user.userID);
-        webservicePOST.addParam(Params.NAME, user.name);
-        webservicePOST.addParam(Params.EMAIL, user.email);
-        webservicePOST.addParam(Params.PASSWORD, user.password);
-        if (user.profilePicture != null)
-            webservicePOST.addParam(Params.PROFILE_PICTURE, user.profilePicture);
-        else
-            webservicePOST.addParam(Params.PROFILE_PICTURE, "");
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(user.id));
+            webservicePOST.addParam(Params.NAME, user.name);
+            webservicePOST.addParam(Params.EMAIL, user.email);
+            webservicePOST.addParam(Params.PASSWORD, user.password);
+            if (user.profilePicture != null)
+                webservicePOST.addParam(Params.PROFILE_PICTURE, user.profilePicture);
+            else
+                webservicePOST.addParam(Params.PROFILE_PICTURE, "");
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();

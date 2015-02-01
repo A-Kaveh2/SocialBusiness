@@ -180,7 +180,7 @@ public class FragmentCallInfo extends Fragment {
         markerLongitude = Double.parseDouble(business.location_m.getLongitude());
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(markerLatitude, markerLongitude))
-                .title(business.businessID)
+                .title(business.businessUserName)
                 .snippet(business.name));
         com.google.android.gms.maps.model.CameraPosition.Builder builder = new CameraPosition.Builder();
         builder.zoom(13);

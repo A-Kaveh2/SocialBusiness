@@ -89,7 +89,7 @@ public class OptionsReview {
         dialog.show();
     }
 
-    void editReview(String businessId, String review, float rate) {
+    void editReview(int businessId, String review, float rate) {
         // TODO:: EDIT REVIEW NOW
 
     }

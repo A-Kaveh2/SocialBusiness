@@ -30,16 +30,17 @@ public class UpdateUserProfile extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_PROFILE_USER);
-        webservicePOST.addParam(Params.USER_ID, user.userID);
-        webservicePOST.addParam(Params.NAME, user.name);
-        webservicePOST.addParam(Params.EMAIL, user.email);
-        webservicePOST.addParam(Params.ABOUT_ME, user.aboutMe);
-        webservicePOST.addParam(Params.SEX, Sex.getName(user.sex));
-        webservicePOST.addParam(Params.BIRTH_DATE, user.birthDate);
-        webservicePOST.addParam(Params.PROFILE_PICTURE, user.profilePicture);
-        webservicePOST.addParam(Params.COVER_PICTURE, user.coverPicture);
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(user.id));
+            webservicePOST.addParam(Params.NAME, user.name);
+            webservicePOST.addParam(Params.EMAIL, user.email);
+            webservicePOST.addParam(Params.ABOUT_ME, user.aboutMe);
+            webservicePOST.addParam(Params.SEX, Sex.getName(user.sex));
+            webservicePOST.addParam(Params.BIRTH_DATE, user.birthDate);
+            webservicePOST.addParam(Params.PROFILE_PICTURE, user.profilePicture);
+            webservicePOST.addParam(Params.COVER_PICTURE, user.coverPicture);
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

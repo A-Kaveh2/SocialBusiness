@@ -22,11 +22,11 @@ public class Report extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "Report";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String postID;
+    private int userID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public Report(String userID, String postID,WebserviceResponse delegate) {
+    public Report(int userID, int postID, WebserviceResponse delegate) {
         this.userID = userID;
         this.postID = postID;
         this.delegate = delegate;
@@ -34,8 +34,8 @@ public class Report extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.REPORT,new ArrayList<>(
-                Arrays.asList(userID, postID)));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.REPORT, new ArrayList<>(
+                Arrays.asList(String.valueOf(userID), String.valueOf(postID))));
 
 
         try {

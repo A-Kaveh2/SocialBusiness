@@ -22,10 +22,10 @@ public class RequestConfirmation extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "RequestConfirmation";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public RequestConfirmation(String userID,WebserviceResponse delegate) {
+    public RequestConfirmation(int userID,WebserviceResponse delegate) {
         this.userID = userID;
         this.delegate = delegate;
     }
@@ -33,7 +33,7 @@ public class RequestConfirmation extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.REQUEST_CONFIRMATION,new ArrayList<>(
-                Arrays.asList(userID)));
+                Arrays.asList(String.valueOf(userID))));
 
         try {
             serverAnswer = webserviceGET.execute();

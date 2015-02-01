@@ -18,12 +18,12 @@ public class RateBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "RateBusiness";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
-    private String userID;
+    private int businessID;
+    private int userID;
     private int rate;
     private ServerAnswer serverAnswer;
 
-    public RateBusiness(String businessID, String userID, int rate) {
+    public RateBusiness(int businessID, int userID, int rate) {
         this.businessID = businessID;
         this.userID = userID;
         this.rate = rate;
@@ -32,11 +32,12 @@ public class RateBusiness extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.RATE_BUSINESS);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.RATE, String.valueOf(rate));
 
         try {
+            webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(businessID));
+            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
+            webservicePOST.addParam(Params.RATE, String.valueOf(rate));
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

@@ -39,25 +39,25 @@ public class InnerFragment {
     }
 
     // add new profile fragment to current place
-    public void newProfile(Context context,int profileType, boolean owner, String profileId) {
+    public void newProfile(Context context,int profileType, boolean owner, int profileId) {
         Fragment newFragment = new FragmentProfile().newInstance(context,profileType, owner, profileId);
         addFragment(newFragment);
     }
 
     // add new comments fragment to current place
-    public void newComments(String postId) {
+    public void newComments(int postId) {
         Fragment newFragment = new FragmentComments().newInstance(postId);
         addFragment(newFragment);
     }
 
     // add new friends fragment to current place
-    public void newFriends(String userId) {
+    public void newFriends(int userId) {
         Fragment newFragment = new FragmentFriends().newInstance(userId);
         addFragment(newFragment);
     }
 
     // add new followers fragment to current place
-    public void newFollowers(String businessId) {
+    public void newFollowers(int businessId) {
         Fragment newFragment = new FragmentFollowers().newInstance(businessId);
         addFragment(newFragment);
     }
@@ -75,13 +75,13 @@ public class InnerFragment {
     }
 
     // add new reviews fragment to current place
-    public void newReviews(String businessId) {
+    public void newReviews(int businessId) {
         Fragment newFragment = new FragmentReviews().newInstance(businessId);
         addFragment(newFragment);
     }
 
     // add new profile reviews fragment to current place
-    public void newPrfoileReviews(String userId) {
+    public void newPrfoileReviews(int userId) {
         Fragment newFragment = new FragmentUserReviews().newInstance();
         addFragment(newFragment);
     }
@@ -102,7 +102,7 @@ public class InnerFragment {
     }
 
     // add new businesses fragment to current place
-    public void newBusinessesFragment(String userId) {
+    public void newBusinessesFragment(int userId) {
         Fragment newFragment = new FragmentBusinesses().newInstance(userId);
         addFragment(newFragment);
     }
@@ -132,7 +132,7 @@ public class InnerFragment {
     }
 
     // new requests fragment
-    public void newRequestsFragment(String userId) {
+    public void newRequestsFragment(int userId) {
         Fragment newFragment = new FragmentRequests().newInstance(userId);
         addFragment(newFragment);
     }

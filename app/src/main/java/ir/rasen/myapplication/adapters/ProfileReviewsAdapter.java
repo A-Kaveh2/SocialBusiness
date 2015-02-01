@@ -46,7 +46,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
 	public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Review review = mReviews.get(position);
-        final String postId = review.id;
+        final int postId = review.id;
 
         if (convertView == null) {
             holder = new ViewHolder();

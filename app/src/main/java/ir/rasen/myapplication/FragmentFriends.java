@@ -41,15 +41,15 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
     private ListAdapter mAdapter;
 
     // user id is received here
-    private String userId;
+    private int userId;
 
     private ArrayList<User> friends;
 
-    public static FragmentFriends newInstance(String userId) {
+    public static FragmentFriends newInstance(int userId) {
         FragmentFriends fragment = new FragmentFriends();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.USER_ID, userId);
+        bundle.putInt(Params.USER_ID, userId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -68,7 +68,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userId = bundle.getString(Params.USER_ID);
+            userId = bundle.getInt(Params.USER_ID);
 
             new GetUserFriends(userId, FragmentFriends.this).execute();
 
@@ -207,10 +207,11 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         }
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

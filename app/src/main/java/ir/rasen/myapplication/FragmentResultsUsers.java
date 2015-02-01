@@ -180,10 +180,11 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         }
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

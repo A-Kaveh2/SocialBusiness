@@ -25,10 +25,10 @@ public class GetFollowingBusinesses extends AsyncTask<Void, Void, ArrayList<Sear
     private static final String TAG = "GetFollowingBusinesses";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public GetFollowingBusinesses(String userID,WebserviceResponse delegate) {
+    public GetFollowingBusinesses(int userID,WebserviceResponse delegate) {
         this.userID = userID;
         this.delegate = delegate;
     }
@@ -38,7 +38,7 @@ public class GetFollowingBusinesses extends AsyncTask<Void, Void, ArrayList<Sear
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_FOLLOWING_BUSINESSES, new ArrayList<>(
-                Arrays.asList(userID)));
+                Arrays.asList(String.valueOf(userID))));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -46,7 +46,7 @@ public class GetFollowingBusinesses extends AsyncTask<Void, Void, ArrayList<Sear
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.BUSINESS_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.BUSINESS_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

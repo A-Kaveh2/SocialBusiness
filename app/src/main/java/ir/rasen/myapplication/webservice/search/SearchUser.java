@@ -26,11 +26,11 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
 
     private WebserviceResponse delegate = null;
 
-    private String userID;
+    private int userID;
     private String searchText;
     private ServerAnswer serverAnswer;
 
-    public SearchUser(String userID, String searchText,WebserviceResponse delegate) {
+    public SearchUser(int userID, String searchText,WebserviceResponse delegate) {
         this.userID = userID;
         this.searchText = searchText;
         this.delegate = delegate;
@@ -41,7 +41,7 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_USER,new ArrayList<>(
-                Arrays.asList(userID, searchText)));
+                Arrays.asList(String.valueOf(userID), searchText)));
 
 
         try {
@@ -50,7 +50,7 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getString(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.PICTURE),
                             jsonObject.getString(Params.NAME)));
                 }

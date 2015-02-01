@@ -23,11 +23,11 @@ public class UpdateSetting extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "UpdateSetting";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private Permission permission;
     private ServerAnswer serverAnswer;
 
-    public UpdateSetting(String userID, Permission permission,WebserviceResponse delegate) {
+    public UpdateSetting(int userID, Permission permission,WebserviceResponse delegate) {
         this.userID = userID;
         this.permission = permission;
         this.delegate = delegate;
@@ -37,7 +37,7 @@ public class UpdateSetting extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.UPDATE_SETTING,new ArrayList<>(
-                Arrays.asList(userID,
+                Arrays.asList(String.valueOf(userID),
                         String.valueOf(permission.followedBusiness),
                         String.valueOf(permission.friends),
                         String.valueOf(permission.reviews))));

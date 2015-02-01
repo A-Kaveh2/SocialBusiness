@@ -22,11 +22,11 @@ public class RequestFriendship extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "RequestFriendship";
 
     private WebserviceResponse delegate = null;
-    private String applicatorUserID;
-    private String requestedUserID;
+    private int applicatorUserID;
+    private int requestedUserID;
     private ServerAnswer serverAnswer;
 
-    public RequestFriendship(String applicatorUserID, String requestedUserID,WebserviceResponse delegate) {
+    public RequestFriendship(int applicatorUserID, int requestedUserID,WebserviceResponse delegate) {
         this.applicatorUserID = applicatorUserID;
         this.requestedUserID = requestedUserID;
         this.delegate = delegate;
@@ -35,7 +35,8 @@ public class RequestFriendship extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.REQUEST_FRIENDSHIP, new ArrayList<>(
-                Arrays.asList(applicatorUserID,requestedUserID)));
+                Arrays.asList(String.valueOf(applicatorUserID),
+                        String.valueOf(requestedUserID))));
 
         try {
             serverAnswer = webserviceGET.execute();

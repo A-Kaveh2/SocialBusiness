@@ -41,16 +41,16 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private BaseAdapter mAdapter;
-    private String businessId;
+    private int businessId;
     ArrayList<Review> reviews;
 
     Dialog dialog;
 
-    public static FragmentReviews newInstance (String businessId) {
+    public static FragmentReviews newInstance (int businessId) {
         FragmentReviews fragment = new FragmentReviews();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.BUSINESS_ID, businessId);
+        bundle.putInt(Params.BUSINESS_ID, businessId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -75,7 +75,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            businessId = bundle.getString(Params.BUSINESS_ID);
+            businessId = bundle.getInt(Params.BUSINESS_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             if (getActivity() != null) {
@@ -113,7 +113,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         if (reviews != null) {
-            new GetBusinessReviews(businessId,Integer.parseInt(reviews.get(reviews.size()-1).id),
+            new GetBusinessReviews(businessId,reviews.get(reviews.size()-1).id,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
             listFooterView.setVisibility(View.VISIBLE);
@@ -186,7 +186,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 }
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;
-                if(editingId.equals(null)) {
+                if(editingId == 0) {
                     // new review submitted
                     Dialogs.showMessage(getActivity(), getString(R.string.success));
                     dialog.dismiss();
@@ -194,7 +194,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 }
                 // review-> deleted or modified
                 for(int i=0; i<reviews.size(); i++) {
-                    if (reviews.get(i).id.equals(editingId)) {
+                    if (reviews.get(i).id == editingId) {
                         reviewPosition = i;
                         break;
                     }
@@ -235,7 +235,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 String review = ((EditTextFont) dialog.findViewById(R.id.edt_new_review_review)).getText().toString();
                 float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
                 if(rate>0) {
-                    editingId = null;
+                    editingId = 0;
                     editingText = null;
                     editingDialog = null;
                     sendReview(review, rate);
@@ -253,12 +253,13 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         dialog.show();
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
-        editingId=id;
-        editingText=text;
-        editingDialog=dialog;
+    public void setEditing(int id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

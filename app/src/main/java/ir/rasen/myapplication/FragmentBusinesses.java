@@ -39,15 +39,15 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     private ListAdapter mAdapter;
 
     // business id is received here
-    private String userId;
+    private int userId;
 
     private ArrayList<Business> businesses;
 
-    public static FragmentBusinesses newInstance(String userId) {
+    public static FragmentBusinesses newInstance(int userId) {
         FragmentBusinesses fragment = new FragmentBusinesses();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.USER_ID, userId);
+        bundle.putInt(Params.USER_ID, userId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -73,7 +73,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            userId = bundle.getString(Params.USER_ID);
+            userId = bundle.getInt(Params.USER_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             if (getActivity() != null) {
@@ -106,7 +106,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 */
 
         //TODO remove test parts
-        new GetFollowingBusinesses(userId,FragmentBusinesses.this).execute();
+        new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
 
         return view;
     }
@@ -192,15 +192,17 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
+
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

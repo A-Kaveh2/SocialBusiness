@@ -23,11 +23,11 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     private static final String TAG = "GetSharedPosts";
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private int afterThisID,limitation;
     private ServerAnswer serverAnswer;
 
-    public GetSharedPosts(String userID, int afterThisID, int limitation,WebserviceResponse delegate) {
+    public GetSharedPosts(int userID, int afterThisID, int limitation,WebserviceResponse delegate) {
         this.userID = userID;
         this.afterThisID = afterThisID;
         this.limitation = limitation;
@@ -38,7 +38,7 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     protected ArrayList<Post> doInBackground(Void... voids) {
         ArrayList<Post> list = new ArrayList<Post>();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_SHARED_POSTS,new ArrayList<>(
-                Arrays.asList(userID,
+                Arrays.asList(String.valueOf(userID),
                         String.valueOf(afterThisID),
                         String.valueOf(limitation))));
 

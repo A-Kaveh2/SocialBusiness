@@ -195,7 +195,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         int id;
     }
 
-    void likeNow(String post_id) {
+    void likeNow(int post_id) {
        new Like(LoginInfo.getUserId(context),post_id,delegate).execute();
     }
 

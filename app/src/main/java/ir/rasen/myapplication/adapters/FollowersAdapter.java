@@ -63,7 +63,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, follower.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, follower.id);
                 }
             });
             if(mOwnFollowers) {
@@ -71,8 +71,8 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 holder.block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showBlockPopup(follower.userID);
-                        editDelegateInterface.setEditing(follower.userID, null, null);
+                        showBlockPopup(follower.id);
+                        editDelegateInterface.setEditing(follower.id, null, null);
                     }
                 });
             } else
@@ -87,7 +87,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
         ImageButton block;
     }
 
-    private void showBlockPopup(String userId) {
+    private void showBlockPopup(int userId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
         dialogs.showFollowerBlockPopup(getContext(), userId);

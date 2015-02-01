@@ -67,7 +67,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.businessID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.id);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });
@@ -78,7 +78,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                     public void onClick(View view) {
                         // show unfollow dialog
                         Dialogs dialogs = new Dialogs();
-                        dialogs.showBusinessUnfollowPopup(context, business.businessID);
+                        dialogs.showBusinessUnfollowPopup(context, business.id);
                         editDelegateInterface.setEditing(business.id, null, null);
                     }
                 });

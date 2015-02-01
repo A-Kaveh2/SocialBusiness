@@ -16,8 +16,9 @@ import ir.rasen.myapplication.helper.Params;
  */
 public class Post {
 
-    public String id;
-    public String businessID;
+    public int id;
+    public int businessID;
+    public String businessUserName;
     public String creationDate;
     //if post doesn't have picture, it must have title, actually it is not a regular post.
     //in this case, post is follow or review notice.
@@ -31,8 +32,9 @@ public class Post {
 
     public static Post getFromJSONObject(JSONObject jsonObject) throws Exception{
         Post post = new Post();
-        post.id = jsonObject.getString(Params.ID);
-        post.businessID = jsonObject.getString(Params.BUSINESS_ID);
+        post.id = jsonObject.getInt(Params.ID);
+        post.businessID = jsonObject.getInt(Params.BUSINESS_ID);
+        post.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
         post.title = jsonObject.getString(Params.TITLE);
         post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
         post.picture = jsonObject.getString(Params.PICTURE);
@@ -46,10 +48,10 @@ public class Post {
             JSONObject jsonObjectComment = jsonArrayComments.getJSONObject(j);
 
             Comment comment = new Comment();
-            comment.id = jsonObjectComment.getString(Params.ID);
-            comment.businessID = jsonObjectComment.getString(Params.BUSINESS_ID);
-            comment.userID = jsonObjectComment.getString(Params.USER_ID);
-            comment.postID = jsonObjectComment.getString(Params.POST_ID);
+            comment.id = jsonObjectComment.getInt(Params.ID);
+            comment.businessID = jsonObjectComment.getInt(Params.BUSINESS_ID);
+            comment.userID = jsonObjectComment.getInt(Params.USER_ID);
+            comment.postID = jsonObjectComment.getInt(Params.POST_ID);
             comment.text = jsonObjectComment.getString(Params.TEXT);
             comments.add(comment);
         }

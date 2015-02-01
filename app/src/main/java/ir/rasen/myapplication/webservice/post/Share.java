@@ -18,11 +18,11 @@ public class Share extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "Share";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String postID;
+    private int userID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public Share(String userID, String postID) {
+    public Share(int userID, int postID) {
         this.userID = userID;
         this.postID = postID;
     }
@@ -30,10 +30,11 @@ public class Share extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.SHARE);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.POST_ID, postID);
 
         try {
+            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
+            webservicePOST.addParam(Params.POST_ID,String.valueOf( postID));
+
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);

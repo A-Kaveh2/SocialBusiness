@@ -22,11 +22,11 @@ public class DeletePost extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "DeletePost";
 
     private WebserviceResponse delegate = null;
-    private String businessID;
-    private String postID;
+    private int businessID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public DeletePost(String businessID, String postID,WebserviceResponse delegate) {
+    public DeletePost(int businessID, int postID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.postID = postID;
         this.delegate = delegate;
@@ -35,7 +35,7 @@ public class DeletePost extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_POST,new ArrayList<>(
-                Arrays.asList(businessID, postID)));
+                Arrays.asList(String.valueOf(businessID),String.valueOf( postID))));
 
         try {
             serverAnswer = webserviceGET.execute();

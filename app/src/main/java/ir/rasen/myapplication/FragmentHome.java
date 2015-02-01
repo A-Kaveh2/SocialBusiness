@@ -154,26 +154,26 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             Post post1 = new Post();
             Post post2 = new Post();
             Post post3 = new Post();
-            post1.businessID = "راسن";
+            post1.businessID = 1;
             post1.description = "یک نرم افزار عالی!!";
             post1.price = "100.000";
             post1.code = "30";
             ArrayList<Comment> lastThreeComments = new ArrayList<>();
             Comment comment = new Comment();
-            comment.userID = "SINA";
+            comment.userID = 1;
             comment.text = "سلام";
             lastThreeComments.add(comment);
             post1.lastThreeComments = lastThreeComments;
             post1.title = "عنوان!!";
             posts.add(post1);
-            post2.businessID = "sina";
+            post2.businessID = 2;
             post2.description = "programmer - RASEN CO.";
             post2.price = "123.456";
             post2.code = "30";
             post2.title = "عنوان!!";
             post2.lastThreeComments = lastThreeComments;
             posts.add(post2);
-            post3.businessID = "sina";
+            post3.businessID = 2;
             post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
             post3.price = "125.234";
             post3.code = "30";
@@ -300,10 +300,11 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         Dialogs.showMessage(getActivity(), errorMessage);
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
+    public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
         editingText = text;
         editingDialog = dialog;

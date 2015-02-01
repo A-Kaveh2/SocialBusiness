@@ -78,7 +78,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         //new UpdateSetting(LoginInfo.getUserId(ActivitySettings.this), permission, ActivitySettings.this).execute();
 
         //TODO for the test
-        new UpdateSetting("ali_1", permission, ActivitySettings.this).execute();
+        new UpdateSetting(1, permission, ActivitySettings.this).execute();
     }
 
     public void setAnimations() {

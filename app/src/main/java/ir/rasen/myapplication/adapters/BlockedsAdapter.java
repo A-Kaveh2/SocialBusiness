@@ -58,14 +58,14 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, blocked.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, blocked.id);
                 }
             });
             holder.unblock.setVisibility(View.VISIBLE);
             holder.unblock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showUnblockPopup(blocked.userID);
+                    showUnblockPopup(blocked.id);
             }
                 });
         }
@@ -78,7 +78,7 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
         ImageButton unblock;
     }
 
-    private void showUnblockPopup(String userId) {
+    private void showUnblockPopup(int userId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
         dialogs.showFollowerUnblockPopup(getContext(), userId);

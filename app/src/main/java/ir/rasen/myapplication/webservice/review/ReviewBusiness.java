@@ -22,12 +22,12 @@ public class ReviewBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "ReviewBusiness";
 
     private WebserviceResponse delegate = null;
-    private String userID;
-    private String businessID;
+    private int userID;
+    private int businessID;
     private String review;
     private ServerAnswer serverAnswer;
 
-    public ReviewBusiness(String userID, String businessID, String review,WebserviceResponse delegate) {
+    public ReviewBusiness(int userID, int businessID, String review, WebserviceResponse delegate) {
         this.userID = userID;
         this.businessID = businessID;
         this.review = review;
@@ -36,8 +36,8 @@ public class ReviewBusiness extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.REVIEW_BUSINESS,new ArrayList<>(
-                Arrays.asList(userID,businessID,review)));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.REVIEW_BUSINESS, new ArrayList<>(
+                Arrays.asList(String.valueOf(userID), String.valueOf(businessID), review)));
 
         try {
             serverAnswer = webserviceGET.execute();

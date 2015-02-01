@@ -23,13 +23,13 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
     private static final String TAG = "GetAllCommentNotifications";
 
     private WebserviceResponse delegate = null;
-    private String userID;
+    private int userID;
     private int fromIndex;
     private int untilIndex;
     private ServerAnswer serverAnswer;
 
 
-    public GetAllCommentNotifications(String userID, int fromIndex, int untilIndex) {
+    public GetAllCommentNotifications(int userID, int fromIndex, int untilIndex) {
         this.userID = userID;
         this.fromIndex = fromIndex;
         this.untilIndex = untilIndex;
@@ -40,20 +40,21 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
         ArrayList<CommentNotification> list = new ArrayList<CommentNotification>();
 
         WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_ALL_COMMENT_NOTIFICATIONS);
-        webservicePOST.addParam(Params.USER_ID, userID);
-        webservicePOST.addParam(Params.FROM_INDEX, String.valueOf(fromIndex));
-        webservicePOST.addParam(Params.UNTIL_INDEX, String.valueOf(untilIndex));
 
 
         try {
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(userID));
+            webservicePOST.addParam(Params.FROM_INDEX, String.valueOf(fromIndex));
+            webservicePOST.addParam(Params.UNTIL_INDEX, String.valueOf(untilIndex));
+
             serverAnswer = webservicePOST.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new CommentNotification(jsonObject.getString(Params.COMMENT_ID),
-                            jsonObject.getString(Params.POST_ID),
-                            jsonObject.getString(Params.USER_ID),
+                    list.add(new CommentNotification(jsonObject.getInt(Params.COMMENT_ID),
+                            jsonObject.getInt(Params.POST_ID),
+                            jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.POST_PICUTE),
                             jsonObject.getString(Params.USER_PICUTE),
                             jsonObject.getString(Params.TEXT),

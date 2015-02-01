@@ -140,7 +140,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;
                 for (int i = 0; i < reviews.size(); i++) {
-                    if (reviews.get(i).id.equals(editingId)) {
+                    if (reviews.get(i).id == editingId) {
                         reviewPosition = i;
                         break;
                     }
@@ -166,17 +166,19 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
-    private String editingId, editingText;
+    private int editingId;
+    private String editingText;
     private Dialog editingDialog;
+
     @Override
-    public void setEditing(String id, String text, Dialog dialog) {
-        editingId=id;
-        editingText=text;
-        editingDialog=dialog;
+    public void setEditing(int id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
     }
 }

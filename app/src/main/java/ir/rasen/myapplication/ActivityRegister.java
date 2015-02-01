@@ -165,7 +165,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             user.email = email.getText().toString();
             user.password = password.getText().toString();
     */
-        user.userID = "ali_8";
+        user.userName = "ali_8";
         user.name = "ali8";
         user.email = "ali8@gmail.com";
         user.password = "123456";

@@ -34,8 +34,9 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
     protected Business doInBackground(Void... voids) {
         Business business = new Business();
         WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_BUSINESS_PROFILE_INFO);
-        webservicePOST.addParam(Params.BUSINESS_ID, businessID);
+
         try {
+            webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(businessID));
             serverAnswer = webservicePOST.execute();
 
             if (serverAnswer.getSuccessStatus()) {
