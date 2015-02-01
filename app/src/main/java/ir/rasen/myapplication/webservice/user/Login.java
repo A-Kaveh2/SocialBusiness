@@ -53,16 +53,14 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
                 JSONObject jsonObject = serverAnswer.getResult();
 
                 //save user_id and access token
-                String user_id = null;
+                int user_id = 0;
                 String access_token = null;
                 if (jsonObject != null) {
-                    user_id = jsonObject.getString(Params.USER_ID);
+                    user_id = jsonObject.getInt(Params.USER_ID);
                     access_token = jsonObject.getString(Params.ACCESS_TOKEN);
                     LoginInfo.login(context, user_id, access_token);
                 }
 
-                //just for the test
-                LoginInfo.login(context, "test", "test");
 
                 return new ResultStatus(true, ServerAnswer.NONE_ERROR);
             } else

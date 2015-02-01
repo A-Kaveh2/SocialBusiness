@@ -19,17 +19,17 @@ public class LoginInfo {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
-        edit.putString(Params.USER_ID, "");
+        edit.putInt(Params.USER_ID, 0);
         edit.commit();
 
 
     }
 
-    public static void login(Context context, String userID, String accessToken) {
+    public static void login(Context context, int userID, String accessToken) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
-        edit.putString(Params.USER_ID, userID);
+        edit.putInt(Params.USER_ID, userID);
         edit.putString(Params.ACCESS_TOKEN, accessToken);
 
         edit.commit();
