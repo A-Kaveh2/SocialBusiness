@@ -101,10 +101,47 @@ public class ServerAnswer {
         String responseBody = EntityUtils.toString(httpResponse.getEntity());
         JSONObject json = new JSONObject(responseBody);
 
+        //get success status
+        boolean sucessStatus = json.getBoolean(Params.SUCCESS);
+
+        //get result
+        String resultString = json.getString(Params.RESULT);
+        JSONObject resultJsonObject = null;
+        if (resultString.length() > 4) {
+            try {
+                resultJsonObject = new JSONObject(resultString);
+            } catch (Exception e) {
+
+            }
+        }
+
+        //get error code
+
+        String error = json.getString(Params.ERROR);
+        JSONObject errorJsonObject = null;
+        if (error.length() > 4) {
+            try {
+                errorJsonObject =json.getJSONObject(Params.ERROR);
+            } catch (Exception e) {
+
+            }
+        }
+
+        int errorCode = NONE_DEFINED_ERROR;
+        if (errorJsonObject!= null) {
+            try {
+                errorCode = Integer.valueOf(errorJsonObject.getString(Params.ERROR_CODE));
+            }
+            catch (Exception e){
+
+            }
+        }
+
+
         ServerAnswer serverAnswer = new ServerAnswer();
-        serverAnswer.setSuccessStatus(json.getBoolean(Params.SUCCESS));
+        serverAnswer.setSuccessStatus(sucessStatus);
         serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
-        serverAnswer.setErrorCode(json.getInt(Params.ERROR));
+        serverAnswer.setErrorCode(errorCode);
 
         return serverAnswer;
     }
