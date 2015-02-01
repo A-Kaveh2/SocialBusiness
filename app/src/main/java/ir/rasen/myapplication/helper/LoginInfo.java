@@ -39,6 +39,7 @@ public class LoginInfo {
     public static int getUserId(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
+        int i = preferences.getInt(Params.USER_ID, 0);
         return preferences.getInt(Params.USER_ID, 0);
     }
     public static String getAccessToken(Context context) {
