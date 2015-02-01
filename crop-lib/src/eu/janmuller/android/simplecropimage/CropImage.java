@@ -130,7 +130,9 @@ public class CropImage extends MonitoredActivity {
 
             mImagePath = extras.getString(IMAGE_PATH);
 
-            mSaveUri = getImageUri(mImagePath);
+            File file = new File(mImagePath);
+
+            mSaveUri = getImageUri(getCacheDir().getAbsolutePath()+file.getName());
             mBitmap = getBitmap(mImagePath);
 
             if (extras.containsKey(ASPECT_X) && extras.get(ASPECT_X) instanceof Integer) {
@@ -644,7 +646,7 @@ public class CropImage extends MonitoredActivity {
 
         if (noStorageText != null) {
 
-            Toast.makeText(activity, noStorageText, 5000).show();
+            Toast.makeText(activity, noStorageText, Toast.LENGTH_LONG).show();
         }
     }
 
