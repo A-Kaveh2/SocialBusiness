@@ -78,7 +78,7 @@ public class ActivityGallery extends Activity  {
                 finish();
 
             }
-        }
+        } else finish();
 
     }
 

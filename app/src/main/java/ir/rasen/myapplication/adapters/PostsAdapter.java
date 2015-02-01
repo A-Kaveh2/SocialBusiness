@@ -82,14 +82,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.business_pic.setImageResource(R.drawable.test_ic2);
         }
         if (post != null && holder != null) {
-            holder.business_name.setText(post.businessID);
+            holder.business_name.setText(post.businessUserName);
             holder.description.setText(Html.fromHtml("<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
                     + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
             holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
-            holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
+            holder.comment1_user.setText(post.lastThreeComments.get(0).username);
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

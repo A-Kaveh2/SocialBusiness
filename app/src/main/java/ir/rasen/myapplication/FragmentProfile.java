@@ -62,6 +62,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     private int profileType; // returns the type, USER or BUSINESS
     private boolean profileOwn; // true if user is the owner of user or business
     private int profileId; // id of user of business
+    private String profileUsername;
 
     private Business profile_business;
     private User profile_user;
@@ -104,6 +105,18 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         return fragment;
     }
+    public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String username) {
+        FragmentProfile fragment = new FragmentProfile();
+
+        cont = context;
+        Bundle bundle = new Bundle();
+        bundle.putInt(Params.PROFILE_TYPE, profileType);
+        bundle.putBoolean(Params.PROFILE_OWN, profileOwn);
+        bundle.putString(Params.NAME, username);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -122,7 +135,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
             profileOwn = bundle.getBoolean(Params.PROFILE_OWN);
-            profileId = bundle.getInt(Params.ID);
+            if(bundle.containsKey(Params.ID))
+                profileId = bundle.getInt(Params.ID);
+            else if(bundle.containsKey(Params.NAME))
+                profileUsername = bundle.getString(Params.NAME);
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -137,16 +153,26 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //get user home info by sending user_id
             //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
 
+            // TODO ::
+            if(profileId!=0) {
 
-            //TODO for the test
-            new GetUserHomeInfo(1, webserviceResponse).execute();
-            runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+                //TODO for the test
+                new GetUserHomeInfo(1, webserviceResponse).execute();
+                runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+            } else {
+                // TODO :: GET with username
+            }
         } else {
             //get business home info
 
-            //TODO remove test part
-            new GetBusinessHomeInfo("food_1", FragmentProfile.this).execute();
-            runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
+            // TODO ::
+            if(profileId!=0) {
+                //TODO remove test part
+                new GetBusinessHomeInfo("food_1", FragmentProfile.this).execute();
+                runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
+            } else {
+                // TODO :: GET with username
+            }
 
         }
 

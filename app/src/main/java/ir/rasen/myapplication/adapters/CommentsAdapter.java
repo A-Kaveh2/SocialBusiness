@@ -61,7 +61,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         }
 
         if (comment != null) {
-            holder.comment_user.setText(comment.userID);
+            holder.comment_user.setText(comment.username);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

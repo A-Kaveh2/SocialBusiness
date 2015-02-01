@@ -7,6 +7,7 @@ public class Comment {
     public int id;
     public int businessID;
     public int userID;
+    public String username;
     public int postID;
     public String text;
 

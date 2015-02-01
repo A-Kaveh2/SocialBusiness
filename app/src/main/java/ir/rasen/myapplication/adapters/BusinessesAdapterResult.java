@@ -53,7 +53,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
         }
 
         if (business != null) {
-            holder.name.setText(business.name);
+            holder.name.setText(business.username);
             // TODO:: SET PICTURE
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override

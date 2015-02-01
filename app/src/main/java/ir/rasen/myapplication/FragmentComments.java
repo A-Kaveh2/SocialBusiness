@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.comment.SendComment;
@@ -95,10 +98,11 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         Comment comment2 = new Comment();
         Comment comment3 = new Comment();
         comment1.userID = 1;
+        comment1.username = "SI35NA";
         comment1.text = ("سلام!!");
         comment2.userID = 2;
         comment2.text = ("چطوری @سینا؟");
-        comment3.text = "SINA";
+        comment3.username = "SINA";
         comment3.text = ("فدایت عزیز");
         comments.add(comment1);
         comments.add(comment2);
@@ -112,6 +116,23 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
             }
         });
 
+        ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).addTextChangedListener(new TextWatcher() {
+            String oldText;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                oldText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(charSequence.toString().equals(oldText))
+                    return;
+                TextProcessor textProcessor = new TextProcessor(getActivity());
+                textProcessor.processEdt(((EditTextFont) view.findViewById(R.id.edt_comments_comment)).getText().toString(), ((EditTextFont) view.findViewById(R.id.edt_comments_comment)));
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean b) {
@@ -127,11 +148,11 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     public void sendComment(View view) {
         EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
-        if (commentText.length() < Params.COMMENT_TEXT_MIN_LENGTH) {
+        if (commentText.getText().toString().length() < Params.COMMENT_TEXT_MIN_LENGTH) {
             commentText.setErrorC(getString(R.string.comment_is_too_short));
             return;
         }
-        if (commentText.length() > Params.COMMENT_TEXT_MAX_LENGTH) {
+        if (commentText.getText().toString().length() > Params.COMMENT_TEXT_MAX_LENGTH) {
             commentText.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }

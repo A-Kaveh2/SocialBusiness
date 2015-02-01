@@ -7,11 +7,12 @@ package ir.rasen.myapplication.helper;
 public class SearchItemUserBusiness {
     public int userID;
     public String picture;
-    public String name;
+    public String username;
 
-    public SearchItemUserBusiness(int userID, String picture, String name){
+    public SearchItemUserBusiness(int userID, String picture, String username){
         this.userID = userID;
         this.picture = picture;
-        this.name = name;
+        this.username = username;
+
     }
 }

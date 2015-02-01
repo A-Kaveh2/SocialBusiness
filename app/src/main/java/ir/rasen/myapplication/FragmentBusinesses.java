@@ -172,7 +172,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
                 for (SearchItemUserBusiness item : searchItemUserBusinesses) {
                     new Business();
-                    business.name = item.name;
+                    business.name = item.username;
                     business.profilePicture = item.picture;
                     businesses.add(business);
                 }

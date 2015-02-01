@@ -1,6 +1,8 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +22,8 @@ import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingActiveRole;
+import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -138,12 +142,13 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             homeTitle = bundle.getString(Params.TITLE);
             posts = PassingPosts.getInstance().getValue();
             PassingPosts.getInstance().setValue(null);
-            if(posts.size()==1) {
+            if (posts.size() == 1) {
                 singlePost = true;
             }
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
-
+            mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse, editDelegateInterface);
         } else if(homeType==Params.HomeType.HOME_HOME) {
+            //if(((ActivityMain) getActivity()).fragCount[0]==0)
+            //    PassingActiveRole.getInstance().setValue(-1);
 
             // TODO: LOAD AS HOME PAGE
             // TODO: Change Adapter to display your content after receiving HOME from net
@@ -155,6 +160,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             Post post2 = new Post();
             Post post3 = new Post();
             post1.businessID = 1;
+            post1.businessUserName = "راسن";
             post1.description = "یک نرم افزار عالی!!";
             post1.price = "100.000";
             post1.code = "30";
@@ -167,6 +173,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             post1.title = "عنوان!!";
             posts.add(post1);
             post2.businessID = 2;
+            post2.businessUserName = "راسfsaن";
             post2.description = "programmer - RASEN CO.";
             post2.price = "123.456";
             post2.code = "30";
@@ -174,6 +181,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             post2.lastThreeComments = lastThreeComments;
             posts.add(post2);
             post3.businessID = 2;
+            post3.businessUserName = "راسsfafsdfن";
             post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
             post3.price = "125.234";
             post3.code = "30";
@@ -309,6 +317,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         editingText = text;
         editingDialog = dialog;
     }
+
 /*
     void autoHideActionBar() {
         final Handler handler = new Handler();
