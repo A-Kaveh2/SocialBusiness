@@ -15,7 +15,6 @@ import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
-
 /**
  * Created by android on 12/16/2014.
  */
