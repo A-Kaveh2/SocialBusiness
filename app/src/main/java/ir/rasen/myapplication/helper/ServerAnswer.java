@@ -104,16 +104,6 @@ public class ServerAnswer {
         //get success status
         boolean sucessStatus = json.getBoolean(Params.SUCCESS);
 
-        //get result
-        String resultString = json.getString(Params.RESULT);
-        JSONObject resultJsonObject = null;
-        if (resultString.length() > 4) {
-            try {
-                resultJsonObject = new JSONObject(resultString);
-            } catch (Exception e) {
-
-            }
-        }
 
         //get error code
 
