@@ -38,7 +38,7 @@ public class RegisterUser extends AsyncTask<Void, Void, ResultStatus> {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.REGISTER_USER);
 
         try {
-            webservicePOST.addParam(Params.USER_ID, String.valueOf(user.id));
+            webservicePOST.addParam(Params.USER_ID, user.userName);
             webservicePOST.addParam(Params.NAME, user.name);
             webservicePOST.addParam(Params.EMAIL, user.email);
             webservicePOST.addParam(Params.PASSWORD, user.password);
@@ -59,11 +59,8 @@ public class RegisterUser extends AsyncTask<Void, Void, ResultStatus> {
                     access_token = jsonObject.getString(Params.ACCESS_TOKEN);
                     LoginInfo.login(context, user_id, access_token);
                 }
-
-                //just for the test
-                LoginInfo.login(context, "test", "test");
-                return ResultStatus.getResultStatus(serverAnswer);
             }
+            return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
