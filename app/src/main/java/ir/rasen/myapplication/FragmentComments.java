@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -40,11 +41,13 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     private ListView list;
 
     private int postId;
+
+    ArrayList<Comment> comments;
 
     public static FragmentComments newInstance(int postId) {
         FragmentComments fragment = new FragmentComments();
@@ -89,7 +92,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         setUpListView();
 
         // TODO: Change Adapter to display your content
-        ArrayList<Comment> comments = new ArrayList<Comment>();
+        comments = new ArrayList<Comment>();
 
         /*
             for example, i've made some fake data to show ::
@@ -118,17 +121,20 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
         ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).addTextChangedListener(new TextWatcher() {
             String oldText;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 oldText = charSequence.toString();
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if(charSequence.toString().equals(oldText))
+                if (charSequence.toString().equals(oldText))
                     return;
                 TextProcessor textProcessor = new TextProcessor(getActivity());
                 textProcessor.processEdt(((EditTextFont) view.findViewById(R.id.edt_comments_comment)).getText().toString(), ((EditTextFont) view.findViewById(R.id.edt_comments_comment)));
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -218,8 +224,23 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     @Override
     public void getResult(Object result) {
         if(result instanceof ResultStatus){
-            //result from executing SendComment
 
+        }
+
+        // AFTER EDITING OR DELETING A COMMENT ::
+        int editingPosition = -1;
+        for(int i=0; i<comments.size(); i++) {
+            if(comments.get(i).id==editingId) {
+                editingPosition = i;
+                break;
+            }
+        }
+        if(editingText==null) {
+            comments.remove(editingPosition);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            comments.get(editingPosition).text=editingText;
+            mAdapter.notifyDataSetChanged();
         }
     }
 

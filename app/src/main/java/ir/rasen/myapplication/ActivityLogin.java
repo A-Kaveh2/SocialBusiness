@@ -53,10 +53,9 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     public void login(View view) {
         // CHECK INPUT DATA
 
-        //TODO
         //commented for the test
 
-       /* if (!android.util.Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
             edtEmail.requestFocus();
             edtEmail.setErrorC(getString(R.string.enter_valid_email));
             return;
@@ -65,7 +64,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
             edtPassword.requestFocus();
             edtPassword.setErrorC(getString(R.string.enter_password_5_digits));
             return;
-        }*/
+        }
 
         String email = edtEmail.getText().toString();
         String password = edtPassword.getText().toString();

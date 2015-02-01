@@ -324,7 +324,7 @@ public class TextProcessor {
 
                 final String profileId = text.substring(index_temp, index_end);
                 wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), index_temp-1, index_end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                ClickableSpan clickableSpan = new ClickableSpan() {
+                /*ClickableSpan clickableSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View textView) {
                         // username clicked!
@@ -332,7 +332,7 @@ public class TextProcessor {
                         innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, profileId);
                     }
                 };
-                wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
             }
         }
@@ -354,7 +354,7 @@ public class TextProcessor {
 
                 final String hashtag = text.substring(index_temp, index_end);
                 wordtoSpan.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.button_on_dark)), index_temp-1, index_end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                ClickableSpan clickableSpan = new ClickableSpan() {
+                /*ClickableSpan clickableSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View textView) {
                         // username clicked!
@@ -362,7 +362,7 @@ public class TextProcessor {
                         innerFragment.newSearchFragment(hashtag);
                     }
                 };
-                wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(clickableSpan, index_temp-1, index_end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
             }
         }
