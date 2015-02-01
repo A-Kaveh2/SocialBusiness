@@ -77,7 +77,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="text"
-                android:drawableLeft="@drawable/ic_edittext_email"
+                android:drawableLeft="@drawable/ic_edittext_money"
                 android:hint="@string/product_price" />
 
             <ir.rasen.myapplication.ui.EditTextFont
@@ -91,7 +91,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="textWebEditText"
                 android:selectAllOnFocus="true"
-                android:drawableLeft="@drawable/ic_edittext_status" />
+                android:drawableLeft="@drawable/ic_edittext_code" />
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_post_text"

@@ -190,12 +190,10 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             try {
                 if(!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
                     Dialogs.showMessage(context, getString(R.string.invalid_birthday));
-                    dialog.dismiss();
                     return;
                 }
             } catch(Exception e) {
                 Dialogs.showMessage(context, getString(R.string.invalid_birthday));
-                dialog.dismiss();
                 return;
             }
             user.birthDate = year.getText().toString()+"/"+month.getText().toString()+"/"+day.getText().toString();

@@ -47,7 +47,7 @@
                 android:id="@+id/btn_profile_edit_picture_set"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:background="@color/background"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_edittext_name"
                 android:scaleType="centerCrop"
                 android:layout_margin="8dp"

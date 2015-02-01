@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/button_on_dark">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="@dimen/activity_vertical_margin_2x"
                 android:text="@string/splash_login"
-                android:background="@drawable/style_button_splash"
+                android:background="@drawable/style_button_on_dark_second"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_larger"
                 android:layout_gravity="center"
@@ -43,7 +43,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="8dp"
                 android:text="@string/splash_register"
-                android:background="@drawable/style_button_splash"
+                android:background="@drawable/style_button_on_dark_second"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_larger"
                 android:layout_gravity="center"

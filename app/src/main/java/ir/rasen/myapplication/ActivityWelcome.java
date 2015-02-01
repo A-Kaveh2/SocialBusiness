@@ -60,16 +60,16 @@ public class ActivityWelcome extends FragmentActivity {
                 // SET COLOR OF BUTTONS
                 switch (fragmentNumber) {
                     case 0:
-                        page.setImageResource(R.drawable.ic_menu_user);
+                        page.setImageResource(R.drawable.page_1);
                         break;
                     case 1:
-                        page.setImageResource(R.drawable.ic_menu_products);
+                        page.setImageResource(R.drawable.page_2);
                         break;
                     case 2:
-                        page.setImageResource(R.drawable.ic_menu_comment);
+                        page.setImageResource(R.drawable.page_3);
                         break;
                     case 3:
-                        page.setImageResource(R.drawable.ic_menu_dislike);
+                        page.setImageResource(R.drawable.page_4);
                         break;
                 }
             }
@@ -79,7 +79,7 @@ public class ActivityWelcome extends FragmentActivity {
             }
         });
         pager.setCurrentItem(0);
-        page.setImageResource(R.drawable.ic_menu_user);
+        page.setImageResource(R.drawable.page_1);
 
         MyNotification myNotification = new MyNotification();
         myNotification.Notify(this,R.drawable.ic_launcher,"Title","TEXXT", Color.RED);

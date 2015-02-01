@@ -292,8 +292,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
             ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setVisibility(View.GONE);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setVisibility(View.VISIBLE);
-            // TODO: SHOULD BE REPLACED WITH ic_menu_call::
-            ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_products);
+            ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_call);
             // CALL INFO
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -136,7 +136,7 @@ public class FragmentSearchUsers extends Fragment {
         String[] columns = new String[]{HistoryDatabase.FIELD_HISTORY};
         int[] columnTextId = new int[]{android.R.id.text1};
         HistorySimpleCursorAdapter simple = new HistorySimpleCursorAdapter(getActivity(),
-                R.layout.layout_item_text, cursor,
+                android.R.layout.simple_list_item_1, cursor,
                 columns, columnTextId
                 , 0);
         ((ListView) view.findViewById(R.id.list_search_suggests)).setAdapter(simple);

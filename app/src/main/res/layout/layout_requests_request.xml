@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_1of4"
             android:layout_centerVertical="true"
             android:background="@drawable/style_menu_gray"
-            android:src="@drawable/ic_menu_delete"
+            android:src="@drawable/ic_menu_reject"
             android:scaleType="centerInside"/>
         <ImageButton
             android:id="@+id/btn_requests_request_accept"
@@ -48,7 +48,7 @@
             android:layout_toRightOf="@+id/btn_requests_request_reject"
             android:layout_centerVertical="true"
             android:background="@drawable/style_menu_gray"
-            android:src="@drawable/ic_menu_delete"
+            android:src="@drawable/ic_menu_check"
             android:scaleType="centerInside"/>
     </RelativeLayout>
     <LinearLayout
