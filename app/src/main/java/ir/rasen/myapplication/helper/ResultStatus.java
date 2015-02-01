@@ -14,14 +14,14 @@ public class ResultStatus {
     }
 
     public static ResultStatus getResultStatus(ServerAnswer serverAnswer) {
-      /*  if (serverAnswer == null)
-            return new ResultStatus(false, ServerAnswer.NONE_ERROR);
+        if (serverAnswer == null)
+            return new ResultStatus(false, ServerAnswer.EXECUTION_ERROR);
 
         if (serverAnswer.getSuccessStatus())
             return new ResultStatus(true, ServerAnswer.NONE_ERROR);
         else
-            return new ResultStatus(false, serverAnswer.getError());*/
-        return new ResultStatus(true, ServerAnswer.NONE_ERROR);
+            return new ResultStatus(false, serverAnswer.getErrorCode());
+
     }
 
 

@@ -5,7 +5,7 @@ package ir.rasen.myapplication.helper;
  */
 public class URLs {
 
-    public static String MAIN_URL = "http://213.233.169.177:8080/bsn/";
+    public static String MAIN_URL = "http://185.55.226.223:8080/bsn/";
 
     public static String LOGIN = MAIN_URL+"login";
     public static String FORGET_PASSWORD = MAIN_URL+"forget_password";

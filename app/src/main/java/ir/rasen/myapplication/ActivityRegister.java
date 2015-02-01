@@ -107,8 +107,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             try {
                 btn_register_picture_set.setImageBitmap(myBitmap);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 String s = e.getMessage();
             }
         }
@@ -118,68 +117,64 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     public void register(View view) {
 
         // CHECK INPUT DATA
-        if(!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length()<Params.USER_USERNAME_MIN_LENGTH) {
+        if (!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length() < Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();
             username.setErrorC(getString(R.string.enter_valid_username));
             return;
         }
-        if(username.getText().length()>Params.USER_USERNAME_MAX_LENGTH) {
+        if (username.getText().length() > Params.USER_USERNAME_MAX_LENGTH) {
             username.requestFocus();
             username.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }
-        if(!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length()< Params.USER_NAME_MIN_LENGTH) {
+        if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
             name.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
-        if(name.getText().length()>Params.USER_NAME_MAX_LENGTH) {
+        if (name.getText().length() > Params.USER_NAME_MAX_LENGTH) {
             name.requestFocus();
             name.setErrorC(getString(R.string.enter_is_too_long));
             return;
         }
-        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
             email.requestFocus();
             email.setErrorC(getString(R.string.enter_valid_email));
             return;
         }
-        if(password.getText().length()<Params.USER_PASSWORD_MIN_LENGTH) {
+        if (password.getText().length() < Params.USER_PASSWORD_MIN_LENGTH) {
             password.requestFocus();
             password.setErrorC(getString(R.string.enter_password_5_digits));
             return;
         }
-        if(password_repeat.getText().length()<Params.USER_PASSWORD_MIN_LENGTH) {
+        if (password_repeat.getText().length() < Params.USER_PASSWORD_MIN_LENGTH) {
             password.requestFocus();
             password.setErrorC(getString(R.string.enter_password_5_digits));
             return;
         }
-        if(!password.getText().toString().equals(password_repeat.getText().toString())) {
+        if (!password.getText().toString().equals(password_repeat.getText().toString())) {
             password_repeat.requestFocus();
             password_repeat.setErrorC(getString(R.string.enter_same_passwords));
             return;
         }
-    try {
-        User user = new User();
-           /* user.userID = username.getText().toString();
+        try {
+            User user = new User();
+            user.userName = username.getText().toString();
             user.name = name.getText().toString();
             user.email = email.getText().toString();
             user.password = password.getText().toString();
-    */
-        user.userName = "ali_8";
-        user.name = "ali8";
-        user.email = "ali8@gmail.com";
-        user.password = "123456";
-
-        if (filePath != null)
-            user.profilePicture = Image_M.getBase64String(filePath);
-        else
-            user.profilePicture = "";
 
 
-        new RegisterUser(context, user, ActivityRegister.this).execute();
-    } catch (Exception e) {
+            if (filePath != null)
+                user.profilePicture = Image_M.getBase64String(filePath);
+            else
+                user.profilePicture = "";
+
+
+            new RegisterUser(context, user, ActivityRegister.this).execute();
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
-    }
+        }
     }
 
     // HELP TOUCHED
@@ -208,6 +203,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
+
     public void back(View v) {
         onBackPressed();
     }

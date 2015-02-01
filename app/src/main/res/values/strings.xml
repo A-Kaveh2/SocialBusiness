@@ -42,13 +42,13 @@
     <string name="choose_category_first">لطفأ موضوع فعالیت کسب و کار خود را تعیین نمایید.</string>
     <string name="ok">تأیید</string>
     <string name="enter_business_description">لطفأ توضیحاتی در خصوص کسب و کار وارد نمایید.</string>
-    <string name="err_business_does_not_exist"></string>
-    <string name="err_post_does_not_exist"></string>
-    <string name="err_json_serialization"></string>
-    <string name="err_further_development"></string>
-    <string name="err_empty_post_request"></string>
-    <string name="err_invalid_base64_string"></string>
-    <string name="err_database_constraints_violation"></string>
+    <string name="err_business_does_not_exist">چنین کسب و کاری وجود ندارد</string>
+    <string name="err_post_does_not_exist">چنین پستی وجود ندارد</string>
+    <string name="err_json_serialization">JSON Serialization Error</string>
+    <string name="err_further_development">Need Further Development</string>
+    <string name="err_empty_post_request">Empty Post Request</string>
+    <string name="err_invalid_base64_string">Invalid Base64 String</string>
+    <string name="err_database_constraints_violation">چنین نام کاربری قبلا ثبت شده است</string>
     <string name="err_login_password_re_enter">رمز عبور و تکرار آن یکسان نیستند.</string>
     <string name="err_login_password_short">رمز عبور باید حداقل 6 کاراکتر باشد.</string>
     <string name="err_login_email_invalid">آدرس ایمیل نامعتبر است.</string>
@@ -64,7 +64,7 @@
     <string name="err_none">None</string>
 
     <string name="err_unknown">لطفا مجددا سعی نمایید</string>
-    <string name="err_database_connection">لطفا مجددا سعی نمایید</string>
+    <string name="err_database_connection">ارتباط برقرار نشد. مجددا سعی نمایید</string>
     <string name="err_user_dose_not_exist">چنین پست الکترونیکی ثبت نشده است</string>
     <string name="err_password_incorrect">رمز عبور اشتباه است</string>
 

@@ -16,36 +16,11 @@ public class ServerAnswer {
     private JSONArray resultList;
     private int errorCode;
 
+    public static int NONE_DEFINED_ERROR = -3;
     public static int EXECUTION_ERROR = -2;
     public static int NONE_ERROR = -1;
 
-   /* public enum Error {
-        USERNAME_NOT_EXIST,
-        USERNAME_IS_EXIST,
-        PASSWORD_INCORRECT,
-        EMAIL_NOT_EXIST,
-        EMAIL_IS_EXIST,
-        FAIL,
-        NONE
-    }*/
 
-    /*public  Error getError() {
-        switch (errorCode) {
-            case 401:
-                return Error.USERNAME_IS_EXIST;
-            case 402:
-                return Error.USERNAME_NOT_EXIST;
-            case 403:
-                return Error.EMAIL_IS_EXIST;
-            case 404:
-                return Error.EMAIL_NOT_EXIST;
-            case 405:
-                return Error.PASSWORD_INCORRECT;
-            case 406:
-                return Error.FAIL;
-        }
-        return Error.NONE;
-    }*/
 
     public static String getError(Context context, int errorCode) {
         switch (errorCode) {
@@ -114,7 +89,7 @@ public class ServerAnswer {
     }
 
     public static ServerAnswer getList(HttpResponse httpResponse) throws Exception {
-        if(httpResponse == null){
+        if (httpResponse == null) {
             ServerAnswer serverAnswer = new ServerAnswer();
             serverAnswer.setSuccessStatus(false);
             serverAnswer.setResult(null);
@@ -136,7 +111,7 @@ public class ServerAnswer {
 
     public static ServerAnswer get(HttpResponse httpResponse) throws Exception {
 
-        if(httpResponse == null){
+        if (httpResponse == null) {
             ServerAnswer serverAnswer = new ServerAnswer();
             serverAnswer.setSuccessStatus(false);
             serverAnswer.setResult(null);
@@ -163,13 +138,24 @@ public class ServerAnswer {
 
         //get error code
 
+        String error = json.getString(Params.ERROR);
+        JSONObject errorJsonObject = null;
+        if (error.length() > 4) {
+            try {
+                errorJsonObject =json.getJSONObject(Params.ERROR);
+            } catch (Exception e) {
 
-        JSONObject errorObject = json.getJSONObject(Params.ERROR);
-        String errorCodeString = errorObject.getString(Params.ERROR_CODE);
+            }
+        }
 
-        int errorCode = NONE_ERROR;
-        if (!errorCodeString.equals("null") && !errorCodeString.equals("Null")) {
-            errorCode = Integer.valueOf(errorCodeString);
+        int errorCode = NONE_DEFINED_ERROR;
+        if (errorJsonObject!= null) {
+            try {
+                errorCode = Integer.valueOf(errorJsonObject.getString(Params.ERROR_CODE));
+            }
+            catch (Exception e){
+
+            }
         }
 
 
