@@ -71,8 +71,8 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 holder.block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showBlockPopup(follower.id);
-                        editDelegateInterface.setEditing(follower.id, null, null);
+                    showBlockPopup(follower.id);
+                    editDelegateInterface.setEditing(follower.id, null, null);
                     }
                 });
             } else

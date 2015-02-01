@@ -156,7 +156,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                 User user = null;
                 for (SearchItemUserBusiness item : searchResult) {
                     user = new User();
-                    user.name = item.name;
+                    user.userName = item.username;
                     user.profilePicture = item.picture;
                     users.add(user);
                 }

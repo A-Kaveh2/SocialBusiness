@@ -85,7 +85,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     + "<br /><font color=#3F6F94>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            holder.comment1_user.setText(post.lastThreeComments.get(0).userID);
+            holder.comment1_user.setText(post.lastThreeComments.get(0).username);
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -192,7 +192,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
-        holder.business_name.setText(post.businessID);
+        holder.business_name.setText(post.businessUserName);
 
         // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
         // FOR TEST ONLY!

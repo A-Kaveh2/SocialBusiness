@@ -76,10 +76,10 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // show unfollow dialog
-                        Dialogs dialogs = new Dialogs();
-                        dialogs.showBusinessUnfollowPopup(context, business.id);
-                        editDelegateInterface.setEditing(business.id, null, null);
+                    // show unfollow dialog
+                    Dialogs dialogs = new Dialogs();
+                    dialogs.showBusinessUnfollowPopup(context, business.id);
+                    editDelegateInterface.setEditing(business.id, null, null);
                     }
                 });
             } else {

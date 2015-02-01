@@ -51,7 +51,6 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
             convertView = mInflater.inflate(R.layout.layout_requests_request, null);
 
             holder.username = (TextViewFont) convertView.findViewById(R.id.txt_requests_request_username);
-            holder.name = (TextViewFont) convertView.findViewById(R.id.txt_requests_request_name);
             holder.pic = (ImageViewCircle) convertView.findViewById(R.id.img_requests_request_image);
             holder.accept = (ImageButton) convertView.findViewById(R.id.btn_requests_request_accept);
             holder.reject = (ImageButton) convertView.findViewById(R.id.btn_requests_request_reject);
@@ -62,8 +61,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
         }
 
         if (request != null) {
-            holder.username.setText(request.userID);
-            holder.name.setText(request.name);
+            holder.username.setText(request.username);
 
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,7 +89,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
         return  convertView;
     }
     class ViewHolder {
-        TextViewFont username, name;
+        TextViewFont username;
         ImageViewCircle pic;
         ImageButton accept, reject;
         int id;

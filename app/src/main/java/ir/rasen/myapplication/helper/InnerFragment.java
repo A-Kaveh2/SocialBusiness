@@ -43,6 +43,11 @@ public class InnerFragment {
         Fragment newFragment = new FragmentProfile().newInstance(context,profileType, owner, profileId);
         addFragment(newFragment);
     }
+    // add new profile fragment to current place ( with profile username )
+    public void newProfile(Context context,int profileType, boolean owner, String username) {
+        //Fragment newFragment = new FragmentProfile().newInstance(context,profileType, owner, username);
+        //addFragment(newFragment);
+    }
 
     // add new comments fragment to current place
     public void newComments(int postId) {

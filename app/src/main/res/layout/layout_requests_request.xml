@@ -23,22 +23,12 @@
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/txt_requests_request_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/img_friends_friend_image"
             android:textColor="@android:color/black"
             android:layout_marginTop="@dimen/activity_vertical_margin_1of4"
             android:gravity="center"
             android:text="@string/username"/>
-        <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/txt_requests_request_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/img_friends_friend_image"
-            android:textColor="@color/gray"
-            android:layout_below="@+id/txt_requests_request_username"
-            android:layout_marginTop="@dimen/activity_vertical_margin_1of8"
-            android:gravity="center"
-            android:text="@string/name"/>
 
         <ImageButton
             android:id="@+id/btn_requests_request_reject"

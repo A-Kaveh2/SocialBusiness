@@ -168,7 +168,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
             User user = null;
             for(SearchItemUserBusiness item:businessesFollowers){
                 user = new User();
-                user.name = item.name;
+                user.userName = item.username;
                 user.profilePicture = item.picture;
                 blockeds.add(user);
             }

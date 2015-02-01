@@ -229,6 +229,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         dialog = new Dialog(getActivity(), R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_new_review);
+        ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).setRating((float) Math.ceil(v));
+            }
+        });
         dialog.findViewById(R.id.btn_new_review_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
