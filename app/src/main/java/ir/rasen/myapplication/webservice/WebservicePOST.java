@@ -5,11 +5,17 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 
 /**
@@ -18,48 +24,39 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 public class WebservicePOST {
     HttpClient httpclient;
     HttpPost httpPost;
-    ArrayList<NameValuePair> postParameters;
+    JSONObject jsonParams;
 
     public WebservicePOST(String url) {
         httpclient = new DefaultHttpClient();
         httpPost = new HttpPost(url);
-        postParameters = new ArrayList<NameValuePair>();
+        jsonParams = new JSONObject();
     }
 
-    public void addParam(String paramName, String paramValue) {
-        postParameters.add(new BasicNameValuePair(paramName, paramValue));
+    public void addParam(String paramName, String paramValue) throws Exception {
+        jsonParams.put(paramName, paramValue);
     }
 
-    public ServerAnswer execute() throws Exception {
-        if (postParameters != null && postParameters.size() != 0)
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+    private HttpResponse run(HttpPost httpPost)throws Exception{
         HttpResponse httpResponse = null;
-        httpPost.setHeader("Content-Type","application/json");
+        StringEntity params = new StringEntity(jsonParams.toString());
+        httpPost.setEntity(params);
+        httpPost.setHeader("Content-Type", "application/json");
+        httpPost.setHeader("Accept", "application/json");
 
         try {
             httpResponse = httpclient.execute(httpPost);
+        } catch (Exception e) {
+            String s = e.getMessage();
         }
-        catch (Exception e){
-
-        }
-
+        return  httpResponse;
+    }
+    public ServerAnswer execute() throws Exception {
+        HttpResponse httpResponse = run(httpPost);
         return ServerAnswer.get(httpResponse);
     }
 
     public ServerAnswer executeList() throws Exception {
-        if (postParameters != null && postParameters.size() != 0)
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
-        HttpResponse httpResponse = null;
-        httpPost.setHeader("Content-Type","application/json");
-
-        try {
-            httpResponse = httpclient.execute(httpPost);
-        }
-        catch (Exception e){
-
-        }
-
-
+        HttpResponse httpResponse = run(httpPost);
         return ServerAnswer.getList(httpResponse);
     }
 
