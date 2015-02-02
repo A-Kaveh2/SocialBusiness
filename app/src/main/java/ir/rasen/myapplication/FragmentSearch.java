@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.internal.id;
@@ -130,6 +131,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Params.LOCATION_REFRESH,
                 Params.LOCATION_REFRESH_DISTANCE, mLocationListener);
 
+        ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                .setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -177,6 +180,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 // getting sub categories
                 new GetBusinessSubcategories(categories.get(i).id
                         , FragmentSearch.this).execute();
+                ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                        .setVisibility(View.VISIBLE);
             }
         });
         // sub categories on item click listener
@@ -351,6 +356,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                     ArrayAdapter<String> categoriesAdapter =
                             new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categoryListStr);
                     listViewCategories.setAdapter(categoriesAdapter);
+                    ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                            .setVisibility(View.GONE);
                 } else {
                     //result from executing getBusinessSubcategories
                     subCategories = new ArrayList<String>();
