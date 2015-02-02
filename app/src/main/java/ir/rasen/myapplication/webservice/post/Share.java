@@ -22,7 +22,8 @@ public class Share extends AsyncTask<Void, Void, ResultStatus> {
     private int postID;
     private ServerAnswer serverAnswer;
 
-    public Share(int userID, int postID) {
+    public Share(int userID, int postID,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.userID = userID;
         this.postID = postID;
     }

@@ -22,7 +22,8 @@ public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
     private int postID;
     private ServerAnswer serverAnswer;
 
-    public Dislike(int userID, int postID) {
+    public Dislike(int userID, int postID,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.userID = userID;
         this.postID = postID;
     }

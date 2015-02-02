@@ -26,7 +26,8 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
     private ServerAnswer serverAnswer;
 
 
-    public GetBusinessProfileInfo(String businessID) {
+    public GetBusinessProfileInfo(String businessID,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.businessID = businessID;
     }
 

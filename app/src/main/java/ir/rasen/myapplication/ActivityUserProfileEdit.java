@@ -220,11 +220,12 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         user.birthDate = txtBirthDate.getText().toString();
         if (filePath != null)
             user.profilePicture = Image_M.getBase64String(filePath);
-
+        else
+            user.profilePicture = "";
         // TODO SET TO USER'S SEX
         spinnerSex.setSelection(1);
 
-        new UpdateUserProfile(user).execute();
+        new UpdateUserProfile(user,ActivityUserProfileEdit.this).execute();
     }
 
 

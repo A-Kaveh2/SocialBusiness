@@ -22,7 +22,8 @@ public class UpdatePassword extends AsyncTask<Void, Void, ResultStatus> {
     private String newPassword;
     private ServerAnswer serverAnswer;
 
-    public UpdatePassword(int userID, String newPassword) {
+    public UpdatePassword(int userID, String newPassword,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.userID = userID;
         this.newPassword = newPassword;
     }

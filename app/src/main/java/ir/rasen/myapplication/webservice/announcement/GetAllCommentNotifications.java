@@ -29,7 +29,8 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
     private ServerAnswer serverAnswer;
 
 
-    public GetAllCommentNotifications(int userID, int fromIndex, int untilIndex) {
+    public GetAllCommentNotifications(int userID, int fromIndex, int untilIndex,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.userID = userID;
         this.fromIndex = fromIndex;
         this.untilIndex = untilIndex;

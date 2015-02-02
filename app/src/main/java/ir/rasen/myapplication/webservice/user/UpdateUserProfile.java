@@ -23,12 +23,15 @@ public class UpdateUserProfile extends AsyncTask<Void, Void, ResultStatus> {
     private User user;
     private ServerAnswer serverAnswer;
 
-    public UpdateUserProfile(User user) {
+    public UpdateUserProfile(User user,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.user = user;
+
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
+
         WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_PROFILE_USER);
 
         try {

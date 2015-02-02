@@ -46,7 +46,6 @@ public class WebserviceGET {
         } catch (Exception e) {
 
         }
-
         return ServerAnswer.getList(httpResponse);
     }
 

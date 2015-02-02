@@ -29,7 +29,8 @@ public class SearchBusinessesNearBy extends AsyncTask<Void, Void, ArrayList<Sear
     private String nearBy;
     private ServerAnswer serverAnswer;
 
-    public SearchBusinessesNearBy(int userID, String searchText, String nearBy) {
+    public SearchBusinessesNearBy(int userID, String searchText, String nearBy,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.userID = userID;
         this.searchText = searchText;
         this.nearBy = nearBy;

@@ -7,6 +7,9 @@ import android.content.SharedPreferences.Editor;
 public class LoginInfo {
 
 
+    public int userID;
+    public String accessToken;
+
     public static boolean isLoggedIn(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);

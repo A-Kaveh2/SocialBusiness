@@ -23,7 +23,8 @@ public class RateBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private int rate;
     private ServerAnswer serverAnswer;
 
-    public RateBusiness(int businessID, int userID, int rate) {
+    public RateBusiness(int businessID, int userID, int rate,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.businessID = businessID;
         this.userID = userID;
         this.rate = rate;

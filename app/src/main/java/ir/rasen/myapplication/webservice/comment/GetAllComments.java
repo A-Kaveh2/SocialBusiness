@@ -29,7 +29,8 @@ public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
     private int untilIndex;
     private ServerAnswer serverAnswer;
 
-    public GetAllComments(int postID, int fromIndex, int untilIndex) {
+    public GetAllComments(int postID, int fromIndex, int untilIndex,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.postID = postID;
         this.fromIndex = fromIndex;
         this.untilIndex = untilIndex;

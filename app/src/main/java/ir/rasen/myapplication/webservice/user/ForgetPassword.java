@@ -23,7 +23,8 @@ public class ForgetPassword extends AsyncTask<Void, Void, ResultStatus> {
     private int userID;
 
 
-    public ForgetPassword(int userID,String email) {
+    public ForgetPassword(int userID,String email,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.email = email;
         this.userID = userID;
     }

@@ -16,6 +16,7 @@ import com.google.android.gms.drive.query.internal.Operator;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.ForgetPassword;
 
 
@@ -28,7 +29,7 @@ public class ForgetPasswordDialog extends ParentDialog {
     String callerType;
 
 
-    public ForgetPasswordDialog(final Context context, String title) {
+    public ForgetPasswordDialog(final Context context, String title, final WebserviceResponse delegate) {
         super(context, title);
 
         this.context = context;
@@ -115,7 +116,7 @@ public class ForgetPasswordDialog extends ParentDialog {
                     return;
                 }
 
-                new ForgetPassword(LoginInfo.getUserId(context),editTextFont.getText().toString());
+                new ForgetPassword(LoginInfo.getUserId(context),editTextFont.getText().toString(),delegate);
                 dismiss();
             }
         });

@@ -24,7 +24,8 @@ public class UpdateComment extends AsyncTask<Void, Void, ResultStatus> {
     private Comment comment;
     private ServerAnswer serverAnswer;
 
-    public UpdateComment(Comment comment) {
+    public UpdateComment(Comment comment,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.comment = comment;
     }
 

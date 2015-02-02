@@ -22,7 +22,8 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     private int commentID;
     private ServerAnswer serverAnswer;
 
-    public DeleteComment(int businessID, int commentID) {
+    public DeleteComment(int businessID, int commentID,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.businessID = businessID;
         this.commentID = commentID;
     }

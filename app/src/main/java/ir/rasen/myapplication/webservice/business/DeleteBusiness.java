@@ -26,7 +26,8 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private int userID;
     private ServerAnswer serverAnswer;
 
-    public DeleteBusiness(int userID, int businessID) {
+    public DeleteBusiness(int userID, int businessID,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.businessID = businessID;
         this.userID = userID;
     }

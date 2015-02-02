@@ -22,7 +22,8 @@ public class UpdateReview extends AsyncTask<Void, Void, ResultStatus> {
     private Review review;
     private ServerAnswer serverAnswer;
 
-    public UpdateReview(Review review) {
+    public UpdateReview(Review review,WebserviceResponse delegate) {
+        this.delegate = delegate;
         this.review = review;
     }
 
