@@ -71,7 +71,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private WebserviceResponse webserviceResponse;
     private static Context cont;
-    private boolean isBusinessProfile = false;
 
     int editingId;
     String editingText;
@@ -146,7 +145,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
 
 
-        if (!isBusinessProfile) {
+        if (profileType==Params.ProfileType.PROFILE_USER) {
             //get user home info
 
             //TODO remove test part
@@ -543,7 +542,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 profileType = Params.ProfileType.PROFILE_USER;
                 assignNow();
 
-                if (!isBusinessProfile) {
+                if (profileType==Params.ProfileType.PROFILE_USER) {
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
