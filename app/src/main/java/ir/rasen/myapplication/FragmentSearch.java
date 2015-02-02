@@ -24,9 +24,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.internal.id;
+
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
+import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
@@ -55,7 +58,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private LocationManager mLocationManager;
 
     private HistoryDatabase database;
-    private ArrayList<String> categories;
+    private ArrayList<Category> categories;
 
     private ListView listViewCategories, listViewSubCategories;
 
@@ -161,7 +164,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     void setUpCategoriesFitler() {
 
-        final ArrayList<String> categories = new ArrayList<>();
+        //final ArrayList<Category> categories = new ArrayList<>();
         listViewSubCategories = (ListView) view.findViewById(R.id.list_search_subcategories);
         listViewCategories = (ListView) view.findViewById(R.id.list_search_categories);
         // Categories on item click listener
@@ -172,7 +175,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.VISIBLE);
 
                 // getting sub categories
-                new GetBusinessSubcategories(adapterView.getItemAtPosition(i).toString()
+                new GetBusinessSubcategories(categories.get(i).id
                         , FragmentSearch.this).execute();
             }
         });
@@ -339,11 +342,14 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
                 if (categories == null) {
                     //result from executing getBusinessCategories
-                    categories = new ArrayList<String>();
-                    categories = (ArrayList<String>) result;
+                    categories = new ArrayList<Category>();
+                    categories = (ArrayList<Category>) result;
+                    ArrayList<String> categoryListStr = new ArrayList<>();
+                    for(Category cat:categories)
+                        categoryListStr.add(cat.name);
 
                     ArrayAdapter<String> categoriesAdapter =
-                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
+                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categoryListStr);
                     listViewCategories.setAdapter(categoriesAdapter);
                 } else {
                     //result from executing getBusinessSubcategories

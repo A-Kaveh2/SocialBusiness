@@ -14,9 +14,13 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Location_M;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingWorkTime;
@@ -77,9 +81,10 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         Business business = PassingBusiness.getInstance().getValue();
 
         if (business.location_m == null) {
-            // TODO CREATE OR SUBMIT BUSINESS NOW ( from PassingBusiness.get... !!
+            business.location_m = new Location_M("","");
         }
 
+        business.userID = LoginInfo.getUserId(context);
 
         if (isEditing) {
             new UpdateBusinessProfileInfo(business, webserviceResponse).execute();

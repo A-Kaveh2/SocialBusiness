@@ -14,10 +14,14 @@ public class Hashtag {
     }
 
     public static String getStringFromList(ArrayList<String> hashtagList) {
-        String result = "";
-        for (String str : hashtagList) {
-            result += str + ",";
-        }
-        return result.substring(0, result.length() - 1);
+        if (hashtagList != null && hashtagList.size() != 0) {
+            String result = "";
+            for (String str : hashtagList) {
+                result += str + ",";
+            }
+            return result.substring(0, result.length() - 1);
+        } else
+            return "";
+
     }
 }

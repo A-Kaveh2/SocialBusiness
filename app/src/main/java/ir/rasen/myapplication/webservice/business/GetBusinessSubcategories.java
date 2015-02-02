@@ -24,11 +24,11 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<String>> {
     private static final String TAG = "GetBusinessSubcategories";
     private WebserviceResponse delegate = null;
-    private String categroy;
+    private int categoryID;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessSubcategories(String categroy,WebserviceResponse delegate) {
-        this.categroy = categroy;
+    public GetBusinessSubcategories(int categoryID,WebserviceResponse delegate) {
+        this.categoryID = categoryID;
         this.delegate = delegate;
     }
 
@@ -37,7 +37,7 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
         ArrayList<String> list = new ArrayList<String>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_SUBCATEGORIES,new ArrayList<>(
-                Arrays.asList(categroy)));
+                Arrays.asList(String.valueOf(categoryID))));
 
         try {
             serverAnswer = webserviceGET.executeList();

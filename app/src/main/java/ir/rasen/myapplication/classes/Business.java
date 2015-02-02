@@ -12,7 +12,7 @@ import ir.rasen.myapplication.helper.WorkTime;
 public class Business {
     public int id;
     public String businessUserName;
-    public String userID;
+    public int userID;
     public String name;
     public String coverPicture;
     public String profilePicture;
