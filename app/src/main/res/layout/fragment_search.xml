@@ -166,7 +166,8 @@
                 android:gravity="center"
                 android:textSize="@dimen/text_size_large"
                 android:background="@color/button_on_dark"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:clickable="true"/>
             <ImageButton
                 android:layout_width="@dimen/actionbar_height"
                 android:layout_height="@dimen/actionbar_height"
