@@ -32,7 +32,11 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.REGISTER_BUSINESS);
 
         try {
-            webservicePOST.addParam(Params.USER_ID, String.valueOf(business.userID));
+            //TODO remove test part
+            //for the test
+            webservicePOST.addParam(Params.USER_ID, "ali_5");
+
+            //webservicePOST.addParam(Params.USER_ID, String.valueOf(business.userID));
             webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(business.id));
             webservicePOST.addParam(Params.NAME, business.name);
             webservicePOST.addParam(Params.EMAIL, business.email);
