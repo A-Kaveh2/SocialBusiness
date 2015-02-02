@@ -59,7 +59,7 @@ public class AnswerRequestFriendship extends AsyncTask<Void, Void, ResultStatus>
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

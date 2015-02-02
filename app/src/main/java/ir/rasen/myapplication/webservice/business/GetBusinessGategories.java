@@ -50,7 +50,7 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
 
     @Override
     protected void onPostExecute(ArrayList<String> result) {
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

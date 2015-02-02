@@ -76,7 +76,7 @@ public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

@@ -71,7 +71,7 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

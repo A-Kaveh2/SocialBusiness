@@ -71,7 +71,7 @@ public class RegisterUser extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected void onPostExecute(ResultStatus result) {
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

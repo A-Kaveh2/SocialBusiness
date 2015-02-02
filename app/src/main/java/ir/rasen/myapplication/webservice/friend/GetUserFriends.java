@@ -61,7 +61,7 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
 
     @Override
     protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

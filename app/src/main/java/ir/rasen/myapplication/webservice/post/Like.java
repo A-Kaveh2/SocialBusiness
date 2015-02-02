@@ -56,7 +56,7 @@ public class Like extends AsyncTask<Void, Void, ResultStatus> {
             delegate.getResult(result.getClass());*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

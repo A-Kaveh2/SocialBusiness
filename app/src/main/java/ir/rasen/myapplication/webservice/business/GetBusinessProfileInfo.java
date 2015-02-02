@@ -78,7 +78,7 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

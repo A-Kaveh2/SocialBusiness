@@ -51,7 +51,7 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
         else
             delegate.getResult(result);*/
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

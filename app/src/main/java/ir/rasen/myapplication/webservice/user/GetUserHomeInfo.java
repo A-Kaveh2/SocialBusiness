@@ -75,7 +75,7 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

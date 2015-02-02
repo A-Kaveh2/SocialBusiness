@@ -103,7 +103,7 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
         }*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

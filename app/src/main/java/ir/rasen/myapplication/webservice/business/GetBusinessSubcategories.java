@@ -64,7 +64,7 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

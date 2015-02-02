@@ -67,7 +67,7 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     protected void onPostExecute(User result) {
 
         //if webserviceGET.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

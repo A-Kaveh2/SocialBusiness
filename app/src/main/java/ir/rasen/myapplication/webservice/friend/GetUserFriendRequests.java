@@ -67,7 +67,7 @@ public class GetUserFriendRequests extends AsyncTask<Void, Void, ArrayList<Searc
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
-        if (result == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }

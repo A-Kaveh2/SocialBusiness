@@ -69,14 +69,6 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
         String email = edtEmail.getText().toString();
         String password = edtPassword.getText().toString();
 
-        //TODO
-        //for the test
-        email = "ali@gmail.com";
-        password="123456";
-        //for the test
-
-
-
         new Login(cotext, email, password, webserviceResponse).execute();
     }
 
