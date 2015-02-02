@@ -460,10 +460,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                profile_user = new User();
+                profile_business = new Business();
+                posts = new ArrayList<Post>();
+                // TODO get data again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -492,7 +497,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -503,6 +507,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -560,6 +565,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
                 gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
                 grid.setAdapter(gridAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
 
             } else if (result instanceof Business) {
                 //business home info

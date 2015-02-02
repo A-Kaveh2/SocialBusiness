@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.BusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
@@ -114,6 +115,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -123,10 +125,14 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                businesses = new ArrayList<Business>();
+                // TODO get businesses again
+                new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -155,7 +161,6 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -181,6 +186,9 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                 boolean unFollowAvailable = true;
                 mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

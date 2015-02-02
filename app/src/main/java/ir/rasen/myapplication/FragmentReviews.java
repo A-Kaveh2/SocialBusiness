@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -87,7 +88,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-        ArrayList<Review> reviews = new ArrayList<Review>();
+        reviews = new ArrayList<Review>();
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
         list.setAdapter(mAdapter);
 
@@ -116,6 +117,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new GetBusinessReviews(businessId,reviews.get(reviews.size()-1).id,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
+            isLoadingMore = true;
             listFooterView.setVisibility(View.VISIBLE);
         }
     }
@@ -126,10 +128,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(isLoadingMore) {
+                if (isLoadingMore) {
                     swipeView.setRefreshing(false);
                     return;
                 }
+                reviews = new ArrayList<Review>();
+                // TODO get reviews again
                 swipeView.setRefreshing(true);
             }
         });
@@ -159,7 +163,6 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -178,11 +181,15 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     }
                     mAdapter.notifyDataSetChanged();
                     isLoadingMore=false;
-                    listFooterView.setVisibility(View.INVISIBLE);
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
                 } else {
                     reviews = (ArrayList<Review>) result;
                     mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentReviews.this, FragmentReviews.this);
                     list.setAdapter(mAdapter);
+                    isLoadingMore=false;
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
                 }
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;

@@ -25,6 +25,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.GetUserReviews;
 
 /**
@@ -81,7 +82,12 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
-        listFooterView.setVisibility(View.VISIBLE);
+        if (reviews != null) {
+            new GetUserReviews(LoginInfo.getUserId(getActivity()),
+                    reviews.get(reviews.size()-1).id, getResources().getInteger(R.integer.lazy_load_limitation), FragmentUserReviews.this).execute();
+            isLoadingMore=true;
+            listFooterView.setVisibility(View.VISIBLE);
+        }
     }
 
     void setUpListView() {
@@ -90,10 +96,13 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                reviews = new ArrayList<Review>();
+                // TODO get reviews again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -122,7 +131,6 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -137,6 +145,9 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
                 reviews = (ArrayList<Review>) result;
                 mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this, FragmentUserReviews.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;
                 for (int i = 0; i < reviews.size(); i++) {

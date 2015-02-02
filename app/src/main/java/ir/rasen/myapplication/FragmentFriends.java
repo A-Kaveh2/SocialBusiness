@@ -116,6 +116,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -128,10 +129,13 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                friends = new ArrayList<User>();
+                // TODO get friends again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -160,7 +164,6 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -191,6 +194,9 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                 friends = new ArrayList<User>();
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

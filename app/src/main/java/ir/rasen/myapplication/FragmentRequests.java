@@ -14,6 +14,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.RequestsAdapter;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -93,6 +94,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -102,10 +104,13 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                requests = new ArrayList<SearchItemUserBusiness>();
+                // TODO get requests again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -134,7 +139,6 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -149,6 +153,9 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
                 requests = (ArrayList<SearchItemUserBusiness>) result;
                 mAdapter = new RequestsAdapter(getActivity(), requests, FragmentRequests.this);
                 list.setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
