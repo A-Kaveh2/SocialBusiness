@@ -211,6 +211,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.category = spnCategory.getSelectedItem().toString();
         business.subcategory = spnSubcategory.getSelectedItem().toString();
         business.description = edtDescription.getText().toString();
+        business.description= business.description.replace("\n","");
         business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
