@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
@@ -51,7 +52,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     private String profilePictureFilePath;
     private WebserviceResponse webserviceResponse;
     private Context context;
-    private ArrayList<String> categoryList;
+    private ArrayList<Category> categoryList;
     public static Activity step1;
 
     @Override
@@ -95,7 +96,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                new GetBusinessSubcategories(parentView.getItemAtPosition(position).toString()
+                new GetBusinessSubcategories(categoryList.get(position).id
                         , webserviceResponse).execute();
             }
 
@@ -266,8 +267,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 Business business = PassingBusiness.getInstance().getValue();
                 if (categoryList == null) {
                     //result from executing GetBusinessCategories
-                    categoryList = (ArrayList<String>) result;
-                    ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryList);
+                    categoryList = (ArrayList<Category>) result;
+                    ArrayList<String> categoryListStr = new ArrayList<>();
+                    for(Category category:categoryList)
+                        categoryListStr.add(category.name);
+
+                    ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryListStr);
                     spnCategory.setAdapter(categoryAdapter);
                     if (isEditing) {
 

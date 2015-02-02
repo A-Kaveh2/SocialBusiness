@@ -117,7 +117,7 @@ public class Params {
     public static String LOCATION_LONGITUDE= "LocationLongitude";
     public static String NEAR_BY= "NearBy";
     public static String CATEGORY= "Category";
-    public static String SUBCATEGORY= "Subcategory";
+    public static String SUBCATEGORY= "SubCategory";
     public static String WORK_DAYS= "WorkDays";
     public static String PHONE= "Phone";
     public static String ADDRESS= "Address";

@@ -33,10 +33,13 @@ public class WebservicePOST {
     }
 
     public void addParam(String paramName, String paramValue) throws Exception {
-        jsonParams.put(paramName, paramValue);
+        if (paramValue != null)
+            jsonParams.put(paramName, paramValue);
+        else
+            jsonParams.put(paramName, "");
     }
 
-    private HttpResponse run(HttpPost httpPost)throws Exception{
+    private HttpResponse run(HttpPost httpPost) throws Exception {
         HttpResponse httpResponse = null;
         StringEntity params = new StringEntity(jsonParams.toString());
         httpPost.setEntity(params);
@@ -48,8 +51,9 @@ public class WebservicePOST {
         } catch (Exception e) {
             String s = e.getMessage();
         }
-        return  httpResponse;
+        return httpResponse;
     }
+
     public ServerAnswer execute() throws Exception {
         HttpResponse httpResponse = run(httpPost);
         return ServerAnswer.get(httpResponse);

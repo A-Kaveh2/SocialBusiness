@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
@@ -18,7 +19,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<String>> {
+public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Category>> {
     private static final String TAG = "GetBusinessGategories";
     private WebserviceResponse delegate = null;
     private ServerAnswer serverAnswer;
@@ -27,8 +28,8 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
         this.delegate = delegate;
     }
     @Override
-    protected ArrayList<String> doInBackground(Void... voids) {
-        ArrayList<String> list = new ArrayList<String>();
+    protected ArrayList<Category> doInBackground(Void... voids) {
+        ArrayList<Category> list = new ArrayList<Category>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_CATEGORIES,null);
         try {
@@ -37,7 +38,12 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(jsonObject.getString(Params.CATEGORY));
+
+                    //TODO remove test part
+                    //list.add(new Category(jsonObject.getString(Params.ID),jsonObject.getString(Params.CATEGORY)));
+
+                    //for the test. getBusinessCategory doesn't return category.id by the now!
+                    list.add(new Category(1,jsonObject.getString(Params.CATEGORY)));
                 }
                 return list;
             }
@@ -49,7 +55,7 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Strin
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> result) {
+    protected void onPostExecute(ArrayList<Category> result) {
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
