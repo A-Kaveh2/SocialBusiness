@@ -164,6 +164,9 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                 users = new ArrayList<User>();
                 mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
                 list.setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             }
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

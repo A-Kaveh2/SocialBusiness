@@ -125,10 +125,13 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                followers = new ArrayList<User>();
+                // TODO get followers again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -183,6 +186,9 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 followers = new ArrayList<User>();
                 mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
 
             }
         } catch (Exception e) {

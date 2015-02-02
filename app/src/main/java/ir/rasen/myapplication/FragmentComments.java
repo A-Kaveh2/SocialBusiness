@@ -21,6 +21,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
+import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -30,6 +31,7 @@ import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.comment.SendComment;
+import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 
 /**
  * Created by 'Sina KH'.
@@ -181,14 +183,17 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                comments = new ArrayList<Comment>();
+                // TODO get comments again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
-        listFooterView.setVisibility(View.INVISIBLE);
+        listFooterView.setVisibility(View.GONE);
         list.addFooterView(listFooterView);
         // TODO: ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {

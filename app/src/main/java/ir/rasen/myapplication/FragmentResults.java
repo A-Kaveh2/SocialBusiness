@@ -179,6 +179,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
                     mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
                     list.setAdapter(mAdapter);
+                    isLoadingMore=false;
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
 
                 } else {
                     ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
@@ -186,6 +189,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
                     mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);
                     list.setAdapter(mAdapter);
+                    isLoadingMore=false;
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
                 }
             }
         } catch(Exception e) {

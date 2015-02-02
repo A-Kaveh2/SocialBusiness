@@ -137,6 +137,9 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
                 reviews = (ArrayList<Review>) result;
                 mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this, FragmentUserReviews.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;
                 for (int i = 0; i < reviews.size(); i++) {

@@ -560,6 +560,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
                 gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
                 grid.setAdapter(gridAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
 
             } else if (result instanceof Business) {
                 //business home info

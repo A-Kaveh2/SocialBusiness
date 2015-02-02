@@ -191,6 +191,9 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                 friends = new ArrayList<User>();
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
+                isLoadingMore=false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

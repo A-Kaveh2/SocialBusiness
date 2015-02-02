@@ -87,7 +87,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-        ArrayList<Review> reviews = new ArrayList<Review>();
+        reviews = new ArrayList<Review>();
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
         list.setAdapter(mAdapter);
 
@@ -130,6 +130,10 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     swipeView.setRefreshing(false);
                     return;
                 }
+                reviews = new ArrayList<Review>();
+                new GetBusinessReviews(businessId,0,
+                        getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                        ,FragmentReviews.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -178,11 +182,15 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     }
                     mAdapter.notifyDataSetChanged();
                     isLoadingMore=false;
-                    listFooterView.setVisibility(View.INVISIBLE);
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
                 } else {
                     reviews = (ArrayList<Review>) result;
                     mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentReviews.this, FragmentReviews.this);
                     list.setAdapter(mAdapter);
+                    isLoadingMore=false;
+                    swipeView.setRefreshing(false);
+                    listFooterView.setVisibility(View.GONE);
                 }
             } else if (result instanceof ResultStatus) {
                 int reviewPosition = -1;

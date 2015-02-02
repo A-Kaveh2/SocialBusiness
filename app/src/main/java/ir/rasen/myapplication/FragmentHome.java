@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
@@ -60,6 +61,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     //private RelativeLayout rlHome;
     private TextViewFont title;
     private boolean singlePost = false;
+    ArrayList<Post> posts;
 
     Boolean isLoadingMore=false;
 
@@ -127,7 +129,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         }
 
         // ArrayList to show
-        ArrayList<Post> posts = new ArrayList<Post>();
+        posts = new ArrayList<Post>();
 
         // TODO: Check home type
         //if(homeType==Params.HomeType.HOME_SEARCH) {
@@ -252,10 +254,15 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                if(homeType==Params.HomeType.HOME_HOME) {
+                    // TODO get posts again
+                    posts = new ArrayList<Post>();
+                    swipeView.setRefreshing(true);
+                }
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);

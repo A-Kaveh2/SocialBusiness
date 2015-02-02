@@ -16,12 +16,14 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.BlockedsAdapter;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
+import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
+import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 
 /**
  * Created by 'Sina KH'.
@@ -35,6 +37,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
+    ArrayList<User> blockeds;
 
     // business id is received here
     private String businessId;
@@ -86,7 +89,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         setUpListView();
 
         // TODO: Change Adapter to display your content
-        ArrayList<User> blockeds = new ArrayList<User>();
+        blockeds = new ArrayList<User>();
 
         /*
             for example, i've made some fake data to show ::
@@ -119,14 +122,17 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                blockeds = new ArrayList<User>();
+                // TODO get blockeds again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore=false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
-        listFooterView.setVisibility(View.INVISIBLE);
+        listFooterView.setVisibility(View.GONE);
         list.addFooterView(listFooterView);
         // TODO: ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -174,6 +180,9 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
             }
             mAdapter = new BlockedsAdapter(getActivity(), blockeds);
             ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
+            isLoadingMore=false;
+            swipeView.setRefreshing(false);
+            listFooterView.setVisibility(View.GONE);
 
             //TODO use followers to intiate listview
 
