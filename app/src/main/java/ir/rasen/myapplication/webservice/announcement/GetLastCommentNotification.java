@@ -94,8 +94,21 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
 
 
 
-        if (result == null)
+       /* if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
+        else {
+            Alarm_M alarm_m = new Alarm_M();
+            alarm_m.checkInterval(context, result.intervalTime);
+            delegate.getResult(result);
+        }*/
+
+        //if webservice.execute() throws exception
+        if (result == null) {
+            delegate.getError(ServerAnswer.EXECUTION_ERROR);
+            return;
+        }
+        if (serverAnswer.getSuccessStatus())
+            delegate.getResult(result);
         else {
             Alarm_M alarm_m = new Alarm_M();
             alarm_m.checkInterval(context, result.intervalTime);

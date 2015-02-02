@@ -62,9 +62,19 @@ public class GetBusinessPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
     @Override
     protected void onPostExecute(ArrayList<Post> result) {
-        if (result == null)
+       /* if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else
+            delegate.getResult(result);*/
+
+        //if webservice.execute() throws exception
+        if (result == null) {
+            delegate.getError(ServerAnswer.EXECUTION_ERROR);
+            return;
+        }
+        if (serverAnswer.getSuccessStatus())
             delegate.getResult(result);
+        else
+            delegate.getError(serverAnswer.getErrorCode());
     }
 }

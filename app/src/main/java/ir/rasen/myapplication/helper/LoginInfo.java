@@ -10,7 +10,7 @@ public class LoginInfo {
     public static boolean isLoggedIn(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(
                 context.getPackageName(), Context.MODE_PRIVATE);
-        if (!preferences.getString(Params.USER_ID, "").equals(""))
+        if (preferences.getInt(Params.USER_ID, 0)!= 0)
             return true;
         return false;
     }

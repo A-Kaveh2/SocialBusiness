@@ -50,9 +50,19 @@ public class Like extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected void onPostExecute(ResultStatus result) {
-        if (result == null)
+      /*  if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else
-            delegate.getResult(result.getClass());
+            delegate.getResult(result.getClass());*/
+
+        //if webservice.execute() throws exception
+        if (result == null) {
+            delegate.getError(ServerAnswer.EXECUTION_ERROR);
+            return;
+        }
+        if (serverAnswer.getSuccessStatus())
+            delegate.getResult(result);
+        else
+            delegate.getError(serverAnswer.getErrorCode());
     }
 }

@@ -54,6 +54,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     String filePath;
     User user = new User();
     Context context;
+    boolean sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         // SET ANIMATIONS
         setAnimations();
 
-        new GetUserProfileInfo(LoginInfo.getUserId(this));
+        new GetUserProfileInfo(LoginInfo.getUserId(this),ActivityUserProfileEdit.this).execute();
     }
 
     // SET PICTURE

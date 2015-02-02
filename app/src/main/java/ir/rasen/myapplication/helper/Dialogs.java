@@ -264,7 +264,7 @@ public class Dialogs {
                 }
             })
             .setIcon(android.R.drawable.ic_dialog_alert);
-        showCustomizedDialog(context, builder);
+        showCustomizedDialog(context, builder).show();
     }
 
 }

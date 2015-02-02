@@ -29,8 +29,9 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     private ServerAnswer serverAnswer;
     private ArrayList<String> params;
 
-    public GetUserProfileInfo(int userID) {
+    public GetUserProfileInfo(int userID,WebserviceResponse delegate) {
         this.userID = userID;
+        this.delegate = delegate;
     }
 
     @Override
@@ -64,9 +65,15 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
 
     @Override
     protected void onPostExecute(User result) {
-        if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
+
+        //if webserviceGET.execute() throws exception
+        if (result == null) {
+            delegate.getError(ServerAnswer.EXECUTION_ERROR);
+            return;
+        }
+        if (serverAnswer.getSuccessStatus())
             delegate.getResult(result);
+        else
+            delegate.getError(serverAnswer.getErrorCode());
     }
 }
