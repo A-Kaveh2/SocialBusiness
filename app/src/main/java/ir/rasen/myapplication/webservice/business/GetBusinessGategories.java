@@ -60,7 +60,7 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Categ
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }
-        if (serverAnswer.getSuccessStatus())
+        if (!serverAnswer.getSuccessStatus())
             delegate.getError(serverAnswer.getErrorCode());
         else
             delegate.getResult(result);
