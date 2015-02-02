@@ -37,7 +37,7 @@
         android:layout_width="@dimen/profile_pic"
         android:layout_height="@dimen/profile_pic"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_menu_businesses"
+        android:src="@drawable/ic_menu_blockeds"
         android:scaleType="centerInside"/>
 
 </RelativeLayout>
