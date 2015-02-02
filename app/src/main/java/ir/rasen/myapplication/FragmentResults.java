@@ -46,6 +46,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private ListView list;
     private ListAdapter mAdapter;
     private int searchType;
+    private ArrayList<SearchItemUserBusiness> searchResult;
 
     private WebserviceResponse webserviceResponse;
 
@@ -119,6 +120,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -128,10 +130,13 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (isLoadingMore) {
+                    swipeView.setRefreshing(false);
+                    return;
+                }
+                searchResult = new ArrayList<SearchItemUserBusiness>();
+                // TODO get results again
                 swipeView.setRefreshing(true);
-                // TODO: CANCEL LOADING MORE AND REFRESH HERE...
-                listFooterView.setVisibility(View.INVISIBLE);
-                isLoadingMore = false;
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -160,7 +165,6 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
@@ -174,7 +178,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             if (result instanceof ArrayList) {
                 if (searchType == Params.SearchType.PRODUCTS) {
 
-                    ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                    searchResult = new ArrayList<SearchItemUserBusiness>();
                     searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
                     mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
@@ -184,7 +188,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     listFooterView.setVisibility(View.GONE);
 
                 } else {
-                    ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
+                    searchResult = new ArrayList<SearchItemUserBusiness>();
                     searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
                     mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);

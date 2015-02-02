@@ -226,6 +226,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
 
@@ -293,7 +294,6 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                         /*** In this way I detect if there's been a scroll which has completed ***/
                         /*** do the work for load more date! ***/
                         if (!swipeView.isRefreshing() && !isLoadingMore) {
-                            isLoadingMore = true;
                             loadMoreData();
                         }
                     }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -116,6 +117,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new GetBusinessReviews(businessId,reviews.get(reviews.size()-1).id,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
+            isLoadingMore = true;
             listFooterView.setVisibility(View.VISIBLE);
         }
     }
@@ -126,14 +128,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(isLoadingMore) {
+                if (isLoadingMore) {
                     swipeView.setRefreshing(false);
                     return;
                 }
                 reviews = new ArrayList<Review>();
-                new GetBusinessReviews(businessId,0,
-                        getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
-                        ,FragmentReviews.this).execute();
+                // TODO get reviews again
                 swipeView.setRefreshing(true);
             }
         });
@@ -163,7 +163,6 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore) {
-                        isLoadingMore = true;
                         loadMoreData();
                     }
                 }
