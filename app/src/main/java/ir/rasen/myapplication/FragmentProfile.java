@@ -552,7 +552,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             } else if (result instanceof ArrayList) {
 
-
                 //TODO assign
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
                     //user shared posts

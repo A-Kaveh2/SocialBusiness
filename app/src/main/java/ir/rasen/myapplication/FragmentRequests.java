@@ -50,12 +50,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public FragmentRequests() {
-    }
+    public FragmentRequests() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

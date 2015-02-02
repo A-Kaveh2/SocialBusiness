@@ -145,7 +145,8 @@
                 android:textSize="@dimen/text_size_large"
                 android:background="@color/button_on_dark"
                 android:textColor="@android:color/white"
-                android:text="@string/choose_category"/>
+                android:text="@string/choose_category"
+                android:clickable="true"/>
             <ListView
                 android:id="@+id/list_search_categories"
                 android:layout_width="match_parent"

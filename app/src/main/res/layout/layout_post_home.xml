@@ -192,9 +192,17 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_home_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_light"
+        android:layout_below="@+id/rl_home_post_all"
+        android:orientation="horizontal"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/rl_home_post_all"/>
+        android:layout_below="@+id/rl_home_divider"/>
 
 </RelativeLayout>

@@ -186,8 +186,6 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
             swipeView.setRefreshing(false);
             listFooterView.setVisibility(View.GONE);
 
-            //TODO use followers to intiate listview
-
         }
     }
 

@@ -20,9 +20,9 @@
 
 
 
-    <Button
+    <ir.rasen.myapplication.ui.ButtonFont
         android:id="@+id/button_capture"
-        android:text="Capture"
+        android:text="@string/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

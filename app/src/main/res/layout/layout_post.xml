@@ -237,4 +237,12 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/rl_home_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_light"
+        android:layout_below="@+id/rl_home_comments"
+        android:orientation="horizontal"/>
+
 </RelativeLayout>
