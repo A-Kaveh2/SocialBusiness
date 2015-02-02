@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,24 +27,18 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.internal.id;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
-import ir.rasen.myapplication.adapters.MarkerPopupAdapter;
 import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;

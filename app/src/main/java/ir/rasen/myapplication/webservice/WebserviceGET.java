@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.helper.ServerAnswer;
 
-
 /**
  * Created by android on 12/1/2014.
  */
