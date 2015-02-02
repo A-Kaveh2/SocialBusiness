@@ -37,6 +37,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PersianDate;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.helper.Sex;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -93,7 +94,12 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         // SET ANIMATIONS
         setAnimations();
 
-        new GetUserProfileInfo(LoginInfo.getUserId(this),ActivityUserProfileEdit.this).execute();
+        try {
+            new GetUserProfileInfo(LoginInfo.getUserId(getApplicationContext()), ActivityUserProfileEdit.this).execute();
+        }
+        catch (Exception e){
+            String s = e.getMessage();
+        }
     }
 
     // SET PICTURE
@@ -222,10 +228,28 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             user.profilePicture = Image_M.getBase64String(filePath);
         else
             user.profilePicture = "";
-        // TODO SET TO USER'S SEX
-        spinnerSex.setSelection(1);
 
-        new UpdateUserProfile(user,ActivityUserProfileEdit.this).execute();
+        if(spinnerSex.getSelectedItemPosition()!= 0){
+            switch (spinnerSex.getSelectedItemPosition()){
+                case 1:
+                    user.sex = Sex.MALE;
+                    break;
+                case 2:
+                    user.sex = Sex.FEMALE;
+            }
+        }
+
+        //TODO for the test becuase getProfileInfo doesn't work
+        user.email= "";
+        user.password = "";
+        user.coverPicture = "";
+
+        try {
+            new UpdateUserProfile(user, ActivityUserProfileEdit.this).execute();
+        }
+        catch (Exception e){
+            String s = e.getMessage();
+        }
     }
 
 
