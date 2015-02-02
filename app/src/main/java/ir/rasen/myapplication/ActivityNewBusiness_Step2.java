@@ -84,6 +84,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             business.location_m = new Location_M("","");
         }
 
+
+
         business.userID = LoginInfo.getUserId(context);
 
         if (isEditing) {
