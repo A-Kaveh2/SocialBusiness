@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -22,13 +23,23 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.internal.id;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
+import ir.rasen.myapplication.adapters.MarkerPopupAdapter;
 import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
@@ -61,6 +72,10 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ArrayList<Category> categories;
 
     private ListView listViewCategories, listViewSubCategories;
+
+
+    private GoogleMap mMap;
+
 
     public static FragmentSearch newInstance(String hashtag) {
         FragmentSearch fragment = new FragmentSearch();
@@ -125,11 +140,12 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             }
         });
 
-        mLocationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+        if(locationM==null && mMap==null) {
+            tryLocatingWithGoogleMap();
+        }
 
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Params.LOCATION_REFRESH,
-                Params.LOCATION_REFRESH_DISTANCE, mLocationListener);
-
+        ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                .setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -171,12 +187,19 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         listViewCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-                ((TextViewFont) view.findViewById(R.id.txt_search_category)).setText(categories.get(i) + ":");
+                ((TextViewFont) view.findViewById(R.id.txt_search_category)).setText(categories.get(i).name);
+                subCategories = new ArrayList<String>();
+                ArrayAdapter<String> subcategoriesAdapter =
+                        new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
+                listViewSubCategories.setAdapter(subcategoriesAdapter);
+
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.VISIBLE);
 
                 // getting sub categories
                 new GetBusinessSubcategories(categories.get(i).id
                         , FragmentSearch.this).execute();
+                ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                        .setVisibility(View.VISIBLE);
             }
         });
         // sub categories on item click listener
@@ -351,6 +374,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                     ArrayAdapter<String> categoriesAdapter =
                             new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categoryListStr);
                     listViewCategories.setAdapter(categoriesAdapter);
+                    ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                            .setVisibility(View.GONE);
                 } else {
                     //result from executing getBusinessSubcategories
                     subCategories = new ArrayList<String>();
@@ -359,6 +384,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                     ArrayAdapter<String> subcategoriesAdapter =
                             new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
                     listViewSubCategories.setAdapter(subcategoriesAdapter);
+                    ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
+                            .setVisibility(View.GONE);
                 }
             }
         } catch (Exception e) {
@@ -376,22 +403,45 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         }
     }
 
-    // location listener
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            //location changed
-            if(nearby)
-                locationM = new Location_M(location.getLatitude()+"", location.getLongitude()+"");
+    public void tryLocatingWithGoogleMap() {
+        if (mMap == null) {
+            int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
+            if(resultCode != ConnectionResult.SUCCESS)
+            {
+                // nothing here...
+            } else {
+                // LOADING MAP
+                getActivity().findViewById(R.id.map).setVisibility(View.INVISIBLE);
+                mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+                mMap.setMyLocationEnabled(true);
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                //mMap.setInfoWindowAdapter(new PopupAdapter(getBaseContext(), getLayoutInflater()));
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setUpMapEvents();
+                    }
+                }, 1000);
+
+            }
         }
-        @Override
-        public void onStatusChanged(String string, int i, Bundle bundle) {
+    }
+    public void setUpMapEvents() {
+
+        // first views...
+        final Location location = mMap.getMyLocation();
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                if(locationM==null && location!=null) {
+                    locationM = new Location_M(location);
+                }
+            }
+        });
+        if(location!=null) {
+            locationM = new Location_M(location);
         }
-        @Override
-        public void onProviderEnabled(String string) {
-        }
-        @Override
-        public void onProviderDisabled(String string) {
-        }
-    };
+    }
+
 }

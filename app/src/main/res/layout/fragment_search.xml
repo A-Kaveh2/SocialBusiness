@@ -166,7 +166,8 @@
                 android:gravity="center"
                 android:textSize="@dimen/text_size_large"
                 android:background="@color/button_on_dark"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:clickable="true"/>
             <ImageButton
                 android:layout_width="@dimen/actionbar_height"
                 android:layout_height="@dimen/actionbar_height"
@@ -181,6 +182,11 @@
                 android:layout_height="match_parent"
                 android:background="@color/gray_lighter"
                 android:layout_below="@+id/txt_search_category"/>
+            <ProgressBar
+                android:id="@+id/progressBar_search_drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
             </RelativeLayout>
         </RelativeLayout>
 
