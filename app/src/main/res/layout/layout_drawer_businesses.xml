@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_height"
     android:orientation="horizontal"
-    android:background="@drawable/style_button_menu"
-    android:clickable="true">
+    android:background="@drawable/style_button_menu">
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/txt_drawer_business_name"
             android:layout_width="match_parent"
@@ -25,13 +24,4 @@
             android:src="@drawable/ic_menu_options_settings"
             android:layout_margin="4dp"/>
 
-        <ImageButton
-            android:id="@+id/btn_home_options"
-            android:layout_width="@dimen/menu_pic"
-            android:layout_height="@dimen/menu_pic"
-            android:background="@drawable/style_button_menu"
-            android:src="@drawable/ic_menu_options"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:contentDescription="@null"/>
 </RelativeLayout>

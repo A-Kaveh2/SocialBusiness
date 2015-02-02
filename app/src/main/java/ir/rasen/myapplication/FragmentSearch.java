@@ -408,7 +408,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 mMap.setMyLocationEnabled(true);
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                //mMap.setInfoWindowAdapter(new PopupAdapter(getBaseContext(), getLayoutInflater()));
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override

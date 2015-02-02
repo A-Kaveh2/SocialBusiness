@@ -55,7 +55,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
         if (business != null) {
             holder.name.setText(business.name);
             // TODO:: SET PICTURE
-            holder.item.setOnClickListener(new View.OnClickListener() {
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
