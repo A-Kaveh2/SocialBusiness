@@ -18,9 +18,11 @@ import ir.rasen.myapplication.adapters.BlockedsAdapter;
 import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
@@ -191,6 +193,11 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

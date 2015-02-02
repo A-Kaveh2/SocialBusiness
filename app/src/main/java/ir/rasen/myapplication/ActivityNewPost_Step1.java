@@ -168,7 +168,7 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(getBaseContext(), errorMessage);
+            Dialogs.showMessage(ActivityNewPost_Step1.this, errorMessage);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

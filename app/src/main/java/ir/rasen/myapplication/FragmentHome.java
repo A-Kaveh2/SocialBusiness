@@ -310,9 +310,12 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
     @Override
     public void getError(Integer errorCode) {
-        //TODO display error message
-        String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-        Dialogs.showMessage(getActivity(), errorMessage);
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     private int editingId;

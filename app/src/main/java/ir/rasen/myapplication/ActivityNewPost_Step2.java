@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,9 +26,11 @@ import java.io.File;
 import java.util.Calendar;
 
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ImageViewSquare;
@@ -37,13 +40,13 @@ import ir.rasen.myapplication.webservice.post.AddPost;
 import ir.rasen.myapplication.webservice.post.UpdatePost;
 
 public class ActivityNewPost_Step2 extends Activity implements WebserviceResponse {
+    private String TAG = "ActivityNewPost_Step2";
 
     private EditTextFont name, description, price, code;
     private Context context;
     private String img;
     private boolean isEditing = false;
     private String businessId;
-    private boolean canceled=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,17 +203,21 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
 
     public void back(View v) {
-        canceled=true;
         onBackPressed();
     }
 
     @Override
     public void getResult(Object result) {
-        if(canceled) return;
+
     }
 
     @Override
     public void getError(Integer errorCode) {
-        if(canceled) return;
+        try {
+            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+            Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

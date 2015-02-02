@@ -589,10 +589,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     @Override
     public void getError(Integer errorCode) {
         try {
-            //TODO display error
-            String errorMessage = ServerAnswer.getError(cont, errorCode);
-            Dialogs.showMessage(cont, errorMessage);
-        } catch (Exception e) {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }

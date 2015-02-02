@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.CommentsAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -251,7 +253,12 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 
     private int editingId;

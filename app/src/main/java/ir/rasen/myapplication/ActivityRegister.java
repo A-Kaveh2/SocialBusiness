@@ -217,7 +217,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-            Dialogs.showMessage(context, errorMessage);
+            Dialogs.showMessage(ActivityRegister.this, errorMessage);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
