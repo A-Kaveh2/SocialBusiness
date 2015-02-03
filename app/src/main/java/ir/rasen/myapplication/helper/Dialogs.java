@@ -16,6 +16,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.DeleteBusiness;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
 
@@ -34,7 +35,7 @@ public class Dialogs {
                 .setMessage(R.string.popup_delete)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new DeletePost(buisness_id,post_id,delegate).execute();
+                        new DeletePost(buisness_id, post_id, delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -120,7 +121,7 @@ public class Dialogs {
                 .setMessage(R.string.popup_delete_review)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new DeleteReview(userId,review_id,delegate).execute();
+                        new DeleteReview(userId, review_id, delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -165,7 +166,7 @@ public class Dialogs {
     }
 
     public Dialog showCommentEditPopup(final Context context, final Comment comment) {
-        final Dialog dialog = new Dialog(context,R.style.AppTheme_Dialog);
+        final Dialog dialog = new Dialog(context, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_edit_comment);
         final EditTextFont newComment = (EditTextFont) dialog.findViewById(R.id.edt_edit_comment_comment);
@@ -209,15 +210,16 @@ public class Dialogs {
         showCustomizedDialog(fragmentSearch.getActivity(), builder);
     }
 
-    public void showBusinessDeletePopup(Context context, final int businessId) {
+    public void showBusinessDeletePopup(final Context context, final int businessId, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_business)
                 .setMessage(R.string.popup_delete_business)
                 .setPositiveButton(R.string.delete_business, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE BUSINESS NOW
-                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                        new DeleteBusiness(LoginInfo.getUserId(context), businessId, delegate).execute();
+
+
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -256,14 +258,14 @@ public class Dialogs {
 
     public static void showMessage(Context context, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-            .setTitle(R.string.popup_warning)
-            .setMessage(message)
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            })
-            .setIcon(android.R.drawable.ic_dialog_alert);
+                .setTitle(R.string.popup_warning)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert);
         showCustomizedDialog(context, builder).show();
     }
 

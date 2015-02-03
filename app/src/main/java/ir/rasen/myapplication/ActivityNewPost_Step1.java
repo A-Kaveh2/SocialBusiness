@@ -36,7 +36,7 @@ import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
-public class ActivityNewPost_Step1 extends Activity implements WebserviceResponse {
+public class ActivityNewPost_Step1 extends Activity  {
     private String TAG = "ActivityNewPost_Step1";
 
     private boolean isEditing = false;
@@ -160,17 +160,5 @@ public class ActivityNewPost_Step1 extends Activity implements WebserviceRespons
         onBackPressed();
     }
 
-    @Override
-    public void getResult(Object result) {
-    }
 
-    @Override
-    public void getError(Integer errorCode) {
-        try {
-            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(ActivityNewPost_Step1.this, errorMessage);
-        } catch(Exception e) {
-            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
-        }
-    }
 }

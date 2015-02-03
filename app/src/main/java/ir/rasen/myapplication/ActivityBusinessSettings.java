@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +10,13 @@ import android.view.Window;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
-public class ActivityBusinessSettings extends Activity {
+public class ActivityBusinessSettings extends Activity implements WebserviceResponse {
 
     private Business business;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,7 @@ public class ActivityBusinessSettings extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_business_settings);
 
+        context = this;
         business = PassingBusiness.getInstance().getValue();
         PassingBusiness.getInstance().setValue(null);
 
@@ -35,7 +40,17 @@ public class ActivityBusinessSettings extends Activity {
     public void delete(View view) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showBusinessDeletePopup(ActivityBusinessSettings.this, business.id);
+
+        //TODO remove test parts
+        //for the test
+        business = new Business();
+        business.id = 1;
+        try {
+            dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this);
+        }
+        catch (Exception e){
+            String s = e.getMessage();
+        }
     }
 
     public void onBackPressed() {
@@ -47,4 +62,16 @@ public class ActivityBusinessSettings extends Activity {
         onBackPressed();
     }
 
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof ResultStatus){
+            //TODO display message
+            //delete business was successful
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+        //TODO display error message
+    }
 }
