@@ -20,6 +20,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH' on 01/13/2015.
@@ -31,14 +32,16 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
     private Context context;
     private boolean unfollowAvailable;
     private EditInterface editDelegateInterface;
+    private WebserviceResponse delegate;
 
-	public BusinessesAdapter(Context context, ArrayList<Business> businesses, EditInterface editDelegateInterface, boolean unfollowAvailable) {
+	public BusinessesAdapter(Context context, ArrayList<Business> businesses, EditInterface editDelegateInterface, boolean unfollowAvailable,WebserviceResponse delegate) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
         this.unfollowAvailable = unfollowAvailable;
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        this.delegate = delegate;
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
                     public void onClick(View view) {
                     // show unfollow dialog
                     Dialogs dialogs = new Dialogs();
-                    dialogs.showBusinessUnfollowPopup(context, business.id);
+                    dialogs.showBusinessUnfollowPopup(context, business.id,delegate);
                     editDelegateInterface.setEditing(business.id, null, null);
                     }
                 });

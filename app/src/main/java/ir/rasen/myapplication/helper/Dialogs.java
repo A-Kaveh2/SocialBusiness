@@ -28,6 +28,7 @@ public class Dialogs {
 
     //business_id= business.id
     //post_id = post.id
+
     public void showPostDeletePopup(Context context, final int buisness_id, final int post_id, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
@@ -226,7 +227,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showBusinessUnfollowPopup(Context context, final int businessId) {
+    public void showBusinessUnfollowPopup(Context context, final int businessId,WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.unfollow_business)
@@ -234,7 +235,7 @@ public class Dialogs {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO:: UNFOLLOW BUSINESS NOW
-                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                        //new DeletePost(businessId,postId,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);

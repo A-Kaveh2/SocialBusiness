@@ -64,6 +64,8 @@ public class ActivityNewPost_Step1 extends Activity  {
             post.add(postTemp);
             PassingPosts.getInstance().setValue(post);
         }
+
+
     }
 
     // SET PICTURE

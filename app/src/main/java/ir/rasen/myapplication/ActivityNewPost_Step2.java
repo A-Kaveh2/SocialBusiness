@@ -30,6 +30,7 @@ import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
@@ -77,6 +78,9 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         description.setText(post.description);
         price.setText(post.price);
         code.setText(post.code);
+
+        Dialogs dialogs = new Dialogs();
+        dialogs.showPostDeletePopup(this,1,1,this);
 
     }
 
@@ -166,9 +170,15 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             post.price = price.getText().toString();
             post.code = code.getText().toString();
 
+            post.description = description.getText().toString();
+            post.description = post.description.replace("\n"," ");
             //TODO where is hashtag list
             post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
 
+
+            //TODO assing business.id to the post
+            //for the test
+            post.businessID = 1;
             new AddPost(post, ActivityNewPost_Step2.this).execute();
 
         }
@@ -208,7 +218,9 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     @Override
     public void getResult(Object result) {
-
+        if(result instanceof ResultStatus){
+            //TODO display success message
+        }
     }
 
     @Override
