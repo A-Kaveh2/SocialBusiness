@@ -184,7 +184,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
                 // todo:: check if userId.equals(myId) or not
                 boolean unFollowAvailable = true;
-                mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable);
+                mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable,FragmentBusinesses.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
