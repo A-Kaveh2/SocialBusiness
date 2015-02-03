@@ -133,7 +133,12 @@ public class ServerAnswer {
 
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
-        serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
+        try {
+            serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
+        }
+        catch (Exception e){
+
+        }
         serverAnswer.setErrorCode(errorCode);
 
         return serverAnswer;

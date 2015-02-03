@@ -164,10 +164,12 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         } else {
             //get business home info
 
+
+
             // TODO ::
             if(profileId!=0) {
                 //TODO remove test part
-                new GetBusinessHomeInfo("food_1", FragmentProfile.this).execute();
+                new GetBusinessHomeInfo(2, FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
             } else {
                 // TODO :: GET with username
@@ -412,7 +414,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         //new FollowBusiness(LoginInfo.getUserId(cont),"food_1",FragmentProfile.this).execute();
 
         //TODO remove test part
-        new FollowBusiness(1, 1, FragmentProfile.this).execute();
+        new FollowBusiness(LoginInfo.getUserId(cont), 1, FragmentProfile.this).execute();
     }
 
     void myOwnProfile() {
@@ -543,10 +545,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 assignNow();
 
                 if (profileType==Params.ProfileType.PROFILE_USER) {
-                    new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                    new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
-                    new GetBusinessPosts(1, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this);
+                    new GetBusinessPosts(1, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 }
 

@@ -22,10 +22,10 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
     private static final String TAG = "GetUserHomeInfo";
     private WebserviceResponse delegate = null;
-    private String businessID;
+    private int businessID;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessHomeInfo(String businessID,WebserviceResponse delegate) {
+    public GetBusinessHomeInfo(int businessID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.delegate = delegate;
     }
@@ -34,7 +34,7 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
     protected Business doInBackground(Void... voids) {
         Business business = new Business();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_HOME_INFO,new ArrayList<>(
-                Arrays.asList(businessID)));
+                Arrays.asList(String.valueOf(businessID))));
         try {
             serverAnswer = webserviceGET.execute();
 

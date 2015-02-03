@@ -75,7 +75,10 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetBusinessFollowers(1,FragmentFollowers.this).execute();
+
+        //TODO remove test part. assign businessId
+        new GetBusinessFollowers(2,FragmentFollowers.this).execute();
+
     }
 
     @Override

@@ -20,10 +20,12 @@ import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 
 /**
@@ -106,6 +108,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
 */
 
+
+        
         //TODO remove test parts
         new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
 
