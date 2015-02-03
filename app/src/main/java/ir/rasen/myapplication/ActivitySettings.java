@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
@@ -28,13 +30,14 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     private String TAG = "ActivitySettings";
 
     CheckBox cbFriends, cbBusinesses, cbReviews;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_settings);
-
+        context = this;
         cbFriends = (CheckBox) findViewById(R.id.cb_settings_friends);
         cbBusinesses = (CheckBox) findViewById(R.id.cb_settings_businesses);
         cbReviews = (CheckBox) findViewById(R.id.cb_settings_reviews);
@@ -78,7 +81,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         //new UpdateSetting(LoginInfo.getUserId(ActivitySettings.this), permission, ActivitySettings.this).execute();
 
         //TODO for the test
-        new UpdateSetting(1, permission, ActivitySettings.this).execute();
+        new UpdateSetting(LoginInfo.getUserId(this), permission, ActivitySettings.this).execute();
     }
 
     public void setAnimations() {
@@ -120,7 +123,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(getBaseContext(), errorMessage);
+            Dialogs.showMessage(context, errorMessage);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

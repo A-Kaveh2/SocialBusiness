@@ -127,6 +127,9 @@ public class ServerAnswer {
             }
         }
 
+        //
+        if(sucessStatus== true && json.getString(Params.RESULT).length()<=2)
+            sucessStatus = false;
 
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
@@ -163,6 +166,7 @@ public class ServerAnswer {
             }
         }
 
+
         //get error code
 
         String error = json.getString(Params.ERROR);
@@ -185,7 +189,8 @@ public class ServerAnswer {
             }
         }
 
-
+        if(sucessStatus== true && resultJsonObject == null)
+            sucessStatus = false;
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
         serverAnswer.setResult(resultJsonObject);

@@ -150,7 +150,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             //TODO remove test part
             //get user home info by sending user_id
-            //new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
+            new GetUserHomeInfo(LoginInfo.getUserId(cont),webserviceResponse).execute();
 
             // TODO ::
             if(profileId!=0) {
