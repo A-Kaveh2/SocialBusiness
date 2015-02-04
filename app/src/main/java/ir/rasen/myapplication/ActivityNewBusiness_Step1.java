@@ -33,6 +33,7 @@ import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.classes.SubCategory;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -41,6 +42,8 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
+import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
+import ir.rasen.myapplication.webservice.business.GetBusinessProfileInfo;
 import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
 public class ActivityNewBusiness_Step1 extends Activity implements WebserviceResponse {
@@ -55,6 +58,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     private Context context;
     private ArrayList<Category> categoryList;
     public static Activity step1;
+    ArrayList<SubCategory> subcategoryObjectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +93,14 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             edtDescription.setText(business.description);
 
             //spnCategory and spnSubcategory will initiate after executing GetBusinessGategories and GetBusinessSubcategories
+            //TODO remove test part
+
+            new GetBusinessProfileInfo(5,ActivityNewBusiness_Step1.this).execute();
 
         }
+
+
+
 
         new GetBusinessGategories(webserviceResponse).execute();
 
@@ -207,6 +217,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             business = PassingBusiness.getInstance().getValue();
         else
             business = new Business();
+        business.userID = LoginInfo.getUserId(context);
         business.businessUserName = edtBusinessId.getText().toString();
         business.name = edtName.getText().toString();
         business.category = spnCategory.getSelectedItem().toString();
@@ -216,6 +227,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
+
+        business.categoryID = categoryList.get(spnCategory.getSelectedItemPosition()).id;
+        business.subCategoryID = subcategoryObjectList.get(spnSubcategory.getSelectedItemPosition()).id;
 
         PassingBusiness.getInstance().setValue(business);
         Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);
@@ -286,7 +300,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 } else {
                     //result from executing GetBusinessSubcategories
                     ArrayList<String> subcategoryList = new ArrayList<>();
-                    ArrayList<SubCategory> subcategoryObjectList = (ArrayList<SubCategory>) result;
+                    subcategoryObjectList = (ArrayList<SubCategory>) result;
                     for (int i = 0; i < subcategoryObjectList.size(); i++) {
                             subcategoryList.add(subcategoryObjectList.get(i).name);
                     }
@@ -299,6 +313,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                         }
                     }
                 }
+            }
+            else if(result instanceof Business){
+                Business business = (Business)result;
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

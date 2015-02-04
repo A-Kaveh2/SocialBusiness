@@ -251,8 +251,9 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     @Override
     public void getError(Integer errorCode) {
         try {
+
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-            Dialogs.showMessage(ActivityNewBusiness_Step2.this, errorMessage);
+            Dialogs.showMessage(context, errorMessage);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

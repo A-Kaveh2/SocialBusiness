@@ -46,7 +46,7 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<Su
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SubCategory(Integer.valueOf(jsonObject.getString(Params.ID)),jsonObject.getString(Params.SUBCATEGORY)));
+                    list.add(new SubCategory(Integer.valueOf(jsonObject.getString(Params.SUB_CATEGORY_ID)),jsonObject.getString(Params.SUBCATEGORY)));
                 }
                 return list;
             }

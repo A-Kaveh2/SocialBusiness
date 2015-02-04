@@ -18,6 +18,8 @@ public class Business {
     public String profilePicture;
     public String category;
     public String subcategory;
+    public int categoryID;
+    public int subCategoryID;
     public String description;
     public WorkTime workTime;
     public String phone;

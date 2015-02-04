@@ -22,11 +22,11 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
     private static final String TAG = "GetBusinessProfileInfo";
     private WebserviceResponse delegate = null;
-    private String businessID;
+    private int businessID;
     private ServerAnswer serverAnswer;
 
 
-    public GetBusinessProfileInfo(String businessID,WebserviceResponse delegate) {
+    public GetBusinessProfileInfo(int businessID,WebserviceResponse delegate) {
         this.delegate = delegate;
         this.businessID = businessID;
     }

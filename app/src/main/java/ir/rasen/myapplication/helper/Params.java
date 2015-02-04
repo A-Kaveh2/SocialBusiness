@@ -143,6 +143,8 @@ public class Params {
     public static String ERROR_CODE = "ErrorCode";
     public static String ACCESS_TOKEN = "AccessToken";
     public static String IMAGE = "image";
+    public static String CATEGORY_ID = "CategoryId";
+    public static String SUB_CATEGORY_ID = "SubCategoryId";
 
 
 }

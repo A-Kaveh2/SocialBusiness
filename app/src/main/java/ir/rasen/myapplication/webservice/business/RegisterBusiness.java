@@ -34,7 +34,7 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
         try {
             //TODO remove test part
             //for the test
-            webservicePOST.addParam(Params.USER_ID, "ali_5");
+            webservicePOST.addParam(Params.USER_ID, String.valueOf(business.userID));
 
             //webservicePOST.addParam(Params.USER_ID, String.valueOf(business.userID));
             webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(business.id));
@@ -48,8 +48,8 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
                 webservicePOST.addParam(Params.PROFILE_PICTURE, business.profilePicture);
             else
                 webservicePOST.addParam(Params.PROFILE_PICTURE, "");
-            webservicePOST.addParam(Params.CATEGORY, business.category);
-            webservicePOST.addParam(Params.SUBCATEGORY, business.subcategory);
+            webservicePOST.addParam(Params.CATEGORY_ID, String.valueOf(business.categoryID));
+            webservicePOST.addParam(Params.SUB_CATEGORY_ID, String.valueOf(business.subCategoryID));
             webservicePOST.addParam(Params.DESCRIPTION, business.description);
             webservicePOST.addParam(Params.WORK_DAYS, business.workTime.getWorkDaysString());
             webservicePOST.addParam(Params.WORK_TIME_OPEN, String.valueOf(business.workTime.time_open));
