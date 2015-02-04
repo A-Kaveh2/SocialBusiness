@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ir.rasen.myapplication.classes.SubCategory;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
@@ -21,7 +22,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<String>> {
+public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<SubCategory>> {
     private static final String TAG = "GetBusinessSubcategories";
     private WebserviceResponse delegate = null;
     private int categoryID;
@@ -33,8 +34,8 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
     }
 
     @Override
-    protected ArrayList<String> doInBackground(Void... voids) {
-        ArrayList<String> list = new ArrayList<String>();
+    protected ArrayList<SubCategory> doInBackground(Void... voids) {
+        ArrayList<SubCategory> list = new ArrayList<>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_SUBCATEGORIES,new ArrayList<>(
                 Arrays.asList(String.valueOf(categoryID))));
@@ -45,7 +46,7 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(jsonObject.getString(Params.SUBCATEGORY));
+                    list.add(new SubCategory(Integer.valueOf(jsonObject.getString(Params.ID)),jsonObject.getString(Params.SUBCATEGORY)));
                 }
                 return list;
             }
@@ -57,7 +58,7 @@ public class GetBusinessSubcategories extends AsyncTask<Void, Void, ArrayList<St
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> result) {
+    protected void onPostExecute(ArrayList<SubCategory> result) {
       /*  if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else

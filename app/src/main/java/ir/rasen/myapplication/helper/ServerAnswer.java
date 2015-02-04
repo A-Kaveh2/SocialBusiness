@@ -21,7 +21,6 @@ public class ServerAnswer {
     public static int NONE_ERROR = -1;
 
 
-
     public static String getError(Context context, int errorCode) {
         switch (errorCode) {
             case -2:
@@ -111,32 +110,30 @@ public class ServerAnswer {
         JSONObject errorJsonObject = null;
         if (error.length() > 4) {
             try {
-                errorJsonObject =json.getJSONObject(Params.ERROR);
+                errorJsonObject = json.getJSONObject(Params.ERROR);
             } catch (Exception e) {
 
             }
         }
 
         int errorCode = NONE_DEFINED_ERROR;
-        if (errorJsonObject!= null) {
+        if (errorJsonObject != null) {
             try {
                 errorCode = Integer.valueOf(errorJsonObject.getString(Params.ERROR_CODE));
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
 
         //
-        if(sucessStatus== true && json.getString(Params.RESULT).length()<=2)
+        if (sucessStatus == true && json.getString(Params.RESULT).length() <= 2)
             sucessStatus = false;
 
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
         try {
             serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
         serverAnswer.setErrorCode(errorCode);
@@ -163,12 +160,10 @@ public class ServerAnswer {
         //get result
         String resultString = json.getString(Params.RESULT);
         JSONObject resultJsonObject = null;
-        if (resultString.length() > 4) {
-            try {
-                resultJsonObject = new JSONObject(resultString);
-            } catch (Exception e) {
+        try {
+            resultJsonObject = new JSONObject(resultString);
+        } catch (Exception e) {
 
-            }
         }
 
 
@@ -178,24 +173,25 @@ public class ServerAnswer {
         JSONObject errorJsonObject = null;
         if (error.length() > 4) {
             try {
-                errorJsonObject =json.getJSONObject(Params.ERROR);
+                errorJsonObject = json.getJSONObject(Params.ERROR);
             } catch (Exception e) {
 
             }
         }
 
         int errorCode = NONE_DEFINED_ERROR;
-        if (errorJsonObject!= null) {
+        if (errorJsonObject != null) {
             try {
                 errorCode = Integer.valueOf(errorJsonObject.getString(Params.ERROR_CODE));
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
 
-        if(sucessStatus== true && resultJsonObject == null)
-            sucessStatus = false;
+        if (!(resultString.equals("True") || resultString.equals("False"))) {
+            if (sucessStatus == true && resultJsonObject == null)
+                sucessStatus = false;
+        }
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
         serverAnswer.setResult(resultJsonObject);

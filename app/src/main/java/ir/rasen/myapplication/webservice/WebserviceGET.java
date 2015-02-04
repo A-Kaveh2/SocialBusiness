@@ -33,7 +33,7 @@ public class WebserviceGET {
         try {
             httpResponse = httpclient.execute(httpGet);
         } catch (Exception e) {
-
+            String s = e.getMessage();
         }
         return ServerAnswer.get(httpResponse);
     }

@@ -221,6 +221,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             return;
         }
 
+        user.id = LoginInfo.getUserId(context);
         user.name = edtName.getText().toString();
         user.aboutMe = edtAboutMe.getText().toString();
         user.birthDate = txtBirthDate.getText().toString();

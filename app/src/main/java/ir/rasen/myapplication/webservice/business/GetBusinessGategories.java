@@ -43,7 +43,7 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Categ
                     //list.add(new Category(jsonObject.getString(Params.ID),jsonObject.getString(Params.CATEGORY)));
 
                     //for the test. getBusinessCategory doesn't return category.id by the now!
-                    list.add(new Category(1,jsonObject.getString(Params.CATEGORY)));
+                    list.add(new Category(Integer.valueOf(jsonObject.getString(Params.ID)),jsonObject.getString(Params.CATEGORY)));
                 }
                 return list;
             }

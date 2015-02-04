@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Category;
+import ir.rasen.myapplication.classes.SubCategory;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
@@ -284,7 +285,11 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                     }
                 } else {
                     //result from executing GetBusinessSubcategories
-                    ArrayList<String> subcategoryList = (ArrayList<String>) result;
+                    ArrayList<String> subcategoryList = new ArrayList<>();
+                    ArrayList<SubCategory> subcategoryObjectList = (ArrayList<SubCategory>) result;
+                    for (int i = 0; i < subcategoryObjectList.size(); i++) {
+                            subcategoryList.add(subcategoryObjectList.get(i).name);
+                    }
                     ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, subcategoryList);
                     spnSubcategory.setAdapter(subcategoryAdapter);
                     if (isEditing) {

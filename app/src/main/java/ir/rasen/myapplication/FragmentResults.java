@@ -11,16 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import ir.rasen.myapplication.adapters.BusinessesAdapterResult;
-import ir.rasen.myapplication.adapters.HomePostsAdapter;
 import ir.rasen.myapplication.adapters.PostsGridAdapterResult;
-import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
-import ir.rasen.myapplication.classes.Business;
-import ir.rasen.myapplication.classes.Comment;
-import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -30,8 +23,6 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.search.SearchBusinessesLocation;
 import ir.rasen.myapplication.webservice.search.SearchPost;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by 'Sina KH' on 1/16/2015.
@@ -51,6 +42,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private WebserviceResponse webserviceResponse;
 
     String searchString, category, location_latitude, location_longitude;
+    Context context;
 
     public static FragmentResults newInstance(String searchString, String category
             , Location_M location_m, int searchType) {
@@ -80,6 +72,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         super.onCreate(savedInstanceState);
 
         webserviceResponse = this;
+        context = getActivity();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -111,7 +104,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         if (searchType == Params.SearchType.PRODUCTS) {
             new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
         } else {
-            new SearchBusinessesLocation(LoginInfo.getUserId(getActivity()), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
+            location_latitude = "25.213652";
+            location_longitude = "52.012354";
+            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
         }
 
         return view;
