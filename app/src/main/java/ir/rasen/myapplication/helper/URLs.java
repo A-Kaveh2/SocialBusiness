@@ -8,7 +8,7 @@ public class URLs {
     //public static String MAIN_URL = "http://185.55.226.223:8080/bsn/";
 
     //lcoal address
-    public static String MAIN_URL = "http://192.168.0.102:8080/bsn/";
+    public static String MAIN_URL = "http://192.168.0.104:8080/bsn/";
 
     public static String LOGIN = MAIN_URL+"login";
     public static String FORGET_PASSWORD = MAIN_URL+"forget_password";
@@ -21,7 +21,7 @@ public class URLs {
     public static String GET_HOME_INFO = MAIN_URL+"getUserHomeInfo";
     public static String GET_BUSINESS_HOME_INFO = MAIN_URL+"getBusinessHomeInfo";
     public static String GET_PROFILE_INFO = MAIN_URL+"getUserProfileInfo";
-    public static String GET_BUSINESS_PROFILE_INFO = MAIN_URL+"get_profile_info";
+    public static String GET_BUSINESS_PROFILE_INFO = MAIN_URL+"getBusinessProfileInfo";
     public static String GET_FOLLOWING_BUSINESSES = MAIN_URL+"getUserFollowedBusinesses";
     public static String GET_USER_FRIENDS = MAIN_URL+"get_user_friends";
     public static String GET_USER_FRIEND_REQUEST = MAIN_URL+"getUserFriendRequestList";

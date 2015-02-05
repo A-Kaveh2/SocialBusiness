@@ -88,9 +88,19 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             ((TextViewFont) findViewById(R.id.txt_business_step1_title)).setText(R.string.profile_edit_business);
 
             Business business = PassingBusiness.getInstance().getValue();
-            edtBusinessId.setText(business.id);
+
+            //TODO remove test part
+            business = new Business();
+            business.id = 5;
+            business.userID = 3;
+
+
+/*
+
+            edtBusinessId.setText(business.businessUserName);
             edtName.setText(business.name);
             edtDescription.setText(business.description);
+*/
 
             //spnCategory and spnSubcategory will initiate after executing GetBusinessGategories and GetBusinessSubcategories
             //TODO remove test part
@@ -221,7 +231,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.businessUserName = edtBusinessId.getText().toString();
         business.name = edtName.getText().toString();
         business.category = spnCategory.getSelectedItem().toString();
+        business.categoryID = categoryList.get(spnCategory.getSelectedItemPosition()).id;
         business.subcategory = spnSubcategory.getSelectedItem().toString();
+        business.subCategoryID = subcategoryObjectList.get(spnSubcategory.getSelectedItemPosition()).id;
         business.description = edtDescription.getText().toString();
         business.description= business.description.replace("\n"," ");
         business.hashtagList = TextProcessor.getHashtags(business.description);
@@ -316,6 +328,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             }
             else if(result instanceof Business){
                 Business business = (Business)result;
+                String s = business.name;
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

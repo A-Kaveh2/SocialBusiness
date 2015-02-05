@@ -437,6 +437,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             @Override
             public void onClick(View v) {
                 // Edit business now
+
+                //TODO remove test part
+                profile_business = new Business();
+                profile_business.id = 5;
+                profile_business.userID = 3;
                 PassingBusiness.getInstance().setValue(profile_business);
                 Intent intent = new Intent(getActivity(), ActivityBusinessSettings.class);
                 startActivity(intent);

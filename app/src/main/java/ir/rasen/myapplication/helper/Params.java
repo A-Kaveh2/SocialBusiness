@@ -103,7 +103,7 @@ public class Params {
     public static String PRICE = "Price";
     public static String CODE= "Code";
     public static String LAST_THREE_COMMENTS = "LastThreeComments";
-    public static String HASHTAG_LIST= "HashtagList";
+    public static String HASHTAG_LIST= "HashTagList";
     public static String POST_ID= "PostId";
     public static String TEXT= "Text";
     public static String APPLICATOR_USER_ID= "ApplicatorId";

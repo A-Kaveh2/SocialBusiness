@@ -44,8 +44,8 @@ public class UpdateBusinessProfileInfo extends AsyncTask<Void, Void, ResultStatu
                 webservicePOST.addParam(Params.PROFILE_PICTURE, business.profilePicture);
             else
                 webservicePOST.addParam(Params.PROFILE_PICTURE, "");
-            webservicePOST.addParam(Params.CATEGORY, business.category);
-            webservicePOST.addParam(Params.SUBCATEGORY, business.subcategory);
+            webservicePOST.addParam(Params.CATEGORY_ID, String.valueOf(business.categoryID));
+            webservicePOST.addParam(Params.SUB_CATEGORY_ID, String.valueOf(business.subCategoryID));
             webservicePOST.addParam(Params.DESCRIPTION, business.description);
             webservicePOST.addParam(Params.WORK_DAYS, business.workTime.getWorkDaysString());
             webservicePOST.addParam(Params.WORK_TIME_OPEN, String.valueOf(business.workTime.time_open));
