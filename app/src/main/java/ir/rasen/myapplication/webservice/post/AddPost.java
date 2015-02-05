@@ -16,7 +16,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
+public class AddPost extends AsyncTask<Void, Void, Post> {
     private static final String TAG = "AddPost";
 
     private WebserviceResponse delegate = null;
@@ -29,7 +29,7 @@ public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
     }
 
     @Override
-    protected ResultStatus doInBackground(Void... voids) {
+    protected Post doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.ADD_POST);
 
         try {
@@ -42,8 +42,10 @@ public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
             webservicePOST.addParam(Params.HASHTAG_LIST, Hashtag.getStringFromList(post.hashtagList));
 
             serverAnswer = webservicePOST.execute();
-            if (serverAnswer.getSuccessStatus())
-                return ResultStatus.getResultStatus(serverAnswer);
+            if (serverAnswer.getSuccessStatus()) {
+                post.id = Integer.valueOf(serverAnswer.getResult().getString(Params.POST_ID));
+                return post;
+            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -51,7 +53,7 @@ public class AddPost extends AsyncTask<Void, Void, ResultStatus> {
     }
 
     @Override
-    protected void onPostExecute(ResultStatus result) {
+    protected void onPostExecute(Post result) {
        /* if (result == null)
             delegate.getError(serverAnswer.getErrorCode());
         else

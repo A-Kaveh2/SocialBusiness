@@ -35,6 +35,7 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.post.DeletePost;
 
 public class ActivityNewPost_Step1 extends Activity  {
     private String TAG = "ActivityNewPost_Step1";
@@ -110,10 +111,13 @@ public class ActivityNewPost_Step1 extends Activity  {
         File file = new File(filePath);
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            int myBitmapS = myBitmap.getByteCount();
             try {
                 ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
                         .setImageBitmap(myBitmap);
-                PassingPosts.getInstance().getValue().get(0).picture = Image_M.getBase64String(filePath);
+                String s = Image_M.getBase64String(filePath);
+                int i = s.length();
+                PassingPosts.getInstance().getValue().get(0).picture = s;
             } catch (Exception e) {
                 String s = e.getMessage();
             }
@@ -127,6 +131,8 @@ public class ActivityNewPost_Step1 extends Activity  {
         intent.putExtra(Params.EDIT_MODE, isEditing);
         startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
+
+
     }
 
     // HELP TOUCHED

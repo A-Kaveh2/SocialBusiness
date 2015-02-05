@@ -189,6 +189,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         File file = new File(filePath);
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            int i = myBitmap.getByteCount();
             try {
                 imbProfilePicture.setImageBitmap(myBitmap);
             } catch (Exception e) {
@@ -239,6 +240,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
+
+        String s = Image_M.getBase64String(profilePictureFilePath);;
+        int ii = s.length();
 
         business.categoryID = categoryList.get(spnCategory.getSelectedItemPosition()).id;
         business.subCategoryID = subcategoryObjectList.get(spnSubcategory.getSelectedItemPosition()).id;

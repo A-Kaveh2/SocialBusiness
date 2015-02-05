@@ -22,12 +22,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import org.apache.http.cookie.SM;
+
 import java.io.File;
 import java.util.Calendar;
 
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ResultStatus;
@@ -38,7 +41,9 @@ import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.AddPost;
+import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.post.UpdatePost;
+import ir.rasen.myapplication.webservice.user.RequestConfirmation;
 
 public class ActivityNewPost_Step2 extends Activity implements WebserviceResponse {
     private String TAG = "ActivityNewPost_Step2";
@@ -72,7 +77,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         }
 
         Post post = PassingPosts.getInstance().getValue().get(0);
-        if(!post.picture.equals(post.picture))
+        if (!post.picture.equals(post.picture))
             ((ImageView) findViewById(R.id.img_new_post_step2_post)).setImageBitmap(Image_M.getBitmapFromString(post.picture));
         name.setText(post.title);
         description.setText(post.description);
@@ -80,7 +85,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         code.setText(post.code);
 
         Dialogs dialogs = new Dialogs();
-        dialogs.showPostDeletePopup(this,1,1,this);
+        dialogs.showPostDeletePopup(this, 1, 1, this);
 
     }
 
@@ -138,17 +143,19 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     // SUBMIT TOUCHED
     public void submit(View view) {
-        // next page
-        // SET ON TEXT CHANGE LISTENERS (FOR ERRORS)
-//        setOnTextChangeListeners();
-        // CHECK INPUT DATA
-        if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
+
+        new RequestConfirmation(LoginInfo.getUserId(context),ActivityNewPost_Step2.this).execute();
+      /*  if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
             name.setErrorC(getString(R.string.enter_valid_name));
             return;
         }
 
         Post post = PassingPosts.getInstance().getValue().get(0);
+
+        //TODO for the test
+        isEditing = true;
+        post.id = 2;
 
         if (isEditing) {
             //update existing post
@@ -171,17 +178,17 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             post.code = code.getText().toString();
 
             post.description = description.getText().toString();
-            post.description = post.description.replace("\n"," ");
+            post.description = post.description.replace("\n", " ");
             //TODO where is hashtag list
             post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
 
-
             //TODO assing business.id to the post
             //for the test
-            post.businessID = 1;
+            post.businessID = 1004;
             new AddPost(post, ActivityNewPost_Step2.this).execute();
 
         }
+        */
     }
 
     // HELP TOUCHED
@@ -218,7 +225,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof ResultStatus){
+        if (result instanceof Post) {
             //TODO display success message
         }
     }
@@ -228,7 +235,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }

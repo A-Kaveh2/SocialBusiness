@@ -44,7 +44,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         //TODO remove test parts
         //for the test
         business = new Business();
-        business.id = 1;
+        business.id =5;
         try {
             dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this);
         }
