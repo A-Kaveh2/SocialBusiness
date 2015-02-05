@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Params;
@@ -55,12 +56,13 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
                 user.followedBusinessesNumber = jsonObject.getInt(Params.FOLLOWED_BUSINESSES_NUMBER);
                 user.friendsNumber = jsonObject.getInt(Params.FRIENDS_NUMBER);
 
+
                 JSONObject jsonObjectPermission = jsonObject.getJSONObject(Params.PERMISSION);
                 Permission permission = new Permission();
                 permission.getFromJsonObject(jsonObjectPermission);
                 user.permissions = permission;
                 user.friendshipRelationStatus = FriendshipRelation.getFromCode(jsonObject.getInt(Params.FRIENDSHIP_RELATION_STATUS));
-
+                user.businesses = Business.getBusinesses(jsonObject.getJSONArray(Params.BUSINESSES));
                 return user;
             }
         } catch (Exception e) {

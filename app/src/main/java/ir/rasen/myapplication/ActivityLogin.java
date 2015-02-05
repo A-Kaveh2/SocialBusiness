@@ -83,7 +83,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
          * HERE WE USE INTENT TO TEST MAIN ACTIVITY DURING DEVELOPMENT OPERATIONS
          * */
 
-         gotoActivity(ActivityMain.class);
+        gotoActivity(ActivityMain.class);
         finish();
     }
 

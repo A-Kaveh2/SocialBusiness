@@ -1,5 +1,7 @@
 package ir.rasen.myapplication.classes;
 
+import java.util.ArrayList;
+
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.Sex;
@@ -26,5 +28,6 @@ public class User {
     public int reviewsNumber;
     public int followedBusinessesNumber;
     public int friendsNumber;
+    public ArrayList<Business> businesses;
 
 }

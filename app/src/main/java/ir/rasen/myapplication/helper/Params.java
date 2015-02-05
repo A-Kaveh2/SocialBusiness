@@ -21,6 +21,7 @@ public class Params {
     public static int HASHTAG_MIN_LENGTH = 2;
 
     public static String BUSINESS = "business";
+
     public static int HOME = 0;
     public static int SEARCH = 1;
     public static int PROFILE = 2;
@@ -82,7 +83,7 @@ public class Params {
     public static String COVER_PICTURE = "CoverPicture";
     public static String FRIEND_REQUEST_NUMBER = "FriendRequestNumber";
     public static String REVIEWS_NUMBER = "ReviewsNumber";
-    public static String FOLLOWED_BUSINESSES_NUMBER = "FollowedBusinessesNumber";
+    public static String FOLLOWED_BUSINESSES_NUMBER = "FollowedBusinessNumber";
     public static String FRIENDS_NUMBER = "FriendsNumber";
     public static String PERMISSION = "Permission";
     public static String FOLLOWED_BUSINESS = "FollowedBusiness";
@@ -145,6 +146,8 @@ public class Params {
     public static String IMAGE = "image";
     public static String CATEGORY_ID = "CategoryId";
     public static String SUB_CATEGORY_ID = "SubCategoryId";
+    public static String BUSINESSES = "Businesses";
+
 
 
 }

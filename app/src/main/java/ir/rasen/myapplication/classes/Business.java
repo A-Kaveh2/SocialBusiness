@@ -1,8 +1,12 @@
 package ir.rasen.myapplication.classes;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.helper.Location_M;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.WorkTime;
 
 
@@ -37,4 +41,18 @@ public class Business {
     public float rate;
 
 
+    public static ArrayList<Business> getBusinesses(JSONArray jsonArray)throws Exception {
+        ArrayList<Business> businesses = new ArrayList<>();
+
+        for (int j = 0; j < jsonArray.length(); j++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(j);
+            Business business = new Business();
+            business.id = Integer.valueOf(jsonObject.getString(Params.BUSINESS_ID));
+            business.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
+            businesses.add(business);
+
+        }
+
+        return businesses;
+    }
 }
