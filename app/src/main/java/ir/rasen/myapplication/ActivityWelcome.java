@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.alarm.AlarmReciever;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
@@ -44,6 +45,11 @@ public class ActivityWelcome extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        if(LoginInfo.isLoggedIn(this)) {
+            gotoActivity(ActivityMain.class);
+            finish();
+        }
 
         page = (ImageView) findViewById(R.id.img_welcome_page);
 
@@ -114,6 +120,13 @@ public class ActivityWelcome extends FragmentActivity {
         } else {
             finish();
             overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+        }
+    }
+
+    public void onResume() {
+        super.onResume();
+        if(LoginInfo.isLoggedIn(this)) {
+            finish();
         }
     }
 
