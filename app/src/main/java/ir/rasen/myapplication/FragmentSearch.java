@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
 import ir.rasen.myapplication.classes.Category;
+import ir.rasen.myapplication.classes.SubCategory;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.helper.InnerFragment;
@@ -56,13 +57,12 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private boolean nearby = true;
     private View view;
     private TextViewFont btnBusinesses, btnUsers;
-    private ArrayList<String> subCategories;
     private DrawerLayout drawerLayout;
     private Location_M locationM;
-    private LocationManager mLocationManager;
 
     private HistoryDatabase database;
     private ArrayList<Category> categories;
+    private ArrayList<SubCategory> subCategories;
 
     private ListView listViewCategories, listViewSubCategories;
 
@@ -181,7 +181,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
                 ((TextViewFont) view.findViewById(R.id.txt_search_category)).setText(categories.get(i).name);
-                subCategories = new ArrayList<String>();
+                ArrayList<String> subCategories = new ArrayList<String>();
                 ArrayAdapter<String> subcategoriesAdapter =
                         new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
                 listViewSubCategories.setAdapter(subcategoriesAdapter);
@@ -200,8 +200,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
                 switchDrawer();
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.INVISIBLE);
-                category = subCategories.get(i);
-                ((TextViewFont) view.findViewById(R.id.txt_search_filter)).setText(getString(R.string.filter) + " " + subCategories.get(i));
+                category = subCategories.get(i).name;
+                ((TextViewFont) view.findViewById(R.id.txt_search_filter)).setText(getString(R.string.filter) + " " + subCategories.get(i).name);
             }
         });
         // back on click listener
@@ -244,13 +244,11 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == Params.INTENT_LOCATION && resultCode == Params.INTENT_OK) {
             locationM = new Location_M(data.getStringExtra(Params.LOCATION_LATITUDE), data.getStringExtra(Params.LOCATION_LONGITUDE));
             ((TextViewFont) view.findViewById(R.id.txt_search_title)).setText(R.string.selected_location);
             nearby = false;
         }
-
     }
 
     void onClickListeners() {
@@ -363,11 +361,14 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                             .setVisibility(View.GONE);
                 } else {
                     //result from executing getBusinessSubcategories
-                    subCategories = new ArrayList<String>();
-                    subCategories = (ArrayList<String>) result;
+                    subCategories = new ArrayList<SubCategory>();
+                    ArrayList<String> subCategoriesListStr = new ArrayList<String>();
+                    subCategories = (ArrayList<SubCategory>) result;
+                    for(SubCategory cat:subCategories)
+                        subCategoriesListStr.add(cat.name);
 
                     ArrayAdapter<String> subcategoriesAdapter =
-                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategories);
+                            new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, subCategoriesListStr);
                     listViewSubCategories.setAdapter(subcategoriesAdapter);
                     ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
                             .setVisibility(View.GONE);
