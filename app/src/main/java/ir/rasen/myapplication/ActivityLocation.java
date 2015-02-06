@@ -180,7 +180,21 @@ public class ActivityLocation extends FragmentActivity {
                     marker.setPosition(latLng);
             }
         });
-        // set popup info adapter
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if(marker==null) {
+                    marker = mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title(businessName)
+                            .snippet(businessCategory)
+                            .draggable(true));
+                    findViewById(R.id.btn_location_submit).setVisibility(View.VISIBLE);
+                } else
+                    marker.setPosition(latLng);
+            }
+        });
+                // set popup info adapter
         if(getIntent().getIntExtra(Params.SET_LOCATION_TYPE, Params.SEARCH)!=Params.SEARCH)
             mMap.setInfoWindowAdapter(new MarkerPopupAdapter(getBaseContext(), getLayoutInflater()));
         // set marker prev place

@@ -30,7 +30,7 @@ public class Dialogs {
     //post_id = post.id
 
     public void showPostDeletePopup(Context context, final int buisness_id, final int post_id, final WebserviceResponse delegate) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_post)
                 .setMessage(R.string.popup_delete)
