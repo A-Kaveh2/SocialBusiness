@@ -49,7 +49,7 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(Post.getFromJSONObject(jsonObject));
+                    list.add(Post.getFromJSONObjectShare(jsonObject));
                 }
                 return list;
             }
