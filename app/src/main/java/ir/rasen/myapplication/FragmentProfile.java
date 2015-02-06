@@ -286,13 +286,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     innerFragment.newBusinessesFragment(profileId);
                 }
             });
-            // MY OWN USER'S PROFILE
-            if (profileOwn == true) {
-                myOwnProfile();
-            } else {
-                // SOMEONE'S PROFILE ( will be processed after loading data )
-                //header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
-            }
         }
         // BUSINESS
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
@@ -325,12 +318,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     innerFragment.newFollowers(profileId);
                 }
             });
-            if (profileOwn) {
-                myOwnBusiness();
-            } else {
-                // SOMEONE'S PROFILE ( will be processed after loading data )
-                //header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.INVISIBLE);
-            }
         }
 
         // TODO: NOW LOAD AND SHOW PROFILES DETAILS BASED ON PROFILE TYPE
@@ -433,6 +420,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
+        ((ActivityMain) getActivity()).permission = profile_user.permissions;
     }
 
     void myOwnBusiness() {
@@ -547,9 +535,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //TODO assign
                 profileType = Params.ProfileType.PROFILE_USER;
 
-
-                //TODO throws excetpion
-                //assignNow();
+                assignNow();
 
                 if (profileType==Params.ProfileType.PROFILE_USER) {
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
@@ -583,8 +569,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 //TODO assign business
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
-                profile_pic = Image_M.getBitmapFromString(business.profilePicture);
-                cover_pic = Image_M.getBitmapFromString(business.coverPicture);
 
                 new GetBusinessPosts(business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBustinessPosts;

@@ -23,6 +23,7 @@ import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
 
 /**
@@ -40,6 +41,8 @@ public class ActivityMain extends FragmentActivity {
 
     private DrawerLayout drawerLayout;
     private RelativeLayout drawerLayoutRight;
+
+    public Permission permission;
 
     boolean drawerIsShowing = false;
 
@@ -195,9 +198,14 @@ public class ActivityMain extends FragmentActivity {
         findViewById(R.id.ll_profile_menu_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), ActivitySettings.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.to_0, R.anim.to_left);
+                if(permission!=null) {
+                    Intent intent = new Intent(getBaseContext(), ActivitySettings.class);
+                    intent.putExtra(Params.PERMISSION_FRIENDS, permission.friends);
+                    intent.putExtra(Params.PERMISSION_REVIEWS, permission.reviews);
+                    intent.putExtra(Params.PERMISSION_FOLLOWED_BUSINESSES, permission.followedBusiness);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.to_0, R.anim.to_left);
+                }
             }
         });
         // EXIT
