@@ -418,7 +418,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             }
         });
         ((ActivityMain) getActivity()).permission = profile_user.permissions;
-        ((ActivityMain) getActivity()).businesses(profile_user);
     }
 
     void myOwnBusiness() {

@@ -37,9 +37,9 @@ public class User {
     public int friendsNumber;
     public ArrayList<UserBusinesses> businesses;
 
-    public static class UserBusinesses{
-        public int businessId;
-        public String businessUserName;
+    private static class UserBusinesses{
+        int businessId;
+        String businessUserName;
     }
 
     public static ArrayList<UserBusinesses> getUserBusinesses(JSONArray jsonArray)throws Exception {
