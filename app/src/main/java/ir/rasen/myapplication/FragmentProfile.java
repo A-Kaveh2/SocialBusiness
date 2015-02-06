@@ -151,9 +151,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             //TODO remove test part
             //get user home info by sending user_id
-            new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont),webserviceResponse).execute();
-            runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
-            // TODO ::
             if(profileId!=0) {
 
                 //TODO for the test
@@ -529,8 +526,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             } else if (result instanceof User) {
                 //get visited user home info
-                User user = (User) result;
-
+                profile_user = (User) result;
 
                 //TODO assign
                 profileType = Params.ProfileType.PROFILE_USER;

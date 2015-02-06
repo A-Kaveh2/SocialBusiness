@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -86,6 +88,25 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
         Dialogs dialogs = new Dialogs();
         dialogs.showPostDeletePopup(this, 1, 1, this);
+
+
+        description.addTextChangedListener(new TextWatcher() {
+            String oldText;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                oldText = charSequence.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                if(charSequence.toString().equals(oldText))
+                    return;
+                TextProcessor textProcessor = new TextProcessor(context);
+                textProcessor.processEdtHashtags(description.getText().toString(), description);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
     }
 
@@ -233,7 +254,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             post.price = price.getText().toString();
             post.code = code.getText().toString();
             post.description = description.getText().toString();
-            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
+            post.hashtagList = TextProcessor.getHashtags(post.description);
 
         } else {
             Calendar calander = Calendar.getInstance();
@@ -247,8 +268,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
             post.description = description.getText().toString();
             post.description = post.description.replace("\n", " ");
-            //TODO where is hashtag list
-            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
+            post.hashtagList = TextProcessor.getHashtags(post.description);
         }
     }
 

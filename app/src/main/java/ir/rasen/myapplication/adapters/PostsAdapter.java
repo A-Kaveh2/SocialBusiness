@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -70,6 +71,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
             holder.likeHeart = (ImageView) convertView.findViewById(R.id.img_like_heart);
             holder.comments = (LinearLayout) convertView.findViewById(R.id.ll_home_post_comments);
+            holder.comments_3 = (RelativeLayout) convertView.findViewById(R.id.rl_home_comments);
             holder.comment1_pic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_comment_1);
 
             convertView.setTag(holder);
@@ -89,18 +91,21 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
             holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
-            holder.comment1_user.setText(post.lastThreeComments.get(0).username);
-            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO:: OPEN COMMENT's USER's PROFILE
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-            TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
-
+            if(post.lastThreeComments.size()>0) {
+                holder.comment1_user.setText(post.lastThreeComments.get(0).username);
+                holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO:: OPEN COMMENT's USER's PROFILE
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                    }
+                });
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
+            } else {
+                holder.comments_3.setVisibility(View.GONE);
+            }
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 OptionsPost optionsPost = new OptionsPost(context);
@@ -192,6 +197,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         ImageView options, postPic, likeHeart;
         ImageViewCircle business_pic, comment1_pic;
         LinearLayout likes, comments;
+        RelativeLayout comments_3;
         int id;
     }
 

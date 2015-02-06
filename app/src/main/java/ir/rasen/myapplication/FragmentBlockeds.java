@@ -42,13 +42,13 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     ArrayList<User> blockeds;
 
     // business id is received here
-    private String businessId;
+    private int businessId;
 
-    public static FragmentBlockeds newInstance (String businessId){
+    public static FragmentBlockeds newInstance (int businessId){
         FragmentBlockeds fragment = new FragmentBlockeds();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Params.BUSINESS_ID, businessId);
+        bundle.putInt(Params.BUSINESS_ID, businessId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -62,7 +62,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            businessId = bundle.getString(Params.BUSINESS_ID);
+            businessId = bundle.getInt(Params.BUSINESS_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             if(getActivity()!=null){

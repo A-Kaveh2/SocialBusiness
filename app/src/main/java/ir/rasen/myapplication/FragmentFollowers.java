@@ -40,7 +40,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     private ListAdapter mAdapter;
 
     // business id is received here
-    private String businessId;
+    private int businessId;
 
     ArrayList<User> followers;
 
@@ -62,7 +62,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            businessId = bundle.getString(Params.BUSINESS_ID);
+            businessId = bundle.getInt(Params.BUSINESS_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
             if(getActivity()!=null){
@@ -76,8 +76,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO remove test part. assign businessId
-        new GetBusinessFollowers(2,FragmentFollowers.this).execute();
+        new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
 
     }
 

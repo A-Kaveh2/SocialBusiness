@@ -212,7 +212,10 @@ public class ActivityMain extends FragmentActivity {
         findViewById(R.id.ll_profile_menu_exit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                LoginInfo.logout(ActivityMain.this);
+                Intent intent = new Intent(getBaseContext(), ActivityWelcome.class);
+                intent.putExtra(Params.WELCOME_PAGE, 3);
+                startActivity(intent);
                 overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         });

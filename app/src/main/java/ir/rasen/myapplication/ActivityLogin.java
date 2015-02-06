@@ -103,7 +103,6 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
         findViewById(R.id.btn_login_forget).startAnimation(animationSetBtn);
     }
 
-
     public void gotoActivity(Class targetClass) {
         Intent intent = new Intent(getBaseContext(), targetClass);
         startActivity(intent);

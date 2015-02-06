@@ -60,6 +60,7 @@
     <string name="err_login_password_incorrect">رمز عبور اشتباه است. مجددا سعی نمایید</string>
     <string name="err_login_email_incorrect">چنین آدرس پست الکترونیکی ثبت نشده است. مجددا سعی نمایید</string>
     <string name="err_profile_edit_password_old_incorrect">رمز عبور صحیح نمی باشد.</string>
+    <string name="err_set_picture">لطفأ تصویری را انتخاب کنید.</string>
 
     <string name="err_execution">Execution Error</string>
     <string name="err_none">None</string>
@@ -149,7 +150,7 @@
     <string name="no">خیر</string>
 
     <!-- MENU ITEMS -->
-    <string name="exit">خروج</string>
+    <string name="exit">خروج از حساب</string>
 
     <!-- POPUP -->
     <string name="delete_post">حذف مطلب</string>

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -67,6 +68,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.comment1_user = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_user);
             holder.comment1_pic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_comment_1);
             holder.comments = (LinearLayout) convertView.findViewById(R.id.ll_home_post_comments);
+            holder.comments_3 = (RelativeLayout) convertView.findViewById(R.id.rl_home_comments);
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
             holder.likeHeart = (ImageView) convertView.findViewById(R.id.img_like_heart);
             holder.options = (ImageButton) convertView.findViewById(R.id.btn_home_post_options);
@@ -85,17 +87,21 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     + "<br /><font color=#3F6F94>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            holder.comment1_user.setText(post.lastThreeComments.get(0).username);
-            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO:: OPEN COMMENT's USER's PROFILE
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-            TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
+            if(post.lastThreeComments.size()>0) {
+                holder.comment1_user.setText(post.lastThreeComments.get(0).username);
+                holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO:: OPEN COMMENT's USER's PROFILE
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                    }
+                });
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
+            } else {
+                holder.comments_3.setVisibility(View.GONE);
+            }
 
             // SHOW COMMENTS LISTENER
             holder.comments.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +179,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         ImageViewCircle comment1_pic;
         ImageButton options;
         LinearLayout likes, comments;
+        RelativeLayout comments_3;
         int id;
     }
 

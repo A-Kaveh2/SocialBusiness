@@ -87,9 +87,11 @@ public class ActivityWelcome extends FragmentActivity {
         pager.setCurrentItem(0);
         page.setImageResource(R.drawable.page_1);
 
-        MyNotification myNotification = new MyNotification();
-        myNotification.Notify(this,R.drawable.ic_launcher,"Title","TEXXT", Color.RED);
-
+        if(getIntent().getExtras()!=null) {
+            if(getIntent().getExtras().containsKey(Params.WELCOME_PAGE)) {
+                pager.setCurrentItem(getIntent().getIntExtra(Params.WELCOME_PAGE, 0));
+            }
+        }
     }
 
     // FRAGMENT PAGER ADAPTER

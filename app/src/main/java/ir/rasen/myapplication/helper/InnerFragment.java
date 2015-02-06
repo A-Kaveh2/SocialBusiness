@@ -68,7 +68,7 @@ public class InnerFragment {
     }
 
     // add new followers fragment to current place
-    public void newBlockedsFragment(String businessId) {
+    public void newBlockedsFragment(int businessId) {
         Fragment newFragment = new FragmentBlockeds().newInstance(businessId);
         addFragment(newFragment);
     }

@@ -40,7 +40,7 @@ import ir.rasen.myapplication.webservice.post.DeletePost;
 public class ActivityNewPost_Step1 extends Activity  {
     private String TAG = "ActivityNewPost_Step1";
 
-    private boolean isEditing = false;
+    private boolean isEditing = false, picChoosed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,7 @@ public class ActivityNewPost_Step1 extends Activity  {
             if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
                 String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
                 displayCropedImage(filePath);
+                picChoosed=true;
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
                 String filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(filePath);
@@ -111,7 +112,6 @@ public class ActivityNewPost_Step1 extends Activity  {
         File file = new File(filePath);
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            int myBitmapS = myBitmap.getByteCount();
             try {
                 ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
                         .setImageBitmap(myBitmap);
@@ -127,11 +127,14 @@ public class ActivityNewPost_Step1 extends Activity  {
     // SUBMIT TOUCHED
     public void submit(View view) {
         // next step
+        if(!isEditing && !picChoosed){
+            Dialogs.showMessage(ActivityNewPost_Step1.this, getString(R.string.err_set_picture));
+            return;
+        }
         Intent intent = new Intent(getBaseContext(), ActivityNewPost_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
         startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
-
 
     }
 
