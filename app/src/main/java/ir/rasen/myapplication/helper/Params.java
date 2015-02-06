@@ -82,6 +82,7 @@ public class Params {
     public static String BIRTH_DATE = "BirthDate";
     public static String PROFILE_PICTURE = "ProfilePicture";
     public static String COVER_PICTURE = "CoverPicture";
+    public static String COVER_PICTURE_ID = "CoverPictureId";
     public static String FRIEND_REQUEST_NUMBER = "FriendRequestNumber";
     public static String REVIEWS_NUMBER = "ReviewsNumber";
     public static String FOLLOWED_BUSINESSES_NUMBER = "FollowedBusinessNumber";
