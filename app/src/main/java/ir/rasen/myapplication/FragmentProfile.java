@@ -151,7 +151,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //TODO remove test part
             //get user home info by sending user_id
             new GetUserHomeInfo(LoginInfo.getUserId(cont),LoginInfo.getUserId(cont),webserviceResponse).execute();
-
+            runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
             // TODO ::
             if(profileId!=0) {
 
@@ -165,7 +165,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //get business home info
 
 
-
+            new GetBusinessHomeInfo(1004, FragmentProfile.this).execute();
+            runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
+            
             // TODO ::
             if(profileId!=0) {
                 //TODO remove test part
@@ -558,6 +560,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             } else if (result instanceof ArrayList) {
 
+
                 //TODO assign
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
                     //user shared posts
@@ -582,6 +585,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 profile_pic = Image_M.getBitmapFromString(business.profilePicture);
                 cover_pic = Image_M.getBitmapFromString(business.coverPicture);
 
+                new GetBusinessPosts(business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 assignNow();
             }
 
