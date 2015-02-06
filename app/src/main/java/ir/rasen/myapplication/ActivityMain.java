@@ -34,6 +34,9 @@ import ir.rasen.myapplication.ui.ViewPagerPaging;
 
 public class ActivityMain extends FragmentActivity {
 //
+
+    public static ActivityMain activityMain;
+
     private static int FRAGMENTS_COUNT = 3;
     public int fragCount[];
     public ViewPagerPaging pager;
@@ -54,6 +57,8 @@ public class ActivityMain extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        activityMain = this;
 
         btnHome = (ImageButton) findViewById(R.id.btn_main_home);
         btnSearch = (ImageButton) findViewById(R.id.btn_main_search);

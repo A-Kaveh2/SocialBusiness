@@ -296,4 +296,6 @@
 
     <!--DOWNLOAD IMAGES -->
     <string name="download_storage_path">/Charsoo/cache/images</string>
+
+    <string name="business_deleted">کسب و کار حذف شد.</string>
 </resources>
