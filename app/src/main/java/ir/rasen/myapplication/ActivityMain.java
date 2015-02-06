@@ -265,4 +265,11 @@ public class ActivityMain extends FragmentActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    public void removeBusiness(int id) {
+        for(int i=0; i<businesses.size(); i++)
+            if(businesses.get(i).id==id) {
+                businesses.remove(i);
+                return;
+            }
+    }
 }
