@@ -10,8 +10,7 @@
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/txt_drawer_business_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_size_normal"
             android:gravity="center"/>
