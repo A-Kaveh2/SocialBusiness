@@ -86,11 +86,13 @@ public class Params {
     public static String FOLLOWED_BUSINESSES_NUMBER = "FollowedBusinessNumber";
     public static String FRIENDS_NUMBER = "FriendsNumber";
     public static String PERMISSION = "Permission";
-    public static String FOLLOWED_BUSINESS = "FollowedBusiness";
+    public static String FOLLOWED_BUSINESS = "FollowedBusinesses";
     public static String FRIENDS = "Friends";
     public static String REVIEWS = "Reviews";
     public static String FRIENDSHIP_RELATION_STATUS = "FriendshipRelationStatus";
+    public static String FRIENDSHIP_RELATION_STATUS_CODE = "FriendshipRelationStatusCode";
     public static String PICTURE = "Picture";
+    public static String SEARCH_PICTURE_ID = "SearchPictureId";
     public static String TITLE = "Title";
     public static String PERMISSION_FOLLOWED_BUSINESSES = "PermissionFollowedBusinesses";
     public static String PERMISSION_FRIENDS = "PermissionFriends";

@@ -533,20 +533,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //delete post,follow business
 
             } else if (result instanceof User) {
-                //get user home info
+                //get visited user home info
                 User user = (User) result;
-                int userID = user.id;
-                String userName = user.userName;
-                String name = user.name;
-                String aboutMe = user.aboutMe;
-                profile_pic = Image_M.getBitmapFromString(user.profilePicture);
-                cover_pic = Image_M.getBitmapFromString(user.coverPicture);
-                int friendRequestNumber = user.friendRequestNumber;
-                int reviewsNumber = user.reviewsNumber;
-                int followedBusinessNumber = user.followedBusinessesNumber;
-                int friendsNumber = user.friendsNumber;
-                Permission permissions = user.permissions;
-                FriendshipRelation.Status friendshipRelationStatus = user.friendshipRelationStatus;
 
                 //TODO assign
                 profileType = Params.ProfileType.PROFILE_USER;

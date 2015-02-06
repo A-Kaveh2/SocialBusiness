@@ -1,8 +1,14 @@
 package ir.rasen.myapplication.classes;
 
+import com.google.android.gms.internal.id;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.helper.FriendshipRelation;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.Sex;
 
@@ -21,6 +27,7 @@ public class User {
     public Sex sex;
     public String birthDate;
     public String profilePicture;
+    public int profilePictureId;
     public String coverPicture;
     public Permission permissions;
     public FriendshipRelation.Status friendshipRelationStatus;
@@ -28,6 +35,24 @@ public class User {
     public int reviewsNumber;
     public int followedBusinessesNumber;
     public int friendsNumber;
-    public ArrayList<Business> businesses;
+    public ArrayList<UserBusinesses> businesses;
 
+    private static class UserBusinesses{
+        int businessId;
+        String businessUserName;
+    }
+
+    public static ArrayList<UserBusinesses> getUserBusinesses(JSONArray jsonArray)throws Exception {
+        ArrayList<UserBusinesses> businesses = new ArrayList<>();
+
+        for (int j = 0; j < jsonArray.length(); j++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(j);
+            UserBusinesses userBusinesses = new UserBusinesses();
+            userBusinesses.businessId = Integer.valueOf(jsonObject.getString(Params.BUSINESS_ID));
+            userBusinesses.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
+            businesses.add(userBusinesses);
+        }
+
+        return businesses;
+    }
 }

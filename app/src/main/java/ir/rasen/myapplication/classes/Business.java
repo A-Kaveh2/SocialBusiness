@@ -20,6 +20,7 @@ public class Business {
     public String name;
     public String coverPicture;
     public String profilePicture;
+    public int profilePictureId;
     public String category;
     public String subcategory;
     public int categoryID;
@@ -41,18 +42,5 @@ public class Business {
     public float rate;
 
 
-    public static ArrayList<Business> getBusinesses(JSONArray jsonArray)throws Exception {
-        ArrayList<Business> businesses = new ArrayList<>();
 
-        for (int j = 0; j < jsonArray.length(); j++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(j);
-            Business business = new Business();
-            business.id = Integer.valueOf(jsonObject.getString(Params.BUSINESS_ID));
-            business.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
-            businesses.add(business);
-
-        }
-
-        return businesses;
-    }
 }

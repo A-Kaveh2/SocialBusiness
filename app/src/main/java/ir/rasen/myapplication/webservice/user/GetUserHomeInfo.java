@@ -3,6 +3,7 @@ package ir.rasen.myapplication.webservice.user;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
+                user.id = visitedUserID;
                 user.name = jsonObject.getString(Params.NAME);
                 user.aboutMe = jsonObject.getString(Params.ABOUT_ME);
                 user.profilePicture = jsonObject.getString(Params.PROFILE_PICTURE);
@@ -57,12 +59,16 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
                 user.friendsNumber = jsonObject.getInt(Params.FRIENDS_NUMBER);
 
 
-                JSONObject jsonObjectPermission = jsonObject.getJSONObject(Params.PERMISSION);
+                String per = jsonObject.getString(Params.PERMISSION);
+                JSONObject jsonObjectPermission = new JSONObject(per);
                 Permission permission = new Permission();
                 permission.getFromJsonObject(jsonObjectPermission);
                 user.permissions = permission;
-                user.friendshipRelationStatus = FriendshipRelation.getFromCode(jsonObject.getInt(Params.FRIENDSHIP_RELATION_STATUS));
-                user.businesses = Business.getBusinesses(jsonObject.getJSONArray(Params.BUSINESSES));
+                user.friendshipRelationStatus = FriendshipRelation.getFromCode(jsonObject.getInt(Params.FRIENDSHIP_RELATION_STATUS_CODE));
+
+                String busi = jsonObject.getString(Params.BUSINESSES);
+                JSONArray busiArray = new JSONArray(busi);
+                user.businesses = User.getUserBusinesses(busiArray);
                 return user;
             }
         } catch (Exception e) {

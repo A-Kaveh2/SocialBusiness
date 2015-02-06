@@ -33,7 +33,7 @@ public class DownloadImages {
 
     //key: image name
     //value: image bitmap
-    Hashtable<String, Bitmap> images = new Hashtable<>();
+    Hashtable<Integer, Bitmap> images = new Hashtable<>();
 
     private boolean isDownloadStarted;
     private String storagePath;
@@ -49,35 +49,35 @@ public class DownloadImages {
 
     }
 
-    public void download(int imageID, int imageSize, String imageName, ImageView imageView) {
+    public void download(int imageID, int imageSize, ImageView imageView) {
         //imageSize: 1=large, 2=medium, 3= small
 
         //if image is already used
-        if (images.containsKey(imageName)) {
-            imageView.setImageBitmap(images.get(imageName));
+        if (images.containsKey(imageID)) {
+            imageView.setImageBitmap(images.get(imageID));
             return;
         }
 
-        if (isImageInStorage(imageName)) {
-            Bitmap bitmap = BitmapFactory.decodeFile(storagePath+imageName);
-            images.put(imageName, bitmap);
+        if (isImageInStorage(imageID, imageSize)) {
+            Bitmap bitmap = BitmapFactory.decodeFile(storagePath + imageID+"_"+imageSize);
+            images.put(imageID, bitmap);
             imageView.setImageBitmap(bitmap);
             return;
         }
 
         if (!isDownloadStarted) {
             isDownloadStarted = true;
-            downloadQueue.add(new DownloadImage(imageID, imageSize, imageName, imageView));
+            downloadQueue.add(new DownloadImage(imageID, imageSize, imageView));
             new DownloadImageThread(context).execute();
         } else {
-            downloadQueue.add(new DownloadImage(imageID, imageSize, imageName, imageView));
+            downloadQueue.add(new DownloadImage(imageID, imageSize, imageView));
         }
 
 
     }
 
-    private boolean isImageInStorage(String imageName) {
-        File file = new File(storagePath, imageName);
+    private boolean isImageInStorage(int imageID, int imageSize) {
+        File file = new File(storagePath, String.valueOf(imageID) + "_" + String.valueOf(imageSize));
         if (file.exists())
             return true;
         return false;
@@ -86,13 +86,11 @@ public class DownloadImages {
     private class DownloadImage {
         int imageID;
         int imageSize;
-        String imageName;
         ImageView imageView;
 
-        public DownloadImage(int imageID, int imageSize, String imageName, ImageView imageView) {
+        public DownloadImage(int imageID, int imageSize, ImageView imageView) {
             this.imageID = imageID;
             this.imageSize = imageSize;
-            this.imageName = imageName;
             this.imageView = imageView;
         }
     }
@@ -138,13 +136,13 @@ public class DownloadImages {
 
             if (result == null) {
                 Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image);
-                images.put(downloadQueue.get(0).imageName, bitmap);
+                images.put(downloadQueue.get(0).imageID, bitmap);
                 downloadQueue.get(0).imageView.setImageBitmap(bitmap);
             } else {
                 Bitmap bitmap = Image_M.getBitmapFromString(result);
-                images.put(downloadQueue.get(0).imageName, bitmap);
+                images.put(downloadQueue.get(0).imageID, bitmap);
                 downloadQueue.get(0).imageView.setImageBitmap(bitmap);
-                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageName, bitmap);
+                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID+"_"+downloadQueue.get(0).imageSize, bitmap);
             }
 
             downloadQueue.remove(0);

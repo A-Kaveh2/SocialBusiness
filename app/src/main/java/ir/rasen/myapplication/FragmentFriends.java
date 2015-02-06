@@ -187,7 +187,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                 for (SearchItemUserBusiness item : usersFriends) {
                     user = new User();
                     user.userName = item.username;
-                    user.profilePicture = item.picture;
+                    user.profilePictureId = item.pictureId;
                     friends.add(user);
                 }
 

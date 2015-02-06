@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -43,6 +44,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
     // business id is received here
     private int userId;
+    private Context context;
 
     private ArrayList<Business> businesses;
 
@@ -90,28 +92,10 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
         // TODO: Change Adapter to display your content
         businesses = new ArrayList<Business>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-       /* Business b1 = new Business();
-        Business b2 = new Business();
-        Business b3 = new Business();
-        b1.name = ("RASEN");
-        b2.name = ("IRAN AIR");
-        b3.name = ("کبابی محل");
-        businesses.add(b1);
-        businesses.add(b2);
-        businesses.add(b3);
-
-        mAdapter = new BusinessesAdapter(getActivity(), businesses);
-        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
-*/
-
-
         
         //TODO remove test parts
-        new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
+        //new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
+        new GetFollowingBusinesses(LoginInfo.getUserId(getActivity()), FragmentBusinesses.this).execute();
 
         return view;
     }
@@ -180,9 +164,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                 Business business = null;
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
                 for (SearchItemUserBusiness item : searchItemUserBusinesses) {
-                    new Business();
-                    business.name = item.username;
-                    business.profilePicture = item.picture;
+                    business = new Business();
+                    business.id = item.userID;
+                    business.businessUserName = item.username;
+                    business.profilePictureId = item.pictureId;
+
+                    //user pictureId to download image with DownloadImages class
                     businesses.add(business);
                 }
 

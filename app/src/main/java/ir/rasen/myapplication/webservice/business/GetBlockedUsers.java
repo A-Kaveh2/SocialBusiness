@@ -47,7 +47,7 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
-                            jsonObject.getString(Params.PICTURE),
+                            jsonObject.getInt(Params.SEARCH_PICTURE_ID),
                             jsonObject.getString(Params.NAME)));
                 }
                 return list;

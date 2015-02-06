@@ -47,8 +47,8 @@ public class GetFollowingBusinesses extends AsyncTask<Void, Void, ArrayList<Sear
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.BUSINESS_ID),
-                            jsonObject.getString(Params.PICTURE),
-                            jsonObject.getString(Params.NAME)));
+                            jsonObject.getInt(Params.SEARCH_PICTURE_ID),
+                            jsonObject.getString(Params.BUSINESS_USER_NAME)));
                 }
                 return list;
             }

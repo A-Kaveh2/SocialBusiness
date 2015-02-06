@@ -182,7 +182,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 for (SearchItemUserBusiness item : businessesFollowers) {
                     user = new User();
                     user.userName = item.username;
-                    user.profilePicture = item.picture;
+                    user.profilePictureId = item.pictureId;
                     followers.add(user);
                 }
 
