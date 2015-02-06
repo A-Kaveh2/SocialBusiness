@@ -102,6 +102,7 @@ public class ActivityMain extends FragmentActivity {
             for example, i've made some fake data to show ::
         */
         Business b1 = new Business();
+        b1.id = 1004;
         Business b2 = new Business();
         Business b3 = new Business();
         b1.name=("IRAN AIR");
