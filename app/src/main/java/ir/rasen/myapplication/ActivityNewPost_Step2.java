@@ -183,9 +183,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         if (isEditing) {
             new UpdatePost(post, ActivityNewPost_Step2.this).execute();
         } else {
-            //TODO assing business.id to the post
-            //for the test
-            post.businessID = 1004;
             new AddPost(post, ActivityNewPost_Step2.this).execute();
         }
 

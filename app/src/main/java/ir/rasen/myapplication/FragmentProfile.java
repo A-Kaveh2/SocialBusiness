@@ -282,8 +282,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
         // BUSINESS
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setVisibility(View.GONE);
-            ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setVisibility(View.VISIBLE);
+            header.findViewById(R.id.txt_profile_status).setVisibility(View.GONE);
+            header.findViewById(R.id.ratingBar_profile).setVisibility(View.VISIBLE);
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_call);
             // CALL INFO
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {
@@ -313,76 +313,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             });
         }
 
-        // TODO: NOW LOAD AND SHOW PROFILES DETAILS BASED ON PROFILE TYPE
-        // for example, i've made some fake data in user and business::
-/*        profile_business = new Business();
-        profile_business.location_m = new Location_M("35.7014396", "51.3498186");
-        profile_business.businessID = "RASEN Corporation";
-        profile_business.name = "شرکت نرم افزاری راسن";
-        profile_business.followersNumber = 22;
-        profile_business.reviewsNumber = 11;
-        profile_business.description = "توسعه و تولید...";
-        WorkTime workTime = new WorkTime();
-        try {
-            workTime.setWorkDaysFromString("0,1,2,3");
-        } catch (Exception e) {
-        }
-        workTime.time_open = 600;
-        workTime.time_close = 1000;
-        profile_business.workTime = workTime;
-        profile_business.email = "rasen@rasen.com";
-        profile_business.mobile = "09123456789";
-        profile_business.phone = "02123456789";
-        profile_business.rate = (float) 4.5;
-        profile_business.webSite = "http://www.rasen.com";
-
-        profile_user = new User();
-        profile_user.userID = "sina_kh";
-        profile_user.name = "سینا خلیلی";
-        profile_user.followedBusinessesNumber = 24;
-        profile_user.reviewsNumber = 12;
-        profile_user.friendsNumber = 6;
-        profile_user.aboutMe = "عشق یعنی انتظار, تو دل یه مادر بی قرار";
-*/
-
-
-        // TODO:: AFTER LOADING DATA COMPLETELY
-        ///header.findViewById(R.id.btn_profile_on_picture).setVisibility(View.VISIBLE);
         // TODO: Change Adapter to display your content
         posts = new ArrayList<Post>();
-        /*
-            for example, i've made some fake data to show ::
-        */
-        /*Post post1 = new Post();
-        Post post2 = new Post();
-        Post post3 = new Post();
-        post1.businessID = "راسن";
-        post1.description = "یک نرم افزار عالی!!";
-        post1.price = "100.000";
-        post1.code = "30";
-        ArrayList<Comment> lastThreeComments = new ArrayList<>();
-        Comment comment = new Comment();
-        comment.userID = "SINA";
-        comment.text = "سلام";
-        lastThreeComments.add(comment);
-        post1.lastThreeComments = lastThreeComments;
-        post1.title = "عنوان!!";
-        posts.add(post1);
-        post2.businessID = "sina";
-        post2.description = "programmer - RASEN CO.";
-        post2.price = "123.456";
-        post2.code = "30";
-        post2.title = "عنوان!!";
-        post2.lastThreeComments = lastThreeComments;
-        posts.add(post2);
-        post3.businessID = "sina";
-        post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
-        post3.price = "125.234";
-        post3.code = "30";
-        post3.title = "عنوان!!";
-        post3.lastThreeComments = lastThreeComments;
-        posts.add(post3);
-*/ // TODO: FOR TEST::
+
         listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
         grid.setAdapter(gridAdapter);
@@ -424,13 +357,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             @Override
             public void onClick(View v) {
                 // Edit business now
-
-                //TODO remove test part
-                profile_business = new Business();
-                profile_business.id = 5;
-                profile_business.userID = 3;
-
-
                 PassingBusiness.getInstance().setValue(profile_business);
                 Intent intent = new Intent(getActivity(), ActivityBusinessSettings.class);
                 startActivity(intent);
@@ -442,9 +368,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ActivityNewPost_Step1.class);
-
-                //TODO remove test part
-                profileId = 1004;
                 intent.putExtra(Params.BUSINESS_ID, profileId);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);

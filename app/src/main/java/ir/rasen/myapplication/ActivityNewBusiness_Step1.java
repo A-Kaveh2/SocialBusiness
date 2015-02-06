@@ -304,11 +304,11 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                     ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryListStr);
                     spnCategory.setAdapter(categoryAdapter);
                     if (isEditing) {
-
                         for (int i = 0; i < categoryList.size(); i++) {
                             if (categoryList.get(i).equals(business.category))
                                 spnCategory.setSelection(i);
                         }
+                        edtBusinessId.setEnabled(false);
                     }
                 } else {
                     //result from executing GetBusinessSubcategories

@@ -272,4 +272,9 @@ public class ActivityMain extends FragmentActivity {
                 return;
             }
     }
+
+    public void backToRoot() {
+        while (fragCount[pager.getCurrentItem()]>0)
+            onBackPressed();
+    }
 }
