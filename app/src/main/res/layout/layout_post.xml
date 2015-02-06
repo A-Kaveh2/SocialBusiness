@@ -23,7 +23,7 @@
                 android:id="@+id/img_home_post_business_pic"
                 android:layout_width="@dimen/profile_pic"
                 android:layout_height="@dimen/profile_pic"
-                android:src="@drawable/test_ic"
+
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="@dimen/activity_horizontal_margin_half"
@@ -211,7 +211,7 @@
             android:layout_height="@dimen/profile_pic_small"
             android:layout_margin="4dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/test_ic"
+
             android:contentDescription="@null"
             app:border_width="1dp"
             app:border_color="@color/button_on_dark_darker_opacity" />

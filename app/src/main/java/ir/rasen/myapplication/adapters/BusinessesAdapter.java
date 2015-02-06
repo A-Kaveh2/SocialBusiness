@@ -20,6 +20,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
@@ -33,6 +34,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
     private boolean unfollowAvailable;
     private EditInterface editDelegateInterface;
     private WebserviceResponse delegate;
+    private DownloadImages downloadImages;
 
 	public BusinessesAdapter(Context context, ArrayList<Business> businesses, EditInterface editDelegateInterface, boolean unfollowAvailable,WebserviceResponse delegate) {
 		super(context, R.layout.layout_businesses_business, businesses);
@@ -42,6 +44,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
         this.delegate = delegate;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
  // ok
         if (business != null) {
             holder.name.setText(business.businessUserName);
-            // TODO:: SET PICTURE
+            downloadImages.download(business.profilePictureId, 3, holder.picture);
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

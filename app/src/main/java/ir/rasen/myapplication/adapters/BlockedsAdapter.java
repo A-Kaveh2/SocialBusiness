@@ -16,6 +16,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -25,12 +26,14 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
 	private ArrayList<User> mFollowers;
 	private LayoutInflater mInflater;
     private Context context;
+    private DownloadImages downloadImages;
 
 	public BlockedsAdapter(Context context, ArrayList<User> blockeds) {
 		super(context, R.layout.layout_businesses_business, blockeds);
 		mFollowers	= blockeds;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
+        downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -52,6 +55,7 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
         }
 
         if (blocked != null) {
+            downloadImages.download(blocked.profilePictureId, 3, holder.blocked_profile_pic);
             holder.blocked_name.setText(blocked.name);
             // show followers profile
             convertView.setOnClickListener(new View.OnClickListener() {

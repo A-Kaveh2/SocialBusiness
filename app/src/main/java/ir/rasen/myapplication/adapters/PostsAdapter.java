@@ -81,7 +81,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
         if(position==1) {
             holder.postPic.setImageResource(R.drawable.test2);
-            holder.business_pic.setImageResource(R.drawable.test_ic2);
         }
         if (post != null && holder != null) {
             holder.business_name.setText(post.businessUserName);

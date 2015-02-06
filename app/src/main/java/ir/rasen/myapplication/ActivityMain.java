@@ -271,6 +271,12 @@ public class ActivityMain extends FragmentActivity {
                 businesses.remove(i);
                 return;
             }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void addBusiness(Business business) {
+        businesses.add(0, business);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void backToRoot() {

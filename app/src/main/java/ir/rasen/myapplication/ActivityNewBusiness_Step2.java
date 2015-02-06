@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
@@ -42,7 +43,6 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     boolean isEditing = false;
     private WebserviceResponse webserviceResponse;
     private Context context;
-    private boolean closed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         // SET ANIMATIONS
         setAnimations();
 
-        // TODO:: updating views after changing variables like workTime... (in edit mode for ex.)
+        // updating views after changing variables like workTime... (in edit mode for ex.)
         updateViews();
     }
 
@@ -81,10 +81,9 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         Business business = PassingBusiness.getInstance().getValue();
 
         if (business.location_m == null) {
-            business.location_m = new Location_M("","");
+            Dialogs.showMessage(context, getString(R.string.err_location));
+            return;
         }
-
-
 
         business.userID = LoginInfo.getUserId(context);
 
@@ -136,8 +135,6 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         });
     }*/
     public void onBackPressed() {
-        // TODO PUT DATA IN PASSING BUSINESS
-        closed=true;
         putDataInPassingBusiness();
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
@@ -243,6 +240,12 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     public void getResult(Object result) {
         try {
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
+            innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, true, PassingBusiness.getInstance().getValue().id);
+            ActivityMain.activityMain.addBusiness(PassingBusiness.getInstance().getValue());
+            PassingBusiness.getInstance().setValue(null);
+            ActivityNewBusiness_Step1.step1.finish();
+            finish();
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

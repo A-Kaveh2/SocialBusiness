@@ -17,6 +17,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 /**
  * Created by 'Sina KH' on 01/13/2015.
@@ -26,12 +27,14 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
 	private ArrayList<SearchItemUserBusiness> mBusinesses;
 	private LayoutInflater mInflater;
     private Context context;
+    private DownloadImages downloadImages;
 
 	public BusinessesAdapterResult(Context context, ArrayList<SearchItemUserBusiness> businesses) {
 		super(context, R.layout.layout_businesses_business, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
         this.context = context;
+        downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -54,7 +57,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
 
         if (business != null) {
             holder.name.setText(business.username);
-            // TODO:: SET PICTURE
+            downloadImages.download(business.pictureId, 3, holder.picture);
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

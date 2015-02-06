@@ -69,7 +69,7 @@
     <string name="err_database_connection">ارتباط برقرار نشد. مجددا سعی نمایید</string>
     <string name="err_user_dose_not_exist">چنین پست الکترونیکی ثبت نشده است</string>
     <string name="err_password_incorrect">رمز عبور اشتباه است</string>
-
+    <string name="err_location">لطفأ موقعیت کسب و کار خود را تعیین کنید.</string>
 
     <!-- TIME -->
     <string name="time_now">همین الآن!</string>

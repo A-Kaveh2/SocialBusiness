@@ -42,12 +42,13 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
-import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
 import ir.rasen.myapplication.webservice.business.GetBusinessProfileInfo;
 import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
 public class ActivityNewBusiness_Step1 extends Activity implements WebserviceResponse {
     private String TAG = "ActivityNewBusiness_Step1";
+
+    ActivityNewBusiness_Step1 activityNewBusiness_step1;
 
     private Spinner spnCategory, spnSubcategory;
     private EditTextFont edtBusinessId, edtName, edtDescription;
@@ -94,7 +95,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             business.id = 5;
             business.userID = 3;
 
-
 /*
 
             edtBusinessId.setText(business.businessUserName);
@@ -108,9 +108,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             new GetBusinessProfileInfo(5,ActivityNewBusiness_Step1.this).execute();
 
         }
-
-
-
 
         new GetBusinessGategories(webserviceResponse).execute();
 
