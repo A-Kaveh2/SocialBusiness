@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
@@ -35,7 +37,7 @@ public class ActivityMain extends FragmentActivity {
     private static int FRAGMENTS_COUNT = 3;
     public int fragCount[];
     public ViewPagerPaging pager;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
     private FragmentPagerAdapter fragmentPagerAdapter;
     private ImageButton btnHome, btnSearch, btnProfile;
 
@@ -45,6 +47,8 @@ public class ActivityMain extends FragmentActivity {
     public Permission permission;
 
     boolean drawerIsShowing = false;
+
+    private ArrayList<Business> businesses = new ArrayList<Business>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,21 +100,7 @@ public class ActivityMain extends FragmentActivity {
         pager.setCurrentItem(0);
 
         // TODO: Change Adapter to display user's business list
-        ArrayList<Business> businesses = new ArrayList<Business>();
-
-        /*
-            for example, i've made some fake data to show ::
-        */
-        Business b1 = new Business();
-        Business b2 = new Business();
-        Business b3 = new Business();
-        b1.name=("IRAN AIR");
-        b2.name=("ترشک سازی شرق");
-        b3.name=("RSEN");
-        businesses.add(b1);
-        businesses.add(b2);
-        businesses.add(b3);
-
+        businesses = new ArrayList<Business>();
         mAdapter = new UsersBusinessesAdapter(ActivityMain.this, businesses);
         ((AdapterView<ListAdapter>) findViewById(R.id.list_drawer)).setAdapter(mAdapter);
 
@@ -257,6 +247,17 @@ public class ActivityMain extends FragmentActivity {
         } catch (Exception e) {
             lockDrawers();
         }
+    }
+
+    public void businesses(User user) {
+        businesses.clear();
+        for(User.UserBusinesses userBusiness : user.businesses) {
+            Business business = new Business();
+            business.id = userBusiness.businessId;
+            business.businessUserName = userBusiness.businessUserName;
+            businesses.add(business);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
 }
