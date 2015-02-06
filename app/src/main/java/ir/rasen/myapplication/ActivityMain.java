@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
@@ -152,8 +153,8 @@ public class ActivityMain extends FragmentActivity {
                 case 1:
                     return new FragmentSearch();
                 case 2:
-                    // TODO:: SET UserId to profile's user id ( id ye khode karbar )
-                    int userId = 0;
+
+                    int userId = LoginInfo.getUserId(ActivityMain.this);
                     return new FragmentProfile().newInstance(ActivityMain.this,Params.ProfileType.PROFILE_USER, true, userId);
             }
             // CASE 0 :
