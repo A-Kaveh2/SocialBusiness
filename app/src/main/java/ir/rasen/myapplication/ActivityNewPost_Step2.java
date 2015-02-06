@@ -144,8 +144,8 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     // SUBMIT TOUCHED
     public void submit(View view) {
 
-        new RequestConfirmation(LoginInfo.getUserId(context),ActivityNewPost_Step2.this).execute();
-      /*  if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
+
+        if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
             name.setErrorC(getString(R.string.enter_valid_name));
             return;
@@ -188,7 +188,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             new AddPost(post, ActivityNewPost_Step2.this).execute();
 
         }
-        */
     }
 
     // HELP TOUCHED

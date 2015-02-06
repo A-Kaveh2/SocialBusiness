@@ -19,11 +19,13 @@ public class Post {
     public int id;
     public int businessID;
     public String businessUserName;
+    public int businessProfilePictureId;
     public String creationDate;
     //if post doesn't have picture, it must have title, actually it is not a regular post.
     //in this case, post is follow or review notice.
     public String title;
     public String picture;
+    public int pictureId;
     public String description;
     public String price;
     public String code;
@@ -32,30 +34,21 @@ public class Post {
 
     public static Post getFromJSONObject(JSONObject jsonObject) throws Exception{
         Post post = new Post();
-        post.id = jsonObject.getInt(Params.ID);
+        post.id = jsonObject.getInt(Params.POST_ID);
         post.businessID = jsonObject.getInt(Params.BUSINESS_ID);
         post.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
+        post.businessProfilePictureId = jsonObject.getInt(Params.BUSINESS_PROFILE_PICUTE_ID);
         post.title = jsonObject.getString(Params.TITLE);
         post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
-        post.picture = jsonObject.getString(Params.PICTURE);
+        post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
         post.description = jsonObject.getString(Params.DESCRIPTION);
         post.code = jsonObject.getString(Params.CODE);
         post.price = jsonObject.getString(Params.PRICE);
 
-        ArrayList<Comment> comments = new ArrayList<Comment>();
-        JSONArray jsonArrayComments = jsonObject.getJSONArray(Params.LAST_THREE_COMMENTS);
-        for (int j = 0; j < jsonArrayComments.length(); j++) {
-            JSONObject jsonObjectComment = jsonArrayComments.getJSONObject(j);
+        String comments = jsonObject.getString(Params.COMMENTS);
+        JSONArray jsonArrayComments = new JSONArray(comments);
+        post.lastThreeComments = Comment.getFromJSONArray(jsonArrayComments);
 
-            Comment comment = new Comment();
-            comment.id = jsonObjectComment.getInt(Params.ID);
-            comment.businessID = jsonObjectComment.getInt(Params.BUSINESS_ID);
-            comment.userID = jsonObjectComment.getInt(Params.USER_ID);
-            comment.postID = jsonObjectComment.getInt(Params.POST_ID);
-            comment.text = jsonObjectComment.getString(Params.TEXT);
-            comments.add(comment);
-        }
-        post.lastThreeComments = comments;
         post.hashtagList = Hashtag.getListFromString(jsonObject.getString(Params.HASHTAG_LIST));
 
         return post;

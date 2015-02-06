@@ -44,6 +44,8 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
 
         // SET ANIMATIONS
         setAnimations();
+
+        //TODO pass setting info from fagment profile to here
     }
 
     // SWITCH FRIENDS

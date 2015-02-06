@@ -177,6 +177,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         }
 
+
+
     }
 
     @Override
@@ -414,7 +416,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         //new FollowBusiness(LoginInfo.getUserId(cont),"food_1",FragmentProfile.this).execute();
 
         //TODO remove test part
-        new FollowBusiness(LoginInfo.getUserId(cont), 1, FragmentProfile.this).execute();
+        new FollowBusiness(LoginInfo.getUserId(cont), 1004, FragmentProfile.this).execute();
     }
 
     void myOwnProfile() {
@@ -442,6 +444,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 profile_business = new Business();
                 profile_business.id = 5;
                 profile_business.userID = 3;
+
+
                 PassingBusiness.getInstance().setValue(profile_business);
                 Intent intent = new Intent(getActivity(), ActivityBusinessSettings.class);
                 startActivity(intent);
@@ -536,9 +540,13 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //get visited user home info
                 User user = (User) result;
 
+
                 //TODO assign
                 profileType = Params.ProfileType.PROFILE_USER;
-                assignNow();
+
+
+                //TODO throws excetpion
+                //assignNow();
 
                 if (profileType==Params.ProfileType.PROFILE_USER) {
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();

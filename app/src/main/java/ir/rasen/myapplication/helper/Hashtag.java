@@ -10,6 +10,7 @@ public class Hashtag {
 
     public static ArrayList<String> getListFromString(String hashtagListString) {
         //e.g. "hashtag1,hashtag2,hashtag3"
+
         return new ArrayList<String>(Arrays.asList(hashtagListString.split(",")));
     }
 
