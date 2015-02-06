@@ -23,18 +23,20 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
     private static final String TAG = "GetUserHomeInfo";
     private WebserviceResponse delegate = null;
     private int businessID;
+    private int userID;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessHomeInfo(int businessID,WebserviceResponse delegate) {
+    public GetBusinessHomeInfo(int businessID,int userID,WebserviceResponse delegate) {
         this.businessID = businessID;
         this.delegate = delegate;
+        this.userID = userID;
     }
 
     @Override
     protected Business doInBackground(Void... voids) {
         Business business = new Business();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_HOME_INFO,new ArrayList<>(
-                Arrays.asList(String.valueOf(businessID))));
+                Arrays.asList(String.valueOf(businessID),String.valueOf(userID))));
         try {
             serverAnswer = webserviceGET.execute();
 
