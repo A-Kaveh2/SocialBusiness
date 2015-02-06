@@ -191,8 +191,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 // getting sub categories
                 new GetBusinessSubcategories(categories.get(i).id
                         , FragmentSearch.this).execute();
-                ((ProgressBar) view.findViewById(R.id.progressBar_search_drawer))
-                        .setVisibility(View.VISIBLE);
+                view.findViewById(R.id.progressBar_search_drawer).setVisibility(View.VISIBLE);
             }
         });
         // sub categories on item click listener
@@ -213,13 +212,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             }
         });
 
-        /*// set categories adapter
-        categories.add("لوازم الکترونیکی");
-        categories.add("فست فود");
-        ArrayAdapter<String> categoriesAdapter =
-                new ArrayAdapter<String>(getActivity(), R.layout.layout_item_text, categories);
-        listViewCategories.setAdapter(categoriesAdapter);
-        // */
     }
 
     void setUpSuggestions() {
