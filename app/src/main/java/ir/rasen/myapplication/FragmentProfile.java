@@ -562,14 +562,16 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             } else if (result instanceof Business) {
                 //business home info
-                Business business = (Business) result;
 
+                profile_business = (Business)result;
                 //TODO assign business
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
 
-                new GetBusinessPosts(business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
-                runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 assignNow();
+
+                new GetBusinessPosts(profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                runningWebserviceType = RunningWebserviceType.getBustinessPosts;
+
             }
 
         } catch (Exception e) {
@@ -592,7 +594,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         //((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(profile_pic);
         //((ImageViewSquare) header.findViewById(R.id.img_profile_cover)).setImageBitmap(cover_pic);
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.name);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.businessUserName);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
             ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));
             ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
