@@ -61,7 +61,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
 
 
         if (follower != null) {
-            holder.friend_name.setText(follower.name);
+            holder.friend_name.setText(follower.userName);
             // show followers profile
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
