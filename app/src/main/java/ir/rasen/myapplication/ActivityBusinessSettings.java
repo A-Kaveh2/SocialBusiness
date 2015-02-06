@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
@@ -41,16 +42,8 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
 
-        //TODO remove test parts
-        //for the test
-        business = new Business();
-        business.id =5;
-        try {
-            dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this);
-        }
-        catch (Exception e){
-            String s = e.getMessage();
-        }
+        dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this);
+
     }
 
     public void onBackPressed() {
@@ -65,8 +58,10 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
     @Override
     public void getResult(Object result) {
         if(result instanceof ResultStatus){
-            //TODO display message
-            //delete business was successful
+            Toast.makeText(getBaseContext(), R.string.business_deleted, Toast.LENGTH_LONG).show();
+            //for(int i=0; i<ActivityMain.activityMain.businesses();)
+            //ActivityMain.activityMain.businesses.remove(i);
+            finish();
         }
     }
 
