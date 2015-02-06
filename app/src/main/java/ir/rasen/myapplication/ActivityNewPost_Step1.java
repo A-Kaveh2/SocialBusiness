@@ -66,7 +66,6 @@ public class ActivityNewPost_Step1 extends Activity  {
             PassingPosts.getInstance().setValue(post);
         }
 
-
     }
 
     // SET PICTURE

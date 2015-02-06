@@ -446,9 +446,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ActivityNewPost_Step1.class);
-
-                //TODO remove test part
-                profileId = 1004;
                 intent.putExtra(Params.BUSINESS_ID, profileId);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);

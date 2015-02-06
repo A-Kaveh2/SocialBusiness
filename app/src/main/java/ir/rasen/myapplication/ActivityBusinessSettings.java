@@ -4,17 +4,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 public class ActivityBusinessSettings extends Activity implements WebserviceResponse {
+    private static String TAG = "ActivityBusinessSettings";
 
     private Business business;
     private Context context;
@@ -60,12 +64,18 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         if(result instanceof ResultStatus){
             Toast.makeText(getBaseContext(), R.string.business_deleted, Toast.LENGTH_LONG).show();
             ActivityMain.activityMain.removeBusiness(business.id);
+            ActivityMain.activityMain.backToRoot();
             finish();
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-        //TODO display error message
+        try {
+            String errorMessage = ServerAnswer.getError(ActivityBusinessSettings.this, errorCode);
+            Dialogs.showMessage(ActivityBusinessSettings.this, errorMessage);
+        } catch(Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }
