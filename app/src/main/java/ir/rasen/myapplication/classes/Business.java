@@ -19,6 +19,7 @@ public class Business {
     public int userID;
     public String name;
     public String coverPicture;
+    public int coverPictureId;
     public String profilePicture;
     public int profilePictureId;
     public String category;

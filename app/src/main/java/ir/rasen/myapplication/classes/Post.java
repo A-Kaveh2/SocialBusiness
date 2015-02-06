@@ -32,12 +32,30 @@ public class Post {
     public ArrayList<Comment> lastThreeComments = new ArrayList<Comment>();
     public ArrayList<String> hashtagList = new ArrayList<String>();
 
-    public static Post getFromJSONObject(JSONObject jsonObject) throws Exception{
+    public static Post getFromJSONObjectShare(JSONObject jsonObject) throws Exception{
         Post post = new Post();
         post.id = jsonObject.getInt(Params.POST_ID);
         post.businessID = jsonObject.getInt(Params.BUSINESS_ID);
         post.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
         post.businessProfilePictureId = jsonObject.getInt(Params.BUSINESS_PROFILE_PICUTE_ID);
+        post.title = jsonObject.getString(Params.TITLE);
+        post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
+        post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
+        post.description = jsonObject.getString(Params.DESCRIPTION);
+        post.code = jsonObject.getString(Params.CODE);
+        post.price = jsonObject.getString(Params.PRICE);
+
+        String comments = jsonObject.getString(Params.COMMENTS);
+        JSONArray jsonArrayComments = new JSONArray(comments);
+        post.lastThreeComments = Comment.getFromJSONArray(jsonArrayComments);
+
+        post.hashtagList = Hashtag.getListFromString(jsonObject.getString(Params.HASHTAG_LIST));
+
+        return post;
+    }
+    public static Post getFromJSONObjectBusiness(JSONObject jsonObject) throws Exception{
+        Post post = new Post();
+        post.id = jsonObject.getInt(Params.POST_ID);
         post.title = jsonObject.getString(Params.TITLE);
         post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
         post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
