@@ -167,7 +167,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             new GetBusinessHomeInfo(1004, FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
-            
+
             // TODO ::
             if(profileId!=0) {
                 //TODO remove test part
