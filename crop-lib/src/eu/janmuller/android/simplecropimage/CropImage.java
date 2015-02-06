@@ -436,7 +436,8 @@ public class CropImage extends MonitoredActivity {
             Bundle extras = new Bundle();
             Intent intent = new Intent(mSaveUri.toString());
             intent.putExtras(extras);
-            intent.putExtra(IMAGE_PATH, mImagePath);
+            File file = new File(mImagePath);
+            intent.putExtra(IMAGE_PATH, getCacheDir().getAbsolutePath()+file.getName());
             intent.putExtra(ORIENTATION_IN_DEGREES, Util.getOrientationInDegree(this));
             setResult(RESULT_OK, intent);
         } else {
