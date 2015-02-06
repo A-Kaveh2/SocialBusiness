@@ -144,6 +144,8 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     // SUBMIT TOUCHED
     public void submit(View view) {
 
+        saveInPassing();
+        Post post = PassingPosts.getInstance().getValue().get(0);
 
         if (!name.getText().toString().matches(Params.USER_NAME_VALIDATION) || name.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             name.requestFocus();
@@ -151,43 +153,21 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             return;
         }
 
-        Post post = PassingPosts.getInstance().getValue().get(0);
-
-        //TODO for the test
-        isEditing = true;
-        post.id = 2;
+        if(!post.price.matches(Params.NUMERIC_VALIDATION)) {
+            price.requestFocus();
+            price.setErrorC(getString(R.string.enter_valid_price));
+            return;
+        }
 
         if (isEditing) {
-            //update existing post
-            post.title = name.getText().toString();
-            post.price = price.getText().toString();
-            post.code = code.getText().toString();
-            post.description = description.getText().toString();
-            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
-
             new UpdatePost(post, ActivityNewPost_Step2.this).execute();
-
         } else {
-            Calendar calander = Calendar.getInstance();
-            String day = String.valueOf(calander.get(Calendar.DAY_OF_MONTH));
-            String month = String.valueOf(calander.get(Calendar.MONTH) + 1);
-            String year = String.valueOf(calander.get(Calendar.YEAR));
-            post.creationDate = day + "/" + month + "/" + year;
-            post.title = name.getText().toString();
-            post.price = price.getText().toString();
-            post.code = code.getText().toString();
-
-            post.description = description.getText().toString();
-            post.description = post.description.replace("\n", " ");
-            //TODO where is hashtag list
-            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
-
             //TODO assing business.id to the post
             //for the test
             post.businessID = 1004;
             new AddPost(post, ActivityNewPost_Step2.this).execute();
-
         }
+
     }
 
     // HELP TOUCHED
@@ -238,4 +218,38 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
+
+    public void saveInPassing() {
+
+        Post post = PassingPosts.getInstance().getValue().get(0);
+
+        //TODO for the test
+        isEditing = true;
+        post.id = 2;
+
+        if (isEditing) {
+            //update existing post
+            post.title = name.getText().toString();
+            post.price = price.getText().toString();
+            post.code = code.getText().toString();
+            post.description = description.getText().toString();
+            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
+
+        } else {
+            Calendar calander = Calendar.getInstance();
+            String day = String.valueOf(calander.get(Calendar.DAY_OF_MONTH));
+            String month = String.valueOf(calander.get(Calendar.MONTH) + 1);
+            String year = String.valueOf(calander.get(Calendar.YEAR));
+            post.creationDate = day + "/" + month + "/" + year;
+            post.title = name.getText().toString();
+            post.price = price.getText().toString();
+            post.code = code.getText().toString();
+
+            post.description = description.getText().toString();
+            post.description = post.description.replace("\n", " ");
+            //TODO where is hashtag list
+            post.hashtagList = TextProcessor.getHashtags(description.getText().toString());
+        }
+    }
+
 }
