@@ -33,7 +33,7 @@ import ir.rasen.myapplication.ui.ViewPagerPaging;
  */
 
 public class ActivityMain extends FragmentActivity {
-
+//
     private static int FRAGMENTS_COUNT = 3;
     public int fragCount[];
     public ViewPagerPaging pager;

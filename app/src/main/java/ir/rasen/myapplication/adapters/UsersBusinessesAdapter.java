@@ -42,7 +42,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.layout_drawer_businesses, null);
-
+ //
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_drawer_business_name);
             holder.item = (RelativeLayout) convertView.findViewById(R.id.rl_drawer_business);
 
