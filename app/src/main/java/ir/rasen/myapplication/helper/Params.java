@@ -147,6 +147,7 @@ public class Params {
     public static String POST_PICUTE = "PostPicture";
     public static String USER_PICUTE = "UserPicture";
     public static String USER_NAME= "UserName";
+    public static String USER_PROFILE_PICTURE_ID= "UserProfilePictureId";
     public static String BUSINESS_PICUTE = "BusinessPicture";
     public static String BUSINESS_PICUTE_ID = "BusinessPictureId";
     public static String BUSINESS_PROFILE_PICUTE_ID = "BusinessProfilePictureId";

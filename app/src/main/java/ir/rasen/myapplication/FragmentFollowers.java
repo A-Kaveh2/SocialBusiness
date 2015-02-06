@@ -59,6 +59,11 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
      * fragment (e.g. upon screen orientation changes).
      */
     public FragmentFollowers() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -70,11 +75,6 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
 
@@ -180,6 +180,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 User user = null;
                 for (SearchItemUserBusiness item : businessesFollowers) {
                     user = new User();
+                    user.id = item.userID;
                     user.userName = item.username;
                     user.profilePictureId = item.pictureId;
                     followers.add(user);
