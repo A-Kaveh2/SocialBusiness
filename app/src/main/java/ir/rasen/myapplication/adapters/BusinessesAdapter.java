@@ -62,7 +62,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+ // ok
         if (business != null) {
             holder.name.setText(business.businessUserName);
             // TODO:: SET PICTURE
