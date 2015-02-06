@@ -44,6 +44,7 @@ import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
 import ir.rasen.myapplication.webservice.post.GetSharedPosts;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
+import ir.rasen.myapplication.webservice.user.Login;
 
 /**
  * Created by 'Sina KH'.
@@ -165,13 +166,13 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //get business home info
 
 
-            new GetBusinessHomeInfo(1004, FragmentProfile.this).execute();
+            new GetBusinessHomeInfo(1004, LoginInfo.getUserId(cont), FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
 
             // TODO ::
             if(profileId!=0) {
                 //TODO remove test part
-                new GetBusinessHomeInfo(2, FragmentProfile.this).execute();
+                new GetBusinessHomeInfo(2,LoginInfo.getUserId(cont), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
             } else {
                 // TODO :: GET with username
