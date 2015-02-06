@@ -21,6 +21,7 @@ import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.user.Login;
 import ir.rasen.myapplication.webservice.user.UpdateSetting;
 
 /**
@@ -45,7 +46,9 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         // SET ANIMATIONS
         setAnimations();
 
-        //TODO pass setting info from fagment profile to here
+        cbFriends.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_FRIENDS, false));
+        cbReviews.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_REVIEWS, false));
+        cbBusinesses.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_FOLLOWED_BUSINESSES, false));
     }
 
     // SWITCH FRIENDS
