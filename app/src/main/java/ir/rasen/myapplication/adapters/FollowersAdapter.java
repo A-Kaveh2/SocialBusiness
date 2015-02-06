@@ -17,6 +17,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -28,6 +29,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
     private boolean mOwnFollowers = false;
     private Context context;
     private EditInterface editDelegateInterface;
+    private DownloadImages downloadImages;
 
 	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_businesses_business, followers);
@@ -36,6 +38,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
         mOwnFollowers = ownFollowers;
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        downloadImages =  new DownloadImages(context);
 	}
 
 	@Override
@@ -56,6 +59,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
             holder = (ViewHolder) convertView.getTag();
         }
 
+
         if (follower != null) {
             holder.friend_name.setText(follower.name);
             // show followers profile
@@ -66,6 +70,8 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                     innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, follower.id);
                 }
             });
+            downloadImages.download(follower.profilePictureId,3,holder.friend_profile_pic);
+
             if(mOwnFollowers) {
                 holder.block.setVisibility(View.VISIBLE);
                 holder.block.setOnClickListener(new View.OnClickListener() {

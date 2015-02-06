@@ -92,6 +92,7 @@ public class Params {
     public static String FRIENDSHIP_RELATION_STATUS = "FriendshipRelationStatus";
     public static String FRIENDSHIP_RELATION_STATUS_CODE = "FriendshipRelationStatusCode";
     public static String PICTURE = "Picture";
+    public static String PICTURE_ID = "PictureId";
     public static String SEARCH_PICTURE_ID = "SearchPictureId";
     public static String TITLE = "Title";
     public static String PERMISSION_FOLLOWED_BUSINESSES = "PermissionFollowedBusinesses";
@@ -105,9 +106,10 @@ public class Params {
     public static String DESCRIPTION= "Description";
     public static String PRICE = "Price";
     public static String CODE= "Code";
-    public static String LAST_THREE_COMMENTS = "LastThreeComments";
+    public static String COMMENTS = "Comments";
     public static String HASHTAG_LIST= "HashTagList";
     public static String POST_ID= "PostId";
+    public static String POST_PICTURE_ID= "PostId";
     public static String TEXT= "Text";
     public static String APPLICATOR_USER_ID= "ApplicatorId";
     public static String REQUESTED_USER_ID= "RequestedId";
@@ -141,7 +143,10 @@ public class Params {
     public static String ERROR = "Error";
     public static String POST_PICUTE = "PostPicture";
     public static String USER_PICUTE = "UserPicture";
+    public static String USER_NAME= "UserName";
     public static String BUSINESS_PICUTE = "BusinessPicture";
+    public static String BUSINESS_PICUTE_ID = "BusinessPictureId";
+    public static String BUSINESS_PROFILE_PICUTE_ID = "BusinessProfilePictureId";
     public static String INTERVAL_TIME = "IntervalTime";
     public static String ERROR_CODE = "ErrorCode";
     public static String ACCESS_TOKEN = "AccessToken";
@@ -149,6 +154,7 @@ public class Params {
     public static String CATEGORY_ID = "CategoryId";
     public static String SUB_CATEGORY_ID = "SubCategoryId";
     public static String BUSINESSES = "Businesses";
+    public static String PROFILE_PICTURE_ID = "ProfilePictureId";
 
 
 
