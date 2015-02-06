@@ -76,7 +76,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
                 android:textSize="@dimen/text_size_normal"
-                android:inputType="text"
+                android:inputType="number"
                 android:drawableLeft="@drawable/ic_edittext_money"
                 android:hint="@string/product_price" />
 

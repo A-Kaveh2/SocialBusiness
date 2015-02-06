@@ -38,6 +38,7 @@
     <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
     <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
     <string name="enter_is_too_long">طولانی تر از حد مجاز می باشد.</string>
+    <string name="enter_valid_price">قیمت محصول را به صورت عدد وارد نمایید.</string>
     <string name="comment_is_too_short">نظر خود را با حدأقل 3 حرف وارد کنید.</string>
     <string name="choose_category_first">لطفأ موضوع فعالیت کسب و کار خود را تعیین نمایید.</string>
     <string name="ok">تأیید</string>

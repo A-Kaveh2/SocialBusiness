@@ -19,6 +19,7 @@ public class Params {
     public static int COMMENT_TEXT_MAX_LENGTH = 255;
     public static String TEXT_HASHTAG_VALIDATION = "[0-9a-zA-Z._\\u0600-\\u06FF\\uFB8A\\u067E\\u0686\\u06AF]*";
     public static int HASHTAG_MIN_LENGTH = 2;
+    public static String NUMERIC_VALIDATION = "[0-9]*";
 
     public static String BUSINESS = "business";
 
