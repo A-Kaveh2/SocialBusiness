@@ -42,8 +42,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.layout_drawer_businesses, null);
-
-            holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_drawer_business_picture);
+ //
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_drawer_business_name);
             holder.item = (RelativeLayout) convertView.findViewById(R.id.rl_drawer_business);
 
@@ -53,7 +52,7 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
         }
 
         if (business != null) {
-            holder.name.setText(business.name);
+            holder.name.setText(business.businessUserName);
             // TODO:: SET PICTURE
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,7 +68,6 @@ public class UsersBusinessesAdapter extends ArrayAdapter<Business> {
     }
     class ViewHolder {
         RelativeLayout item;
-        ImageViewCircle picture;
         TextViewFont name;
         int id;
     }
