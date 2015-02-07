@@ -65,6 +65,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     private ArrayList<SubCategory> subCategories;
 
     private ListView listViewCategories, listViewSubCategories;
+    private int selectedSubcategoryIndex;
 
 
     private GoogleMap mMap;
@@ -165,7 +166,10 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
             database.insert(text.getText().toString().trim());
             setUpHistory();
             InnerFragment innerFragment = new InnerFragment(getActivity());
-            innerFragment.newResultsFragment("", "", false, new Location_M("", ""), searchType);
+            int subcategoryId =0;
+            if(subCategories != null && subCategories.size() != 0)
+                subcategoryId = subCategories.get(selectedSubcategoryIndex).id;
+            innerFragment.newResultsFragment(text.getText().toString(), subcategoryId, false,locationM, searchType);
         } else {
             text.setErrorC(getString(R.string.enter_search_keywords));
         }
@@ -201,6 +205,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 switchDrawer();
                 view.findViewById(R.id.rl_search_subcategories).setVisibility(View.INVISIBLE);
                 category = subCategories.get(i).name;
+                selectedSubcategoryIndex = i;
                 ((TextViewFont) view.findViewById(R.id.txt_search_filter)).setText(getString(R.string.filter) + " " + subCategories.get(i).name);
             }
         });

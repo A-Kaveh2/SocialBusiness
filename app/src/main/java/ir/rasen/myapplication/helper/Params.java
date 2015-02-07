@@ -159,6 +159,7 @@ public class Params {
     public static String SUB_CATEGORY_ID = "SubCategoryId";
     public static String BUSINESSES = "Businesses";
     public static String PROFILE_PICTURE_ID = "ProfilePictureId";
+    public static String DISTANCE = "Distance";
 
 
 

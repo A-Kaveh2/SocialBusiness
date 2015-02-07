@@ -113,8 +113,8 @@ public class InnerFragment {
     }
 
     // new results fragment
-    public void newResultsFragment(String searchString, String category, boolean nearby, Location_M location_m, int searchType) {
-        Fragment newFragment = new FragmentResults().newInstance(searchString, category, location_m, searchType);
+    public void newResultsFragment(String searchString, int sucategoryId, boolean nearby, Location_M location_m, int searchType) {
+        Fragment newFragment = new FragmentResults().newInstance(searchString, sucategoryId, location_m, searchType);
         addFragment(newFragment);
     }
 

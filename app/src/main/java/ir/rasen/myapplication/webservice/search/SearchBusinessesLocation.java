@@ -30,22 +30,31 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
     private String searchText;
     private String location_latitude;
     private String location_longitude;
+    private int subcategoryId;
     private ServerAnswer serverAnswer;
+    private int beforThisId;
+    private int limitataion;
 
-    public SearchBusinessesLocation(int userID, String searchText, String location_latitude,String location_longitude,WebserviceResponse delegate) {
+
+    public SearchBusinessesLocation(int userID, String searchText,int subcategoryId, String location_latitude,String location_longitude,int beforThisId,int limitation,WebserviceResponse delegate) {
         this.userID = userID;
         this.searchText = searchText;
         this.location_latitude = location_latitude;
         this.location_longitude = location_longitude;
         this.delegate = delegate;
+        this.subcategoryId = subcategoryId;
+        this.beforThisId = beforThisId;
+        this.limitataion = limitation;
     }
 
     @Override
     protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
-        ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
+        ArrayList<SearchItemUserBusiness> list = new ArrayList<>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_BUSINESS_LOCATION,new ArrayList<>(
-                Arrays.asList(String.valueOf(userID), searchText,location_latitude)));
+                Arrays.asList( searchText,String.valueOf(subcategoryId),
+                        location_latitude,location_longitude,
+                        String.valueOf(beforThisId),String.valueOf(limitataion))));
 
         try {
             serverAnswer = webserviceGET.executeList();
@@ -53,9 +62,10 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
-                            jsonObject.getInt(Params.SEARCH_PICTURE_ID),
-                            jsonObject.getString(Params.NAME)));
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.BUSINESS_ID),
+                            jsonObject.getInt(Params.BUSINESS_PROFILE_PICUTE_ID),
+                            jsonObject.getString(Params.BUSINESS_USER_NAME),
+                            jsonObject.getDouble(Params.DISTANCE)));
                 }
                 return list;
             }
@@ -75,6 +85,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
             delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
+
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;

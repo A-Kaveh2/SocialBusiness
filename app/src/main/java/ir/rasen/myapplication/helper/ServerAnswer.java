@@ -126,15 +126,18 @@ public class ServerAnswer {
         }
 
         //
-        if (sucessStatus == true && json.getString(Params.RESULT).length() <= 2)
-            sucessStatus = false;
+
 
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
-        try {
-            serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
-        } catch (Exception e) {
+        if (sucessStatus == true && json.getString(Params.RESULT).length() <= 2) {
+            serverAnswer.setResultList(new JSONArray());
+        } else {
+            try {
+                serverAnswer.setResultList(new JSONArray(json.getString(Params.RESULT)));
+            } catch (Exception e) {
 
+            }
         }
         serverAnswer.setErrorCode(errorCode);
 
@@ -192,6 +195,8 @@ public class ServerAnswer {
             if (sucessStatus == true && resultJsonObject == null)
                 sucessStatus = false;
         }
+
+
         ServerAnswer serverAnswer = new ServerAnswer();
         serverAnswer.setSuccessStatus(sucessStatus);
         serverAnswer.setResult(resultJsonObject);

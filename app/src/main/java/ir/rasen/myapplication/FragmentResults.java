@@ -41,17 +41,18 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
     private WebserviceResponse webserviceResponse;
 
-    String searchString, category, location_latitude, location_longitude;
+    String searchString, location_latitude, location_longitude;
     Context context;
+    int subcategoryId;
 
-    public static FragmentResults newInstance(String searchString, String category
+    public static FragmentResults newInstance(String searchString,  int sucategoryId
             , Location_M location_m, int searchType) {
 
         FragmentResults fragment = new FragmentResults();
 
         Bundle bundle = new Bundle();
         bundle.putString(Params.SEARCH_TEXT, searchString);
-        bundle.putString(Params.CATEGORY, category);
+        bundle.putInt(Params.SUB_CATEGORY_ID,sucategoryId);
         bundle.putString(Params.LOCATION_LATITUDE, location_m.getLatitude());
         bundle.putString(Params.LOCATION_LONGITUDE, location_m.getLongitude());
         bundle.putInt(Params.SEARCH_TYPE, searchType);
@@ -77,7 +78,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             searchString = bundle.getString(Params.SEARCH_TEXT);
-            category = bundle.getString(Params.CATEGORY);
+            subcategoryId = bundle.getInt(Params.SUB_CATEGORY_ID);
             location_latitude = bundle.getString(Params.LOCATION_LATITUDE);
             location_longitude = bundle.getString(Params.LOCATION_LONGITUDE);
             searchType = bundle.getInt(Params.SEARCH_TYPE);
@@ -104,9 +105,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         if (searchType == Params.SearchType.PRODUCTS) {
             new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
         } else {
-            location_latitude = "25.213652";
-            location_longitude = "52.012354";
-            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString, location_latitude, location_longitude, FragmentResults.this).execute();
+            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
 
         return view;
