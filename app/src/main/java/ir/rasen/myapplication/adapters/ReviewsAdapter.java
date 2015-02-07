@@ -67,7 +67,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
-            holder.profile_name.setText(review.userID);
+            holder.profile_name.setText(review.userName);
 
             holder.ratingBar.setRating(review.rate);
 

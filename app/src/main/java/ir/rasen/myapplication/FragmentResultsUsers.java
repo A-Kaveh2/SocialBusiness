@@ -67,7 +67,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         if (bundle != null) {
             searchString = bundle.getString(Params.SEARCH_TEXT);
 
-            new SearchUser(LoginInfo.getUserId(getActivity()), searchString, FragmentResultsUsers.this).execute();
+            new SearchUser(searchString,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResultsUsers.this).execute();
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -153,7 +153,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
-
+                users = new ArrayList<User>();
                 ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
                 searchResult = (ArrayList<SearchItemUserBusiness>) result;
                 User user = null;
@@ -164,7 +164,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                     users.add(user);
                 }
 
-                users = new ArrayList<User>();
+
                 mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
                 list.setAdapter(mAdapter);
                 isLoadingMore=false;

@@ -26,12 +26,13 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
 
     private WebserviceResponse delegate = null;
 
-    private int userID;
+    private int beforeThisId,limitation;
     private String searchText;
     private ServerAnswer serverAnswer;
 
-    public SearchUser(int userID, String searchText,WebserviceResponse delegate) {
-        this.userID = userID;
+    public SearchUser( String searchText,int beforeThisId,int limitation,WebserviceResponse delegate) {
+        this.beforeThisId = beforeThisId;
+        this.limitation = limitation;
         this.searchText = searchText;
         this.delegate = delegate;
     }
@@ -41,7 +42,7 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_USER,new ArrayList<>(
-                Arrays.asList(String.valueOf(userID), searchText)));
+                Arrays.asList(searchText,String.valueOf(beforeThisId),String.valueOf(limitation))));
 
 
         try {
@@ -51,8 +52,9 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
-                            jsonObject.getInt(Params.SEARCH_PICTURE_ID),
-                            jsonObject.getString(Params.NAME)));
+                            jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
+                            jsonObject.getString(Params.USER_NAME)
+                            ));
                 }
                 return list;
             }

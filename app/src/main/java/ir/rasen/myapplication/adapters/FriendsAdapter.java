@@ -56,7 +56,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
         }
 
         if (friend != null) {
-            holder.friend_name.setText(friend.name);
+            holder.friend_name.setText(friend.userName);
             // show friends profile
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

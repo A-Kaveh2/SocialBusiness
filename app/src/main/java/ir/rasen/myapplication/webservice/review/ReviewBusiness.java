@@ -26,18 +26,21 @@ public class ReviewBusiness extends AsyncTask<Void, Void, ResultStatus> {
     private int businessID;
     private String review;
     private ServerAnswer serverAnswer;
+    private  int rate;
 
-    public ReviewBusiness(int userID, int businessID, String review, WebserviceResponse delegate) {
+    public ReviewBusiness(int userID, int businessID, String review,int rate, WebserviceResponse delegate) {
         this.userID = userID;
         this.businessID = businessID;
         this.review = review;
         this.delegate = delegate;
+        this.rate = rate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
         WebserviceGET webserviceGET = new WebserviceGET(URLs.REVIEW_BUSINESS, new ArrayList<>(
-                Arrays.asList(String.valueOf(userID), String.valueOf(businessID), review)));
+                Arrays.asList(String.valueOf(userID), String.valueOf(businessID),
+                        review,String.valueOf(rate))));
 
         try {
             serverAnswer = webserviceGET.execute();

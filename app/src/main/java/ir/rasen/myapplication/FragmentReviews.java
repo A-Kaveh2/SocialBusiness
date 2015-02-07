@@ -29,6 +29,7 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
+import ir.rasen.myapplication.webservice.search.SearchUser;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.
@@ -50,6 +51,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     public static FragmentReviews newInstance (int businessId) {
         FragmentReviews fragment = new FragmentReviews();
 
+
         Bundle bundle = new Bundle();
         bundle.putInt(Params.BUSINESS_ID, businessId);
         fragment.setArguments(bundle);
@@ -64,9 +66,20 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new GetBusinessReviews(businessId,0,
-                getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
-                ,FragmentReviews.this).execute();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            businessId = bundle.getInt(Params.BUSINESS_ID);
+            new GetBusinessReviews(businessId,0,
+                    getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                    ,FragmentReviews.this).execute();
+
+        } else {
+            Log.e(TAG, "bundle is null!!");
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+        }
+
+
     }
 
     @Override
@@ -102,10 +115,10 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         return view;
     }
 
-    public void sendReview(String review_text, float review_rate) {
+    public void sendReview(String review_text, int review_rate) {
         new ReviewBusiness(LoginInfo.getUserId(getActivity()),
                 businessId,
-                review_text,
+                review_text,review_rate,
                 FragmentReviews.this).execute();
         // TODO:: SEND RATE
     }
@@ -251,7 +264,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     editingId = 0;
                     editingText = null;
                     editingDialog = null;
-                    sendReview(review, rate);
+                    sendReview(review,(int)rate);
                 } else {
                     Dialogs.showMessage(getActivity(), getString(R.string.rate_needed));
                 }

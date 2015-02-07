@@ -7,8 +7,11 @@ public class Review {
     public int id;
     public int businessID;
     public int userID;
+    public String userName;
     public String businessPicutre;
+    public int businessPicutreId;
     public String userPicutre;
+    public int userPicutreId;
     public String text;
     public float rate;
 }
