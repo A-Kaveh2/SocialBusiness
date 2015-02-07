@@ -16,6 +16,7 @@ import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.review.UpdateReview;
 
 public class OptionsReview {
     private Context context;
@@ -46,7 +47,7 @@ public class OptionsReview {
             ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO: EDIT REVIEW
-                    showReviewEditDialog(review, editDelegateInterface);
+                    showReviewEditDialog(review, editDelegateInterface,webserviceResponse);
                 }
             });
             // DELETE OPTION
@@ -61,7 +62,9 @@ public class OptionsReview {
         }
     }
 
-    void showReviewEditDialog(final Review review, final EditInterface editDelegateInterface) {
+    void showReviewEditDialog(final Review review, final EditInterface editDelegateInterface,final WebserviceResponse delegate) {
+
+
         dialog = new Dialog(context, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_new_review);
@@ -80,7 +83,7 @@ public class OptionsReview {
                 float rate = ((RatingBar) dialog.findViewById(R.id.ratingBar_new_review_rate)).getRating();
                 if(rate>0) {
                     editDelegateInterface.setEditing(review.id, reviewText, dialog);
-                    editReview(review.businessID, reviewText, rate);
+                    editReview(context,review.id, reviewText,(int)rate,delegate);
                 } else {
                     Dialogs.showMessage(context, context.getString(R.string.rate_needed));
                 }
@@ -95,8 +98,8 @@ public class OptionsReview {
         dialog.show();
     }
 
-    void editReview(int businessId, String review, float rate) {
-        // TODO:: EDIT REVIEW NOW
+    void editReview(Context context,int reviewId,String review, int rate,WebserviceResponse delegate) {
+        new UpdateReview(LoginInfo.getUserId(context),reviewId,review,rate,delegate).execute();
 
     }
 }

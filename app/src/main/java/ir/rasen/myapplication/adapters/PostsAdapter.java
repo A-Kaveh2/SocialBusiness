@@ -25,7 +25,9 @@ import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.comment.SendComment;
 import ir.rasen.myapplication.webservice.post.Like;
+import ir.rasen.myapplication.webservice.post.Report;
 
 /**
  * Created by 'Sina KH'.
@@ -33,8 +35,8 @@ import ir.rasen.myapplication.webservice.post.Like;
 
 // TODO: POSTS LIST ADAPTER ( HOME & PROFILE LIST )
 public class PostsAdapter extends ArrayAdapter<Post> {
-	private ArrayList<Post> mPosts;
-	private LayoutInflater mInflater;
+    private ArrayList<Post> mPosts;
+    private LayoutInflater mInflater;
 
     private boolean singleTapped;
 
@@ -42,17 +44,17 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private EditInterface editDelegateInterface;
     private Context context;
 
-	public PostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse delegate, EditInterface editDelegateInterface) {
-		super(context, R.layout.layout_post, posts);
-		mPosts 	= posts;
-		mInflater	= LayoutInflater.from(context);
+    public PostsAdapter(Context context, ArrayList<Post> posts, WebserviceResponse delegate, EditInterface editDelegateInterface) {
+        super(context, R.layout.layout_post, posts);
+        mPosts = posts;
+        mInflater = LayoutInflater.from(context);
         this.delegate = delegate;
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
-	}
+    }
 
-	@Override
-	public View getView(final int position, View convertView, ViewGroup group) {
+    @Override
+    public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Post post = mPosts.get(position);
 
@@ -79,18 +81,18 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position==1) {
+        if (position == 1) {
             holder.postPic.setImageResource(R.drawable.test2);
         }
         if (post != null && holder != null) {
             holder.business_name.setText(post.businessUserName);
-            holder.description.setText(Html.fromHtml("<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
-                    + "<br /><font color=#3F6F94><b>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
+            holder.description.setText(Html.fromHtml("<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
+                    + "<br /><font color=#3F6F94><b>" + getContext().getString(R.string.product_code) + "</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
             holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
-            if(post.lastThreeComments.size()>0) {
+            if (post.lastThreeComments.size() > 0) {
                 holder.comment1_user.setText(post.lastThreeComments.get(0).username);
                 holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -106,10 +108,10 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 holder.comments_3.setVisibility(View.GONE);
             }
             holder.options.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                OptionsPost optionsPost = new OptionsPost(context);
-                optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface);
-            }
+                public void onClick(View view) {
+                    OptionsPost optionsPost = new OptionsPost(context);
+                    optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface);
+                }
             });
 
             // double tap listener !
@@ -120,12 +122,12 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                         holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
                         likeNow(mPosts.get(position).id);
                     } else {
-                        singleTapped=true;
+                        singleTapped = true;
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                singleTapped=false;
+                                singleTapped = false;
                             }
                         }, 250);
                     }
@@ -156,14 +158,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
             holder.business_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
 
@@ -171,14 +173,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
             holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
 
@@ -189,8 +191,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
         }
 
-        return  convertView;
+        return convertView;
     }
+
     class ViewHolder {
         TextViewFont business_name, description, time, comment1, comment1_user;
         ImageView options, postPic, likeHeart;
@@ -201,7 +204,8 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     }
 
     void likeNow(int post_id) {
-       new Like(LoginInfo.getUserId(context),post_id,delegate).execute();
+        new Like(LoginInfo.getUserId(context), post_id, delegate).execute();
+        //new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
     }
 
 }

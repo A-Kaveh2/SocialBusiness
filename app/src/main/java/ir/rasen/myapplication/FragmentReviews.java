@@ -27,6 +27,7 @@ import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
 import ir.rasen.myapplication.webservice.search.SearchUser;
@@ -116,11 +117,14 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     }
 
     public void sendReview(String review_text, int review_rate) {
-        new ReviewBusiness(LoginInfo.getUserId(getActivity()),
-                businessId,
-                review_text,review_rate,
-                FragmentReviews.this).execute();
-        // TODO:: SEND RATE
+        if(review_text != null) {
+            new ReviewBusiness(LoginInfo.getUserId(getActivity()),
+                    businessId,
+                    review_text, review_rate,
+                    FragmentReviews.this).execute();
+        }
+        else
+            new RateBusiness(businessId, LoginInfo.getUserId(getActivity()),review_rate,FragmentReviews.this).execute();
     }
 
     // TODO: LOAD MORE DATA

@@ -3,11 +3,17 @@ package ir.rasen.myapplication.webservice.review;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.internal.id;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -19,24 +25,28 @@ public class UpdateReview extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "UpdateReview";
 
     private WebserviceResponse delegate = null;
-    private Review review;
     private ServerAnswer serverAnswer;
+    private int userId;
+    private int reviewId;
+    private String review;
+    private int rate;
 
-    public UpdateReview(Review review,WebserviceResponse delegate) {
+    public UpdateReview(int userId,int reviewId,String review,int rate,WebserviceResponse delegate) {
         this.delegate = delegate;
+        this.userId = userId;
+        this.reviewId = reviewId;
         this.review = review;
+        this.rate = rate;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.UPDATE_REVIEW);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.UPDATE_REVIEW, new ArrayList<>(
+                Arrays.asList(String.valueOf(userId), String.valueOf(reviewId),String.valueOf(review),String.valueOf(rate))));
 
         try {
-            webservicePOST.addParam(Params.USER_ID, String.valueOf(review.userID));
-            webservicePOST.addParam(Params.REVIEW_ID,String.valueOf( review.id));
-            webservicePOST.addParam(Params.TEXT, review.text);
 
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

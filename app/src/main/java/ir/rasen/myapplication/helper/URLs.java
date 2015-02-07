@@ -44,7 +44,7 @@ public class URLs {
     public static String ANSWER_REQUEST_FRIENDSHIP = MAIN_URL+"answerRequestFriendship";
     public static String GET_USER_REVIEWS = MAIN_URL+"getUserReviews";
     public static String GET_BUSINESS_REVIEWS = MAIN_URL+"getBusinessReviews";
-    public static String UPDATE_REVIEW = MAIN_URL+"update_review";
+    public static String UPDATE_REVIEW = MAIN_URL+"updateReview";
     public static String REVIEW_BUSINESS = MAIN_URL+"reviewBusiness";
     public static String DELETE_REVIEW = MAIN_URL+"deleteReview";
     public static String SEARCH_BUSINESS_LOCATION = MAIN_URL+"searchBusinessByLocation";

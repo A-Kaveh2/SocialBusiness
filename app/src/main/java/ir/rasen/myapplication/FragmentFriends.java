@@ -20,12 +20,15 @@ import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
+import ir.rasen.myapplication.webservice.post.Like;
+import ir.rasen.myapplication.webservice.post.Report;
 
 /**
  * Created by 'Sina KH'.
@@ -70,8 +73,9 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             userId = bundle.getInt(Params.USER_ID);
 
-            new GetUserFriends(userId, FragmentFriends.this).execute();
+            //new GetUserFriends(userId, FragmentFriends.this).execute();
 
+            new Report(1, 4, FragmentFriends.this).execute();
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();

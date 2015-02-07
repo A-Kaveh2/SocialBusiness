@@ -20,11 +20,16 @@ import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.BlockUser;
+import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
+import ir.rasen.myapplication.webservice.business.RateBusiness;
+import ir.rasen.myapplication.webservice.business.UnblockUser;
 
 /**
  * Created by 'Sina KH'.
@@ -34,7 +39,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     private View view, listFooterView, listHeaderView;
 
-    private boolean isLoadingMore=false;
+    private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private ListAdapter mAdapter;
@@ -44,7 +49,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     ArrayList<User> followers;
 
-    public static FragmentFollowers newInstance (int businessId){
+    public static FragmentFollowers newInstance(int businessId) {
         FragmentFollowers fragment = new FragmentFollowers();
 
         Bundle bundle = new Bundle();
@@ -70,13 +75,16 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
             businessId = bundle.getInt(Params.BUSINESS_ID);
         } else {
             Log.e(TAG, "bundle is null!!");
-            if(getActivity()!=null){
+            if (getActivity() != null) {
                 getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         }
 
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
+        //new BlockUser(businessId,3,FragmentFollowers.this).execute();
+        //new UnblockUser(businessId, 3, FragmentFollowers.this).execute();
+        //new GetBlockedUsers(businessId,FragmentFollowers.this).execute();
 
     }
 
@@ -112,7 +120,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         list.addHeaderView(listHeaderView);
         // TODO:: If I'm the owner of business and we have blocked users...
         boolean isMine = true;
-        if(isMine) {
+        if (isMine) {
             listHeaderView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -189,7 +197,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 followers = new ArrayList<User>();
                 mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
-                isLoadingMore=false;
+                isLoadingMore = false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
 
@@ -204,7 +212,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
@@ -212,6 +220,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     private int editingId;
     private String editingText;
     private Dialog editingDialog;
+
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
