@@ -5,12 +5,10 @@ package ir.rasen.myapplication.helper;
  */
 
 public class SearchItemPost {
-    public int businessId;
     public int postId;
     public int postPictureId;
 
-    public SearchItemPost(int businessId, int postId, int postPictureId){
-        this.businessId = businessId;
+    public SearchItemPost( int postId, int postPictureId){
         this.postId =  postId;
         this.postPictureId = postPictureId;
 

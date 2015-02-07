@@ -28,12 +28,10 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemPost>>
 
     private WebserviceResponse delegate = null;
 
-    private int userID;
     private String searchText;
     private ServerAnswer serverAnswer;
 
-    public SearchPost(int userID, String searchText,WebserviceResponse delegate) {
-        this.userID = userID;
+    public SearchPost(String searchText,WebserviceResponse delegate) {
         this.searchText = searchText;
         this.delegate = delegate;
 
@@ -44,7 +42,7 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemPost>>
         ArrayList<SearchItemPost> list = new ArrayList<>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_POST,new ArrayList<>(
-                Arrays.asList(String.valueOf(userID),searchText)));
+                Arrays.asList(searchText)));
 
 
         try {
@@ -53,8 +51,7 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemPost>>
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemPost(jsonObject.getInt(Params.BUSINESS_ID),
-                            jsonObject.getInt(Params.POST_ID),
+                    list.add(new SearchItemPost(jsonObject.getInt(Params.POST_ID),
                             jsonObject.getInt(Params.POST_PICTURE_ID)));
                 }
                 return list;

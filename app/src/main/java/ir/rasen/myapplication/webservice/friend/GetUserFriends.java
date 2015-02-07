@@ -28,7 +28,7 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
     private int userID;
     private ServerAnswer serverAnswer;
 
-    public GetUserFriends(int userID,WebserviceResponse delegate) {
+    public GetUserFriends(int userID, WebserviceResponse delegate) {
         this.userID = userID;
         this.delegate = delegate;
     }
@@ -66,8 +66,9 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
             return;
         }
         if (serverAnswer.getSuccessStatus())
-            delegate.getError(serverAnswer.getErrorCode());
-        else
             delegate.getResult(result);
+        else
+            delegate.getError(serverAnswer.getErrorCode());
+
     }
 }

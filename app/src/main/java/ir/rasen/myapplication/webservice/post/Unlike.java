@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.post;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -14,7 +18,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
+public class Unlike extends AsyncTask<Void, Void, ResultStatus> {
     private static final String TAG = "Dislike";
 
     private WebserviceResponse delegate = null;
@@ -22,7 +26,7 @@ public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
     private int postID;
     private ServerAnswer serverAnswer;
 
-    public Dislike(int userID, int postID,WebserviceResponse delegate) {
+    public Unlike(int userID, int postID, WebserviceResponse delegate) {
         this.delegate = delegate;
         this.userID = userID;
         this.postID = postID;
@@ -30,13 +34,11 @@ public class Dislike extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.DISLIKE);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.DISLIKE,new ArrayList<>(
+                Arrays.asList(String.valueOf(userID), String.valueOf(postID))));
 
         try {
-            webservicePOST.addParam(Params.USER_ID, String.valueOf(userID));
-            webservicePOST.addParam(Params.POST_ID, String.valueOf(postID));
-
-            serverAnswer = webservicePOST.execute();
+               serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

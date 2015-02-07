@@ -104,7 +104,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost(LoginInfo.getUserId(getActivity()), searchString, FragmentResults.this).execute();
+            new SearchPost( searchString, FragmentResults.this).execute();
         } else {
             new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
@@ -183,11 +183,13 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     searchResult = new ArrayList<SearchItemUserBusiness>();
                     searchResult = (ArrayList<SearchItemUserBusiness>) result;
 
-                    mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
+
+                    //TODO check the code. FORCE CLOSE
+                    /*mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
                     list.setAdapter(mAdapter);
                     isLoadingMore=false;
                     swipeView.setRefreshing(false);
-                    listFooterView.setVisibility(View.GONE);
+                    listFooterView.setVisibility(View.GONE);*/
 
                 } else {
                     searchResult = new ArrayList<SearchItemUserBusiness>();

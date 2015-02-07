@@ -116,7 +116,7 @@ public class ForgetPasswordDialog extends ParentDialog {
                     return;
                 }
 
-                new ForgetPassword(LoginInfo.getUserId(context),editTextFont.getText().toString(),delegate);
+                new ForgetPassword(editTextFont.getText().toString(),delegate);
                 dismiss();
             }
         });

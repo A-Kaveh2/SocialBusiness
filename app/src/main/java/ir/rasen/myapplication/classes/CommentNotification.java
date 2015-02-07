@@ -13,10 +13,9 @@ public class CommentNotification {
     public String text;
     public int intervalTime;//in millisecond.
 
-    public CommentNotification(int commentID, int postID, int userID, int  postPictureId, int userPictureId, String text,int intervalTime) {
+    public CommentNotification(int commentID, int postID, int  postPictureId, int userPictureId, String text,int intervalTime) {
         this.commentID = commentID;
         this.postID = postID;
-        this.userID = userID;
         this.postPictureId = postPictureId;
         this.userPictureId = userPictureId;
         this.text = text;

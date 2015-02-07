@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.business;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -32,14 +36,12 @@ public class RateBusiness extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.RATE_BUSINESS);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.RATE_BUSINESS, new ArrayList<>(
+                Arrays.asList(String.valueOf(businessID), String.valueOf(userID),String.valueOf(rate))));
 
         try {
-            webservicePOST.addParam(Params.BUSINESS_ID, String.valueOf(businessID));
-            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
-            webservicePOST.addParam(Params.RATE, String.valueOf(rate));
 
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

@@ -26,9 +26,20 @@ import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
+import ir.rasen.myapplication.webservice.business.BlockUser;
+import ir.rasen.myapplication.webservice.business.DeleteComment;
+import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
+import ir.rasen.myapplication.webservice.business.RateBusiness;
+import ir.rasen.myapplication.webservice.business.UnblockUser;
+import ir.rasen.myapplication.webservice.comment.SendComment;
+import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
+import ir.rasen.myapplication.webservice.friend.RequestFriendship;
 import ir.rasen.myapplication.webservice.post.Like;
 import ir.rasen.myapplication.webservice.post.Report;
+import ir.rasen.myapplication.webservice.post.Unlike;
+import ir.rasen.myapplication.webservice.user.ForgetPassword;
 
 /**
  * Created by 'Sina KH'.
@@ -73,9 +84,11 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             userId = bundle.getInt(Params.USER_ID);
 
-            //new GetUserFriends(userId, FragmentFriends.this).execute();
+            new GetUserFriends(userId, FragmentFriends.this).execute();
 
-            new Report(1, 4, FragmentFriends.this).execute();
+
+
+
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();

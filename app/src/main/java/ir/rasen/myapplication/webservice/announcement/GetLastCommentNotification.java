@@ -59,7 +59,6 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
                 CommentNotification commentNotification = new CommentNotification(
                         jsonObject.getInt(Params.COMMENT_ID),
                         jsonObject.getInt(Params.POST_ID),
-                        jsonObject.getInt(Params.USER_ID),
                         jsonObject.getInt(Params.POST_PICTURE_ID),
                         jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
                         jsonObject.getString(Params.TEXT),
@@ -74,7 +73,7 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
 
     @Override
     protected void onPostExecute(CommentNotification result) {
-        Intent intent = new Intent(Intent.ACTION_VIEW,
+      /*  Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.google.co.in/"));
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
@@ -84,13 +83,11 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher).build();
 
-       /* notification.contentView = new RemoteViews(context.getPackageName(),
-                R.layout.notification_layout);//set your custom layout
-*/
+
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final int noteId = 1232;
 
-        notificationManager.notify(noteId, notification);
+        notificationManager.notify(noteId, notification);*/
 
 
 
@@ -103,7 +100,8 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
         }*/
 
         //if webservice.execute() throws exception
-        if (serverAnswer == null) {
+
+        /*if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }
@@ -113,6 +111,6 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
             Alarm_M alarm_m = new Alarm_M();
             alarm_m.checkInterval(context, result.intervalTime);
             delegate.getResult(result);
-        }
+        }*/
     }
 }
