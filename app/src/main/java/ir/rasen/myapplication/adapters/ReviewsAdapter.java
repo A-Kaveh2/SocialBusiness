@@ -67,7 +67,10 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
-            holder.profile_name.setText(review.userName);
+            if (review.userName != null)
+                holder.profile_name.setText(review.userName);
+            else if (review.businessUserName != null)
+                holder.profile_name.setText(review.businessUserName);
 
             holder.ratingBar.setRating(review.rate);
 
@@ -80,9 +83,9 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             if (isMine) {
                 holder.options.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
-                    // TODO:: SHOW OPTIONS POPUP
-                    OptionsReview optionsReview = new OptionsReview(context);
-                    optionsReview.showOptionsPopup(mReviews.get(position),view,delegate, editDelegateInterface);
+                        // TODO:: SHOW OPTIONS POPUP
+                        OptionsReview optionsReview = new OptionsReview(context);
+                        optionsReview.showOptionsPopup(mReviews.get(position), view, delegate, editDelegateInterface);
                     }
                 });
                 holder.options.setVisibility(View.VISIBLE);

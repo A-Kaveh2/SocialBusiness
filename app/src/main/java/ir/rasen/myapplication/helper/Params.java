@@ -141,6 +141,7 @@ public class Params {
     public static String STATE= "State";
     public static String CITY= "City";
     public static String IS_EMAIL_COMFIRMED= "IsEmailConfirmed";
+    public static String IS_LIKED= "IsLiked";
     public static String SUCCESS = "SuccessStatus";
     public static String RESULT = "Result";
     public static String ERROR = "Error";

@@ -53,11 +53,12 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new CommentNotification(jsonObject.getInt(Params.COMMENT_ID),
+                    list.add(new CommentNotification(
+                            jsonObject.getInt(Params.COMMENT_ID),
                             jsonObject.getInt(Params.POST_ID),
                             jsonObject.getInt(Params.USER_ID),
-                            jsonObject.getString(Params.POST_PICUTE),
-                            jsonObject.getString(Params.USER_PICUTE),
+                            jsonObject.getInt(Params.POST_PICTURE_ID),
+                            jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
                             jsonObject.getString(Params.TEXT),
                             jsonObject.getInt(Params.INTERVAL_TIME)));
 

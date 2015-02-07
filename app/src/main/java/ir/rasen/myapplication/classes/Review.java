@@ -6,6 +6,7 @@ package ir.rasen.myapplication.classes;
 public class Review {
     public int id;
     public int businessID;
+    public String businessUserName;
     public int userID;
     public String userName;
     public String businessPicutre;

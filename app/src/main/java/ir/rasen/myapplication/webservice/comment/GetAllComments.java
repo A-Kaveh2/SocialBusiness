@@ -9,11 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -25,37 +27,33 @@ public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
     private static final String TAG = "GetAllComments";
     private WebserviceResponse delegate = null;
     private int postID;
-    private int fromIndex;
-    private int untilIndex;
+    private int beforThisId;
+    private int limitaion;
     private ServerAnswer serverAnswer;
 
-    public GetAllComments(int postID, int fromIndex, int untilIndex,WebserviceResponse delegate) {
+    public GetAllComments(int postID, int beforThisId, int limitaion,WebserviceResponse delegate) {
         this.delegate = delegate;
         this.postID = postID;
-        this.fromIndex = fromIndex;
-        this.untilIndex = untilIndex;
+        this.beforThisId = beforThisId;
+        this.limitaion = limitaion;
     }
 
     @Override
     protected ArrayList<Comment> doInBackground(Void... voids) {
         ArrayList<Comment> list = new ArrayList<Comment>();
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.GET_COMMENTS);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_COMMENTS, new ArrayList<>(
+                Arrays.asList(String.valueOf(postID), String.valueOf(beforThisId),String.valueOf(limitaion))));
 
         try {
-            webservicePOST.addParam(Params.POST_ID, String.valueOf(postID));
-            webservicePOST.addParam(Params.FROM_INDEX, String.valueOf(fromIndex));
-            webservicePOST.addParam(Params.UNTIL_INDEX, String.valueOf(untilIndex));
-
-            serverAnswer = webservicePOST.executeList();
+              serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     Comment comment = new Comment();
-                    comment.id = jsonObject.getInt(Params.ID);
-                    comment.businessID = jsonObject.getInt(Params.BUSINESS_ID);
+                    comment.id = jsonObject.getInt(Params.COMMENT_ID);
                     comment.userID = jsonObject.getInt(Params.USER_ID);
-                    comment.postID = jsonObject.getInt(Params.POST_ID);
+                    comment.userProfilePictureID = jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID);
                     comment.text = jsonObject.getString(Params.TEXT);
 
                     list.add(comment);

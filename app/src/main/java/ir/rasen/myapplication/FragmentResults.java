@@ -18,6 +18,7 @@ import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Location_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.SearchItemPost;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -171,6 +172,13 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         try {
             if (result instanceof ArrayList) {
                 if (searchType == Params.SearchType.PRODUCTS) {
+
+                    //TODO search post reutrns a list of SearchItemPost object
+                    //TODO modify code to display the list
+                    ArrayList<SearchItemPost> searchPostResult = new ArrayList<>();
+                    searchPostResult = (ArrayList<SearchItemPost>)result;
+                    //TODO use searchPostResult
+
 
                     searchResult = new ArrayList<SearchItemUserBusiness>();
                     searchResult = (ArrayList<SearchItemUserBusiness>) result;
