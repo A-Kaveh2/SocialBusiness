@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 
@@ -22,13 +24,17 @@ import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingActiveRole;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
+import ir.rasen.myapplication.webservice.post.GetTimeLinePosts;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -54,7 +60,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
     private SwipeRefreshLayout swipeView;
     private View listFooterView;
     private RelativeLayout actionBar;
@@ -73,6 +79,8 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private String homeTitle;
     private WebserviceResponse webserviceResponse;
     private EditInterface editDelegateInterface;
+
+    private ProgressDialogCustom pd;
 
     // as home fragment
     public static FragmentHome newInstance (){
@@ -118,6 +126,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
         webserviceResponse = this;
         editDelegateInterface = this;
+        pd = new ProgressDialogCustom(getActivity());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -192,6 +201,9 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             posts.add(post3);
 */
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
+            new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
+                    ,0,getResources().getInteger(R.integer.lazy_load_limitation),FragmentHome.this).execute();
+            pd.show();
 
         }
     }
@@ -304,8 +316,17 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
     @Override
     public void getResult(Object result) {
-        //TODO
-        String s = "";
+        try {
+            if (result instanceof ArrayList) {
+                ArrayList<Post> temp = new ArrayList<>();
+                temp = (ArrayList<Post>) result;
+                posts.addAll(temp);
+                mAdapter.notifyDataSetChanged();
+                pd.dismiss();
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

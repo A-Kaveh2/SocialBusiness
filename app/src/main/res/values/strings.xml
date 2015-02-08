@@ -298,4 +298,9 @@
     <string name="download_storage_path">/Charsoo/cache/images</string>
 
     <string name="business_deleted">کسب و کار حذف شد.</string>
+
+    <string name="reviewed">را نقد کرد.</string>
+    <string name="followed">را دنبال میکند.</string>
+    <string name="loading">دریافت اطلاعات</string>
+    <string name="please_wait">لطفأ تا دریافت اطلاعات از سرور شکیبا باشید.</string>
 </resources>

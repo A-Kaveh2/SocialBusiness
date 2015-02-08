@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.TextViewFont;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -97,6 +98,9 @@ public class TextProcessor {
     public void process(final String text, TextView textView) {
         String TAG = "TextProcessor->processText";
 
+        if(text==null) {
+            return;
+        }
         int index_end = 0;
         Spannable wordtoSpan = new SpannableString(text);
 
@@ -370,6 +374,41 @@ public class TextProcessor {
         editTextFont.setMovementMethod(LinkMovementMethod.getInstance());
         editTextFont.setText(wordtoSpan);
         editTextFont.setSelection(selection);
+
+    }
+
+    // processing editTexts
+    public void processTitle(final String first, final String second
+                             , final String describe, TextViewFont textViewFont) {
+        String TAG = "TextProcessor->processTitle";
+
+        String text = first + " " + second + " " + describe;
+        Spannable wordtoSpan = new SpannableString(text);
+
+        final String profileId = text.substring(0, first.length());
+        wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), 0, first.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                // username clicked!
+                InnerFragment innerFragment = new InnerFragment(context);
+                innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, profileId);
+            }
+        };
+        wordtoSpan.setSpan(clickableSpan, 0, first.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), 0, first.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan2 = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                // username clicked!
+                InnerFragment innerFragment = new InnerFragment(context);
+                innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, second);
+            }
+        };
+        wordtoSpan.setSpan(clickableSpan2, first.length()+1, first.length()+1+second.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textViewFont.setText(wordtoSpan);
 
     }
 

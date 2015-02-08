@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by 'Sina KH'.
  */
 
-// TODO: POSTS LIST ADAPTER ( HOME & PROFILE LIST )
 public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHeadersAdapter {
 	private ArrayList<Post> mPosts;
 	private LayoutInflater mInflater;
@@ -65,6 +65,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.layout_post_home, null);
 
+            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar_home_post_review);
             holder.businessPic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_business_pic);
             holder.postPic = (ImageView) convertView.findViewById(R.id.img_home_post_pic);
             holder.description = (TextViewFont) convertView.findViewById(R.id.txt_home_post_description);
@@ -76,6 +77,10 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
             holder.likeHeart = (ImageView) convertView.findViewById(R.id.img_like_heart);
             holder.options = (ImageButton) convertView.findViewById(R.id.btn_home_post_options);
+            holder.shares = (LinearLayout) convertView.findViewById(R.id.ll_home_post_shares);
+            holder.likesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_likes);
+            holder.commentsNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comments);
+            holder.sharesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_shares);
 
             convertView.setTag(holder);
         } else {
@@ -83,108 +88,145 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         }
 
         if (post != null) {
-            downloadImages.download(post.pictureId, 1, holder.postPic);
-            downloadImages.download(post.businessProfilePictureId, 3, holder.businessPic);
-            if(post.lastThreeComments!=null && post.lastThreeComments.size()>0)
-                downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
-            holder.description.setText(Html.fromHtml(post.title+"<br />"
-                    +"<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
-                    + "<br /><font color=#3F6F94>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
-                    + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
-            if(post.lastThreeComments.size()>0) {
-                holder.comment1_user.setText(post.lastThreeComments.get(0).username);
+            if(post.type==Post.Type.Complete) {
+
+                holder.postPic.setVisibility(View.VISIBLE);
+                holder.likes.setVisibility(View.VISIBLE);
+                holder.comments.setVisibility(View.VISIBLE);
+                holder.comment1_pic.setVisibility(View.VISIBLE);
+                holder.options.setVisibility(View.VISIBLE);
+                holder.shares.setVisibility(View.VISIBLE);
+                holder.comments_3.setVisibility(View.VISIBLE);
+                holder.description.setVisibility(View.VISIBLE);
+
+                downloadImages.download(post.pictureId, 1, holder.postPic);
+                if (post.lastThreeComments != null && post.lastThreeComments.size() > 0)
+                    downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
+                holder.description.setText(Html.fromHtml(post.title + "<br />"
+                        + "<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
+                        + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_code) + "</font> " + post.code
+                        + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
+
+                if (post.lastThreeComments.size() > 0) {
+                    holder.comment1_user.setText(post.lastThreeComments.get(0).username);
+                    holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // TODO:: OPEN COMMENT's USER's PROFILE
+                            InnerFragment innerFragment = new InnerFragment(getContext());
+                            innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                        }
+                    });
+                    TextProcessor textProcessor = new TextProcessor(getContext());
+                    textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
+                } else {
+                    holder.comments_3.setVisibility(View.GONE);
+                }
+
+                // SHOW COMMENTS LISTENER
+                holder.comments.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO: SHOW COMMENTS
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newComments(postId);
+                    }
+                });
+
+                holder.comment1_pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+                    }
+                });
                 holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO:: OPEN COMMENT's USER's PROFILE
                         InnerFragment innerFragment = new InnerFragment(getContext());
-                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                     }
                 });
-                TextProcessor textProcessor = new TextProcessor(getContext());
-                textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
-            } else {
-                holder.comments_3.setVisibility(View.GONE);
-            }
 
-            // SHOW COMMENTS LISTENER
-            holder.comments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO: SHOW COMMENTS
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newComments(postId);
-                }
-            });
-
-            holder.comment1_pic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-
-            // double tap listener !
-            holder.postPic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (singleTapped) {
+                // double tap listener !
+                holder.postPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (singleTapped) {
+                            holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                            likeNow();
+                        } else {
+                            singleTapped = true;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    singleTapped = false;
+                                }
+                            }, 250);
+                        }
+                    }
+                });
+                // LIKE!!
+                //holder.likesNum.setText
+                //holder.
+                holder.likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // like now!
                         holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
                         likeNow();
-                    } else {
-                        singleTapped=true;
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                singleTapped=false;
-                            }
-                        }, 250);
                     }
-                }
-            });
-            // LIKE!!
-            holder.likes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // like now!
-                    holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                    likeNow();
-                }
-            });
+                });
 
-            holder.options.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    OptionsPost optionsPost = new OptionsPost(getContext());
-                    optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse, editDelegateInterface);
-                }
-            });
+                holder.options.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        OptionsPost optionsPost = new OptionsPost(getContext());
+                        optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse, editDelegateInterface);
+                    }
+                });
 
-            // TODO:: Check if liked
-            // IF LIKED ::
-            //holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-            //else
-            //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
+                // TODO:: Check if liked
+                // IF LIKED ::
+                //holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                //else
+                //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
+            } else if(post.type==Post.Type.Review) {
+                holder.postPic.setVisibility(View.GONE);
+                holder.likes.setVisibility(View.GONE);
+                holder.comments.setVisibility(View.GONE);
+                holder.comment1_pic.setVisibility(View.GONE);
+                holder.options.setVisibility(View.GONE);
+                holder.shares.setVisibility(View.VISIBLE);
+                holder.comments_3.setVisibility(View.VISIBLE);
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.process(post.reviewText, holder.description);
+                holder.description.setText(post.reviewText);
+                holder.ratingBar.setRating(post.reviewRate);
+                holder.ratingBar.setVisibility(View.VISIBLE);
+            } else if(post.type==Post.Type.Follow) {
+                holder.postPic.setVisibility(View.GONE);
+                holder.likes.setVisibility(View.GONE);
+                holder.comments.setVisibility(View.GONE);
+                holder.comment1_pic.setVisibility(View.GONE);
+                holder.options.setVisibility(View.GONE);
+                holder.shares.setVisibility(View.GONE);
+                holder.comments_3.setVisibility(View.GONE);
+                holder.description.setVisibility(View.GONE);
+            }
         }
 
         return  convertView;
     }
     class ViewHolder {
-        TextViewFont description, comment1, comment1_user;
+        TextViewFont description, comment1, comment1_user, likesNum, commentsNum, sharesNum;
         ImageView postPic, likeHeart;
         ImageViewCircle comment1_pic, businessPic;
         ImageButton options;
-        LinearLayout likes, comments;
+        LinearLayout likes, comments, shares;
         RelativeLayout comments_3;
+        RatingBar ratingBar;
         int id;
     }
 
@@ -204,27 +246,38 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
-        holder.business_name.setText(post.businessUserName);
+        if(post!=null){
+            if(post.type== Post.Type.Complete) {
+                holder.business_name.setText(post.businessUserName);
+                downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
+                // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
+                // FOR TEST ONLY!
+                holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
 
-        // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
-        // FOR TEST ONLY!
-        holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
-
-        // ON CLICK LISTENERS FOR business pic and name
-        holder.business_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InnerFragment innerFragment = new InnerFragment(getContext());
-                innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                // ON CLICK LISTENERS FOR business pic and name
+                holder.business_pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    }
+                });
+                holder.business_name.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InnerFragment innerFragment = new InnerFragment(getContext());
+                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+                    }
+                });
+            } else if(post.type== Post.Type.Review) {
+                TextProcessor textProcessor = new TextProcessor(context);
+                textProcessor.processTitle(post.userName, post.businessUserName, context.getString(R.string.reviewed), holder.business_name);
+                holder.business_name.setText(post.userName);
+            } else if(post.type==Post.Type.Follow) {
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.processTitle(post.userName, post.businessUserName, context.getString(R.string.followed), holder.business_name);
             }
-        });
-        holder.business_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InnerFragment innerFragment = new InnerFragment(getContext());
-                innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
-            }
-        });
+        }
 
         return convertView;
     }

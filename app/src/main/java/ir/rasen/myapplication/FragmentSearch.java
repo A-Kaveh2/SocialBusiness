@@ -116,7 +116,8 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         setUpCategoriesFitler();
 
         // setup suggestions
-        setUpSuggestions();
+        //setUpSuggestions();
+        //setUpRecents();
         // set history
         setUpHistory();
         text.addTextChangedListener(new TextWatcher() {
@@ -152,7 +153,6 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
     }
 
     private void searchNow() {
-        // TODO:: Start search fragment
         if (text.getText().toString().trim().length() > 0) {
             if(locationM==null) {
                 Dialogs dialogs = new Dialogs();
@@ -219,7 +219,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
 
     }
 
-    void setUpSuggestions() {
+    /*void setUpSuggestions() {
         final ArrayList<String> suggestions = new ArrayList<>();
         suggestions.add("موبایل");
         suggestions.add("تبلت");
@@ -233,7 +233,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
                 text.setText(suggestions.get(i));
             }
         });
-    }
+    }*/
 
     // open set location dialog
     public void setLocation() {

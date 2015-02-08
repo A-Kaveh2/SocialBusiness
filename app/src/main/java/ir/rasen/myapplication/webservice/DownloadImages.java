@@ -33,7 +33,7 @@ public class DownloadImages {
 
     //key: image name
     //value: image bitmap
-    Hashtable<Integer, Bitmap> images = new Hashtable<>();
+    Hashtable<Integer, Bitmap> images;
 
     private boolean isDownloadStarted;
     private String storagePath;
@@ -46,6 +46,7 @@ public class DownloadImages {
         storagePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 context.getResources().getString(R.string.download_storage_path);
         downloadQueue = new ArrayList<>();
+        images = new Hashtable<>();
 
     }
 
@@ -59,7 +60,7 @@ public class DownloadImages {
         }
 
         if (isImageInStorage(imageID, imageSize)) {
-            Bitmap bitmap = BitmapFactory.decodeFile(storagePath + imageID+"_"+imageSize);
+            Bitmap bitmap = BitmapFactory.decodeFile(storagePath+"/"+String.valueOf(imageID) + "_" + String.valueOf(imageSize)+".jpg");
             images.put(imageID, bitmap);
             imageView.setImageBitmap(bitmap);
             return;

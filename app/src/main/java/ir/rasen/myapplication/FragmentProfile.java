@@ -37,6 +37,7 @@ import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -79,6 +80,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     int editingId;
     String editingText;
     Dialog editingDialog;
+
+    private ProgressDialogCustom pd;
 
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
@@ -132,6 +135,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         webserviceResponse = this;
         downloadImages = new DownloadImages(getActivity());
+        pd=new ProgressDialogCustom(getActivity());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -147,6 +151,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
 
+        pd.show();
 
         if (profileType==Params.ProfileType.PROFILE_USER) {
             //get user home info
@@ -458,6 +463,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             } else if (result instanceof ArrayList) {
 
+                pd.dismiss();
 
                 //TODO assign
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
