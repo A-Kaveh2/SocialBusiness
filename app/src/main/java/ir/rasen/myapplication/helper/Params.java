@@ -144,6 +144,9 @@ public class Params {
     public static String CITY= "City";
     public static String IS_EMAIL_COMFIRMED= "IsEmailConfirmed";
     public static String IS_LIKED= "IsLiked";
+    public static String LIKE_NUMBER= "LikeNumber";
+    public static String SHARE_NUMBER= "ShareNumber";
+    public static String COMMENT_NUMBER= "CommentNumber";
     public static String SUCCESS = "SuccessStatus";
     public static String RESULT = "Result";
     public static String ERROR = "Error";
@@ -151,6 +154,7 @@ public class Params {
     public static String USER_PICUTE = "UserPicture";
     public static String USER_NAME= "UserName";
     public static String USER_PROFILE_PICTURE_ID= "UserProfilePictureId";
+    public static String USER_PROFILE_PICTURE= "UserProfilePicture";
     public static String BUSINESS_PICUTE = "BusinessPicture";
     public static String BUSINESS_PICUTE_ID = "BusinessPictureId";
     public static String BUSINESS_PROFILE_PICUTE_ID = "BusinessProfilePictureId";

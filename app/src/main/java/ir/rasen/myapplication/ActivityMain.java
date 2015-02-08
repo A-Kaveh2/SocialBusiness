@@ -59,9 +59,6 @@ public class ActivityMain extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyNotification myNotification = new MyNotification();
-        myNotification.notiU(this);
-
         activityMain = this;
 
         btnHome = (ImageButton) findViewById(R.id.btn_main_home);

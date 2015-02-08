@@ -42,6 +42,9 @@ import ir.rasen.myapplication.webservice.comment.UpdateComment;
 import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
 import ir.rasen.myapplication.webservice.friend.RequestFriendship;
+import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
+import ir.rasen.myapplication.webservice.post.GetPost;
+import ir.rasen.myapplication.webservice.post.GetSharedPosts;
 import ir.rasen.myapplication.webservice.post.GetTimeLinePosts;
 import ir.rasen.myapplication.webservice.post.Like;
 import ir.rasen.myapplication.webservice.post.Report;
@@ -93,10 +96,17 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
             userId = bundle.getInt(Params.USER_ID);
             userNewRequests = bundle.getInt(Params.USER_FRIEND_REQUESTS);
 
-            //new GetUserFriends(userId, FragmentFriends.this).execute();
+            new GetUserFriends(userId, FragmentFriends.this).execute();
 
 
-           new GetLastCommentNotification(getActivity(),3,FragmentFriends.this).execute();
+
+            //new GetBusinessPosts(3,2,0,20,FragmentFriends.this).execute();
+            //new GetPost(3,6,FragmentFriends.this).execute();
+            //new GetSharedPosts(1,0,20,FragmentFriends.this).execute();
+            //new GetTimeLinePosts(3,0,20,FragmentFriends.this).execute();
+
+            //new GetLastCommentNotification(getActivity(),3,FragmentFriends.this).execute();
+            //new GetAllCommentNotifications(2,0,20,FragmentFriends.this).execute();
 
 
         } else {

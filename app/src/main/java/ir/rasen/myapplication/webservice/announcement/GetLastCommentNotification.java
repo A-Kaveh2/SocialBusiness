@@ -20,6 +20,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.alarm.Alarm_M;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.CommentNotification;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -40,7 +41,7 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
     private Context context;
     private ServerAnswer serverAnswer;
 
-    public GetLastCommentNotification(Context context, int userID,WebserviceResponse delegate) {
+    public GetLastCommentNotification(Context context, int userID, WebserviceResponse delegate) {
         this.userID = userID;
         this.context = context;
         this.delegate = delegate;
@@ -58,13 +59,21 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
             serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
+
+                String userPicture = jsonObject.getString(Params.USER_PROFILE_PICTURE);
+                JSONObject userJson = new JSONObject(userPicture);
+                userPicture = userJson.getString(Params.IMAGE);
+
+                String postPicture = jsonObject.getString(Params.POST_PICUTE);
+                JSONObject postJson = new JSONObject(postPicture);
+                postPicture = postJson.getString(Params.IMAGE);
+
                 CommentNotification commentNotification = new CommentNotification(
                         jsonObject.getInt(Params.COMMENT_ID),
                         jsonObject.getInt(Params.POST_ID),
-                        jsonObject.getInt(Params.POST_PICTURE_ID),
-                        jsonObject.getInt(Params.USER_ID),
                         jsonObject.getString(Params.USER_NAME),
-                        jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
+                        userPicture,
+                        postPicture,
                         jsonObject.getString(Params.TEXT),
                         jsonObject.getInt(Params.INTERVAL_TIME));
                 return commentNotification;
@@ -72,60 +81,20 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-       return null;
+        return null;
     }
 
     @Override
     protected void onPostExecute(CommentNotification result) {
 
-        if(result == null)
-            return;
-
-       if(Comment.isDisplayed(context,result.id))
-           return;
-
-        Comment.insertLastCommentId(context,result.id);
-        MyNotification notification = new MyNotification();
-
-        //notification.notify(context,1,"","",2);
-      /*  Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.google.co.in/"));
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                intent, 0);
-
-        Notification notification = new NotificationCompat.Builder(context)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_launcher).build();
-
-
-        final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        final int noteId = 1232;
-
-        notificationManager.notify(noteId, notification);*/
-
-
-
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else {
-            Alarm_M alarm_m = new Alarm_M();
-            alarm_m.checkInterval(context, result.intervalTime);
-            delegate.getResult(result);
-        }*/
-
-        //if webservice.execute() throws exception
-
-        /*if (serverAnswer == null) {
+        if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
         }
         if (serverAnswer.getSuccessStatus())
             delegate.getResult(result);
-        else {
-            Alarm_M alarm_m = new Alarm_M();
-            alarm_m.checkInterval(context, result.intervalTime);
-            delegate.getResult(result);
-        }*/
+        else
+            delegate.getError(serverAnswer.getErrorCode());
+
     }
 }

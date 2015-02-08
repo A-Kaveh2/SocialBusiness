@@ -9,19 +9,19 @@ public class CommentNotification {
     public int postID;
     public int userID;
     public String userName;
-    public int postPictureId;
-    public int userPictureId;
+
+    public String postPicture;
+    public String userPicture;
     public String text;
     public int intervalTime;//in millisecond.
 
-    public CommentNotification(int id, int postID, int  postPictureId,int userID,String userName ,int userPictureId, String text,int intervalTime) {
+    public CommentNotification(int id, int postID,String userName ,String userPicture,String postPicture, String text,int intervalTime) {
         this.id = id;
         this.postID = postID;
-        this.postPictureId = postPictureId;
-        this.userPictureId = userPictureId;
+        this.userPicture = userPicture;
+        this.postPicture = postPicture;
         this.text = text;
         this.intervalTime = intervalTime;
-        this.userID = userID;
         this.userName = userName;
     }
 }
