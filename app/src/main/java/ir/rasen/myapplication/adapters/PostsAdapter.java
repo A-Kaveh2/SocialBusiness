@@ -78,6 +78,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.comments = (LinearLayout) convertView.findViewById(R.id.ll_home_post_comments);
             holder.comments_3 = (RelativeLayout) convertView.findViewById(R.id.rl_home_comments);
             holder.comment1_pic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_comment_1);
+            holder.likesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_likes);
+            holder.commentsNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comments);
+            holder.sharesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_shares);
 
             convertView.setTag(holder);
         } else {
@@ -199,7 +202,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     }
 
     class ViewHolder {
-        TextViewFont business_name, description, time, comment1, comment1_user;
+        TextViewFont business_name, description, time, comment1, comment1_user, likesNum, commentsNum, sharesNum;
         ImageView options, postPic, likeHeart;
         ImageViewCircle business_pic, comment1_pic;
         LinearLayout likes, comments;

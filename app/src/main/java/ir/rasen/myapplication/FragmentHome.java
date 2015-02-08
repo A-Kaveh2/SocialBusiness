@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import ir.rasen.myapplication.helper.PassingActiveRole;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
@@ -78,6 +80,8 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private WebserviceResponse webserviceResponse;
     private EditInterface editDelegateInterface;
 
+    private ProgressDialogCustom pd;
+
     // as home fragment
     public static FragmentHome newInstance (){
         FragmentHome fragment = new FragmentHome();
@@ -122,6 +126,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
         webserviceResponse = this;
         editDelegateInterface = this;
+        pd = new ProgressDialogCustom(getActivity());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -198,6 +203,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
             new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
                     ,0,getResources().getInteger(R.integer.lazy_load_limitation),FragmentHome.this).execute();
+            pd.show();
 
         }
     }
@@ -316,6 +322,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                 temp = (ArrayList<Post>) result;
                 posts.addAll(temp);
                 mAdapter.notifyDataSetChanged();
+                pd.dismiss();
             }
         } catch (Exception e) {
 

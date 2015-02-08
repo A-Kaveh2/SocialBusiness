@@ -24,6 +24,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemPost;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.search.SearchBusinessesLocation;
 import ir.rasen.myapplication.webservice.search.SearchPost;
@@ -48,6 +49,8 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private ArrayList<SearchItemPost> searchResultPost;
 
     private WebserviceResponse webserviceResponse;
+
+    private ProgressDialogCustom pd;
 
     String searchString, location_latitude, location_longitude;
     Context context;
@@ -102,6 +105,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
         this.view = view;
+        pd=new ProgressDialogCustom(getActivity());
 
         list = (ListView) view.findViewById(R.id.list_results_results);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
@@ -109,6 +113,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
+        pd.show();
         loadResults(0);
 
         return view;
@@ -180,6 +185,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
+                pd.dismiss();
                 if (searchType == Params.SearchType.PRODUCTS) {
 
                     searchResultPostTemp = new ArrayList<>();

@@ -98,6 +98,9 @@ public class TextProcessor {
     public void process(final String text, TextView textView) {
         String TAG = "TextProcessor->processText";
 
+        if(text==null) {
+            return;
+        }
         int index_end = 0;
         Spannable wordtoSpan = new SpannableString(text);
 

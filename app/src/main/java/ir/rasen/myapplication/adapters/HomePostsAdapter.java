@@ -33,7 +33,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by 'Sina KH'.
  */
 
-// TODO: POSTS LIST ADAPTER ( HOME & PROFILE LIST )
 public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHeadersAdapter {
 	private ArrayList<Post> mPosts;
 	private LayoutInflater mInflater;
@@ -78,6 +77,10 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.likes = (LinearLayout) convertView.findViewById(R.id.ll_home_post_likes);
             holder.likeHeart = (ImageView) convertView.findViewById(R.id.img_like_heart);
             holder.options = (ImageButton) convertView.findViewById(R.id.btn_home_post_options);
+            holder.shares = (LinearLayout) convertView.findViewById(R.id.ll_home_post_shares);
+            holder.likesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_likes);
+            holder.commentsNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comments);
+            holder.sharesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_shares);
 
             convertView.setTag(holder);
         } else {
@@ -85,9 +88,19 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         }
 
         if (post != null) {
+
             if(post.type==Post.Type.Complete) {
+
+                holder.postPic.setVisibility(View.VISIBLE);
+                holder.likes.setVisibility(View.VISIBLE);
+                holder.comments.setVisibility(View.VISIBLE);
+                holder.comment1_pic.setVisibility(View.VISIBLE);
+                holder.options.setVisibility(View.VISIBLE);
+                holder.shares.setVisibility(View.VISIBLE);
+                holder.comments_3.setVisibility(View.VISIBLE);
+                holder.description.setVisibility(View.VISIBLE);
+
                 downloadImages.download(post.pictureId, 1, holder.postPic);
-                downloadImages.download(post.businessProfilePictureId, 3, holder.businessPic);
                 if (post.lastThreeComments != null && post.lastThreeComments.size() > 0)
                     downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
                 holder.description.setText(Html.fromHtml(post.title + "<br />"
@@ -156,6 +169,8 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     }
                 });
                 // LIKE!!
+                //holder.likesNum.setText
+                //holder.
                 holder.likes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -177,24 +192,39 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 //holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
                 //else
                 //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
-            } else if(post.type== Post.Type.Review) {
+            } else if(post.type==Post.Type.Review) {
                 holder.postPic.setVisibility(View.GONE);
                 holder.likes.setVisibility(View.GONE);
                 holder.comments.setVisibility(View.GONE);
+                holder.comment1_pic.setVisibility(View.GONE);
+                holder.options.setVisibility(View.GONE);
+                holder.shares.setVisibility(View.VISIBLE);
+                holder.comments_3.setVisibility(View.VISIBLE);
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.process(post.reviewText, holder.description);
                 holder.description.setText(post.reviewText);
                 holder.ratingBar.setRating(post.reviewRate);
                 holder.ratingBar.setVisibility(View.VISIBLE);
+            } else if(post.type==Post.Type.Follow) {
+                holder.postPic.setVisibility(View.GONE);
+                holder.likes.setVisibility(View.GONE);
+                holder.comments.setVisibility(View.GONE);
+                holder.comment1_pic.setVisibility(View.GONE);
+                holder.options.setVisibility(View.GONE);
+                holder.shares.setVisibility(View.GONE);
+                holder.comments_3.setVisibility(View.GONE);
+                holder.description.setVisibility(View.GONE);
             }
         }
 
         return  convertView;
     }
     class ViewHolder {
-        TextViewFont description, comment1, comment1_user;
+        TextViewFont description, comment1, comment1_user, likesNum, commentsNum, sharesNum;
         ImageView postPic, likeHeart;
         ImageViewCircle comment1_pic, businessPic;
         ImageButton options;
-        LinearLayout likes, comments;
+        LinearLayout likes, comments, shares;
         RelativeLayout comments_3;
         RatingBar ratingBar;
         int id;
@@ -219,7 +249,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         if(post!=null){
             if(post.type== Post.Type.Complete) {
                 holder.business_name.setText(post.businessUserName);
-
+                downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
                 // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
                 // FOR TEST ONLY!
                 holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
@@ -243,6 +273,9 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 TextProcessor textProcessor = new TextProcessor(context);
                 textProcessor.processTitle(post.userName, post.businessUserName, context.getString(R.string.reviewed), holder.business_name);
                 holder.business_name.setText(post.userName);
+            } else if(post.type==Post.Type.Follow) {
+                TextProcessor textProcessor = new TextProcessor(getContext());
+                textProcessor.processTitle(post.userName, post.businessUserName, context.getString(R.string.followed), holder.business_name);
             }
         }
 
