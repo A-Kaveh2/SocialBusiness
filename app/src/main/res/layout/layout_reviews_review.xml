@@ -57,7 +57,8 @@
                     android:id="@+id/ratingBar_review"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_below="@+id/txt_reviews_review_profile"
-                    android:layout_alignRight="@+id/txt_reviews_review_profile" />
+                    android:layout_alignRight="@+id/txt_reviews_review_profile"
+                    android:isIndicator="false"/>
 
             </RelativeLayout>
 

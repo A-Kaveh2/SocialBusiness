@@ -298,4 +298,6 @@
     <string name="download_storage_path">/Charsoo/cache/images</string>
 
     <string name="business_deleted">کسب و کار حذف شد.</string>
+
+    <string name="reviewed">را نقد کرد.</string>
 </resources>
