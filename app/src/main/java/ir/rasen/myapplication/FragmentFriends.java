@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
@@ -25,6 +27,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
 import ir.rasen.myapplication.webservice.business.BlockUser;
@@ -34,9 +37,11 @@ import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.business.UnblockUser;
 import ir.rasen.myapplication.webservice.comment.GetPostAllComments;
 import ir.rasen.myapplication.webservice.comment.SendComment;
+import ir.rasen.myapplication.webservice.comment.UpdateComment;
 import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
 import ir.rasen.myapplication.webservice.friend.RequestFriendship;
+import ir.rasen.myapplication.webservice.post.GetTimeLinePosts;
 import ir.rasen.myapplication.webservice.post.Like;
 import ir.rasen.myapplication.webservice.post.Report;
 import ir.rasen.myapplication.webservice.post.Unlike;
@@ -88,7 +93,10 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
             userNewRequests = bundle.getInt(Params.USER_FRIEND_REQUESTS);
             //new GetUserFriends(userId, FragmentFriends.this).execute();
 
-            new GetPostAllComments(5,0,20,FragmentFriends.this).execute();
+           //new GetTimeLinePosts(userId,0,20,FragmentFriends.this).execute();
+            DownloadImages downloadImages = new DownloadImages(getActivity());
+            downloadImages.download(1,1,new ImageView(getActivity()));
+
 
         } else {
             Log.e(TAG, "bundle is null!!");

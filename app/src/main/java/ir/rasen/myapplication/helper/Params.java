@@ -157,12 +157,13 @@ public class Params {
     public static String INTERVAL_TIME = "IntervalTime";
     public static String ERROR_CODE = "ErrorCode";
     public static String ACCESS_TOKEN = "AccessToken";
-    public static String IMAGE = "image";
+    public static String IMAGE = "Image";
     public static String CATEGORY_ID = "CategoryId";
     public static String SUB_CATEGORY_ID = "SubCategoryId";
     public static String BUSINESSES = "Businesses";
     public static String PROFILE_PICTURE_ID = "ProfilePictureId";
     public static String DISTANCE = "Distance";
+    public static String TYPE = "Type";
 
 
 

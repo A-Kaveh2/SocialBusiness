@@ -39,16 +39,20 @@ public class Image_M {
         return decodedByte;
     }
 
-    public static void saveBitmap(String path,String imageName,Bitmap bitmap){
-        File file = new File(path,imageName);
+    public static void saveBitmap(String path, String imageName, Bitmap bitmap) {
+        File checkDirectory = new File(path);
+        if (!checkDirectory.exists())
+            checkDirectory.mkdirs();
+
+        File file = new File(path, imageName);
+        file.mkdir();
         if (file.exists())
-            return;
+            file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        }
-        catch (Exception e){
-
+        } catch (Exception e) {
+            String s = e.getMessage();
         }
     }
 

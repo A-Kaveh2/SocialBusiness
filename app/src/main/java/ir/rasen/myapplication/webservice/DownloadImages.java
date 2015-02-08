@@ -77,7 +77,7 @@ public class DownloadImages {
     }
 
     private boolean isImageInStorage(int imageID, int imageSize) {
-        File file = new File(storagePath, String.valueOf(imageID) + "_" + String.valueOf(imageSize));
+        File file = new File(storagePath, String.valueOf(imageID) + "_" + String.valueOf(imageSize)+".jpg");
         if (file.exists())
             return true;
         return false;
@@ -142,7 +142,7 @@ public class DownloadImages {
                 Bitmap bitmap = Image_M.getBitmapFromString(result);
                 images.put(downloadQueue.get(0).imageID, bitmap);
                 downloadQueue.get(0).imageView.setImageBitmap(bitmap);
-                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID + "_" + downloadQueue.get(0).imageSize, bitmap);
+                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID + "_" + downloadQueue.get(0).imageSize+".jpg", bitmap);
             }
 
             downloadQueue.remove(0);

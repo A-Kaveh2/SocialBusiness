@@ -18,14 +18,14 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class GetWallPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
-    private static final String TAG = "GetPosts";
+public class GetTimeLinePosts extends AsyncTask<Void, Void, ArrayList<Post>> {
+    private static final String TAG = "GetTimeLinePosts";
     private WebserviceResponse delegate = null;
     private int userId;
     private int beforeThisId,limitation;
     private ServerAnswer serverAnswer;
 
-    public GetWallPosts(int userId, int beforeThisId, int limitation, WebserviceResponse delegate) {
+    public GetTimeLinePosts(int userId, int beforeThisId, int limitation, WebserviceResponse delegate) {
         this.userId = userId;
         this.beforeThisId = beforeThisId;
         this.limitation = limitation;
@@ -47,7 +47,7 @@ public class GetWallPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(Post.getFromJSONObjectWall(jsonObject));
+                    list.add(Post.getFromJSONObjectTimeLine(jsonObject));
                 }
                 return list;
             }

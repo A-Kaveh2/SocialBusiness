@@ -43,7 +43,7 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
     protected ResultStatus doInBackground(Void... voids) {
 
         //params: email,password
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.LOGIN, new ArrayList<>(
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.LOGIN ,new ArrayList<>(
                 Arrays.asList(email, password)));
 
 
