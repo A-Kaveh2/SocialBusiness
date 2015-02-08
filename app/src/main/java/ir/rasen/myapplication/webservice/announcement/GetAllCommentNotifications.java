@@ -31,7 +31,7 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
     private ServerAnswer serverAnswer;
 
 
-    public GetAllCommentNotifications(int businessId, int beforeThisId, int limitation,WebserviceResponse delegate) {
+    public GetAllCommentNotifications(int businessId, int beforeThisId, int limitation, WebserviceResponse delegate) {
         this.delegate = delegate;
         this.businessId = businessId;
         this.beforeThisId = beforeThisId;
@@ -42,23 +42,31 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
     protected ArrayList<CommentNotification> doInBackground(Void... voids) {
         ArrayList<CommentNotification> list = new ArrayList<CommentNotification>();
 
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_ALL_COMMENT_NOTIFICATIONS,new ArrayList<>(
-                Arrays.asList( String.valueOf(businessId),  String.valueOf(beforeThisId), String.valueOf(limitation))));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_ALL_COMMENT_NOTIFICATIONS, new ArrayList<>(
+                Arrays.asList(String.valueOf(businessId), String.valueOf(beforeThisId), String.valueOf(limitation))));
 
 
         try {
-             serverAnswer = webserviceGET.executeList();
+            serverAnswer = webserviceGET.executeList();
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    String userPicture = jsonObject.getString(Params.USER_PROFILE_PICTURE);
+                    JSONObject userJson = new JSONObject(userPicture);
+                    userPicture = userJson.getString(Params.IMAGE);
+
+                    String postPicture = jsonObject.getString(Params.POST_PICUTE);
+                    JSONObject postJson = new JSONObject(postPicture);
+                    postPicture = postJson.getString(Params.IMAGE);
+
                     list.add(new CommentNotification(
                             jsonObject.getInt(Params.COMMENT_ID),
                             jsonObject.getInt(Params.POST_ID),
-                            jsonObject.getInt(Params.POST_PICTURE_ID),
-                            jsonObject.getInt(Params.USER_ID),
                             jsonObject.getString(Params.USER_NAME),
-                            jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
+                            userPicture,
+                            postPicture,
                             jsonObject.getString(Params.TEXT),
                             jsonObject.getInt(Params.INTERVAL_TIME)));
 

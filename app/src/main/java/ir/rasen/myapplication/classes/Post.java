@@ -38,6 +38,10 @@ public class Post {
     public String code;
     public boolean isLiked;
 
+    public int likeNumber;
+    public int commentNumber;
+    public int shareNumber;
+
     public enum Type {Complete, Follow, Review}
 
     public Type type;
@@ -95,8 +99,14 @@ public class Post {
 
         post.hashtagList = Hashtag.getListFromString(jsonObject.getString(Params.HASHTAG_LIST));
 
+        post.isLiked = jsonObject.getBoolean(Params.IS_LIKED);
+        post.likeNumber = jsonObject.getInt(Params.LIKE_NUMBER);
+        post.commentNumber = jsonObject.getInt(Params.COMMENT_NUMBER);
+        post.shareNumber = jsonObject.getInt(Params.SHARE_NUMBER);
+
         return post;
     }
+
 
     public static Post getFromJSONObjectBusiness(JSONObject jsonObject) throws Exception {
         Post post = new Post();
@@ -113,6 +123,11 @@ public class Post {
         post.lastThreeComments = Comment.getFromJSONArray(jsonArrayComments);
 
         post.hashtagList = Hashtag.getListFromString(jsonObject.getString(Params.HASHTAG_LIST));
+
+        post.isLiked = jsonObject.getBoolean(Params.IS_LIKED);
+        post.likeNumber = jsonObject.getInt(Params.LIKE_NUMBER);
+        post.commentNumber = jsonObject.getInt(Params.COMMENT_NUMBER);
+        post.shareNumber = jsonObject.getInt(Params.SHARE_NUMBER);
 
         return post;
     }
@@ -138,6 +153,12 @@ public class Post {
             String comments = jsonObject.getString(Params.COMMENTS);
             JSONArray jsonArrayComments = new JSONArray(comments);
             post.lastThreeComments = Comment.getFromJSONArray(jsonArrayComments);
+
+
+            post.isLiked = jsonObject.getBoolean(Params.IS_LIKED);
+            post.likeNumber = jsonObject.getInt(Params.LIKE_NUMBER);
+            post.commentNumber = jsonObject.getInt(Params.COMMENT_NUMBER);
+            post.shareNumber = jsonObject.getInt(Params.SHARE_NUMBER);
 
             post.hashtagList = Hashtag.getListFromString(jsonObject.getString(Params.HASHTAG_LIST));
         } else if (post.type == Type.Follow) {

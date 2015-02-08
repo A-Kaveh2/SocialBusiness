@@ -10,10 +10,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import com.google.android.gms.internal.id;
+
 import ir.rasen.myapplication.ActivityWelcome;
 import ir.rasen.myapplication.R;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.CommentNotification;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
 
@@ -34,6 +39,16 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
     public void getResult(Object result) {
         if(result instanceof CommentNotification){
             CommentNotification commentNotification = (CommentNotification)result;
+
+            if (Comment.isDisplayed(context, commentNotification.id))
+                return;
+
+            Comment.insertLastCommentId(context, commentNotification.id);
+
+            MyNotification notification = new MyNotification();
+            notification.notify(context, commentNotification.userName,
+                    Image_M.getBitmapFromString(commentNotification.postPicture),
+                    Image_M.getBitmapFromString(commentNotification.userPicture));
         }
     }
 

@@ -452,7 +452,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
-                    new GetBusinessPosts(1, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                    new GetBusinessPosts(LoginInfo.getUserId(cont),profileId, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 }
 
@@ -483,7 +483,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 assignNow();
 
-                new GetBusinessPosts(profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                new GetBusinessPosts(LoginInfo.getUserId(cont),profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBustinessPosts;
 
             }

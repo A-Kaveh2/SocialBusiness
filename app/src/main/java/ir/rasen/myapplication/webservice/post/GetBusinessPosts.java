@@ -23,12 +23,13 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 public class GetBusinessPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     private static final String TAG = "GetPosts";
     private WebserviceResponse delegate = null;
-    private int businessID;
+    private int businessID,userId;
     private int afterThisID,limitation;
     private ServerAnswer serverAnswer;
 
-    public GetBusinessPosts(int businessID, int afterThisID, int limitation,WebserviceResponse delegate) {
+    public GetBusinessPosts(int userId,int businessID, int afterThisID, int limitation,WebserviceResponse delegate) {
         this.businessID = businessID;
+        this.userId = userId;
         this.afterThisID = afterThisID;
         this.limitation = limitation;
         this.delegate = delegate;
@@ -38,7 +39,7 @@ public class GetBusinessPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     protected ArrayList<Post> doInBackground(Void... voids) {
         ArrayList<Post> list = new ArrayList<Post>();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_POSTS,new ArrayList<>(
-                Arrays.asList(String.valueOf(businessID),
+                Arrays.asList(String.valueOf(userId),String.valueOf(businessID),
                         String.valueOf(afterThisID),
                         String.valueOf(limitation))));
 

@@ -27,6 +27,7 @@ public class URLs {
     public static String GET_USER_FRIEND_REQUEST = MAIN_URL+"getUserFriendRequestList";
     public static String UPDATE_SETTING = MAIN_URL+"updateUserPermission";
     public static String GET_POSTS = MAIN_URL+"getBusinessPosts";
+    public static String GET_POST = MAIN_URL+"getPost";
     public static String GET_TIME_LINE_POSTS = MAIN_URL+"getWallPosts";
     public static String GET_SHARED_POSTS = MAIN_URL+"getUserSharedPosts";
     public static String LIKE = MAIN_URL+"likePost";
