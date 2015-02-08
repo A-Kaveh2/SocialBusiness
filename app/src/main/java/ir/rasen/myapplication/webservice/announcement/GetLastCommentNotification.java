@@ -62,6 +62,8 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
                         jsonObject.getInt(Params.COMMENT_ID),
                         jsonObject.getInt(Params.POST_ID),
                         jsonObject.getInt(Params.POST_PICTURE_ID),
+                        jsonObject.getInt(Params.USER_ID),
+                        jsonObject.getString(Params.USER_NAME),
                         jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
                         jsonObject.getString(Params.TEXT),
                         jsonObject.getInt(Params.INTERVAL_TIME));
@@ -75,6 +77,9 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
 
     @Override
     protected void onPostExecute(CommentNotification result) {
+
+        if(result == null)
+            return;
 
        if(Comment.isDisplayed(context,result.id))
            return;
