@@ -18,7 +18,9 @@ import java.util.Arrays;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.alarm.Alarm_M;
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.CommentNotification;
+import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
@@ -73,6 +75,14 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
 
     @Override
     protected void onPostExecute(CommentNotification result) {
+
+       if(Comment.isDisplayed(context,result.id))
+           return;
+
+        Comment.insertLastCommentId(context,result.id);
+        MyNotification notification = new MyNotification();
+
+        //notification.notify(context,1,"","",2);
       /*  Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.google.co.in/"));
 

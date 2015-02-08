@@ -43,6 +43,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private int searchType;
     private ArrayList<SearchItemUserBusiness> searchResultUserBusinessTemp;
     private ArrayList<SearchItemUserBusiness> searchResultUserBusiness;
+
     private ArrayList<SearchItemPost> searchResultPostTemp;
     private ArrayList<SearchItemPost> searchResultPost;
 

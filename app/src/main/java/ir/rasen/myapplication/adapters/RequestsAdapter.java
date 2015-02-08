@@ -71,14 +71,14 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new AnswerRequestFriendship(request.userID,LoginInfo.getUserId(context),true,delegate).execute();
+                    new AnswerRequestFriendship(request.id,LoginInfo.getUserId(context),true,delegate).execute();
                 }
             });
 
             holder.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new AnswerRequestFriendship(request.userID,LoginInfo.getUserId(context),false,delegate).execute();
+                    new AnswerRequestFriendship(request.id,LoginInfo.getUserId(context),false,delegate).execute();
                 }
             });
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
                 public void onClick(View view) {
                     // show request sender's profile
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, request.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, request.id);
                 }
             });
         }

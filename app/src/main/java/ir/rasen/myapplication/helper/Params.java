@@ -163,7 +163,7 @@ public class Params {
     public static String BUSINESSES = "Businesses";
     public static String PROFILE_PICTURE_ID = "ProfilePictureId";
     public static String DISTANCE = "Distance";
-    public static String TYPE = "Type";
+    public static String TYPE = "PostTypeId";
 
 
 

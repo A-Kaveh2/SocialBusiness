@@ -5,7 +5,7 @@ package ir.rasen.myapplication.classes;
  */
 public class CommentNotification {
 
-    public int commentID;
+    public int id;
     public int postID;
     public int userID;
     public int postPictureId;
@@ -13,8 +13,8 @@ public class CommentNotification {
     public String text;
     public int intervalTime;//in millisecond.
 
-    public CommentNotification(int commentID, int postID, int  postPictureId, int userPictureId, String text,int intervalTime) {
-        this.commentID = commentID;
+    public CommentNotification(int id, int postID, int  postPictureId, int userPictureId, String text,int intervalTime) {
+        this.id = id;
         this.postID = postID;
         this.postPictureId = postPictureId;
         this.userPictureId = userPictureId;

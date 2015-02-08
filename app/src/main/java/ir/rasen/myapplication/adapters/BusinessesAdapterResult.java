@@ -63,7 +63,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.userID);
+                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_BUSINESS, false, business.id);
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });

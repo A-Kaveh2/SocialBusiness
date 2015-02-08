@@ -91,11 +91,10 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             userId = bundle.getInt(Params.USER_ID);
             userNewRequests = bundle.getInt(Params.USER_FRIEND_REQUESTS);
+
             //new GetUserFriends(userId, FragmentFriends.this).execute();
 
-           //new GetTimeLinePosts(userId,0,20,FragmentFriends.this).execute();
-            DownloadImages downloadImages = new DownloadImages(getActivity());
-            downloadImages.download(1,1,new ImageView(getActivity()));
+           new GetLastCommentNotification(getActivity(),1,FragmentFriends.this).execute();
 
 
         } else {

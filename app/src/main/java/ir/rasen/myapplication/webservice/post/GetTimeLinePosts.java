@@ -35,7 +35,7 @@ public class GetTimeLinePosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     @Override
     protected ArrayList<Post> doInBackground(Void... voids) {
         ArrayList<Post> list = new ArrayList<Post>();
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_WALL_POSTS,new ArrayList<>(
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_TIME_LINE_POSTS,new ArrayList<>(
                 Arrays.asList(String.valueOf(userId),
                         String.valueOf(beforeThisId),
                         String.valueOf(limitation))));

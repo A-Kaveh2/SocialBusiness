@@ -23,6 +23,7 @@ import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.Permission;
@@ -57,6 +58,9 @@ public class ActivityMain extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MyNotification myNotification = new MyNotification();
+        myNotification.notiU(this);
 
         activityMain = this;
 
