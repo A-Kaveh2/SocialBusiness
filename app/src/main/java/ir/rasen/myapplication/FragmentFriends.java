@@ -29,6 +29,7 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.announcement.GetAllCommentNotifications;
 import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
 import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.DeleteComment;
@@ -94,7 +95,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
             //new GetUserFriends(userId, FragmentFriends.this).execute();
 
-           new GetLastCommentNotification(getActivity(),1,FragmentFriends.this).execute();
+
+           new GetLastCommentNotification(getActivity(),3,FragmentFriends.this).execute();
 
 
         } else {

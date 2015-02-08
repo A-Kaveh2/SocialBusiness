@@ -44,7 +44,7 @@ public class Comment {
                 context.getPackageName(), Context.MODE_PRIVATE);
         int lastCommentId = preferences.getInt(Params.COMMENT_ID, 0);
 
-        if (lastCommentId != 0 && lastCommentId != commendId)
+        if (lastCommentId != 0 && lastCommentId == commendId)
             return true;
         return false;
     }
