@@ -32,6 +32,7 @@ import ir.rasen.myapplication.webservice.business.DeleteComment;
 import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
 import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.business.UnblockUser;
+import ir.rasen.myapplication.webservice.comment.GetPostAllComments;
 import ir.rasen.myapplication.webservice.comment.SendComment;
 import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
@@ -85,7 +86,9 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             userId = bundle.getInt(Params.USER_ID);
             userNewRequests = bundle.getInt(Params.USER_FRIEND_REQUESTS);
-            new GetUserFriends(userId, FragmentFriends.this).execute();
+            //new GetUserFriends(userId, FragmentFriends.this).execute();
+
+            new GetPostAllComments(5,0,20,FragmentFriends.this).execute();
 
         } else {
             Log.e(TAG, "bundle is null!!");

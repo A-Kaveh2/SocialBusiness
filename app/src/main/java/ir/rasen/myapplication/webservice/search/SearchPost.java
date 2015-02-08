@@ -30,10 +30,14 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemPost>>
 
     private String searchText;
     private ServerAnswer serverAnswer;
+    private int beforeThisId;
+    private int limitation;
 
-    public SearchPost(String searchText,WebserviceResponse delegate) {
+    public SearchPost(String searchText,int beforeThisId,int limitation,WebserviceResponse delegate) {
         this.searchText = searchText;
         this.delegate = delegate;
+        this.beforeThisId = beforeThisId;
+        this.limitation = limitation;
 
     }
 
@@ -42,7 +46,7 @@ public class SearchPost extends AsyncTask<Void, Void, ArrayList<SearchItemPost>>
         ArrayList<SearchItemPost> list = new ArrayList<>();
 
         WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_POST,new ArrayList<>(
-                Arrays.asList(searchText)));
+                Arrays.asList(searchText,String.valueOf(beforeThisId),String.valueOf(limitation))));
 
 
         try {

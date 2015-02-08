@@ -23,7 +23,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
+public class GetPostAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
     private static final String TAG = "GetAllComments";
     private WebserviceResponse delegate = null;
     private int postID;
@@ -31,7 +31,7 @@ public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
     private int limitaion;
     private ServerAnswer serverAnswer;
 
-    public GetAllComments(int postID, int beforThisId, int limitaion,WebserviceResponse delegate) {
+    public GetPostAllComments(int postID, int beforThisId, int limitaion, WebserviceResponse delegate) {
         this.delegate = delegate;
         this.postID = postID;
         this.beforThisId = beforThisId;
@@ -53,8 +53,9 @@ public class GetAllComments extends AsyncTask<Void, Void, ArrayList<Comment>> {
                     Comment comment = new Comment();
                     comment.id = jsonObject.getInt(Params.COMMENT_ID);
                     comment.userID = jsonObject.getInt(Params.USER_ID);
+                    comment.username = jsonObject.getString(Params.USER_NAME);
                     comment.userProfilePictureID = jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID);
-                    comment.text = jsonObject.getString(Params.TEXT);
+                    comment.text = jsonObject.getString(Params.COMMENT);
 
                     list.add(comment);
                 }

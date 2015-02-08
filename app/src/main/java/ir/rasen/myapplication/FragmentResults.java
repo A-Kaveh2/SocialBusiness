@@ -113,7 +113,10 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         listFooterView.setVisibility(View.VISIBLE);
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost( searchString, FragmentResults.this).execute();
+
+            //TODO lazy load implementation
+            new SearchPost( searchString,searchResult.get(searchResult.size()-1).userID
+                    ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         } else {
             // TODO:: chetor be web service begim az koja be ghablo biare ??
             // TODO:: movaghatan userId ro pass dadam
@@ -216,7 +219,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private void loadResults() {
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost( searchString, FragmentResults.this).execute();
+            new SearchPost(searchString,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         } else {
             new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }

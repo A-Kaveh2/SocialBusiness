@@ -5,13 +5,13 @@ package ir.rasen.myapplication.helper;
  */
 public class URLs {
 
-    public static String MAIN_URL = "http://185.55.226.223:8080/bsn/";
+    //public static String MAIN_URL = "http://185.55.226.223:8080/bsn/";
 
     //lcoal address
-    //public static String MAIN_URL = "http://192.168.0.102:8080/bsn/";
+    public static String MAIN_URL = "http://192.168.0.102:8080/bsn/";
 
     public static String LOGIN = MAIN_URL+"login";
-    public static String FORGET_PASSWORD = MAIN_URL+"forget_password";
+    public static String FORGET_PASSWORD = MAIN_URL+"forgotPassword";
     public static String REGISTER_USER = MAIN_URL+"registerUser";
     public static String REGISTER_BUSINESS = MAIN_URL+"registerBusiness";
     public static String UPDATE_PROFILE_USER = MAIN_URL+"updateUserProfile";
@@ -32,9 +32,9 @@ public class URLs {
     public static String LIKE = MAIN_URL+"likePost";
     public static String DISLIKE = MAIN_URL+"dislikePost";
     public static String SEND_COMMENT = MAIN_URL+"commentOnPost";
-    public static String UPDATE_COMMENT = MAIN_URL+"update_comment";
+    public static String UPDATE_COMMENT = MAIN_URL+"updateComment";
     public static String DELETE_COMMENT = MAIN_URL+"deleteComment";
-    public static String GET_COMMENTS = MAIN_URL+"get_comments";
+    public static String GET_COMMENTS = MAIN_URL+"getPostComments";
     public static String SHARE = MAIN_URL+"share";
     public static String REPORT = MAIN_URL+"reportPost";
     public static String ADD_POST = MAIN_URL+"addPost";
@@ -58,7 +58,7 @@ public class URLs {
     public static String GET_BLOCKED_USERS= MAIN_URL+"getBlockedUsersList";
     public static String RATE_BUSINESS= MAIN_URL+"rateBusiness";
     public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"getLastCommentNotification";
-    public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"get_announcement_comment";
+    public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"getAllCommentNotifications";
     public static String FOLLOW_BUSINESS= MAIN_URL+"followBusiness";
     public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";
     public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"getBusinessSubCategories";
