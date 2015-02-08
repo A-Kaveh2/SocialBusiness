@@ -142,7 +142,7 @@ public class DownloadImages {
                 Bitmap bitmap = Image_M.getBitmapFromString(result);
                 images.put(downloadQueue.get(0).imageID, bitmap);
                 downloadQueue.get(0).imageView.setImageBitmap(bitmap);
-                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID+"_"+downloadQueue.get(0).imageSize, bitmap);
+                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID + "_" + downloadQueue.get(0).imageSize, bitmap);
             }
 
             downloadQueue.remove(0);

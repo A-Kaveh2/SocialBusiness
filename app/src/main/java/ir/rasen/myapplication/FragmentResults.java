@@ -39,6 +39,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private ListAdapter mAdapter;
     private int searchType;
     private ArrayList<SearchItemUserBusiness> searchResult;
+    private ArrayList<SearchItemPost> searchResultPost;
 
     private WebserviceResponse webserviceResponse;
 
@@ -102,21 +103,24 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
-        // load results
-        if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost( searchString, FragmentResults.this).execute();
-        } else {
-            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
-        }
+        loadResults();
 
         return view;
     }
 
-    // TODO: LOAD MORE DATA
     public void loadMoreData() {
-        // LOAD MORE DATA HERE...
         isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
+        // load results
+        if (searchType == Params.SearchType.PRODUCTS) {
+            new SearchPost( searchString, FragmentResults.this).execute();
+        } else {
+            // TODO:: chetor be web service begim az koja be ghablo biare ??
+            // TODO:: movaghatan userId ro pass dadam
+            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude
+                    , searchResult.get(searchResult.size()-1).userID
+                    ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
+        }
     }
 
     void setUpListView() {
@@ -130,14 +134,14 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     return;
                 }
                 searchResult = new ArrayList<SearchItemUserBusiness>();
-                // TODO get results again
+                loadResults();
                 swipeView.setRefreshing(true);
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
         listFooterView.setVisibility(View.INVISIBLE);
         list.addFooterView(listFooterView);
-        // TODO: ListView LoadMore
+
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             int currentFirstVisibleItem
                     ,
@@ -173,23 +177,15 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             if (result instanceof ArrayList) {
                 if (searchType == Params.SearchType.PRODUCTS) {
 
-                    //TODO search post reutrns a list of SearchItemPost object
-                    //TODO modify code to display the list
-                    ArrayList<SearchItemPost> searchPostResult = new ArrayList<>();
-                    searchPostResult = (ArrayList<SearchItemPost>)result;
-                    //TODO use searchPostResult
-
-
-                    searchResult = new ArrayList<SearchItemUserBusiness>();
-                    searchResult = (ArrayList<SearchItemUserBusiness>) result;
-
+                    searchResultPost = new ArrayList<>();
+                    searchResultPost = (ArrayList<SearchItemPost>)result;
 
                     //TODO check the code. FORCE CLOSE
-                    /*mAdapter = new PostsGridAdapterResult(getActivity(), searchResult);
+                    mAdapter = new PostsGridAdapterResult(getActivity(), searchResultPost);
                     list.setAdapter(mAdapter);
                     isLoadingMore=false;
                     swipeView.setRefreshing(false);
-                    listFooterView.setVisibility(View.GONE);*/
+                    listFooterView.setVisibility(View.GONE);
 
                 } else {
                     searchResult = new ArrayList<SearchItemUserBusiness>();
@@ -214,6 +210,15 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             Dialogs.showMessage(getActivity(), errorMessage);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
+    }
+
+    private void loadResults() {
+        // load results
+        if (searchType == Params.SearchType.PRODUCTS) {
+            new SearchPost( searchString, FragmentResults.this).execute();
+        } else {
+            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
     }
 }

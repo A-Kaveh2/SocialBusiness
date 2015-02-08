@@ -49,6 +49,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
             holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_businesses_business_image);
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_businesses_business_name);
             holder.item = (RelativeLayout) convertView.findViewById(R.id.rl_businesses_business);
+            holder.distance = (TextViewFont) convertView.findViewById(R.id.txt_businesses_business_distance);
 
             convertView.setTag(holder);
         } else {
@@ -66,6 +67,11 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
                     ((ActivityMain) getContext()).closeDrawer(Gravity.RIGHT);
                 }
             });
+            if(business.distance>0) {
+                holder.distance.setText(business.distance+"");
+            } else {
+                holder.distance.setVisibility(View.GONE);
+            }
         }
 
         return  convertView;
@@ -73,7 +79,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
     class ViewHolder {
         RelativeLayout item;
         ImageViewCircle picture;
-        TextViewFont name;
+        TextViewFont name, distance;
         int id;
     }
 

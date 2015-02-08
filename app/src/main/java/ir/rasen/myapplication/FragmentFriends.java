@@ -55,15 +55,16 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
     private ListAdapter mAdapter;
 
     // user id is received here
-    private int userId;
+    private int userId, userNewRequests;
 
     private ArrayList<User> friends;
 
-    public static FragmentFriends newInstance(int userId) {
+    public static FragmentFriends newInstance(int userId, int newRequests) {
         FragmentFriends fragment = new FragmentFriends();
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.USER_ID, userId);
+        bundle.putInt(Params.USER_FRIEND_REQUESTS, newRequests);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -83,11 +84,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         Bundle bundle = getArguments();
         if (bundle != null) {
             userId = bundle.getInt(Params.USER_ID);
-
+            userNewRequests = bundle.getInt(Params.USER_FRIEND_REQUESTS);
             new GetUserFriends(userId, FragmentFriends.this).execute();
-
-
-
 
         } else {
             Log.e(TAG, "bundle is null!!");
@@ -113,8 +111,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
 
         // TODO:: check if new requests received or not
-        if (true) { // new requests received or not!
-            int requestsNum = 2; // number of new requests
+        if (userNewRequests>0) { // new requests received or not!
+            int requestsNum = userNewRequests;
             listHeaderView.setVisibility(View.VISIBLE);
             ((TextViewFont) listHeaderView.findViewById(R.id.txt_friends_requests)).setText(
                     requestsNum + " " + getString(R.string.friend_request));

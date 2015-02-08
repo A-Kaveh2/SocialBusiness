@@ -31,6 +31,7 @@ import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
 import ir.rasen.myapplication.webservice.search.SearchUser;
+import ir.rasen.myapplication.webservice.user.Login;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.
@@ -44,17 +45,17 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     private SwipeRefreshLayout swipeView;
     private ListView list;
     private BaseAdapter mAdapter;
-    private int businessId;
+    private int businessId, businessOwner;
     ArrayList<Review> reviews;
 
     Dialog dialog;
 
-    public static FragmentReviews newInstance (int businessId) {
+    public static FragmentReviews newInstance (int businessId, int businessOwner) {
         FragmentReviews fragment = new FragmentReviews();
-
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.BUSINESS_ID, businessId);
+        bundle.putInt(Params.BUSINESS_OWNER, businessOwner);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -70,6 +71,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         Bundle bundle = getArguments();
         if (bundle != null) {
             businessId = bundle.getInt(Params.BUSINESS_ID);
+            businessOwner = bundle.getInt(Params.BUSINESS_OWNER);
             new GetBusinessReviews(businessId,0,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
@@ -106,12 +108,16 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
         list.setAdapter(mAdapter);
 
-        view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showReviewDialog();
-            }
-        });
+        if(businessOwner== LoginInfo.getUserId(getActivity())) {
+            view.findViewById(R.id.btn_reviews_send).setVisibility(View.GONE);
+        } else {
+            view.findViewById(R.id.btn_reviews_send).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showReviewDialog();
+                }
+            });
+        }
 
         return view;
     }

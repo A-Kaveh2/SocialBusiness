@@ -56,8 +56,8 @@ public class InnerFragment {
     }
 
     // add new friends fragment to current place
-    public void newFriends(int userId) {
-        Fragment newFragment = new FragmentFriends().newInstance(userId);
+    public void newFriends(int userId, int userFriendRequests) {
+        Fragment newFragment = new FragmentFriends().newInstance(userId, userFriendRequests);
         addFragment(newFragment);
     }
 
@@ -80,8 +80,8 @@ public class InnerFragment {
     }
 
     // add new reviews fragment to current place
-    public void newReviews(int businessId) {
-        Fragment newFragment = new FragmentReviews().newInstance(businessId);
+    public void newReviews(int businessId, int businessOwner) {
+        Fragment newFragment = new FragmentReviews().newInstance(businessId, businessOwner);
         addFragment(newFragment);
     }
 

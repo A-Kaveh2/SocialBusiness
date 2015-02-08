@@ -24,6 +24,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.comment.SendComment;
 import ir.rasen.myapplication.webservice.post.Like;
@@ -43,6 +44,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private WebserviceResponse delegate;
     private EditInterface editDelegateInterface;
     private Context context;
+    private DownloadImages downloadImages;
 
     public PostsAdapter(Context context, ArrayList<Post> posts, WebserviceResponse delegate, EditInterface editDelegateInterface) {
         super(context, R.layout.layout_post, posts);
@@ -51,6 +53,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         this.delegate = delegate;
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        this.downloadImages = new DownloadImages(context);
     }
 
     @Override
@@ -81,10 +84,11 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (position == 1) {
-            holder.postPic.setImageResource(R.drawable.test2);
-        }
         if (post != null && holder != null) {
+            downloadImages.download(post.pictureId, 1, holder.postPic);
+            downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
+            if(post.lastThreeComments!=null && post.lastThreeComments.size()>0)
+                downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
             holder.business_name.setText(post.businessUserName);
             holder.description.setText(Html.fromHtml("<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
                     + "<br /><font color=#3F6F94><b>" + getContext().getString(R.string.product_code) + "</font> " + post.code

@@ -41,6 +41,8 @@ public class Params {
         public static int HOME_SEARCH = 1;
         public static int HOME_POST = 2;
     }
+    public static String BUSINESS_OWNER = "business_owner";
+    public static String USER_FRIEND_REQUESTS = "user_friend_requests";
 
     /*public static class ActionBarSensitivity {
         public static int TO_HIDE = 100;

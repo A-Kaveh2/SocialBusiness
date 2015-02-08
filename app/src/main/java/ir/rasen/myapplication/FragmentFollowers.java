@@ -193,8 +193,6 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                     user.profilePictureId = item.pictureId;
                     followers.add(user);
                 }
-
-                followers = new ArrayList<User>();
                 mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
                 isLoadingMore = false;

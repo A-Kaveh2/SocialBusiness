@@ -263,7 +263,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 @Override
                 public void onClick(View v) {
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newFriends(profileId);
+                    innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
                 }
             });
             // REVIEWS OF USER
@@ -303,7 +303,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 @Override
                 public void onClick(View v) {
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newReviews(profileId);
+                    innerFragment.newReviews(profileId, profile_business.userID); // TODO:: USERID is owner, RIGHT ?
                 }
             });
             // FOLLOWERS

@@ -158,7 +158,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             /*
                 for example, i've made some fake data to show ::
             */
-            Post post1 = new Post();
+            /*Post post1 = new Post();
             Post post2 = new Post();
             Post post3 = new Post();
             post1.businessID = 1;
@@ -190,7 +190,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             post3.title = "عنوان!!";
             post3.lastThreeComments = lastThreeComments;
             posts.add(post3);
-
+*/
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
 
         }

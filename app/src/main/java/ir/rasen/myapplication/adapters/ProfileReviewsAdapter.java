@@ -18,6 +18,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
@@ -32,6 +33,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
     private Context context;
     WebserviceResponse delegate;
     EditInterface editDelegateInterface;
+    DownloadImages downloadImages;
 
 	public ProfileReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_reviews_review, reviews);
@@ -40,6 +42,7 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
         this.delegate = delegate;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -63,6 +66,8 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
+            downloadImages.download(review.businessPicutreId, 3, holder.business_pic);
+
             holder.business_name.setText(review.businessID);
 
             TextProcessor textProcessor = new TextProcessor(getContext());

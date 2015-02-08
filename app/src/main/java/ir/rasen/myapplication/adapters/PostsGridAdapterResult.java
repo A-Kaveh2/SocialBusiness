@@ -12,23 +12,27 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.SearchItemPost;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 // TODO: POSTS GRID ADAPTER
-public class PostsGridAdapterResult extends ArrayAdapter<SearchItemUserBusiness> {
-	private ArrayList<SearchItemUserBusiness> mPosts;
+public class PostsGridAdapterResult extends ArrayAdapter<SearchItemPost> {
+	private ArrayList<SearchItemPost> mPosts;
 	private LayoutInflater mInflater;
+    private DownloadImages downloadImages;
 
-	public PostsGridAdapterResult(Context context, ArrayList<SearchItemUserBusiness> posts) {
-		super(context, R.layout.layout_post, posts);
+	public PostsGridAdapterResult(Context context, ArrayList<SearchItemPost> posts) {
+		super(context, R.layout.layout_profile_grid_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
+        downloadImages = new DownloadImages(context);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
-        final SearchItemUserBusiness post = mPosts.get(position);
+        final SearchItemPost post = mPosts.get(position);
 
         if (convertView == null) {
             holder = new ViewHolder();
@@ -41,14 +45,12 @@ public class PostsGridAdapterResult extends ArrayAdapter<SearchItemUserBusiness>
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position==1) {
-            holder.postPic.setImageResource(R.drawable.test2);
-        }
         if (post != null) {
+            downloadImages.download(post.postPictureId, 2, holder.postPic);
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO get the post of post.id here and then::
+                    // TODO :: GET POST FROM POST ID HERE AND THEN ::
                     //InnerFragment innerFragment = new InnerFragment(getContext());
                     // innerFragment.newPostFragment(fullPost);
                 }

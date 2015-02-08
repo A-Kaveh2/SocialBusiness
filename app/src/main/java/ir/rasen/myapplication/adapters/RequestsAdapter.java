@@ -19,6 +19,7 @@ import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 
@@ -32,6 +33,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
 	private LayoutInflater mInflater;
     private Context context;
     private WebserviceResponse delegate;
+    private DownloadImages downloadImages;
 
 	public RequestsAdapter(Context context, ArrayList<SearchItemUserBusiness> requests,WebserviceResponse delegate) {
 		super(context, R.layout.layout_requests_request, requests);
@@ -39,6 +41,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
         this.delegate = delegate;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -61,6 +64,8 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
         }
 
         if (request != null) {
+            downloadImages.download(request.pictureId, 3, holder.pic);
+
             holder.username.setText(request.username);
 
             holder.accept.setOnClickListener(new View.OnClickListener() {

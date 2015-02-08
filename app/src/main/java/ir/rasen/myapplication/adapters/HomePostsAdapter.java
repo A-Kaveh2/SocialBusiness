@@ -24,6 +24,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
@@ -40,6 +41,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
     private WebserviceResponse webserviceResponse;
     private EditInterface editDelegateInterface;
     private Context context;
+    private DownloadImages downloadImages;
 
     private Post post;
 
@@ -50,6 +52,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -62,6 +65,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.layout_post_home, null);
 
+            holder.businessPic = (ImageViewCircle) convertView.findViewById(R.id.img_home_post_business_pic);
             holder.postPic = (ImageView) convertView.findViewById(R.id.img_home_post_pic);
             holder.description = (TextViewFont) convertView.findViewById(R.id.txt_home_post_description);
             holder.comment1 = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comment_1_comment);
@@ -78,10 +82,11 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position==1) {
-            holder.postPic.setImageResource(R.drawable.test2);
-        }
         if (post != null) {
+            downloadImages.download(post.pictureId, 1, holder.postPic);
+            downloadImages.download(post.businessProfilePictureId, 3, holder.businessPic);
+            if(post.lastThreeComments!=null && post.lastThreeComments.size()>0)
+                downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
             holder.description.setText(Html.fromHtml(post.title+"<br />"
                     +"<font color=#3F6F94>"+ getContext().getString(R.string.product_price) +":</font> " + post.price
                     + "<br /><font color=#3F6F94>"+ getContext().getString(R.string.product_code) +"</font> " + post.code
@@ -176,7 +181,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
     class ViewHolder {
         TextViewFont description, comment1, comment1_user;
         ImageView postPic, likeHeart;
-        ImageViewCircle comment1_pic;
+        ImageViewCircle comment1_pic, businessPic;
         ImageButton options;
         LinearLayout likes, comments;
         RelativeLayout comments_3;

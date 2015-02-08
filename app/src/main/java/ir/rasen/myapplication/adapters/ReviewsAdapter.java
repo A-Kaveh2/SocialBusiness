@@ -15,18 +15,18 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH'.
  */
-
-// TODO: REVIEWS ADAPTER
 public class ReviewsAdapter extends ArrayAdapter<Review> {
     private ArrayList<Review> mReviews;
     private LayoutInflater mInflater;
@@ -35,6 +35,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
     private WebserviceResponse delegate;
     private Dialog dialog;
     private EditInterface editDelegateInterface;
+    private DownloadImages downloadImages;
 
     public ReviewsAdapter(Context context, ArrayList<Review> reviews, WebserviceResponse delegate, EditInterface editDelegateInterface) {
         super(context, R.layout.layout_reviews_review, reviews);
@@ -43,6 +44,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         this.context = context;
         this.delegate = delegate;
         this.editDelegateInterface = editDelegateInterface;
+        this.downloadImages = new DownloadImages(context);
     }
 
     @Override
@@ -67,6 +69,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
+            downloadImages.download(review.userPicutreId, 3, holder.profile_pic);
             if (review.userName != null)
                 holder.profile_name.setText(review.userName);
             else if (review.businessUserName != null)
@@ -77,13 +80,9 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
             TextProcessor textProcessor = new TextProcessor(getContext());
             textProcessor.process(review.text, holder.review);
 
-            // TODO: CHECK IS MINE OR NOT
-            //if(review.userID.equals(myId))
-            boolean isMine = true;
-            if (isMine) {
+            if(review.userID== LoginInfo.getUserId(context)) {
                 holder.options.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
-                        // TODO:: SHOW OPTIONS POPUP
                         OptionsReview optionsReview = new OptionsReview(context);
                         optionsReview.showOptionsPopup(mReviews.get(position), view, delegate, editDelegateInterface);
                     }

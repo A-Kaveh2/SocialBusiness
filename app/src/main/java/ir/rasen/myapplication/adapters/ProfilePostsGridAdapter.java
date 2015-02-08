@@ -12,16 +12,19 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 // TODO: POSTS GRID ADAPTER
 public class ProfilePostsGridAdapter extends ArrayAdapter<Post> {
 	private ArrayList<Post> mPosts;
 	private LayoutInflater mInflater;
+    private DownloadImages downloadImages;
 
 	public ProfilePostsGridAdapter(Context context, ArrayList<Post> posts) {
 		super(context, R.layout.layout_post, posts);
 		mPosts 	= posts;
 		mInflater	= LayoutInflater.from(context);
+        downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -40,10 +43,8 @@ public class ProfilePostsGridAdapter extends ArrayAdapter<Post> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position==1) {
-            holder.postPic.setImageResource(R.drawable.test2);
-        }
         if (post != null && holder != null) { // TODO:: WHY holder should be checked, too?
+            downloadImages.download(post.pictureId, 2, holder.postPic);
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -123,6 +123,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
         try {
             boolean b = LoginInfo.isLoggedIn(cotext);
             startActivity(new Intent(cotext, ActivityMain.class));
+            finish();
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

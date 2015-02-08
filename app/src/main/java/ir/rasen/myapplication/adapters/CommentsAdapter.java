@@ -22,6 +22,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -32,6 +33,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
 	private LayoutInflater mInflater;
     private Context context;
     private EditInterface editDelegateInterface;
+    private DownloadImages downloadImages;
 
 	public CommentsAdapter(Context context, ArrayList<Comment> comments, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_comments_comment, comments);
@@ -39,6 +41,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -61,6 +64,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         }
 
         if (comment != null) {
+            downloadImages.download(comment.userProfilePictureID, 3, holder.comment_profile_pic);
             holder.comment_user.setText(comment.username);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

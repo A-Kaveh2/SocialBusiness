@@ -17,6 +17,8 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
+
 /**
  * Created by 'Sina KH' on 01/11/2015.
  */
@@ -27,6 +29,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
     private boolean mOwnFriends = false;
     private Context context;
     private EditInterface editDelegateInterface;
+    private DownloadImages downloadImages;
 
 	public FriendsAdapter(Context context, ArrayList<User> friends, boolean ownFriends, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_friends_friend, friends);
@@ -35,6 +38,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
         mOwnFriends = ownFriends;
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
+        this.downloadImages = new DownloadImages(context);
 	}
 
 	@Override
@@ -56,6 +60,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
         }
 
         if (friend != null) {
+            downloadImages.download(friend.profilePictureId, 3, holder.friend_profile_pic);
             holder.friend_name.setText(friend.userName);
             // show friends profile
             convertView.setOnClickListener(new View.OnClickListener() {

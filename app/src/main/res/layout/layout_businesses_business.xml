@@ -28,7 +28,15 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/img_businesses_business_image"
         android:textColor="@android:color/black"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin_half"
+        android:gravity="center"/>
+    <ir.rasen.myapplication.ui.TextViewFont
+        android:id="@+id/txt_businesses_business_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/img_businesses_business_image"
+        android:layout_below="@+id/txt_businesses_business_name"
+        android:textColor="@android:color/darker_gray"
         android:gravity="center"/>
     <ImageButton
         android:id="@+id/btn_businesses_business_unfollow"
