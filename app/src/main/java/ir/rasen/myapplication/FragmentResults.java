@@ -110,6 +110,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         list = (ListView) view.findViewById(R.id.list_results_results);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
+        searchResultUserBusiness = new ArrayList<>();
+        searchResultPost = new ArrayList<>();
+
         // setUp ListView
         setUpListView();
 

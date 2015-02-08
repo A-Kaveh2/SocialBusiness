@@ -382,10 +382,12 @@ public class TextProcessor {
                              , final String describe, TextViewFont textViewFont) {
         String TAG = "TextProcessor->processTitle";
 
-        String text = first + " " + second + " " + describe;
+        String userStr = context.getString(R.string.user)+" ";
+
+        String text = userStr.length() +  first + " " + second + " " + describe;
         Spannable wordtoSpan = new SpannableString(text);
 
-        final String profileId = text.substring(0, first.length());
+        final String profileId = text.substring(userStr.length(), userStr.length()+first.length());
         wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), 0, first.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -395,7 +397,7 @@ public class TextProcessor {
                 innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, profileId);
             }
         };
-        wordtoSpan.setSpan(clickableSpan, 0, first.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(clickableSpan, userStr.length(), userStr.length()+first.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), 0, first.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan2 = new ClickableSpan() {
@@ -406,7 +408,7 @@ public class TextProcessor {
                 innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, second);
             }
         };
-        wordtoSpan.setSpan(clickableSpan2, first.length()+1, first.length()+1+second.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(clickableSpan2, userStr.length()+first.length()+1, userStr.length()+first.length()+1+second.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textViewFont.setText(wordtoSpan);
 

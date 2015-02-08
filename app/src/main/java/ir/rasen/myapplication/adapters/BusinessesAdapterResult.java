@@ -30,7 +30,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
     private DownloadImages downloadImages;
 
 	public BusinessesAdapterResult(Context context, ArrayList<SearchItemUserBusiness> businesses) {
-		super(context, R.layout.layout_businesses_business, businesses);
+		super(context, R.layout.layout_businesses_business_result, businesses);
 		mBusinesses 	= businesses;
 		mInflater	    = LayoutInflater.from(context);
         this.context = context;
@@ -44,7 +44,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.layout_businesses_business, null);
+            convertView = mInflater.inflate(R.layout.layout_businesses_business_result, null);
 
             holder.picture = (ImageViewCircle) convertView.findViewById(R.id.img_businesses_business_image);
             holder.name = (TextViewFont) convertView.findViewById(R.id.txt_businesses_business_name);
@@ -68,7 +68,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
                 }
             });
             if(business.distance>0) {
-                holder.distance.setText(business.distance+"");
+                holder.distance.setText(context.getString(R.string.distance)+" "+business.distance);
             } else {
                 holder.distance.setVisibility(View.GONE);
             }

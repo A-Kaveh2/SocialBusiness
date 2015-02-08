@@ -113,7 +113,6 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     holder.comment1_user.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            // TODO:: OPEN COMMENT's USER's PROFILE
                             InnerFragment innerFragment = new InnerFragment(getContext());
                             innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
                         }
@@ -128,7 +127,6 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 holder.comments.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO: SHOW COMMENTS
                         InnerFragment innerFragment = new InnerFragment(getContext());
                         innerFragment.newComments(postId);
                     }

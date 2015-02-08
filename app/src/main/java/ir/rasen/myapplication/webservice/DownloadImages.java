@@ -60,7 +60,7 @@ public class DownloadImages {
         }
 
         if (isImageInStorage(imageID, imageSize)) {
-            Bitmap bitmap = BitmapFactory.decodeFile(storagePath+"/"+String.valueOf(imageID) + "_" + String.valueOf(imageSize)+".jpg");
+            Bitmap bitmap = BitmapFactory.decodeFile(storagePath + "/" + String.valueOf(imageID) + "_" + String.valueOf(imageSize) + ".jpg");
             images.put(imageID, bitmap);
             imageView.setImageBitmap(bitmap);
             return;
@@ -78,7 +78,7 @@ public class DownloadImages {
     }
 
     private boolean isImageInStorage(int imageID, int imageSize) {
-        File file = new File(storagePath, String.valueOf(imageID) + "_" + String.valueOf(imageSize)+".jpg");
+        File file = new File(storagePath, String.valueOf(imageID) + "_" + String.valueOf(imageSize) + ".jpg");
         if (file.exists())
             return true;
         return false;
@@ -141,9 +141,11 @@ public class DownloadImages {
                 downloadQueue.get(0).imageView.setImageBitmap(bitmap);
             } else {
                 Bitmap bitmap = Image_M.getBitmapFromString(result);
-                images.put(downloadQueue.get(0).imageID, bitmap);
-                downloadQueue.get(0).imageView.setImageBitmap(bitmap);
-                Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID + "_" + downloadQueue.get(0).imageSize+".jpg", bitmap);
+                if (bitmap != null) {
+                    images.put(downloadQueue.get(0).imageID, bitmap);
+                    downloadQueue.get(0).imageView.setImageBitmap(bitmap);
+                    Image_M.saveBitmap(storagePath, downloadQueue.get(0).imageID + "_" + downloadQueue.get(0).imageSize + ".jpg", bitmap);
+                }
             }
 
             downloadQueue.remove(0);

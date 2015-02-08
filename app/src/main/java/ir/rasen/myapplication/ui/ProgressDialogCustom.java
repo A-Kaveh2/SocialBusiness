@@ -11,7 +11,7 @@ public class ProgressDialogCustom extends ProgressDialog {
 
 public ProgressDialogCustom(final Context context) {
     super(context);
-    setCancelable(true);
+    setCancelable(false);
     setIcon(R.drawable.ic_launcher);
     setTitle(context.getString(R.string.loading));
     setMessage(context.getString(R.string.please_wait));
