@@ -5,19 +5,19 @@ package ir.rasen.myapplication.helper;
  */
 
 public class SearchItemUserBusiness {
-    public int userID;
+    public int id;
     public int pictureId;
     public String username;
     public double distance;
 
-    public SearchItemUserBusiness(int userID, int pictureId, String username){
-        this.userID = userID;
+    public SearchItemUserBusiness(int id, int pictureId, String username){
+        this.id = id;
         this.pictureId = pictureId;
         this.username = username;
 
     }
-    public SearchItemUserBusiness(int userID, int pictureId, String username,double distance){
-        this.userID = userID;
+    public SearchItemUserBusiness(int id, int pictureId, String username,double distance){
+        this.id = id;
         this.pictureId = pictureId;
         this.username = username;
         this.distance = distance;

@@ -26,7 +26,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
 
     private WebserviceResponse delegate = null;
 
-    private int userID;
+    private int id;
     private String searchText;
     private String location_latitude;
     private String location_longitude;
@@ -36,8 +36,8 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
     private int limitataion;
 
 
-    public SearchBusinessesLocation(int userID, String searchText,int subcategoryId, String location_latitude,String location_longitude,int beforThisId,int limitation,WebserviceResponse delegate) {
-        this.userID = userID;
+    public SearchBusinessesLocation(int id, String searchText,int subcategoryId, String location_latitude,String location_longitude,int beforThisId,int limitation,WebserviceResponse delegate) {
+        this.id = id;
         this.searchText = searchText;
         this.location_latitude = location_latitude;
         this.location_longitude = location_longitude;

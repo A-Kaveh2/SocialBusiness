@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.google.android.gms.internal.id;
+
 import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.BusinessesAdapterResult;
 import ir.rasen.myapplication.adapters.PostsGridAdapterResult;
@@ -38,7 +41,9 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
     private ListView list;
     private ListAdapter mAdapter;
     private int searchType;
-    private ArrayList<SearchItemUserBusiness> searchResult;
+    private ArrayList<SearchItemUserBusiness> searchResultUserBusinessTemp;
+    private ArrayList<SearchItemUserBusiness> searchResultUserBusiness;
+    private ArrayList<SearchItemPost> searchResultPostTemp;
     private ArrayList<SearchItemPost> searchResultPost;
 
     private WebserviceResponse webserviceResponse;
@@ -103,7 +108,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         // setUp ListView
         setUpListView();
 
-        loadResults();
+        loadResults(0);
 
         return view;
     }
@@ -113,15 +118,11 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         listFooterView.setVisibility(View.VISIBLE);
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-
-            //TODO lazy load implementation
-            new SearchPost( searchString,searchResult.get(searchResult.size()-1).userID
+            new SearchPost( searchString, searchResultPost.get(searchResultPost.size()-1).postId
                     ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         } else {
-            // TODO:: chetor be web service begim az koja be ghablo biare ??
-            // TODO:: movaghatan userId ro pass dadam
             new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude
-                    , searchResult.get(searchResult.size()-1).userID
+                    , searchResultUserBusiness.get(searchResultUserBusiness.size()-1).id
                     ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
     }
@@ -136,8 +137,8 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     swipeView.setRefreshing(false);
                     return;
                 }
-                searchResult = new ArrayList<SearchItemUserBusiness>();
-                loadResults();
+                searchResultUserBusiness = new ArrayList<SearchItemUserBusiness>();
+                loadMoreData();
                 swipeView.setRefreshing(true);
             }
         });
@@ -180,8 +181,10 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
             if (result instanceof ArrayList) {
                 if (searchType == Params.SearchType.PRODUCTS) {
 
-                    searchResultPost = new ArrayList<>();
-                    searchResultPost = (ArrayList<SearchItemPost>)result;
+                    searchResultPostTemp = new ArrayList<>();
+                    searchResultPostTemp = (ArrayList<SearchItemPost>)result;
+
+                    searchResultPost.addAll(searchResultPostTemp);
 
                     //TODO check the code. FORCE CLOSE
                     mAdapter = new PostsGridAdapterResult(getActivity(), searchResultPost);
@@ -191,10 +194,11 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     listFooterView.setVisibility(View.GONE);
 
                 } else {
-                    searchResult = new ArrayList<SearchItemUserBusiness>();
-                    searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                    searchResultUserBusinessTemp = new ArrayList<SearchItemUserBusiness>();
+                    searchResultUserBusinessTemp = (ArrayList<SearchItemUserBusiness>) result;
 
-                    mAdapter = new BusinessesAdapterResult(getActivity(), searchResult);
+                    searchResultUserBusiness.addAll(searchResultUserBusinessTemp);
+                    mAdapter = new BusinessesAdapterResult(getActivity(), searchResultUserBusiness);
                     list.setAdapter(mAdapter);
                     isLoadingMore=false;
                     swipeView.setRefreshing(false);
@@ -216,12 +220,12 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         }
     }
 
-    private void loadResults() {
+    private void loadResults(int beforeThisId) {
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost(searchString,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
+            new SearchPost(searchString,beforeThisId,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         } else {
-            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
+            new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude,beforeThisId,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
     }
 }
