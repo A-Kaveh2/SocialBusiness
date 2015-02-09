@@ -44,6 +44,7 @@ import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
+import ir.rasen.myapplication.webservice.friend.RequestFriendship;
 import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
 import ir.rasen.myapplication.webservice.post.GetSharedPosts;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
@@ -332,9 +333,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
     void sendFriendRequest() {
-        // TODO: SEND FRIEND REQUEST
+        new RequestFriendship(LoginInfo.getUserId(getActivity()), profileId, webserviceResponse).execute();
     }
-
 
     void sendFollowRequest() {
         new FollowBusiness(LoginInfo.getUserId(cont), profileId, FragmentProfile.this).execute();
