@@ -331,10 +331,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     void sendFriendRequest() {
         follow_friend_request_sent = true;
-        new RequestFriendship(LoginInfo.getUserId(getActivity()), profileId, webserviceResponse).execute();
+        new RequestFriendship(LoginInfo.getUserId(getActivity()), profileId, FragmentProfile.this).execute();
     }
 
     void sendFollowRequest() {
+        follow_friend_request_sent = true;
         new FollowBusiness(LoginInfo.getUserId(cont), profileId, FragmentProfile.this).execute();
     }
 
