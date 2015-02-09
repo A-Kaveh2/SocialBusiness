@@ -174,8 +174,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         if (resultCode == RESULT_OK) {
             if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
-                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
-                displayCropedImage(filePath);
+                profilePictureFilePath = data.getStringExtra(ActivityCamera.FILE_PATH);
+                displayCropedImage(profilePictureFilePath);
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
                 profilePictureFilePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(profilePictureFilePath);

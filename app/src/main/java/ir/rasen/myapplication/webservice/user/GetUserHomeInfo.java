@@ -41,7 +41,7 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
     protected User doInBackground(Void... voids) {
         User user = new User();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_HOME_INFO, new ArrayList<>(
-                Arrays.asList(String.valueOf(visitedUserID), String.valueOf(visitedUserID))));
+                Arrays.asList(String.valueOf(visitedUserID), String.valueOf(visitorUserID))));
 
         try {
             serverAnswer = webserviceGET.execute();
