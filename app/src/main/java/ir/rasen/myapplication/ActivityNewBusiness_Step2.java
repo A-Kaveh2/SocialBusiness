@@ -246,6 +246,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         pd.dismiss();
         try {
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            FragmentProfile.fragmentProfile.getAgain();
             InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
             innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, true, PassingBusiness.getInstance().getValue().id);
             ActivityMain.activityMain.addBusiness(PassingBusiness.getInstance().getValue());

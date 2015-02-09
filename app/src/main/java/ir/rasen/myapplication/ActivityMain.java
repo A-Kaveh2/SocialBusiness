@@ -152,7 +152,6 @@ public class ActivityMain extends FragmentActivity {
                 case 1:
                     return new FragmentSearch();
                 case 2:
-
                     int userId = LoginInfo.getUserId(ActivityMain.this);
                     return new FragmentProfile().newInstance(ActivityMain.this,Params.ProfileType.PROFILE_USER, true, userId);
             }

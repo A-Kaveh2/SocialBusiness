@@ -55,7 +55,7 @@ import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 public class FragmentProfile extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentProfile";
 
-
+    public static FragmentProfile fragmentProfile;
 
     private SwipeRefreshLayout swipeView;
     private GridViewHeader grid;
@@ -139,6 +139,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         downloadImages = new DownloadImages(getActivity());
         pd=new ProgressDialogCustom(getActivity());
         downloadImages = new DownloadImages(getActivity());
+        fragmentProfile = this;
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -163,7 +164,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //get user home info by sending user_id
             if(profileId!=0) {
 
-                //TODO for the test
                 new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
                 runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
             } else {
@@ -322,7 +322,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             });
         }
 
-        // TODO: Change Adapter to display your content
         posts = new ArrayList<>();
 
         listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
@@ -390,10 +389,12 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     swipeView.setRefreshing(false);
                     return;
                 }
+                getAgain();
                 profile_user = new User();
                 profile_business = new Business();
                 posts = new ArrayList<>();
-                // TODO get data again
+                new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
+                runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
                 swipeView.setRefreshing(true);
             }
         });
@@ -611,5 +612,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 }
             }
         }
+    }
+
+    public void getAgain() {
+        profile_user = new User();
+        profile_business = new Business();
+        posts = new ArrayList<>();
+        new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
+        runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
+        swipeView.setRefreshing(true);
     }
 }

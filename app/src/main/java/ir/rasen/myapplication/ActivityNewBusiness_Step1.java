@@ -39,6 +39,7 @@ import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
@@ -63,6 +64,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     private Business existedBusiness;
 
+    private ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         webserviceResponse = this;
         context = this;
         step1 = this;
+        pd = new ProgressDialogCustom(context);
 
         // SET VALUES
         edtBusinessId = (EditTextFont) findViewById(R.id.edt_business_step1_id);
@@ -102,8 +106,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
 
             //spnCategory and spnSubcategory will initiate after executing GetBusinessGategories and GetBusinessSubcategories
-            //TODO remove test part*/
-
+*/
+            pd.show();
             new GetBusinessProfileInfo(business.id, ActivityNewBusiness_Step1.this).execute();
 
         }
@@ -288,6 +292,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 //Business business = PassingBusiness.getInstance().getValue();
@@ -332,8 +337,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 edtDescription.setText(existedBusiness.description);
                 edtName.setText(existedBusiness.name);
                 setSpnCategory(existedBusiness.category);
-
-
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -352,6 +355,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(getBaseContext(), errorMessage);

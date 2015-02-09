@@ -362,6 +362,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             } else if (result instanceof ResultStatus) {
                 // result from executing UpdateUserProfileInfo
                 Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+                FragmentProfile.fragmentProfile.getAgain();
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
