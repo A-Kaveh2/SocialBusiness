@@ -198,10 +198,10 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         try {
             if (result instanceof ArrayList) {
                 if (isLoadingMore) {
-                    ArrayList<Review> loadedReviews = new ArrayList<>();
-                    for (Review item : loadedReviews) {
-                        reviews.add(item);
-                    }
+                    ArrayList<Review> temp = reviews;
+                    temp.addAll((ArrayList<Review>) result);
+                    reviews.clear();
+                    reviews.addAll(temp);
                     mAdapter.notifyDataSetChanged();
                     isLoadingMore=false;
                     swipeView.setRefreshing(false);
