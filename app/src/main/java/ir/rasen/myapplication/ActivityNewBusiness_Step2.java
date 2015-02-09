@@ -181,8 +181,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             if (workDays[6])
                 workTimeText += "جمعه";
             workTimeText +=
-                    "\nزمان شروع به کار: " + two_char(((int) workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
-                            + "\nزمان پایان کار: " + two_char(((int) workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
+                    "\nزمان شروع به کار: " + two_char((workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
+                            + "\nزمان پایان کار: " + two_char((workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
             ((ButtonFont) findViewById(R.id.edt_business_step2_workingTime)).setText(workTimeText);
         }
         if (locationM != null) {
