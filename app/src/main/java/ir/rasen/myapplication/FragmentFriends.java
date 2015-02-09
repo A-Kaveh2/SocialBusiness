@@ -26,6 +26,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -68,6 +69,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
     private int userId, userNewRequests;
 
     private ArrayList<User> friends;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentFriends newInstance(int userId, int newRequests) {
         FragmentFriends fragment = new FragmentFriends();
@@ -124,6 +127,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
         list = (ListView) view.findViewById(R.id.list_friends_friends);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd.show();
 
         // setUp ListView
         setUpListView();
@@ -215,6 +219,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 ArrayList<SearchItemUserBusiness> usersFriends = new ArrayList<SearchItemUserBusiness>();
@@ -242,6 +247,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
