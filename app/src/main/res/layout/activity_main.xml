@@ -106,7 +106,7 @@
                         android:layout_height="32dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_menu_options_settings"
+                        android:src="@drawable/ic_menu_new_business"
                         android:layout_margin="4dp"/>
                 </RelativeLayout>
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -71,7 +72,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     private Business profile_business;
     private User profile_user;
 
-    ListAdapter listAdapter, gridAdapter;
+    BaseAdapter listAdapter, gridAdapter;
 
     private WebserviceResponse webserviceResponse;
     private static Context cont;
@@ -488,14 +489,19 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //TODO assign
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
                     //user shared posts
-                    posts = (ArrayList<Post>) result;
+                    ArrayList<Post> temp = posts;
+                    temp.addAll((ArrayList<Post>) result);
+                    posts.clear();
+                    posts.addAll(temp);
                 } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
                     //business posts
-                    posts = (ArrayList<Post>) result;
+                    ArrayList<Post> temp = posts;
+                    temp.addAll((ArrayList<Post>) result);
+                    posts.clear();
+                    posts.addAll(temp);
                 }
-                listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
-                gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
-                grid.setAdapter(gridAdapter);
+                listAdapter.notifyDataSetChanged();
+                gridAdapter.notifyDataSetChanged();
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
