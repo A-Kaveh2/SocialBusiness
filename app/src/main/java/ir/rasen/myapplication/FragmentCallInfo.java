@@ -93,11 +93,11 @@ public class FragmentCallInfo extends Fragment {
         ((TextViewFont) view.findViewById(R.id.txt_call_info_info)).setText(Html.fromHtml(
                 "<font color=#3F6F94>" +  getString(R.string.business_description)
                 + ":</font>" + business.description
-                + (business.phone.equals("") ? "<font color=#3F6F94>" + getString(R.string.phone) + ":</font> " + business.phone : "")
-                + (business.mobile.equals("") ? "<br /><font color=#3F6F94>" + getString(R.string.mobile) + ":</font>" + business.mobile : "")
-                + (business.email.equals("") ? "<br /><font color=#3F6F94>" + getString(R.string.email) + ":</font>" + business.email : "")
-                + (business.webSite.equals("") ? "<br /><font color=#3F6F94>" + getString(R.string.website) + ":</font>" + business.webSite : "")
-                + (workTimeText.equals("") ? "<br /><font color=#3F6F94>" + getString(R.string.working_time) + ":</font>" + workTimeText : "")));
+                + (business.phone!=null ? "<font color=#3F6F94>" + getString(R.string.phone) + ":</font> " + business.phone : "")
+                + (business.mobile!=null ? "<br /><font color=#3F6F94>" + getString(R.string.mobile) + ":</font>" + business.mobile : "")
+                + (business.email!=null ? "<br /><font color=#3F6F94>" + getString(R.string.email) + ":</font>" + business.email : "")
+                + (business.webSite!=null ? "<br /><font color=#3F6F94>" + getString(R.string.website) + ":</font>" + business.webSite : "")
+                + (workTimeText!=null ? "<br /><font color=#3F6F94>" + getString(R.string.working_time) + ":</font>" + workTimeText : "")));
         return view;
     }
 
@@ -176,6 +176,8 @@ public class FragmentCallInfo extends Fragment {
                 startActivity(intent);
             }
         });
+        if(business.location_m==null)
+            return;
         markerLatitude  = Double.parseDouble(business.location_m.getLatitude());
         markerLongitude = Double.parseDouble(business.location_m.getLongitude());
         mMap.addMarker(new MarkerOptions()
