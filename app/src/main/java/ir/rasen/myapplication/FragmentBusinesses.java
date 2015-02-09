@@ -25,6 +25,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
@@ -47,6 +48,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     private Context context;
 
     private ArrayList<Business> businesses;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentBusinesses newInstance(int userId) {
         FragmentBusinesses fragment = new FragmentBusinesses();
@@ -90,12 +93,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         list = (ListView) view.findViewById(R.id.list_businesses_business);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-        // TODO: Change Adapter to display your content
+        pd = new ProgressDialogCustom(context);
+
         businesses = new ArrayList<Business>();
         
-        //TODO remove test parts
-        //new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
         new GetFollowingBusinesses(LoginInfo.getUserId(getActivity()), FragmentBusinesses.this).execute();
+        pd.show();
 
         return view;
     }
@@ -160,6 +163,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
+                pd.hide();
                 businesses = new ArrayList<Business>();
                 Business business = null;
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;

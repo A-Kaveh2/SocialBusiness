@@ -133,7 +133,6 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new RateBusiness(businessId, LoginInfo.getUserId(getActivity()),review_rate,FragmentReviews.this).execute();
     }
 
-    // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         if (reviews != null) {
@@ -156,7 +155,9 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     return;
                 }
                 reviews = new ArrayList<Review>();
-                // TODO get reviews again
+                new GetBusinessReviews(businessId,0,
+                        getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                        ,FragmentReviews.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
