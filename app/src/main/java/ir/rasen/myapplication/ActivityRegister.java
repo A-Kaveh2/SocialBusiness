@@ -91,7 +91,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
-                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
+                filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
                 displayCropedImage(filePath);
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
                 filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
@@ -103,12 +103,22 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
     private void displayCropedImage(String filePath) {
         File file = new File(filePath);
+        Bitmap myBitmap;
         if (file.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            int si = Image_M.sizeOf(myBitmap);
+            if(Image_M.sizeOf(myBitmap)>1000000){
+                BitmapFactory.Options ops = new BitmapFactory.Options();
+                ops.inSampleSize = 2;
+                myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),ops);
+            }
+
+            int s = myBitmap.getByteCount();
+            int i = s+1;
             try {
                 btn_register_picture_set.setImageBitmap(myBitmap);
             } catch (Exception e) {
-                String s = e.getMessage();
+                String sss = e.getMessage();
             }
         }
     }

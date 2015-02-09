@@ -38,6 +38,7 @@ public class UpdateUserProfile extends AsyncTask<Void, Void, ResultStatus> {
             webservicePOST.addParam(Params.USER_ID, String.valueOf(user.id));
             webservicePOST.addParam(Params.NAME, user.name);
             webservicePOST.addParam(Params.EMAIL, user.email);
+            webservicePOST.addParam(Params.PASSWORD,user.password);
             webservicePOST.addParam(Params.ABOUT_ME, user.aboutMe);
             webservicePOST.addParam(Params.SEX, Sex.getName(user.sex));
             webservicePOST.addParam(Params.BIRTH_DATE, user.birthDate);

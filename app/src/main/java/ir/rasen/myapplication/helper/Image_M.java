@@ -1,5 +1,6 @@
 package ir.rasen.myapplication.helper;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -24,8 +26,28 @@ import ir.rasen.myapplication.R;
  */
 public class Image_M {
 
+    public enum ImageSize {LARGE, MEDIUM, SMALL}
+
+    public static int getImageSize(ImageSize imageSize) {
+        switch (imageSize) {
+            case LARGE:
+                return 1;
+            case MEDIUM:
+                return 2;
+            case SMALL:
+                return 3;
+        }
+        return 3;
+    }
+
     public static String getBase64String(String imageFilePath) {
         Bitmap bm = BitmapFactory.decodeFile(imageFilePath);
+        int si = Image_M.sizeOf(bm);
+        if (Image_M.sizeOf(bm) > 1000000) {
+            BitmapFactory.Options ops = new BitmapFactory.Options();
+            ops.inSampleSize = 4;
+            bm = BitmapFactory.decodeFile(imageFilePath, ops);
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
@@ -53,6 +75,15 @@ public class Image_M {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (Exception e) {
             String s = e.getMessage();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+    public static int sizeOf(Bitmap data) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR1) {
+            return data.getRowBytes() * data.getHeight();
+        } else {
+            return data.getByteCount();
         }
     }
 

@@ -57,6 +57,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     Context context;
     boolean sex;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -239,11 +241,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     user.sex = Sex.FEMALE;
             }
         }
-
-        //TODO for the test becuase getProfileInfo doesn't work
-        user.email= "";
-        user.password = "";
-        user.coverPicture = "";
 
         try {
             new UpdateUserProfile(user, ActivityUserProfileEdit.this).execute();

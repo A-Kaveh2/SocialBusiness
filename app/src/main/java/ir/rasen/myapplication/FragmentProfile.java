@@ -54,7 +54,7 @@ import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
 public class FragmentProfile extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentProfile";
 
-    private DownloadImages downloadImages;
+
 
     private SwipeRefreshLayout swipeView;
     private GridViewHeader grid;
@@ -82,6 +82,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     Dialog editingDialog;
 
     private ProgressDialogCustom pd;
+    private DownloadImages downloadImages;
 
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
@@ -136,6 +137,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         webserviceResponse = this;
         downloadImages = new DownloadImages(getActivity());
         pd=new ProgressDialogCustom(getActivity());
+        downloadImages = new DownloadImages(getActivity());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -439,7 +441,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
-
+        pd.dismiss();
         try {
 
             if (result instanceof ResultStatus) {
@@ -485,6 +487,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 profile_business = (Business)result;
 
+
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
 
                 assignNow();
@@ -501,9 +504,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
+            pd.dismiss();
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
@@ -511,10 +516,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private void assignNow() {
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            if(profile_business.profilePicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_business.profilePicture));
-            if(profile_business.coverPicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_business.coverPicture));
+            if(profile_business.profilePictureId != 0)
+
+                downloadImages.download(profile_business.profilePictureId,Image_M.getImageSize(Image_M.ImageSize.MEDIUM),(ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+           /* if(profile_business.profilePicture.length()>0)
+                ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_business.profilePicture));*/
+
+            /*if(profile_business.coverPicture.length()>0)
+                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_business.coverPicture));*/
+
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.businessUserName);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
             ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));

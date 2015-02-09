@@ -61,6 +61,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     public static Activity step1;
     ArrayList<SubCategory> subcategoryObjectList;
 
+    private Business existedBusiness;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         webserviceResponse = this;
         context = this;
-        step1=this;
+        step1 = this;
 
         // SET VALUES
         edtBusinessId = (EditTextFont) findViewById(R.id.edt_business_step1_id);
@@ -90,22 +92,19 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
             Business business = PassingBusiness.getInstance().getValue();
 
-            //TODO remove test part
-            business = new Business();
-            business.id = 5;
-            business.userID = 3;
 
 /*
+
 
             edtBusinessId.setText(business.businessUserName);
             edtName.setText(business.name);
             edtDescription.setText(business.description);
-*/
+
 
             //spnCategory and spnSubcategory will initiate after executing GetBusinessGategories and GetBusinessSubcategories
-            //TODO remove test part
+            //TODO remove test part*/
 
-            new GetBusinessProfileInfo(5,ActivityNewBusiness_Step1.this).execute();
+            new GetBusinessProfileInfo(business.id, ActivityNewBusiness_Step1.this).execute();
 
         }
 
@@ -127,17 +126,20 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         edtDescription.addTextChangedListener(new TextWatcher() {
             String oldText;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 oldText = charSequence.toString();
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if(charSequence.toString().equals(oldText))
+                if (charSequence.toString().equals(oldText))
                     return;
                 TextProcessor textProcessor = new TextProcessor(context);
                 textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -186,7 +188,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         File file = new File(filePath);
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            int i = myBitmap.getByteCount();
             try {
                 imbProfilePicture.setImageBitmap(myBitmap);
             } catch (Exception e) {
@@ -233,7 +234,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.subcategory = spnSubcategory.getSelectedItem().toString();
         business.subCategoryID = subcategoryObjectList.get(spnSubcategory.getSelectedItemPosition()).id;
         business.description = edtDescription.getText().toString();
-        business.description= business.description.replace("\n"," ");
+        business.description = business.description.replace("\n", " ");
         business.hashtagList = TextProcessor.getHashtags(business.description);
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
@@ -276,8 +277,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
 
-    public void back(View v)
-    {
+    public void back(View v) {
         onBackPressed();
     }
 
@@ -290,20 +290,22 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
-                Business business = PassingBusiness.getInstance().getValue();
+                //Business business = PassingBusiness.getInstance().getValue();
                 if (categoryList == null) {
                     //result from executing GetBusinessCategories
                     categoryList = (ArrayList<Category>) result;
                     ArrayList<String> categoryListStr = new ArrayList<>();
-                    for(Category category:categoryList)
+                    for (Category category : categoryList)
                         categoryListStr.add(category.name);
 
                     ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryListStr);
                     spnCategory.setAdapter(categoryAdapter);
                     if (isEditing) {
-                        for (int i = 0; i < categoryList.size(); i++) {
-                            if (categoryList.get(i).equals(business.category))
-                                spnCategory.setSelection(i);
+                        if (existedBusiness != null) {
+                            for (int i = 0; i < categoryList.size(); i++) {
+                                if (categoryList.get(i).name == existedBusiness.category)
+                                    spnCategory.setSelection(i);
+                            }
                         }
                         edtBusinessId.setEnabled(false);
                     }
@@ -312,21 +314,26 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                     ArrayList<String> subcategoryList = new ArrayList<>();
                     subcategoryObjectList = (ArrayList<SubCategory>) result;
                     for (int i = 0; i < subcategoryObjectList.size(); i++) {
-                            subcategoryList.add(subcategoryObjectList.get(i).name);
+                        subcategoryList.add(subcategoryObjectList.get(i).name);
                     }
                     ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, subcategoryList);
                     spnSubcategory.setAdapter(subcategoryAdapter);
                     if (isEditing) {
+                        if(existedBusiness != null)
                         for (int i = 0; i < subcategoryList.size(); i++) {
-                            if (subcategoryList.get(i).equals(business.subcategory))
+                            if (subcategoryList.get(i).equals(existedBusiness.subcategory))
                                 spnSubcategory.setSelection(i);
                         }
                     }
                 }
-            }
-            else if(result instanceof Business){
-                Business business = (Business)result;
-                String s = business.name;
+            } else if (result instanceof Business) {
+                existedBusiness = (Business) result;
+                edtBusinessId.setText(existedBusiness.businessUserName);
+                edtDescription.setText(existedBusiness.description);
+                edtName.setText(existedBusiness.name);
+                setSpnCategory(existedBusiness.category);
+
+
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -334,12 +341,21 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
     }
 
+    private void setSpnCategory(String category) {
+        if (categoryList == null || categoryList.size() == 0)
+            return;
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).name == category)
+                spnCategory.setSelection(i);
+        }
+    }
+
     @Override
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(getBaseContext(), errorMessage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
