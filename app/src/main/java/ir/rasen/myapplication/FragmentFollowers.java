@@ -46,18 +46,19 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     private ListAdapter mAdapter;
 
     // business id is received here
-    private int businessId, businessOwner;
+    private int businessId;
+    private boolean businessOwner;
 
     ArrayList<User> followers;
 
     private ProgressDialogCustom pd;
 
-    public static FragmentFollowers newInstance(int businessId, int businessOwner) {
+    public static FragmentFollowers newInstance(int businessId, boolean businessOwner) {
         FragmentFollowers fragment = new FragmentFollowers();
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.BUSINESS_ID, businessId);
-        bundle.putInt(Params.BUSINESS_OWNER, businessOwner);
+        bundle.putBoolean(Params.BUSINESS_OWNER, businessOwner);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -77,7 +78,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             businessId = bundle.getInt(Params.BUSINESS_ID);
-            businessOwner = bundle.getInt(Params.BUSINESS_OWNER);
+            businessOwner = bundle.getBoolean(Params.BUSINESS_OWNER);
         } else {
             Log.e(TAG, "bundle is null!!");
             if (getActivity() != null) {
@@ -125,9 +126,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         // manage blockeds header::
         listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_followers_blockeds, null);
         list.addHeaderView(listHeaderView);
-        // TODO:: If I'm the owner of business and we have blocked users...
-        boolean isMine = true;
-        if (isMine) {
+        if(businessOwner) {
             listHeaderView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -316,7 +316,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 @Override
                 public void onClick(View v) {
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newFollowers(profileId);
+                    innerFragment.newFollowers(profileId, profileOwn);
                 }
             });
         }

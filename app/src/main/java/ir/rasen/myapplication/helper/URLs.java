@@ -5,7 +5,7 @@ package ir.rasen.myapplication.helper;
  */
 public class URLs {
 
-    public static String MAIN_URL = "http://185.55.226.223:8080/bsn/";
+    public static String MAIN_URL = "http://185.55.226.223:8081/bsn/";
 
     //lcoal address
     //public static String MAIN_URL = "http://192.168.0.102:8080/bsn/";

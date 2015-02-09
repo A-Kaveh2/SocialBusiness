@@ -125,6 +125,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         this.view = view;
 
+        pd = new ProgressDialogCustom(getActivity());
+
         list = (ListView) view.findViewById(R.id.list_friends_friends);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
         pd.show();
@@ -175,7 +177,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                     return;
                 }
                 friends = new ArrayList<User>();
-                // TODO get friends again
+                new GetUserFriends(userId, FragmentFriends.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -222,18 +224,18 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         pd.dismiss();
         try {
             if (result instanceof ArrayList) {
-                ArrayList<SearchItemUserBusiness> usersFriends = new ArrayList<SearchItemUserBusiness>();
-                usersFriends = (ArrayList<SearchItemUserBusiness>) result;
-                friends = new ArrayList<User>();
+                ArrayList<SearchItemUserBusiness> usersFriends = (ArrayList<SearchItemUserBusiness>) result;
+                ArrayList<User> temp = friends;
                 User user = null;
                 for (SearchItemUserBusiness item : usersFriends) {
                     user = new User();
                     user.userName = item.username;
                     user.profilePictureId = item.pictureId;
-                    friends.add(user);
+                    temp.add(user);
                 }
 
-                friends = new ArrayList<User>();
+                friends.clear();
+                friends.addAll(temp);
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
                 isLoadingMore=false;

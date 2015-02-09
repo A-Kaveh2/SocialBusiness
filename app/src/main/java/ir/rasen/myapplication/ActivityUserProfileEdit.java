@@ -162,7 +162,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     // PASSWORD TOUCHED
     public void changePassword(View view) {
 
-        // TODO DISPLAY CHANGE PASSWORD DIALOG
         Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_password);
@@ -191,7 +190,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
     // BIRTHDATE TOUCHED
     public void changeBirthDate(View view) {
-        // TODO DISPLAY CHANGE BIRTHDATE DIALOG
         final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_birthday);

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -31,8 +30,6 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
-import ir.rasen.myapplication.webservice.search.SearchUser;
-import ir.rasen.myapplication.webservice.user.Login;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.

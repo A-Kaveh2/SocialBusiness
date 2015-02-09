@@ -62,7 +62,7 @@ public class InnerFragment {
     }
 
     // add new followers fragment to current place
-    public void newFollowers(int businessId, int businessOwner) {
+    public void newFollowers(int businessId, boolean businessOwner) {
         Fragment newFragment = new FragmentFollowers().newInstance(businessId, businessOwner);
         addFragment(newFragment);
     }

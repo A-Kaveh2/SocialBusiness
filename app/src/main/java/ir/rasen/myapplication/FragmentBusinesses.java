@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -41,7 +42,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     // business id is received here
     private int userId;
@@ -78,6 +79,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_businesses, container, false);
         this.view = view;
+        context = getActivity();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -92,10 +94,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
         list = (ListView) view.findViewById(R.id.list_businesses_business);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
-
         pd = new ProgressDialogCustom(context);
-
         businesses = new ArrayList<Business>();
+        boolean unFollowAvailable = (userId==LoginInfo.getUserId(context));
+        mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable,FragmentBusinesses.this);
+        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+
         
         new GetFollowingBusinesses(LoginInfo.getUserId(getActivity()), FragmentBusinesses.this).execute();
         pd.show();
@@ -164,7 +168,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         try {
             if (result instanceof ArrayList) {
                 pd.hide();
-                businesses = new ArrayList<Business>();
+                ArrayList<Business> temp = businesses;
                 Business business = null;
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
                 for (SearchItemUserBusiness item : searchItemUserBusinesses) {
@@ -174,13 +178,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                     business.profilePictureId = item.pictureId;
 
                     //user pictureId to download image with DownloadImages class
-                    businesses.add(business);
+                    temp.add(business);
                 }
 
-                // todo:: check if userId.equals(myId) or not
-                boolean unFollowAvailable = true;
-                mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable,FragmentBusinesses.this);
-                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+                businesses.clear();
+                businesses.addAll(temp);
+                mAdapter.notifyDataSetChanged();
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
