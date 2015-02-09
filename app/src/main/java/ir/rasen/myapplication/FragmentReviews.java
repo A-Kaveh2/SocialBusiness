@@ -26,6 +26,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
@@ -49,6 +50,8 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     ArrayList<Review> reviews;
 
     Dialog dialog;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentReviews newInstance (int businessId, int businessOwner) {
         FragmentReviews fragment = new FragmentReviews();
@@ -75,6 +78,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new GetBusinessReviews(businessId,0,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
+            pd.show();
 
         } else {
             Log.e(TAG, "bundle is null!!");
@@ -103,6 +107,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd = new ProgressDialogCustom(getActivity());
 
         reviews = new ArrayList<Review>();
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
@@ -196,6 +201,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
+        pd.hide();
         try {
             if (result instanceof ArrayList) {
                 if (isLoadingMore) {
@@ -248,6 +254,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
+        pd.hide();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);

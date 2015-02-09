@@ -28,10 +28,12 @@ import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingActiveRole;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -428,9 +430,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         });
     }
 
-    // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        if (profileType==Params.ProfileType.PROFILE_USER) {
+            new GetSharedPosts(LoginInfo.getUserId(cont), posts.get(posts.size()-1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            runningWebserviceType = RunningWebserviceType.getUserPosts;
+        } else {
+            new GetBusinessPosts(LoginInfo.getUserId(cont),profileId, posts.get(posts.size()-1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            runningWebserviceType = RunningWebserviceType.getBustinessPosts;
+        }
         isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
@@ -557,14 +565,21 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn == true) {
                 myOwnProfile();
             } else { // SOMEONE'S PROFILE
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
-                // FRIEND REQUEST
-                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendFriendRequest();
-                    }
-                });
+                if (profile_user.friendshipRelationStatus == FriendshipRelation.Status.NOT_FRIEND) {
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+                    // FRIEND REQUEST
+                    header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sendFriendRequest();
+                        }
+                    });
+                } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND) {
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
+                } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.REQUEST_SENT) {
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setBackgroundResource(R.color.button_on_dark);
+                }
             }
         }
     }

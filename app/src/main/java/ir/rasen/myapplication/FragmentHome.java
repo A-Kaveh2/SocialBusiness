@@ -316,6 +316,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 ArrayList<Post> temp = new ArrayList<>();
@@ -331,6 +332,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
@@ -344,6 +346,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private Dialog editingDialog;
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
+        pd.show();
         editingId = id;
         editingText = text;
         editingDialog = dialog;
