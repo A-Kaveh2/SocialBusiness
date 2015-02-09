@@ -188,6 +188,35 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         dialog.show();
     }
 
+    // PASSWORD TOUCHED
+    public void changeEmail(View view) {
+
+        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_change_email);
+        final EditTextFont pass = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_email_password);
+        final EditTextFont email = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_email_email);
+        email.setText(user.email);
+        dialog.findViewById(R.id.btn_profile_edit_email_change).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!user.password.equals(pass.getText().toString())) {
+                    pass.requestFocus();
+                    pass.setErrorC(getString(R.string.err_profile_edit_password_old_incorrect));
+                    return;
+                }
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+                    email.requestFocus();
+                    email.setErrorC(getString(R.string.enter_valid_email));
+                    return;
+                }
+                user.email = email.getText().toString();
+                Dialogs.showMessage(context, getString(R.string.email_will_change));
+            }
+        });
+        dialog.show();
+    }
+
     // BIRTHDATE TOUCHED
     public void changeBirthDate(View view) {
         final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
@@ -266,7 +295,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         anim_fromDown.setDuration(500);
         anim_fromDown.setInterpolator(new AccelerateInterpolator());
         animationSetBtn.addAnimation(anim_fromDown);
-        ((ButtonFont) findViewById(R.id.btn_profile_edit_save)).startAnimation(animationSetBtn);
+        findViewById(R.id.btn_profile_edit_save).startAnimation(animationSetBtn);
     }
 
     public void setOnTextChangeListeners() {

@@ -103,6 +103,21 @@
                 android:clickable="true"/>
 
             <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/edt_profile_edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/activity_horizontal_margin_2x"
+                android:paddingRight="@dimen/activity_horizontal_margin_2x"
+                android:layout_margin="8dp"
+                android:textSize="@dimen/text_size_normal"
+                android:selectAllOnFocus="true"
+                android:drawableLeft="@drawable/ic_edittext_email"
+                android:text="@string/change_email"
+                android:onClick="changeEmail"
+                android:clickable="true"/>
+
+            <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/edt_profile_edit_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

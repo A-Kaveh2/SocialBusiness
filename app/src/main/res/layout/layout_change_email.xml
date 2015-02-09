@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white" >
+     <ir.rasen.myapplication.ui.EditTextFont
+         android:id="@+id/edt_profile_edit_email_password"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+		android:gravity="center"
+         android:layout_margin="4dp"
+         android:drawableLeft="@drawable/ic_edittext_password"
+         android:singleLine="true"
+         android:inputType="textPassword"
+         android:hint="@string/password"
+         android:textAppearance="@android:style/TextAppearance.Large" />
+    <ir.rasen.myapplication.ui.EditTextFont
+         android:id="@+id/edt_profile_edit_email_email"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+		android:gravity="center"
+         android:layout_margin="4dp"
+         android:drawableLeft="@drawable/ic_edittext_email"
+         android:singleLine="true"
+         android:inputType="textEmailAddress"
+         android:hint="@string/new_email"
+         android:textAppearance="@android:style/TextAppearance.Large" />
+
+	<ir.rasen.myapplication.ui.ButtonFont
+        android:id="@+id/btn_profile_edit_email_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/style_button_on_dark"
+        android:text="@string/change_email"
+	    android:textColor="@android:color/white"
+	    android:textAppearance="@android:style/TextAppearance.Large" />
+
+</LinearLayout>
