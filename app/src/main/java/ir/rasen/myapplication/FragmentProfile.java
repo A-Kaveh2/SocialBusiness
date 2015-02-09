@@ -3,7 +3,6 @@ package ir.rasen.myapplication;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -26,14 +24,13 @@ import ir.rasen.myapplication.adapters.ProfilePostsGridAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.classes.User;
-import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.FriendshipRelation;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingActiveRole;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -65,10 +62,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private View view, listFooterView, header;
     private boolean isLoadingMore = false;
-    private BaseAdapter mAdapter;
 
     private int profileType; // returns the type, USER or BUSINESS
-    private boolean profileOwn; // true if user is the owner of user or business
+    private boolean profileOwn; // true if user is the oawner of user or business
     private int profileId; // id of user of business
     private String profileUsername;
 
@@ -87,6 +83,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     private ProgressDialogCustom pd;
     private DownloadImages downloadImages;
 
+    private boolean follow_friend_request_sent=false;
+
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
         editingId = id;
@@ -96,7 +94,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private enum RunningWebserviceType {getUserHomeInfo, getUserPosts, getBustinessPosts, getBusinessHomeInfo}
 
-    ;
     private static RunningWebserviceType runningWebserviceType;
 
     private ArrayList<Post> posts;
@@ -194,7 +191,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         this.view = view;
 
-        header = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_profile_header, null);
+        header = getActivity().getLayoutInflater().inflate(R.layout.fragment_profile_header, null);
 
         // check if back button should be visible or not!
         if (((ActivityMain) getActivity()).fragCount[((ActivityMain) getActivity()).pager.getCurrentItem()] == 0)
@@ -238,7 +235,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     void loadViews() {
 
         // SEARCH USERS
-        ((ImageButton) header.findViewById(R.id.btn_profile_search)).setOnClickListener(new View.OnClickListener() {
+        header.findViewById(R.id.btn_profile_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InnerFragment innerFragment = new InnerFragment(getActivity());
@@ -325,7 +322,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
 
         // TODO: Change Adapter to display your content
-        posts = new ArrayList<Post>();
+        posts = new ArrayList<>();
 
         listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
         gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
@@ -333,6 +330,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
     void sendFriendRequest() {
+        follow_friend_request_sent = true;
         new RequestFriendship(LoginInfo.getUserId(getActivity()), profileId, webserviceResponse).execute();
     }
 
@@ -392,7 +390,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 }
                 profile_user = new User();
                 profile_business = new Business();
-                posts = new ArrayList<Post>();
+                posts = new ArrayList<>();
                 // TODO get data again
                 swipeView.setRefreshing(true);
             }
@@ -454,6 +452,17 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             if (result instanceof ResultStatus) {
                 //delete post,follow business
+                if(follow_friend_request_sent) {
+                    if(profileType==Params.ProfileType.PROFILE_USER) {
+                        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
+                            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
+                            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
+                        } else {
+                            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
+                            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
+                        }
+                    }
+                }
 
             } else if (result instanceof User) {
                 //get visited user home info
@@ -539,17 +548,22 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
             ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(R.string.call_info);
             // MY OWN BUSINESS
-            if (profileOwn == true) {
+            if (profileOwn) {
                 myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
-                // FRIEND REQUEST
-                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendFollowRequest();
-                    }
-                });
+                if(profile_business.isFollowing) {
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
+                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
+                } else {
+                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
+                    // FRIEND REQUEST
+                    header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sendFollowRequest();
+                        }
+                    });
+                }
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
             if(profile_user.profilePicture.length()>0)
@@ -576,9 +590,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     });
                 } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND) {
                     ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
+                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
                 } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.REQUEST_SENT) {
                     ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setBackgroundResource(R.color.button_on_dark);
+                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
                 }
             }
         }
