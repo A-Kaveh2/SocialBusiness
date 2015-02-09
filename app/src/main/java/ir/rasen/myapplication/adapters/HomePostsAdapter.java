@@ -196,8 +196,8 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 holder.comments.setVisibility(View.GONE);
                 holder.comment1_pic.setVisibility(View.GONE);
                 holder.options.setVisibility(View.GONE);
-                holder.shares.setVisibility(View.VISIBLE);
-                holder.comments_3.setVisibility(View.VISIBLE);
+                holder.shares.setVisibility(View.GONE);
+                holder.comments_3.setVisibility(View.GONE);
                 TextProcessor textProcessor = new TextProcessor(getContext());
                 textProcessor.process(post.reviewText, holder.description);
                 holder.description.setText(post.reviewText);
@@ -275,6 +275,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             } else if(post.type==Post.Type.Follow) {
                 TextProcessor textProcessor = new TextProcessor(getContext());
                 textProcessor.processTitle(post.userName, post.businessUserName, context.getString(R.string.followed), holder.business_name);
+                holder.business_name.setTextSize(context.getResources().getDimension(R.dimen.font_small));
             }
         }
 

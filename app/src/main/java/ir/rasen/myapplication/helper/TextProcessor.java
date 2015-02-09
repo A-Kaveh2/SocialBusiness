@@ -411,7 +411,6 @@ public class TextProcessor {
         wordtoSpan.setSpan(clickableSpan2, userStr.length()+first.length()+1, userStr.length()+first.length()+1+second.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textViewFont.setText(wordtoSpan);
-        textViewFont.setTextSize(context.getResources().getDimension(R.dimen.font_small));
 
     }
 
