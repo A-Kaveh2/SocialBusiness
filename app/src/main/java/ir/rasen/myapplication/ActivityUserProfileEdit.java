@@ -87,8 +87,10 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         spinnerSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // TODO: SET USER'S SEX
-                //user.sex = i;
+                if(i==0)
+                    user.sex = Sex.MALE;
+                else
+                    user.sex = Sex.FEMALE;
             }
 
             @Override
@@ -225,6 +227,15 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         final EditTextFont year = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_year);
         final EditTextFont month = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_month);
         final EditTextFont day = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_day);
+        if(user.birthDate.length()>0) {
+            try {
+                year.setText(user.birthDate.substring(0, user.birthDate.indexOf("/")));
+                month.setText(user.birthDate.substring(user.birthDate.indexOf("/")+1, user.birthDate.indexOf("/",user.birthDate.indexOf("/")+1)));
+                day.setText(user.birthDate.substring(user.birthDate.indexOf("/",user.birthDate.indexOf("/")+1)+1, user.birthDate.length()));
+            } catch (Exception e) {
+
+            }
+        }
         dialog.findViewById(R.id.btn_profile_edit_birthday_change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -334,11 +345,20 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                 //initialing profile info
                 user = (User) result;
                 edtName.setText(user.name);
-                edtAboutMe.setText(user.aboutMe);
-                byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
-                Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
-                imbProfilePicture.setImageBitmap(bitmapProfilePicture);
-                txtBirthDate.setText(user.birthDate);
+                if(user.sex==Sex.MALE) {
+                    spinnerSex.setSelection(1);
+                } else if(user.sex==Sex.FEMALE) {
+                    spinnerSex.setSelection(2);
+                } else {
+                    spinnerSex.setSelection(0);
+                }
+                if(!user.aboutMe.equals("null"))edtAboutMe.setText(user.aboutMe);
+                if(user.profilePicture.length()>0) {
+                    byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
+                    Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
+                    imbProfilePicture.setImageBitmap(bitmapProfilePicture);
+                }
+                if(!user.birthDate.equals("null"))txtBirthDate.setText(user.birthDate);
             } else if (result instanceof ResultStatus) {
                 // result from executing UpdateUserProfileInfo
                 Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
