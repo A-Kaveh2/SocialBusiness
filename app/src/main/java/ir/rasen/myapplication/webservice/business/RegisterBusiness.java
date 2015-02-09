@@ -64,6 +64,7 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
             webservicePOST.addParam(Params.MOBILE, business.mobile);
             webservicePOST.addParam(Params.HASHTAG_LIST, Hashtag.getStringFromList(business.hashtagList));
 
+
             serverAnswer = webservicePOST.execute();
             return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

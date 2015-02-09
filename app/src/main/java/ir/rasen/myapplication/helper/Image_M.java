@@ -48,6 +48,7 @@ public class Image_M {
             ops.inSampleSize = 4;
             bm = BitmapFactory.decodeFile(imageFilePath, ops);
         }
+        si = Image_M.sizeOf(bm);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();

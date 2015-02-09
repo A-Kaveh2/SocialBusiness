@@ -132,7 +132,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
         if (resultCode == RESULT_OK) {
             if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
-                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
+                filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
                 displayCropedImage(filePath);
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
                 filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
