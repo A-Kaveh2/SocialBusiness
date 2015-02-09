@@ -540,9 +540,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private void assignNow() {
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            if(profile_business.profilePictureId != 0)
-
-                downloadImages.download(profile_business.profilePictureId,Image_M.getImageSize(Image_M.ImageSize.MEDIUM),(ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+            if(profile_business.profilePictureId != 0) {
+                downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+                downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+            }
            /* if(profile_business.profilePicture.length()>0)
                 ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_business.profilePicture));*/
 
@@ -573,10 +574,16 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 }
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
+
+            if(profile_user.profilePictureId != 0) {
+                downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+                downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+            }
+/*
             if(profile_user.profilePicture.length()>0)
                 ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_user.profilePicture));
             if(profile_user.coverPicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_user.coverPicture));
+                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_user.coverPicture));*/
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
             ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
             ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
