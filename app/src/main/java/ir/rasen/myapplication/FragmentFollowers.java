@@ -86,6 +86,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         }
+        pd = new ProgressDialogCustom(getActivity());
 
         pd.show();
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
