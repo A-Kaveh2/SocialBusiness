@@ -95,13 +95,12 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         // setUp ListView
         setUpListView();
 
-        // TODO: Change Adapter to display your content
         comments = new ArrayList<Comment>();
 
         /*
             for example, i've made some fake data to show ::
         */
-        Comment comment1 = new Comment();
+        /*Comment comment1 = new Comment();
         Comment comment2 = new Comment();
         Comment comment3 = new Comment();
         comment1.userID = 1;
@@ -113,7 +112,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         comment3.text = ("فدایت عزیز");
         comments.add(comment1);
         comments.add(comment2);
-        comments.add(comment3);
+        comments.add(comment3);*/
         mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.btn_comments_send).setOnClickListener(new View.OnClickListener() {

@@ -29,12 +29,13 @@
     <string name="new_password">رمز عبور جدید</string>
     <string name="change_password">تغییر رمز عبور</string>
     <string name="password_will_change">کلمه ی عبور پس از ذخیره ی تغییرات تغییر خواهد یافت.</string>
+    <string name="email_will_change">آدرس ایمیل پس از ذخیره ی تغییرات تغییر خواهد یافت.</string>
 
     <!-- ERRORS -->
     <string name="enter_valid_username">نام کاربری حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
     <string name="enter_valid_business_id">شناسه ی کسب و کار حدأقل 4 حرفی بوده و تنها می تواند از حروف انگلیسی, اعداد, . یا _ تشکیل شود.</string>
     <string name="enter_valid_name">نام حدأقل 3 حرفی بوده و تنها می تواند از حروف انگلیسی و فارسی, اعداد, فاصله, . یا _ تشکیل شود.</string>
-    <string name="enter_valid_email">لطفأ آدرس ایمیل خود را به طور صحیح وارد نمایید.</string>
+    <string name="enter_valid_email">لطفأ آدرس ایمیل را به طور صحیح وارد نمایید.</string>
     <string name="enter_password_5_digits">لطفأ رمز عبور حدأقل 5 رقمی را وارد نمایید.</string>
     <string name="enter_same_passwords">رمز های عبور وارد شده مطابقت ندارند.</string>
     <string name="enter_is_too_long">طولانی تر از حد مجاز می باشد.</string>
@@ -308,4 +309,6 @@
     <string name="your_friend">دوست شما</string>
     <string name="request_sent">درخواست ارسال شد</string>
     <string name="following">دنبال میکنید</string>
+    <string name="new_email">ایمیل جدید</string>
+    <string name="change_email">تغییر آدرس ایمیل</string>
 </resources>
