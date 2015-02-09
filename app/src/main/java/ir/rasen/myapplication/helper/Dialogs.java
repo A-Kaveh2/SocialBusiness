@@ -17,6 +17,7 @@ import ir.rasen.myapplication.FragmentSearch;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
 import ir.rasen.myapplication.webservice.post.DeletePost;
@@ -213,7 +214,8 @@ public class Dialogs {
         showCustomizedDialog(fragmentSearch.getActivity(), builder);
     }
 
-    public void showBusinessDeletePopup(final Context context, final int businessId, final WebserviceResponse delegate) {
+    public void showBusinessDeletePopup(final Context context, final int businessId, final WebserviceResponse delegate, ProgressDialogCustom pd) {
+        pd.show();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_business)

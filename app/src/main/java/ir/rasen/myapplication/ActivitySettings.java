@@ -20,6 +20,7 @@ import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ButtonFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.Login;
 import ir.rasen.myapplication.webservice.user.UpdateSetting;
@@ -33,6 +34,8 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
     CheckBox cbFriends, cbBusinesses, cbReviews;
     Context context;
 
+    private ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         cbFriends = (CheckBox) findViewById(R.id.cb_settings_friends);
         cbBusinesses = (CheckBox) findViewById(R.id.cb_settings_businesses);
         cbReviews = (CheckBox) findViewById(R.id.cb_settings_reviews);
+        pd = new ProgressDialogCustom(context);
 
         // SET ANIMATIONS
         setAnimations();
@@ -82,11 +86,8 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         permission.friends = cbFriends.isChecked();
         permission.reviews = cbReviews.isChecked();
 
-        //TODO remove test part
-        //new UpdateSetting(LoginInfo.getUserId(ActivitySettings.this), permission, ActivitySettings.this).execute();
-
-        //TODO for the test
         new UpdateSetting(LoginInfo.getUserId(this), permission, ActivitySettings.this).execute();
+        pd.show();
     }
 
     public void setAnimations() {
@@ -115,6 +116,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if(result instanceof ResultStatus) {
                 Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
@@ -126,6 +128,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(context, errorMessage);

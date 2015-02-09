@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -25,6 +26,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
@@ -40,13 +42,15 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     // business id is received here
     private int userId;
     private Context context;
 
     private ArrayList<Business> businesses;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentBusinesses newInstance(int userId) {
         FragmentBusinesses fragment = new FragmentBusinesses();
@@ -75,6 +79,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_businesses, container, false);
         this.view = view;
+        context = getActivity();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -89,13 +94,15 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
         list = (ListView) view.findViewById(R.id.list_businesses_business);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
-
-        // TODO: Change Adapter to display your content
+        pd = new ProgressDialogCustom(context);
         businesses = new ArrayList<Business>();
+        boolean unFollowAvailable = (userId==LoginInfo.getUserId(context));
+        mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable,FragmentBusinesses.this);
+        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+
         
-        //TODO remove test parts
-        //new GetFollowingBusinesses(userId, FragmentBusinesses.this).execute();
         new GetFollowingBusinesses(LoginInfo.getUserId(getActivity()), FragmentBusinesses.this).execute();
+        pd.show();
 
         return view;
     }
@@ -160,7 +167,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
-                businesses = new ArrayList<Business>();
+                pd.hide();
+                ArrayList<Business> temp = businesses;
                 Business business = null;
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
                 for (SearchItemUserBusiness item : searchItemUserBusinesses) {
@@ -170,13 +178,12 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
                     business.profilePictureId = item.pictureId;
 
                     //user pictureId to download image with DownloadImages class
-                    businesses.add(business);
+                    temp.add(business);
                 }
 
-                // todo:: check if userId.equals(myId) or not
-                boolean unFollowAvailable = true;
-                mAdapter = new BusinessesAdapter(getActivity(), businesses, FragmentBusinesses.this, unFollowAvailable,FragmentBusinesses.this);
-                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_businesses_business)).setAdapter(mAdapter);
+                businesses.clear();
+                businesses.addAll(temp);
+                mAdapter.notifyDataSetChanged();
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);

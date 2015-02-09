@@ -40,6 +40,7 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.Sex;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.GetUserProfileInfo;
@@ -57,6 +58,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     Context context;
     boolean sex;
 
+    private ProgressDialogCustom pd;
+
 
 
     @Override
@@ -67,6 +70,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         setContentView(R.layout.activity_profile_edit);
 
         context = this;
+        pd = new ProgressDialogCustom(context);
         // SET VALUES
         edtName = (EditTextFont) findViewById(R.id.edt_profile_edit_name);
         edtAboutMe = (EditTextFont) findViewById(R.id.edt_profile_edit_about_me);
@@ -98,6 +102,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
         try {
             new GetUserProfileInfo(LoginInfo.getUserId(getApplicationContext()), ActivityUserProfileEdit.this).execute();
+            pd.show();
         }
         catch (Exception e){
             String s = e.getMessage();
@@ -157,7 +162,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     // PASSWORD TOUCHED
     public void changePassword(View view) {
 
-        // TODO DISPLAY CHANGE PASSWORD DIALOG
         Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_password);
@@ -186,7 +190,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
     // BIRTHDATE TOUCHED
     public void changeBirthDate(View view) {
-        // TODO DISPLAY CHANGE BIRTHDATE DIALOG
         final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_birthday);
@@ -295,6 +298,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof User) {
                 // result from executing GetUserProfileInfo
@@ -317,6 +321,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
             Dialogs.showMessage(context, errorMessage);

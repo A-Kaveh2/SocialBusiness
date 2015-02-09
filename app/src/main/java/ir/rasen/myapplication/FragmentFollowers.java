@@ -24,6 +24,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
@@ -46,14 +47,18 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     // business id is received here
     private int businessId;
+    private boolean businessOwner;
 
     ArrayList<User> followers;
 
-    public static FragmentFollowers newInstance(int businessId) {
+    private ProgressDialogCustom pd;
+
+    public static FragmentFollowers newInstance(int businessId, boolean businessOwner) {
         FragmentFollowers fragment = new FragmentFollowers();
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.BUSINESS_ID, businessId);
+        bundle.putBoolean(Params.BUSINESS_OWNER, businessOwner);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -73,6 +78,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             businessId = bundle.getInt(Params.BUSINESS_ID);
+            businessOwner = bundle.getBoolean(Params.BUSINESS_OWNER);
         } else {
             Log.e(TAG, "bundle is null!!");
             if (getActivity() != null) {
@@ -80,7 +86,9 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         }
+        pd = new ProgressDialogCustom(getActivity());
 
+        pd.show();
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
         //new BlockUser(businessId,3,FragmentFollowers.this).execute();
         //new UnblockUser(businessId, 3, FragmentFollowers.this).execute();
@@ -96,6 +104,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
         list = (ListView) view.findViewById(R.id.list_followers_followers);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd = new ProgressDialogCustom(getActivity());
 
         // setUp ListView
         setUpListView();
@@ -118,9 +127,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         // manage blockeds header::
         listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_followers_blockeds, null);
         list.addHeaderView(listHeaderView);
-        // TODO:: If I'm the owner of business and we have blocked users...
-        boolean isMine = true;
-        if (isMine) {
+        if(businessOwner) {
             listHeaderView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -141,7 +148,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                     return;
                 }
                 followers = new ArrayList<User>();
-                // TODO get followers again
+                new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -170,7 +177,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore) {
+                    if (!swipeView.isRefreshing() && !isLoadingMore && followers.size()>0) {
                         loadMoreData();
                     }
                 }
@@ -180,6 +187,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 //result from executing getBusinessFollowers
@@ -207,6 +215,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     @Override
     public void getError(Integer errorCode) {
+        pd.hide();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);

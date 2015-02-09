@@ -32,14 +32,18 @@ import java.util.Calendar;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
+import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.PassingActiveRole;
+import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ImageViewSquare;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.AddPost;
@@ -56,6 +60,8 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     private boolean isEditing = false;
     private String businessId;
 
+    private ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_post_step_2);
         context = this;
+        pd = new ProgressDialogCustom(context);
 
         // SET VALUES
         name = ((EditTextFont) findViewById(R.id.edt_post_name));
@@ -185,6 +192,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         } else {
             new AddPost(post, ActivityNewPost_Step2.this).execute();
         }
+        pd.show();
 
     }
 
@@ -222,13 +230,20 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         if (result instanceof Post) {
-            //TODO display success message
+            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            ActivityMain.activityMain.onBackPressed();
+            InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
+            innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
+            ActivityNewPost_Step1.step1.finish();
+            finish();
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage);

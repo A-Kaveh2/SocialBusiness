@@ -15,6 +15,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 public class ActivityBusinessSettings extends Activity implements WebserviceResponse {
@@ -23,6 +24,8 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
     private Business business;
     private Context context;
 
+    private ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         setContentView(R.layout.activity_business_settings);
 
         context = this;
+        pd=new ProgressDialogCustom(context);
         business = PassingBusiness.getInstance().getValue();
         PassingBusiness.getInstance().setValue(null);
 
@@ -46,7 +50,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
 
-        dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this);
+        dialogs.showBusinessDeletePopup(context, business.id, ActivityBusinessSettings.this, pd);
 
     }
 
@@ -61,6 +65,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         if(result instanceof ResultStatus){
             Toast.makeText(getBaseContext(), R.string.business_deleted, Toast.LENGTH_LONG).show();
             ActivityMain.activityMain.removeBusiness(business.id);
@@ -71,6 +76,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(ActivityBusinessSettings.this, errorCode);
             Dialogs.showMessage(ActivityBusinessSettings.this, errorMessage);

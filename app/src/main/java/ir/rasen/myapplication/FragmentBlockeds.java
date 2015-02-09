@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
@@ -38,11 +40,13 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     private boolean isLoadingMore=false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
     ArrayList<User> blockeds;
 
     // business id is received here
     private int businessId;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentBlockeds newInstance (int businessId){
         FragmentBlockeds fragment = new FragmentBlockeds();
@@ -87,6 +91,8 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         list = (ListView) view.findViewById(R.id.list_blockeds_blockeds);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
+        pd = new ProgressDialogCustom(getActivity());
+
         // setUp ListView
         setUpListView();
 
@@ -96,7 +102,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         /*
             for example, i've made some fake data to show ::
         */
-        User User1 = new User();
+        /*User User1 = new User();
         User User2 = new User();
         User User3 = new User();
         User1.name=("SINA");
@@ -104,7 +110,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         User3.name=("HOSSEIN");
         blockeds.add(User1);
         blockeds.add(User2);
-        blockeds.add(User3);
+        blockeds.add(User3);*/
 
         mAdapter = new BlockedsAdapter(getActivity(), blockeds);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
@@ -172,16 +178,17 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         if(result instanceof ArrayList){
             //result from executing getBusinessFollowers
             ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
-            ArrayList<User> blockeds = new ArrayList<User>();
+            ArrayList<User> temp = blockeds;
+            blockeds = new ArrayList<>();
             User user = null;
             for(SearchItemUserBusiness item:businessesFollowers){
                 user = new User();
                 user.userName = item.username;
                 user.profilePictureId = item.pictureId;
-                blockeds.add(user);
+                temp.add(user);
             }
-            mAdapter = new BlockedsAdapter(getActivity(), blockeds);
-            ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
+            blockeds.addAll(temp);
+            mAdapter.notifyDataSetChanged();
             isLoadingMore=false;
             swipeView.setRefreshing(false);
             listFooterView.setVisibility(View.GONE);

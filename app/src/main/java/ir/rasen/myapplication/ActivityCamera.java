@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import ir.rasen.myapplication.helper.CropResult;
 import ir.rasen.myapplication.helper.CustomeCamera;
 
-
 public class ActivityCamera extends Activity implements CropResult {
 
     private static String TAG = "CameraActivity";

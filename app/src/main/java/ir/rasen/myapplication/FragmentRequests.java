@@ -19,6 +19,7 @@ import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.friend.GetUserFriendRequests;
 
@@ -39,6 +40,8 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
     Boolean nearby;
 
     ArrayList<SearchItemUserBusiness> requests;
+
+    ProgressDialogCustom pd;
 
     public static FragmentRequests newInstance (int userId){
         FragmentRequests fragment = new FragmentRequests();
@@ -75,6 +78,8 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
 
         list = (ListView) view.findViewById(R.id.list_requests_request);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+
+        pd = new ProgressDialogCustom(getActivity());
 
         // setUp ListView
         setUpListView();
@@ -145,6 +150,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
+                pd.dismiss();
                 requests = (ArrayList<SearchItemUserBusiness>) result;
                 mAdapter = new RequestsAdapter(getActivity(), requests, FragmentRequests.this);
                 list.setAdapter(mAdapter);

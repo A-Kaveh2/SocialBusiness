@@ -26,6 +26,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -68,6 +69,8 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
     private int userId, userNewRequests;
 
     private ArrayList<User> friends;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentFriends newInstance(int userId, int newRequests) {
         FragmentFriends fragment = new FragmentFriends();
@@ -122,8 +125,11 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         this.view = view;
 
+        pd = new ProgressDialogCustom(getActivity());
+
         list = (ListView) view.findViewById(R.id.list_friends_friends);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd.show();
 
         // setUp ListView
         setUpListView();
@@ -171,7 +177,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                     return;
                 }
                 friends = new ArrayList<User>();
-                // TODO get friends again
+                new GetUserFriends(userId, FragmentFriends.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -215,20 +221,21 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
-                ArrayList<SearchItemUserBusiness> usersFriends = new ArrayList<SearchItemUserBusiness>();
-                usersFriends = (ArrayList<SearchItemUserBusiness>) result;
-                friends = new ArrayList<User>();
+                ArrayList<SearchItemUserBusiness> usersFriends = (ArrayList<SearchItemUserBusiness>) result;
+                ArrayList<User> temp = friends;
                 User user = null;
                 for (SearchItemUserBusiness item : usersFriends) {
                     user = new User();
                     user.userName = item.username;
                     user.profilePictureId = item.pictureId;
-                    friends.add(user);
+                    temp.add(user);
                 }
 
-                friends = new ArrayList<User>();
+                friends.clear();
+                friends.addAll(temp);
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
                 isLoadingMore=false;
@@ -242,6 +249,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);

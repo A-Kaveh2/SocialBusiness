@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.ReviewsAdapter;
 import ir.rasen.myapplication.classes.Review;
-import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -26,12 +25,11 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.RateBusiness;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.ReviewBusiness;
-import ir.rasen.myapplication.webservice.search.SearchUser;
-import ir.rasen.myapplication.webservice.user.Login;
 
 /**
  * Created by 'Sina KH' on 1/13/2015.
@@ -49,6 +47,8 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     ArrayList<Review> reviews;
 
     Dialog dialog;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentReviews newInstance (int businessId, int businessOwner) {
         FragmentReviews fragment = new FragmentReviews();
@@ -75,6 +75,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new GetBusinessReviews(businessId,0,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
+            pd.show();
 
         } else {
             Log.e(TAG, "bundle is null!!");
@@ -103,6 +104,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd = new ProgressDialogCustom(getActivity());
 
         reviews = new ArrayList<Review>();
         mAdapter = new ReviewsAdapter(getActivity(), reviews,FragmentReviews.this, FragmentReviews.this);
@@ -133,7 +135,6 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new RateBusiness(businessId, LoginInfo.getUserId(getActivity()),review_rate,FragmentReviews.this).execute();
     }
 
-    // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         if (reviews != null) {
@@ -156,7 +157,9 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     return;
                 }
                 reviews = new ArrayList<Review>();
-                // TODO get reviews again
+                new GetBusinessReviews(businessId,0,
+                        getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                        ,FragmentReviews.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -195,13 +198,14 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 if (isLoadingMore) {
-                    ArrayList<Review> loadedReviews = new ArrayList<>();
-                    for (Review item : loadedReviews) {
-                        reviews.add(item);
-                    }
+                    ArrayList<Review> temp = reviews;
+                    temp.addAll((ArrayList<Review>) result);
+                    reviews.clear();
+                    reviews.addAll(temp);
                     mAdapter.notifyDataSetChanged();
                     isLoadingMore=false;
                     swipeView.setRefreshing(false);
@@ -247,6 +251,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
@@ -294,6 +299,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     private Dialog editingDialog;
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
+        pd.show();
         editingId = id;
         editingText = text;
         editingDialog = dialog;

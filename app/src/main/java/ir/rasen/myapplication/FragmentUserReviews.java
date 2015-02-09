@@ -79,7 +79,6 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         return view;
     }
 
-    // TODO: LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         if (reviews != null) {
@@ -101,7 +100,8 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
                     return;
                 }
                 reviews = new ArrayList<Review>();
-                // TODO get reviews again
+                new GetUserReviews(LoginInfo.getUserId(getActivity()),
+                        0, getResources().getInteger(R.integer.lazy_load_limitation), FragmentUserReviews.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
@@ -142,9 +142,11 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
     public void getResult(Object result) {
         try {
             if (result instanceof ArrayList) {
-                reviews = (ArrayList<Review>) result;
-                mAdapter = new ReviewsAdapter(getActivity(), reviews, FragmentUserReviews.this, FragmentUserReviews.this);
-                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_user_reviews_review)).setAdapter(mAdapter);
+                ArrayList<Review> temp = reviews;
+                temp.addAll((ArrayList<Review>) result);
+                reviews.clear();
+                reviews.addAll(temp);
+                mAdapter.notifyDataSetChanged();
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);

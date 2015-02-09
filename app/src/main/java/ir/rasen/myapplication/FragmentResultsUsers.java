@@ -1,6 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,6 +23,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.search.SearchUser;
 
@@ -41,6 +43,8 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
     // user id is received here
     private String searchString;
     private ArrayList<User> users;
+
+    private ProgressDialog pd;
 
     public static FragmentResultsUsers newInstance(String searchString) {
         FragmentResultsUsers fragment = new FragmentResultsUsers();
@@ -83,6 +87,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
 
         list = (ListView) view.findViewById(R.id.list_results_users_results);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        pd = new ProgressDialogCustom(getActivity());
 
         // setUp ListView
         setUpListView();
@@ -151,6 +156,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof ArrayList) {
                 users = new ArrayList<User>();
@@ -178,6 +184,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);

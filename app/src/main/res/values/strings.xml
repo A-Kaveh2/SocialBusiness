@@ -305,4 +305,7 @@
     <string name="please_wait">لطفأ تا دریافت اطلاعات از سرور شکیبا باشید.</string>
     <string name="distance">فاصله از محل تعیین شده:</string>
     <string name="user">کاربر</string>
+    <string name="your_friend">دوست شما</string>
+    <string name="request_sent">درخواست ارسال شد</string>
+    <string name="following">دنبال میکنید</string>
 </resources>

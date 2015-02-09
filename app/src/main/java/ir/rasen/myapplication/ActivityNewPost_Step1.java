@@ -42,12 +42,16 @@ public class ActivityNewPost_Step1 extends Activity  {
 
     private boolean isEditing = false, picChoosed = false;
 
+    public static ActivityNewPost_Step1 step1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_post_step_1);
+
+        step1 = this;
 
         // SET ANIMATIONS
         setAnimations();
@@ -132,6 +136,7 @@ public class ActivityNewPost_Step1 extends Activity  {
         }
         Intent intent = new Intent(getBaseContext(), ActivityNewPost_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
+        intent.putExtra(Params.BUSINESS_ID, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
         startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
 
@@ -145,7 +150,7 @@ public class ActivityNewPost_Step1 extends Activity  {
 
     public void setAnimations() {
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_normal);
-        ((Button) findViewById(R.id.btn_post_submit)).startAnimation(fadeIn);
+        findViewById(R.id.btn_post_submit).startAnimation(fadeIn);
         AnimationSet animationSetBtn = new AnimationSet(getBaseContext(), null);
         animationSetBtn.addAnimation(fadeIn);
         Animation anim_fromDown = new TranslateAnimation(
@@ -156,7 +161,7 @@ public class ActivityNewPost_Step1 extends Activity  {
         anim_fromDown.setDuration(500);
         anim_fromDown.setInterpolator(new AccelerateInterpolator());
         animationSetBtn.addAnimation(anim_fromDown);
-        ((TextViewFont) findViewById(R.id.btn_post_help)).startAnimation(animationSetBtn);
+        findViewById(R.id.btn_post_help).startAnimation(animationSetBtn);
     }
 
     public void onBackPressed() {

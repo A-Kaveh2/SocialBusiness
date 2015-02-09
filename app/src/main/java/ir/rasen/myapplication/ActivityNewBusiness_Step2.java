@@ -29,6 +29,7 @@ import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.RegisterBusiness;
@@ -44,6 +45,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     private WebserviceResponse webserviceResponse;
     private Context context;
 
+    ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
         webserviceResponse = this;
         context = this;
+        pd = new ProgressDialogCustom(context);
 
         // check if we are in edit mode or not
         if (getIntent().getBooleanExtra(Params.EDIT_MODE, false)) {
@@ -92,6 +96,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         } else {
             new RegisterBusiness(business, webserviceResponse).execute();
         }
+        pd.show();
 
         PassingBusiness.getInstance().setValue(business);
         ActivityNewBusiness_Step1.step1.finish();
@@ -176,8 +181,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             if (workDays[6])
                 workTimeText += "جمعه";
             workTimeText +=
-                    "\nزمان شروع به کار: " + two_char(((int) workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
-                            + "\nزمان پایان کار: " + two_char(((int) workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
+                    "\nزمان شروع به کار: " + two_char((workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
+                            + "\nزمان پایان کار: " + two_char((workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
             ((ButtonFont) findViewById(R.id.edt_business_step2_workingTime)).setText(workTimeText);
         }
         if (locationM != null) {
@@ -238,6 +243,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
             InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
@@ -253,6 +259,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(ActivityNewBusiness_Step2.this, errorCode);
             Dialogs.showMessage(context, errorMessage);

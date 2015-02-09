@@ -69,7 +69,7 @@ public class TextProcessor {
         ArrayList<String> hashtags = new ArrayList<>();
 
         int index_end = 0;
-        // TODO:: FIND AND LIST HASHTAGS!
+        // FIND AND LIST HASHTAGS!
         int index_temp = 0;
 
         index_temp = 0;
@@ -384,7 +384,7 @@ public class TextProcessor {
 
         String userStr = context.getString(R.string.user)+" ";
 
-        String text = userStr.length() +  first + " " + second + " " + describe;
+        String text = userStr +  first + " " + second + " " + describe;
         Spannable wordtoSpan = new SpannableString(text);
 
         final String profileId = text.substring(userStr.length(), userStr.length()+first.length());
@@ -411,6 +411,7 @@ public class TextProcessor {
         wordtoSpan.setSpan(clickableSpan2, userStr.length()+first.length()+1, userStr.length()+first.length()+1+second.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textViewFont.setText(wordtoSpan);
+        textViewFont.setTextSize(context.getResources().getDimension(R.dimen.font_small));
 
     }
 
