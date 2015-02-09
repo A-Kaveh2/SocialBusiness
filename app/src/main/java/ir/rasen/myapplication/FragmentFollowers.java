@@ -215,7 +215,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     @Override
     public void getError(Integer errorCode) {
-        pd.hide();
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
