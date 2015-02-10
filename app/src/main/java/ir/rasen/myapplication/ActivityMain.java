@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
+import ir.rasen.myapplication.alarm.Alarm_M;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -27,6 +28,7 @@ import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.Permission;
+import ir.rasen.myapplication.helper.Results;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
 
 /**
@@ -61,11 +63,16 @@ public class ActivityMain extends FragmentActivity {
 
         activityMain = this;
 
+        //set alarm manager to run GetLastCommentNotification periodically
+        Alarm_M alarm_m = new Alarm_M();
+        //TODO uncomment
+        //alarm_m.set(this);
+
         btnHome = (ImageButton) findViewById(R.id.btn_main_home);
         btnSearch = (ImageButton) findViewById(R.id.btn_main_search);
         btnProfile = (ImageButton) findViewById(R.id.btn_main_profile);
 
-        fragCount=new int[3];
+        fragCount = new int[3];
 
         // DRAWER VIEWS
         drawerViews();
@@ -77,7 +84,9 @@ public class ActivityMain extends FragmentActivity {
         pager.setOffscreenPageLimit(3);
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i2) {}
+            public void onPageScrolled(int i, float v, int i2) {
+            }
+
             @Override
             public void onPageSelected(int fragmentNumber) {
                 // SET COLOR OF BUTTONS
@@ -99,8 +108,10 @@ public class ActivityMain extends FragmentActivity {
                         break;
                 }
             }
+
             @Override
-            public void onPageScrollStateChanged(int i) {}
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         lockDrawers();
         pager.setCurrentItem(0);
@@ -114,38 +125,43 @@ public class ActivityMain extends FragmentActivity {
 
     public void home(View v) {
         // TODO: GOTO HOME FRAGMENT
-        if(pager.getCurrentItem()!=0)
+        if (pager.getCurrentItem() != 0)
             pager.setCurrentItem(0);
         else toRoot();
     }
+
     public void search(View v) {
         // TODO: GOTO SEARCH FRAGMENT
-        if(pager.getCurrentItem()!=1)
+        if (pager.getCurrentItem() != 1)
             pager.setCurrentItem(1);
         else toRoot();
     }
+
     public void profile(View v) {
         // TODO: GOTO PROFILE FRAGMENT
-        if(pager.getCurrentItem()!=2)
+        if (pager.getCurrentItem() != 2)
             pager.setCurrentItem(2);
         else toRoot();
     }
 
     void toRoot() {
-        while(fragCount[pager.getCurrentItem()]>0) {
+        while (fragCount[pager.getCurrentItem()] > 0) {
             onBackPressed();
         }
     }
+
 
     // FRAGMENT PAGER ADAPTER
     public class fragmentPagerAdapter extends FragmentPagerAdapter {
         public fragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+
         @Override
         public int getCount() {
             return FRAGMENTS_COUNT;
         }
+
         @Override
         public Fragment getItem(int fragmentNumber) {
             switch (fragmentNumber) {
@@ -153,7 +169,7 @@ public class ActivityMain extends FragmentActivity {
                     return new FragmentSearch();
                 case 2:
                     int userId = LoginInfo.getUserId(ActivityMain.this);
-                    return new FragmentProfile().newInstance(ActivityMain.this,Params.ProfileType.PROFILE_USER, true, userId);
+                    return new FragmentProfile().newInstance(ActivityMain.this, Params.ProfileType.PROFILE_USER, true, userId);
             }
             // CASE 0 :
             btnHome.setBackgroundResource(R.color.text_details);
@@ -163,17 +179,19 @@ public class ActivityMain extends FragmentActivity {
 
     void openDrawer(int gravity) {
         drawerLayout.openDrawer(gravity);
-        drawerIsShowing=true;
+        drawerIsShowing = true;
         rightDrawer();
     }
+
     public void closeDrawer(int gravity) {
         drawerLayout.closeDrawer(gravity);
-        drawerIsShowing=false;
+        drawerIsShowing = false;
         lockDrawers();
     }
+
     public void closeDrawer(View view) {
         drawerLayout.closeDrawer(Gravity.RIGHT);
-        drawerIsShowing=false;
+        drawerIsShowing = false;
     }
 
     void drawerViews() {
@@ -185,7 +203,8 @@ public class ActivityMain extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step1.class);
-                startActivity(intent);
+                startActivityForResult(intent,Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
+                //startActivity(intent);
                 overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
@@ -193,7 +212,7 @@ public class ActivityMain extends FragmentActivity {
         findViewById(R.id.ll_profile_menu_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(permission!=null) {
+                if (permission != null) {
                     Intent intent = new Intent(getBaseContext(), ActivitySettings.class);
                     intent.putExtra(Params.PERMISSION_FRIENDS, permission.friends);
                     intent.putExtra(Params.PERMISSION_REVIEWS, permission.reviews);
@@ -219,13 +238,14 @@ public class ActivityMain extends FragmentActivity {
     public void back(View v) {
         onBackPressed();
     }
+
     // ON BACK PRESSED
     public void onBackPressed() {
-        if(drawerIsShowing) {
+        if (drawerIsShowing) {
             drawerLayout.closeDrawers();
-            drawerIsShowing=false;
-        } else if(fragCount[pager.getCurrentItem()]>0) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem()+"."+fragCount[pager.getCurrentItem()]);
+            drawerIsShowing = false;
+        } else if (fragCount[pager.getCurrentItem()] > 0) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem() + "." + fragCount[pager.getCurrentItem()]);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.anim.to_0_from_left, R.anim.to_right);
             ft.remove(fragment);
@@ -238,15 +258,16 @@ public class ActivityMain extends FragmentActivity {
         }
     }
 
-    public void lockDrawers(){
+    public void lockDrawers() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
     }
-    public void rightDrawer(){
+
+    public void rightDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, drawerLayoutRight);
     }
 
     private void checkDrawerLock() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem()+"."+fragCount[pager.getCurrentItem()]);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem() + "." + fragCount[pager.getCurrentItem()]);
         try {
             ((FragmentProfile) fragment).checkDrawerLock();
         } catch (Exception e) {
@@ -256,7 +277,7 @@ public class ActivityMain extends FragmentActivity {
 
     public void businesses(User user) {
         businesses.clear();
-        for(User.UserBusinesses userBusiness : user.businesses) {
+        for (User.UserBusinesses userBusiness : user.businesses) {
             Business business = new Business();
             business.id = userBusiness.businessId;
             business.businessUserName = userBusiness.businessUserName;
@@ -266,8 +287,8 @@ public class ActivityMain extends FragmentActivity {
     }
 
     public void removeBusiness(int id) {
-        for(int i=0; i<businesses.size(); i++)
-            if(businesses.get(i).id==id) {
+        for (int i = 0; i < businesses.size(); i++)
+            if (businesses.get(i).id == id) {
                 businesses.remove(i);
                 return;
             }
@@ -280,7 +301,22 @@ public class ActivityMain extends FragmentActivity {
     }
 
     public void backToRoot() {
-        while (fragCount[pager.getCurrentItem()]>0)
+        while (fragCount[pager.getCurrentItem()] > 0)
             onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS) {
+                //refresh business' list with new business
+                Business business = new Business();
+                business.id = data.getIntExtra(Params.BUSINESS_ID, 0);
+                business.businessUserName = data.getStringExtra(Params.BUSINESS_USER_NAME);
+                addBusiness(business);
+            }
+        }
     }
 }

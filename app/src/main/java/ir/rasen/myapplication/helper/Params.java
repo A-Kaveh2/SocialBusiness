@@ -170,5 +170,7 @@ public class Params {
     public static String TYPE = "PostTypeId";
 
 
+    //Actions
+    public static int ACTION_ADD_NEW_BUSIENSS_SUCCESS = 1001;
 
 }

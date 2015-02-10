@@ -25,6 +25,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingWorkTime;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.WorkTime;
 import ir.rasen.myapplication.ui.ButtonFont;
@@ -44,6 +45,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     boolean isEditing = false;
     private WebserviceResponse webserviceResponse;
     private Context context;
+    private String registeredBusinessUserName;
 
     ProgressDialogCustom pd;
 
@@ -94,13 +96,13 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         if (isEditing) {
             new UpdateBusinessProfileInfo(business, webserviceResponse).execute();
         } else {
+            registeredBusinessUserName = business.businessUserName;
             new RegisterBusiness(business, webserviceResponse).execute();
         }
         pd.show();
 
         PassingBusiness.getInstance().setValue(business);
-        ActivityNewBusiness_Step1.step1.finish();
-        finish();
+
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 
@@ -243,16 +245,26 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
         try {
-            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
-            FragmentProfile.fragmentProfile.getAgain();
-            InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
-            innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, true, PassingBusiness.getInstance().getValue().id);
-            ActivityMain.activityMain.addBusiness(PassingBusiness.getInstance().getValue());
-            PassingBusiness.getInstance().setValue(null);
-            ActivityNewBusiness_Step1.step1.finish();
-            finish();
+
+            //registerBusiness' result
+            if (result instanceof Integer) {
+                Intent i = getIntent();
+                i.putExtra(Params.BUSINESS_USER_NAME, registeredBusinessUserName);
+                i.putExtra(Params.BUSINESS_ID, (Integer)result);
+                setResult(RESULT_OK, i);
+                finish();
+            }
+            //updateBusiness' result
+            else if(result instanceof ResultStatus){
+                FragmentProfile.fragmentProfile.getAgain();
+                InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
+                innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, true, PassingBusiness.getInstance().getValue().id);
+                ActivityMain.activityMain.addBusiness(PassingBusiness.getInstance().getValue());
+                PassingBusiness.getInstance().setValue(null);
+                /*ActivityNewBusiness_Step1.step1.finish();
+                finish();*/
+            }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

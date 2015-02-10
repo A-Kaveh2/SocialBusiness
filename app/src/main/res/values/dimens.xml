@@ -22,7 +22,7 @@
     <dimen name="font_circle_button">@dimen/font_large</dimen>
     <dimen name="line_height">4dp</dimen>
 
-    <integer name="interval_time">5000</integer>
+    <integer name="interval_time">60000</integer>
     <integer name="image_quality">75</integer>
     <integer name="image_size">640</integer>
     <integer name="lazy_load_limitation">20</integer>

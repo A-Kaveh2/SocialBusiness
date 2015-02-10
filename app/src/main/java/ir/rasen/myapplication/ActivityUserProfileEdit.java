@@ -164,7 +164,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     // PASSWORD TOUCHED
     public void changePassword(View view) {
 
-        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_password);
         final EditTextFont pass_old = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_password_old);
@@ -183,6 +183,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     pass2.setErrorC(getString(R.string.enter_same_passwords));
                     return;
                 }
+                dialog.dismiss();
                 user.password = pass1.getText().toString();
                 Dialogs.showMessage(context, getString(R.string.password_will_change));
             }
@@ -193,7 +194,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     // PASSWORD TOUCHED
     public void changeEmail(View view) {
 
-        Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
+        final Dialog dialog = new Dialog(ActivityUserProfileEdit.this, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_change_email);
         final EditTextFont pass = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_email_password);
@@ -213,6 +214,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     return;
                 }
                 user.email = email.getText().toString();
+                dialog.dismiss();
                 Dialogs.showMessage(context, getString(R.string.email_will_change));
             }
         });

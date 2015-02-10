@@ -3,8 +3,11 @@ package ir.rasen.myapplication.webservice.business;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Hashtag;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -15,7 +18,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
+public class RegisterBusiness extends AsyncTask<Void, Void, Integer> {
     private static final String TAG = "RegisterBusiness";
 
     private WebserviceResponse delegate = null;
@@ -28,7 +31,7 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
     }
 
     @Override
-    protected ResultStatus doInBackground(Void... voids) {
+    protected Integer doInBackground(Void... voids) {
         WebservicePOST webservicePOST = new WebservicePOST(URLs.REGISTER_BUSINESS);
 
         try {
@@ -66,7 +69,16 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
 
 
             serverAnswer = webservicePOST.execute();
-            return ResultStatus.getResultStatus(serverAnswer);
+            if (serverAnswer.getSuccessStatus()) {
+                int busienssId = 0;
+                JSONObject jsonObject = serverAnswer.getResult();
+                if (jsonObject != null) {
+                    busienssId = jsonObject.getInt(Params.BUSINESS_ID);
+                }
+                return busienssId;
+
+            } else
+                return 0;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -74,13 +86,8 @@ public class RegisterBusiness extends AsyncTask<Void, Void, ResultStatus> {
     }
 
     @Override
-    protected void onPostExecute(ResultStatus result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
+    protected void onPostExecute(Integer result) {
 
-        //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;

@@ -80,6 +80,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         // SET VALUES
         edtBusinessId = (EditTextFont) findViewById(R.id.edt_business_step1_id);
+        //TODO
+        //edtBusinessId.setCompoundDrawables(null,null,null,null);
         edtName = (EditTextFont) findViewById(R.id.edt_business_step1_name);
         spnCategory = (Spinner) findViewById(R.id.spinner_business_step1_category);
         spnSubcategory = (Spinner) findViewById(R.id.spinner_business_step1_subcategory);
@@ -184,6 +186,13 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 profilePictureFilePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(profilePictureFilePath);
             }
+            else if(requestCode == Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS){
+                Intent i = getIntent();
+                i.putExtra(Params.BUSINESS_ID, data.getIntExtra(Params.BUSINESS_ID,0));
+                i.putExtra(Params.BUSINESS_USER_NAME, data.getStringExtra(Params.BUSINESS_USER_NAME));
+                setResult(RESULT_OK, i);
+                finish();
+            }
         }
 
     }
@@ -249,7 +258,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         PassingBusiness.getInstance().setValue(business);
         Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
-        startActivity(intent);
+
+        startActivityForResult(intent,Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
+        //startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
 

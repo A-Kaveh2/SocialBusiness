@@ -8,4 +8,5 @@ import android.view.View;
  */
 public interface EditInterface {
     public void setEditing(int id, String text, Dialog dialog);
+
 }

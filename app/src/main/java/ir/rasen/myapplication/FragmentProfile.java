@@ -15,7 +15,6 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.RatingBar;
 
 import java.util.ArrayList;
@@ -92,6 +91,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         editingText = text;
         editingDialog = dialog;
     }
+
+
+
 
     private enum RunningWebserviceType {getUserHomeInfo, getUserPosts, getBustinessPosts, getBusinessHomeInfo}
 
@@ -545,11 +547,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
                 downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
             }
-           /* if(profile_business.profilePicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_business.profilePicture));*/
-
-            /*if(profile_business.coverPicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_business.coverPicture));*/
 
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.businessUserName);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);

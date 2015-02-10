@@ -42,6 +42,7 @@ public class URLs {
     public static String UPDATE_POST = MAIN_URL+"updatePost";
     public static String DELETE_POST = MAIN_URL+"deletePost";
     public static String REQUEST_FRIENDSHIP = MAIN_URL+"requestFriendship";
+    public static String REQUEST_CANCEL_FRIENDSHIP = MAIN_URL+"requestFriendship";
     public static String ANSWER_REQUEST_FRIENDSHIP = MAIN_URL+"answerRequestFriendship";
     public static String GET_USER_REVIEWS = MAIN_URL+"getUserReviews";
     public static String GET_BUSINESS_REVIEWS = MAIN_URL+"getBusinessReviews";
@@ -61,6 +62,7 @@ public class URLs {
     public static String GET_LAST_COMMENT_NOTIFICATION= MAIN_URL+"getLastCommentNotification";
     public static String GET_ALL_COMMENT_NOTIFICATIONS= MAIN_URL+"getAllCommentNotifications";
     public static String FOLLOW_BUSINESS= MAIN_URL+"followBusiness";
+    public static String UN_FOLLOW_BUSINESS= MAIN_URL+"unfollowBusiness";
     public static String GET_BUSINESS_CATEGORIES= MAIN_URL+"getBusinessCategories";
     public static String GET_BUSINESS_SUBCATEGORIES= MAIN_URL+"getBusinessSubCategories";
     public static String DOWNLOAD_IMAGE= MAIN_URL+"downloadImage";
