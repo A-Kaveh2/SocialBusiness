@@ -30,7 +30,7 @@ import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.RegisterUser;
 
@@ -42,6 +42,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
     String filePath;
     Context context;
 
+    ProgressDialogCustom pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         password = ((EditTextFont) findViewById(R.id.edt_register_password));
         password_repeat = ((EditTextFont) findViewById(R.id.edt_register_password_repeat));
         btn_register_picture_set = (ImageButton) findViewById(R.id.btn_register_picture_set);
+        pd = new ProgressDialogCustom(ActivityRegister.this);
 
         // SET ANIMATIONS
         setAnimations();
@@ -113,8 +115,6 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
                 myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),ops);
             }
 
-            int s = myBitmap.getByteCount();
-            int i = s+1;
             try {
                 btn_register_picture_set.setImageBitmap(myBitmap);
             } catch (Exception e) {
@@ -180,7 +180,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
             else
                 user.profilePicture = "";
 
-
+            pd.show();
             new RegisterUser(context, user, ActivityRegister.this).execute();
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -195,7 +195,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
     public void setAnimations() {
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_normal);
-        ((Button) findViewById(R.id.btn_register_register)).startAnimation(fadeIn);
+        findViewById(R.id.btn_register_register).startAnimation(fadeIn);
         AnimationSet animationSetBtn = new AnimationSet(getBaseContext(), null);
         animationSetBtn.addAnimation(fadeIn);
         Animation anim_fromDown = new TranslateAnimation(
@@ -206,7 +206,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         anim_fromDown.setDuration(500);
         anim_fromDown.setInterpolator(new AccelerateInterpolator());
         animationSetBtn.addAnimation(anim_fromDown);
-        ((TextViewFont) findViewById(R.id.btn_register_help)).startAnimation(animationSetBtn);
+        findViewById(R.id.btn_register_help).startAnimation(animationSetBtn);
     }
 
     public void onBackPressed() {
@@ -220,12 +220,16 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        startActivity(new Intent(context, ActivityMain.class));
+        try {
+            pd.dismiss();
+            startActivity(new Intent(context, ActivityMain.class));
+        } catch (Exception e) {}
     }
 
     @Override
     public void getError(Integer errorCode) {
         try {
+            pd.dismiss();
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
             Dialogs.showMessage(ActivityRegister.this, errorMessage);
         } catch (Exception e) {

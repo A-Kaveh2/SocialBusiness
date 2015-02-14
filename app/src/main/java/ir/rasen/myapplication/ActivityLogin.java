@@ -5,6 +5,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.Login;
 
@@ -32,6 +33,8 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     Context cotext;
     WebserviceResponse webserviceResponse;
 
+    ProgressDialogCustom pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
         // SET VALUES
         edtEmail = ((EditTextFont) findViewById(R.id.edt_login_email));
         edtPassword = ((EditTextFont) findViewById(R.id.edt_login_password));
+        pd = new ProgressDialogCustom(ActivityLogin.this);
 
         // SET ANIMATIONS
         setAnimations();
@@ -69,6 +73,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
         String email = edtEmail.getText().toString();
         String password = edtPassword.getText().toString();
 
+        pd.show();
         new Login(cotext, email, password, webserviceResponse).execute();
     }
 
@@ -121,6 +126,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     @Override
     public void getResult(Object result) {
         try {
+            pd.dismiss();
             boolean b = LoginInfo.isLoggedIn(cotext);
             startActivity(new Intent(cotext, ActivityMain.class));
             finish();
@@ -132,6 +138,7 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     @Override
     public void getError(Integer errorCode) {
         try {
+            pd.dismiss();
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
             Dialogs.showMessage(ActivityLogin.this, errorMessage);
         } catch(Exception e) {

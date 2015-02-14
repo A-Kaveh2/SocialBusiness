@@ -165,7 +165,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
 
     void setUpListView() {
         // add requests header::
-        listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_friends_requests, null);
+        listHeaderView = getActivity().getLayoutInflater().inflate(R.layout.layout_friends_requests, null);
         list.addHeaderView(listHeaderView);
         // SwipeRefreshLayout
         swipeView.setColorScheme(R.color.button_on_dark, R.color.red, R.color.green);
