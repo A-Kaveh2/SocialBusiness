@@ -89,6 +89,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         edtDescription = (EditTextFont) findViewById(R.id.edt_business_step1_description);
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
+
+
         // SET ANIMATIONS
         setAnimations();
 
@@ -133,13 +135,10 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if (oldText==null || charSequence.toString().equals(oldText))
+                if (charSequence.toString().equals(oldText))
                     return;
-                try {
-                    TextProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription, ActivityNewBusiness_Step1.this);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
+                TextProcessor textProcessor = new TextProcessor(context);
+                textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
             }
 
             @Override
@@ -246,6 +245,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.description = edtDescription.getText().toString();
         business.description = business.description.replace("\n", " ");
         business.hashtagList = TextProcessor.getHashtags(business.description);
+        //remove hashtags from description
+        business.description = business.description.replaceAll("#[a-z|A-Z|0-9|_]*","");
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
@@ -342,6 +343,10 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             } else if (result instanceof Business) {
                 existedBusiness = (Business) result;
                 edtBusinessId.setText(existedBusiness.businessUserName);
+                String description = existedBusiness.description;
+                for(String hashtag:existedBusiness.hashtagList){
+                    description += "#"+hashtag+" ";
+                }
                 edtDescription.setText(existedBusiness.description);
                 edtName.setText(existedBusiness.name);
                 setSpnCategory(existedBusiness.category);

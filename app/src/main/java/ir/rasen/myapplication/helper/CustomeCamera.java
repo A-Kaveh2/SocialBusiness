@@ -51,12 +51,6 @@ public class CustomeCamera {
         this.size = size;
         this.quality = quality;
 
-        //shape camera preview as square window
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, width);
-        cameraPreviewLayout.setLayoutParams(lp);
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
