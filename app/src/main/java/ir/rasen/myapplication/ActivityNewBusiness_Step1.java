@@ -90,12 +90,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
 
-        edtDescription.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        });
+
         // SET ANIMATIONS
         setAnimations();
 
@@ -250,6 +245,8 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         business.description = edtDescription.getText().toString();
         business.description = business.description.replace("\n", " ");
         business.hashtagList = TextProcessor.getHashtags(business.description);
+        //remove hashtags from description
+        business.description = business.description.replaceAll("#[a-z|A-Z|0-9|_]*","");
         if (profilePictureFilePath != null)
             business.profilePicture = Image_M.getBase64String(profilePictureFilePath);
 
@@ -346,6 +343,10 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             } else if (result instanceof Business) {
                 existedBusiness = (Business) result;
                 edtBusinessId.setText(existedBusiness.businessUserName);
+                String description = existedBusiness.description;
+                for(String hashtag:existedBusiness.hashtagList){
+                    description += "#"+hashtag+" ";
+                }
                 edtDescription.setText(existedBusiness.description);
                 edtName.setText(existedBusiness.name);
                 setSpnCategory(existedBusiness.category);

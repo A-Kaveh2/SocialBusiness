@@ -5,7 +5,6 @@
     android:layout_height="fill_parent">
 
 
-
     <FrameLayout
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
@@ -19,6 +18,15 @@
     </FrameLayout>
 
 
+    <LinearLayout
+        android:id="@+id/ll_camera_cover"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true">
+
+    </LinearLayout>
 
     <ir.rasen.myapplication.ui.ButtonFont
         android:id="@+id/button_capture"
@@ -27,5 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+
         android:layout_marginBottom="10dp" />
 </RelativeLayout>
