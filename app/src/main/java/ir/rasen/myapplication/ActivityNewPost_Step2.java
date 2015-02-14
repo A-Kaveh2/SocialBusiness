@@ -45,6 +45,7 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.AddPost;
 import ir.rasen.myapplication.webservice.post.DeletePost;
@@ -86,8 +87,9 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         }
 
         Post post = PassingPosts.getInstance().getValue().get(0);
-        if (!post.picture.equals(post.picture))
-            ((ImageView) findViewById(R.id.img_new_post_step2_post)).setImageBitmap(Image_M.getBitmapFromString(post.picture));
+        // TODO :: SET PICTURE
+        //if (!post.picture.equals(post.picture))
+        //    downloadImages.
         name.setText(post.title);
         description.setText(post.description);
         price.setText(post.price);

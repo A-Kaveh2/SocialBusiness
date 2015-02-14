@@ -187,8 +187,8 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
         try {
+            pd.dismiss();
             if (result instanceof ArrayList) {
                 //result from executing getBusinessFollowers
                 ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>) result;
@@ -215,8 +215,8 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     @Override
     public void getError(Integer errorCode) {
-        pd.dismiss();
         try {
+            pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
         } catch (Exception e) {

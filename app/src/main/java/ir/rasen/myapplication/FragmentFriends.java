@@ -138,7 +138,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
         mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_friends_friends)).setAdapter(mAdapter);
 
-        // TODO:: check if new requests received or not
+        // check if new requests received or not
         if (userNewRequests>0) { // new requests received or not!
             int requestsNum = userNewRequests;
             listHeaderView.setVisibility(View.VISIBLE);

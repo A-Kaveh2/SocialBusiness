@@ -265,13 +265,18 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         ((ImageView) header.findViewById(R.id.img_profile_option2)).setImageResource(R.drawable.ic_menu_reviews);
         // PROFILE
         if (profileType == Params.ProfileType.PROFILE_USER) {
+            // TODO:: if are not friends, show lock!! (uncommment)
+            //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
+                //header.findViewById(R.id.img_profile_lock).setVisibility(View.VISIBLE);
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_businesses);
             // FRIENDS
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
+                    // TODO:: if are friends (uncomment)
+                    //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
+                        innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
                 }
             });
             // REVIEWS OF USER
@@ -287,7 +292,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 @Override
                 public void onClick(View v) {
                     InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newBusinessesFragment(profileId);
+                    // TODO:: if are friends ( uncomment )
+                    //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
+                        innerFragment.newBusinessesFragment(profileId);
                 }
             });
         }
@@ -295,6 +302,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
             //header.findViewById(R.id.txt_profile_status).setVisibility(View.GONE);
             header.findViewById(R.id.ratingBar_profile).setVisibility(View.VISIBLE);
+            header.findViewById(R.id.txt_profile_status).setVisibility(View.INVISIBLE);
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_call);
             // CALL INFO
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {

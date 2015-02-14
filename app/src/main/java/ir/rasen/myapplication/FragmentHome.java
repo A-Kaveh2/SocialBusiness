@@ -140,7 +140,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         // ArrayList to show
         posts = new ArrayList<Post>();
 
-        // TODO: Check home type
+        // Check home type
         //if(homeType==Params.HomeType.HOME_SEARCH) {
 
         //    // load as search page!
@@ -161,8 +161,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             //if(((ActivityMain) getActivity()).fragCount[0]==0)
             //    PassingActiveRole.getInstance().setValue(-1);
 
-            // TODO: LOAD AS HOME PAGE
-            // TODO: Change Adapter to display your content after receiving HOME from net
+            // LOAD AS HOME PAGE
 
             /*
                 for example, i've made some fake data to show ::
@@ -227,9 +226,9 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         // LISTVIEW FOOTER AND ADAPTER
         setUpListView();
 
-        // TODO: AUTO HIDE ACTION BAR
+        // AUTO HIDE ACTION BAR
         //autoHideActionBar();
-        // TODO: ON CLICK LISTENERS
+        // ON CLICK LISTENERS
         onClickLisneners(view);
 
         return view;

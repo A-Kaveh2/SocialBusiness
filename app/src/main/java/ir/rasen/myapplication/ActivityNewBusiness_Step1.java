@@ -137,8 +137,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if (charSequence.toString().equals(oldText))
                     return;
-                TextProcessor textProcessor = new TextProcessor(context);
-                textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
+                TextProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription, ActivityNewBusiness_Step1.this);
             }
 
             @Override
@@ -150,7 +149,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     // SET PICTURE
     public void setPicture(View view) {
         final String[] items = getResources().getStringArray(R.array.camera_or_gallery);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, items);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle(R.string.choose_photo);

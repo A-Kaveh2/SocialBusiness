@@ -61,7 +61,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/btn_register_picture_set"
                 android:inputType="text"
-                android:drawableLeft="@drawable/ic_edittext_name" />
+                android:drawableLeft="@drawable/ic_edittext_username" />
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_register_name"

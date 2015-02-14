@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,6 +21,7 @@
         android:layout_width="@dimen/actionbar_height"
         android:layout_height="@dimen/actionbar_height"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/style_button_menu"
         android:src="@drawable/ic_menu_options"
         android:contentDescription="@null"/>
@@ -34,7 +34,8 @@
         android:background="@drawable/style_button_menu"
         android:src="@drawable/ic_menu_search"
         android:contentDescription="@null"
-        android:layout_toLeftOf="@+id/btn_profile_drawer"/>
+        android:layout_toLeftOf="@+id/btn_profile_drawer"
+        android:layout_toStartOf="@+id/btn_profile_drawer"/>
 
     <!-- BACK -->
     <ImageButton
@@ -42,6 +43,7 @@
         android:layout_width="@dimen/actionbar_height"
         android:layout_height="@dimen/actionbar_height"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:background="@drawable/style_button_menu"
         android:src="@drawable/ic_menu_back"
         android:onClick="back"
@@ -121,8 +123,9 @@
         android:id="@+id/ratingBar_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_above="@+id/ll_profile_options"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
         style="?android:attr/ratingBarStyleSmall"
         android:visibility="gone" />
 
@@ -155,7 +158,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_menu_user"/>
+                android:src="@drawable/ic_menu_user"
+                android:contentDescription="@null"/>
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/txt_profile_option1"
                 android:layout_width="match_parent"
@@ -182,7 +186,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_menu_reviews"/>
+                android:src="@drawable/ic_menu_reviews"
+                android:contentDescription="@null"/>
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/txt_profile_option2"
                 android:layout_width="match_parent"
@@ -209,7 +214,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_menu_businesses"/>
+                android:src="@drawable/ic_menu_businesses"
+                android:contentDescription="@null"/>
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/txt_profile_option3"
                 android:layout_width="match_parent"
@@ -234,7 +240,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_menu_grid"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"/>
         <ImageButton
             android:id="@+id/btn_profile_list"
             android:layout_width="0dp"
@@ -242,6 +249,16 @@
             android:layout_weight="1"
             android:src="@drawable/ic_menu_list"
             android:clickable="true"
-            android:background="@drawable/selected_tab"/>
+            android:background="@drawable/selected_tab"
+            android:contentDescription="@null"/>
     </LinearLayout>
+    <ImageView
+        android:id="@+id/img_profile_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_profile_tabs"
+        android:layout_marginTop="@dimen/activity_vertical_margin_2x"
+        android:src="@android:drawable/ic_lock_lock"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 </RelativeLayout>
