@@ -61,7 +61,6 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     private ProgressDialogCustom pd;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +86,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         spinnerSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0)
+                if (i == 0)
                     user.sex = Sex.MALE;
                 else
                     user.sex = Sex.FEMALE;
@@ -105,8 +104,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         try {
             new GetUserProfileInfo(LoginInfo.getUserId(getApplicationContext()), ActivityUserProfileEdit.this).execute();
             pd.show();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             String s = e.getMessage();
         }
     }
@@ -229,11 +227,11 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         final EditTextFont year = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_year);
         final EditTextFont month = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_month);
         final EditTextFont day = (EditTextFont) dialog.findViewById(R.id.edt_profile_edit_birthday_day);
-        if(user.birthDate.length()>0) {
+        if (user.birthDate.length() > 0) {
             try {
                 year.setText(user.birthDate.substring(0, user.birthDate.indexOf("/")));
-                month.setText(user.birthDate.substring(user.birthDate.indexOf("/")+1, user.birthDate.indexOf("/",user.birthDate.indexOf("/")+1)));
-                day.setText(user.birthDate.substring(user.birthDate.indexOf("/",user.birthDate.indexOf("/")+1)+1, user.birthDate.length()));
+                month.setText(user.birthDate.substring(user.birthDate.indexOf("/") + 1, user.birthDate.indexOf("/", user.birthDate.indexOf("/") + 1)));
+                day.setText(user.birthDate.substring(user.birthDate.indexOf("/", user.birthDate.indexOf("/") + 1) + 1, user.birthDate.length()));
             } catch (Exception e) {
 
             }
@@ -241,18 +239,18 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         dialog.findViewById(R.id.btn_profile_edit_birthday_change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                if(!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
+                try {
+                    if (!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
+                        Dialogs.showMessage(context, getString(R.string.invalid_birthday));
+                        return;
+                    }
+                } catch (Exception e) {
                     Dialogs.showMessage(context, getString(R.string.invalid_birthday));
                     return;
                 }
-            } catch(Exception e) {
-                Dialogs.showMessage(context, getString(R.string.invalid_birthday));
-                return;
-            }
-            user.birthDate = year.getText().toString()+"/"+month.getText().toString()+"/"+day.getText().toString();
-            txtBirthDate.setText(user.birthDate);
-            dialog.dismiss();
+                user.birthDate = year.getText().toString() + "/" + month.getText().toString() + "/" + day.getText().toString();
+                txtBirthDate.setText(user.birthDate);
+                dialog.dismiss();
             }
         });
         dialog.show();
@@ -277,8 +275,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         else
             user.profilePicture = "";
 
-        if(spinnerSex.getSelectedItemPosition()!= 0){
-            switch (spinnerSex.getSelectedItemPosition()){
+        if (spinnerSex.getSelectedItemPosition() != 0) {
+            switch (spinnerSex.getSelectedItemPosition()) {
                 case 1:
                     user.sex = Sex.MALE;
                     break;
@@ -289,8 +287,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
 
         try {
             new UpdateUserProfile(user, ActivityUserProfileEdit.this).execute();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             String s = e.getMessage();
         }
     }
@@ -347,24 +344,34 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                 //initialing profile info
                 user = (User) result;
                 edtName.setText(user.name);
-                if(user.sex==Sex.MALE) {
+                if (user.sex == Sex.MALE) {
                     spinnerSex.setSelection(1);
-                } else if(user.sex==Sex.FEMALE) {
+                } else if (user.sex == Sex.FEMALE) {
                     spinnerSex.setSelection(2);
                 } else {
                     spinnerSex.setSelection(0);
                 }
-                if(!user.aboutMe.equals("null"))edtAboutMe.setText(user.aboutMe);
-                if(user.profilePicture.length()>0) {
+                if (!user.aboutMe.equals("null")) edtAboutMe.setText(user.aboutMe);
+                if (user.profilePicture.length() > 0) {
                     byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
                     Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
                     imbProfilePicture.setImageBitmap(bitmapProfilePicture);
                 }
-                if(!user.birthDate.equals("null"))txtBirthDate.setText(user.birthDate);
+                if (!user.birthDate.equals("null")) txtBirthDate.setText(user.birthDate);
             } else if (result instanceof ResultStatus) {
                 // result from executing UpdateUserProfileInfo
-                Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
-                FragmentProfile.fragmentProfile.getAgain();
+                //Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+                //FragmentProfile.fragmentProfile.getAgain();
+
+                Intent i = getIntent();
+                if (filePath == null)
+                    i.putExtra(Params.USER_PROFILE_PICTURE, "null");
+                else
+                    i.putExtra(Params.USER_PROFILE_PICTURE, filePath);
+                i.putExtra(Params.USER_NAME, edtName.getText().toString());
+                i.putExtra(Params.ABOUT_ME, edtAboutMe.getText().toString());
+                setResult(RESULT_OK, i);
+                finish();
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

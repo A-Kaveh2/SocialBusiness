@@ -87,8 +87,8 @@ public class FragmentCallInfo extends Fragment {
             if (workDays[6])
                 workTimeText += "جمعه";
             workTimeText +=
-                    "\nزمان شروع به کار: " + two_char(((int) business.workTime.time_open / 60)) + ":" + two_char((business.workTime.time_open % 60))
-                            + "\nزمان پایان کار: " + two_char(((int) business.workTime.time_close / 60)) + ":" + two_char((business.workTime.time_close % 60));
+                    "\nزمان شروع به کار: " + two_char(((int) business.workTime.time_open_hour)) + ":" + two_char((business.workTime.time_open_minutes))
+                            + "\nزمان پایان کار: " + two_char(((int) business.workTime.time_close_hour)) + ":" + two_char((business.workTime.time_close_minutes));
         }
         ((TextViewFont) view.findViewById(R.id.txt_call_info_info)).setText(Html.fromHtml(
                 "<font color=#3F6F94>" +  getString(R.string.business_description)

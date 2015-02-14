@@ -62,7 +62,12 @@ public class DownloadImages {
         if (isImageInStorage(imageID, imageSize)) {
             Bitmap bitmap = BitmapFactory.decodeFile(storagePath + "/" + String.valueOf(imageID) + "_" + String.valueOf(imageSize) + ".jpg");
             images.put(imageID, bitmap);
-            imageView.setImageBitmap(bitmap);
+            try {
+                imageView.setImageBitmap(bitmap);
+            }
+            catch (Exception e){
+                String s =e.getMessage();
+            }
             return;
         }
 

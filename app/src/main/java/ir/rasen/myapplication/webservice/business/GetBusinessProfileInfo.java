@@ -55,8 +55,8 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
                 business.description = jsonObject.getString(Params.DESCRIPTION);
                 WorkTime workTime = new WorkTime();
                 workTime.setWorkDaysFromString(jsonObject.getString(Params.WORK_DAYS));
-                workTime.time_open = Integer.valueOf(jsonObject.getString(Params.WORK_TIME_OPEN));
-                workTime.time_close = Integer.valueOf(jsonObject.getString(Params.WORK_TIME_CLOSE));
+                workTime.setTimeWorkOpenFromString(jsonObject.getString(Params.WORK_TIME_OPEN));
+                workTime.setTimeWorkCloseFromString(jsonObject.getString(Params.WORK_TIME_CLOSE));
                 business.workTime = workTime;
                 business.phone = jsonObject.getString(Params.PHONE);
                 business.state = jsonObject.getString(Params.STATE);

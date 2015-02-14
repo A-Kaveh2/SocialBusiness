@@ -34,15 +34,19 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
 
     @Override
     protected Business doInBackground(Void... voids) {
+
+
         Business business = new Business();
         WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_HOME_INFO,new ArrayList<>(
                 Arrays.asList(String.valueOf(businessID),String.valueOf(userID))));
+
         try {
             serverAnswer = webserviceGET.execute();
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
                 business.id = businessID;
+                business.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
                 business.userID = jsonObject.getInt(Params.USER_ID);
                 business.name = jsonObject.getString(Params.BUSINESS_USER_NAME);
                 business.profilePictureId = jsonObject.getInt(Params.PROFILE_PICTURE_ID);
@@ -54,6 +58,7 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
                 business.followersNumber = jsonObject.getInt(Params.FOLLOWERS_NUMBER);
                 business.isFollowing = jsonObject.getBoolean(Params.IS_FOLLOWING);
                 business.rate = jsonObject.getInt(Params.RATE);
+
                 return business;
             }
         } catch (Exception e) {
@@ -64,11 +69,6 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
 
     @Override
     protected void onPostExecute(Business result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
-
         //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);

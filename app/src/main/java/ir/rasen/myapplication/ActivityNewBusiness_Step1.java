@@ -8,10 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ArrowKeyMovementMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -80,35 +83,32 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         // SET VALUES
         edtBusinessId = (EditTextFont) findViewById(R.id.edt_business_step1_id);
-        //TODO
-        //edtBusinessId.setCompoundDrawables(null,null,null,null);
         edtName = (EditTextFont) findViewById(R.id.edt_business_step1_name);
         spnCategory = (Spinner) findViewById(R.id.spinner_business_step1_category);
         spnSubcategory = (Spinner) findViewById(R.id.spinner_business_step1_subcategory);
         edtDescription = (EditTextFont) findViewById(R.id.edt_business_step1_description);
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
+
+        edtDescription.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return false;
+            }
+        });
         // SET ANIMATIONS
         setAnimations();
 
         if (PassingBusiness.getInstance().getValue() != null) {
             // editing mode!
             isEditing = true;
+            edtBusinessId.setEnabled(false);
+            edtBusinessId.setBackgroundColor(Color.LTGRAY);
+            edtName.requestFocus();
             ((TextViewFont) findViewById(R.id.txt_business_step1_title)).setText(R.string.profile_edit_business);
 
             Business business = PassingBusiness.getInstance().getValue();
 
-
-/*
-
-
-            edtBusinessId.setText(business.businessUserName);
-            edtName.setText(business.name);
-            edtDescription.setText(business.description);
-
-
-            //spnCategory and spnSubcategory will initiate after executing GetBusinessGategories and GetBusinessSubcategories
-*/
             pd.show();
             new GetBusinessProfileInfo(business.id, ActivityNewBusiness_Step1.this).execute();
 
@@ -185,10 +185,9 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
                 profilePictureFilePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(profilePictureFilePath);
-            }
-            else if(requestCode == Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS){
+            } else if (requestCode == Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS) {
                 Intent i = getIntent();
-                i.putExtra(Params.BUSINESS_ID, data.getIntExtra(Params.BUSINESS_ID,0));
+                i.putExtra(Params.BUSINESS_ID, data.getIntExtra(Params.BUSINESS_ID, 0));
                 i.putExtra(Params.BUSINESS_USER_NAME, data.getStringExtra(Params.BUSINESS_USER_NAME));
                 setResult(RESULT_OK, i);
                 finish();
@@ -213,10 +212,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     public void submit(View view) {
 
         // CHECK INPUT DATA
-        if (!edtBusinessId.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || edtBusinessId.getText().length() < Params.USER_USERNAME_MIN_LENGTH) {
-            edtBusinessId.requestFocus();
-            edtBusinessId.setErrorC(getString(R.string.enter_valid_username));
-            return;
+        if (!isEditing) {
+            if (!edtBusinessId.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || edtBusinessId.getText().length() < Params.USER_USERNAME_MIN_LENGTH) {
+                edtBusinessId.requestFocus();
+                edtBusinessId.setErrorC(getString(R.string.enter_valid_username));
+                return;
+            }
         }
         if (!edtName.getText().toString().matches(Params.USER_NAME_VALIDATION) || edtName.getText().length() < Params.USER_NAME_MIN_LENGTH) {
             edtName.requestFocus();
@@ -259,7 +260,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
 
-        startActivityForResult(intent,Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
+        startActivityForResult(intent, Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
         //startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
     }
@@ -335,11 +336,11 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                     ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, subcategoryList);
                     spnSubcategory.setAdapter(subcategoryAdapter);
                     if (isEditing) {
-                        if(existedBusiness != null)
-                        for (int i = 0; i < subcategoryList.size(); i++) {
-                            if (subcategoryList.get(i).equals(existedBusiness.subcategory))
-                                spnSubcategory.setSelection(i);
-                        }
+                        if (existedBusiness != null)
+                            for (int i = 0; i < subcategoryList.size(); i++) {
+                                if (subcategoryList.get(i).equals(existedBusiness.subcategory))
+                                    spnSubcategory.setSelection(i);
+                            }
                     }
                 }
             } else if (result instanceof Business) {
@@ -369,7 +370,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(getBaseContext(), errorMessage);
+            Dialogs.showMessage(context, errorMessage);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

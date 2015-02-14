@@ -11,28 +11,30 @@ import android.widget.EditText;
 import ir.rasen.myapplication.R;
 
 public class EditTextFont extends EditText {
-  public EditTextFont(Context context,AttributeSet attrs,int defStyle){
-    super(context,attrs,defStyle);
-    init();
-  }
-  public EditTextFont(Context context,AttributeSet attrs){
-    super(context,attrs);
-    init();
-  }
-  public EditTextFont(Context context){
-    super(context);
-    init();
-  }
-
-  private void init(){
-    if(!isInEditMode()){
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/font.ttf");
-        setTypeface(tf);
+    public EditTextFont(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
     }
-  }
+
+    public EditTextFont(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public EditTextFont(Context context) {
+        super(context);
+        init();
+    }
+
+    private void init() {
+        if (!isInEditMode()) {
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/font.ttf");
+            setTypeface(tf);
+        }
+    }
 
     public void setErrorC(String error) {
-        if(android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD) {
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD) {
             ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(android.R.color.black));
             SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
             ssbuilder.setSpan(fgcspan, 0, error.length(), 0);

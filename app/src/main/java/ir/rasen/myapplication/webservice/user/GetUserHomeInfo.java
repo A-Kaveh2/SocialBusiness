@@ -58,7 +58,6 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
                 user.followedBusinessesNumber = jsonObject.getInt(Params.FOLLOWED_BUSINESSES_NUMBER);
                 user.friendsNumber = jsonObject.getInt(Params.FRIENDS_NUMBER);
 
-
                 String per = jsonObject.getString(Params.PERMISSION);
                 JSONObject jsonObjectPermission = new JSONObject(per);
                 Permission permission = new Permission();

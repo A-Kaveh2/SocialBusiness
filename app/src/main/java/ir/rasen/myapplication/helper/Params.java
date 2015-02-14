@@ -172,5 +172,6 @@ public class Params {
 
     //Actions
     public static int ACTION_ADD_NEW_BUSIENSS_SUCCESS = 1001;
+    public static int ACTION_USER_EDIT_PROFILE = 1002;
 
 }

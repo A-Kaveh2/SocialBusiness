@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.GridViewHeader;
 import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ImageViewCover;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
@@ -83,7 +85,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     private ProgressDialogCustom pd;
     private DownloadImages downloadImages;
 
-    private boolean follow_friend_request_sent=false;
+    private boolean follow_friend_request_sent = false;
 
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
@@ -91,8 +93,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         editingText = text;
         editingDialog = dialog;
     }
-
-
 
 
     private enum RunningWebserviceType {getUserHomeInfo, getUserPosts, getBustinessPosts, getBusinessHomeInfo}
@@ -113,6 +113,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         return fragment;
     }
+
     public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, String username) {
         FragmentProfile fragment = new FragmentProfile();
 
@@ -139,7 +140,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         webserviceResponse = this;
         downloadImages = new DownloadImages(getActivity());
-        pd=new ProgressDialogCustom(getActivity());
+        pd = new ProgressDialogCustom(getActivity());
         downloadImages = new DownloadImages(getActivity());
         fragmentProfile = this;
 
@@ -147,9 +148,9 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (bundle != null) {
             profileType = bundle.getInt(Params.PROFILE_TYPE);
             profileOwn = bundle.getBoolean(Params.PROFILE_OWN);
-            if(bundle.containsKey(Params.ID))
+            if (bundle.containsKey(Params.ID))
                 profileId = bundle.getInt(Params.ID);
-            else if(bundle.containsKey(Params.NAME))
+            else if (bundle.containsKey(Params.NAME))
                 profileUsername = bundle.getString(Params.NAME);
         } else {
             Log.e(TAG, "bundle is null!!");
@@ -159,14 +160,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
         pd.show();
 
-        if (profileType==Params.ProfileType.PROFILE_USER) {
+        if (profileType == Params.ProfileType.PROFILE_USER) {
             //get user home info
 
             //TODO remove test part
             //get user home info by sending user_id
-            if(profileId!=0) {
+            if (profileId != 0) {
 
-                new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
+                new GetUserHomeInfo(profileId, LoginInfo.getUserId(cont), webserviceResponse).execute();
                 runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
             } else {
                 // TODO :: GET with username
@@ -175,15 +176,14 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             //get business home info
 
             // TODO ::
-            if(profileId!=0) {
-                new GetBusinessHomeInfo(profileId,LoginInfo.getUserId(cont), FragmentProfile.this).execute();
+            if (profileId != 0) {
+                new GetBusinessHomeInfo(profileId, LoginInfo.getUserId(cont), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBusinessHomeInfo;
             } else {
                 // TODO :: GET with username
             }
 
         }
-
 
 
     }
@@ -293,7 +293,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
         // BUSINESS
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            header.findViewById(R.id.txt_profile_status).setVisibility(View.GONE);
+            //header.findViewById(R.id.txt_profile_status).setVisibility(View.GONE);
             header.findViewById(R.id.ratingBar_profile).setVisibility(View.VISIBLE);
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_call);
             // CALL INFO
@@ -348,7 +348,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityUserProfileEdit.class);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, Params.ACTION_USER_EDIT_PROFILE);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
         });
@@ -395,7 +396,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 profile_user = new User();
                 profile_business = new Business();
                 posts = new ArrayList<>();
-                new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
+                new GetUserHomeInfo(profileId, LoginInfo.getUserId(cont), webserviceResponse).execute();
                 runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
                 swipeView.setRefreshing(true);
             }
@@ -425,7 +426,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore && posts.size()>0) {
+                    if (!swipeView.isRefreshing() && !isLoadingMore && posts.size() > 0) {
                         loadMoreData();
                     }
                 }
@@ -435,11 +436,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
-        if (profileType==Params.ProfileType.PROFILE_USER) {
-            new GetSharedPosts(LoginInfo.getUserId(cont), posts.get(posts.size()-1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+        if (profileType == Params.ProfileType.PROFILE_USER) {
+            new GetSharedPosts(LoginInfo.getUserId(cont), posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getUserPosts;
         } else {
-            new GetBusinessPosts(LoginInfo.getUserId(cont),profileId, posts.get(posts.size()-1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getBustinessPosts;
         }
         isLoadingMore = true;
@@ -457,8 +458,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             if (result instanceof ResultStatus) {
                 //delete post,follow business
-                if(follow_friend_request_sent) {
-                    if(profileType==Params.ProfileType.PROFILE_USER) {
+                if (follow_friend_request_sent) {
+                    if (profileType == Params.ProfileType.PROFILE_USER) {
                         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
                             ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
                             header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
@@ -477,11 +478,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 assignNow();
 
-                if (profileType==Params.ProfileType.PROFILE_USER) {
+                if (profileType == Params.ProfileType.PROFILE_USER) {
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
-                    new GetBusinessPosts(LoginInfo.getUserId(cont),profileId, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                    new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getBustinessPosts;
                 }
 
@@ -505,21 +506,21 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 }
                 listAdapter.notifyDataSetChanged();
                 gridAdapter.notifyDataSetChanged();
-                isLoadingMore=false;
+                isLoadingMore = false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
 
             } else if (result instanceof Business) {
                 //business home info
 
-                profile_business = (Business)result;
+                profile_business = (Business) result;
 
 
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
 
                 assignNow();
 
-                new GetBusinessPosts(LoginInfo.getUserId(cont),profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                new GetBusinessPosts(LoginInfo.getUserId(cont), profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBustinessPosts;
 
             }
@@ -536,19 +537,24 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
             pd.dismiss();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     private void assignNow() {
         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-            if(profile_business.profilePictureId != 0) {
+            if (profile_business.profilePictureId != 0) {
                 downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
-                downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+                //throws exception: calss cast exception : imageViewCircle to imageViewCover
+                //1downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+                downloadImages.download(profile_business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCover) header.findViewById(R.id.img_profile_cover));
+
+
             }
 
             ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_business.businessUserName);
+            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_business.description);
             ((RatingBar) header.findViewById(R.id.ratingBar_profile)).setRating(profile_business.rate);
             ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_business.followersNumber + " " + getString(R.string.followers_num));
             ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_business.reviewsNumber + " " + getString(R.string.review));
@@ -557,7 +563,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn) {
                 myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
-                if(profile_business.isFollowing) {
+                if (profile_business.isFollowing) {
                     ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
                     header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
                 } else {
@@ -572,41 +578,39 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 }
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
+            assignUserProfileInfo(profile_user);
+        }
+    }
 
-            if(profile_user.profilePictureId != 0) {
-                downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
-                downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
-            }
-/*
-            if(profile_user.profilePicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.getBitmapFromString(profile_user.profilePicture));
-            if(profile_user.coverPicture.length()>0)
-                ((ImageViewCircle) header.findViewById(R.id.img_profile_cover)).setImageBitmap(Image_M.getBitmapFromString(profile_user.coverPicture));*/
-            ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber + " " + getString(R.string.review));
-            ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber + " " + getString(R.string.business));
-            // MY OWN USER'S PROFILE
-            if (profileOwn == true) {
-                myOwnProfile();
-            } else { // SOMEONE'S PROFILE
-                if (profile_user.friendshipRelationStatus == FriendshipRelation.Status.NOT_FRIEND) {
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
-                    // FRIEND REQUEST
-                    header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sendFriendRequest();
-                        }
-                    });
-                } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND) {
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
-                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
-                } else if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.REQUEST_SENT) {
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
-                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
-                }
+    public void assignUserProfileInfo(User user) {
+        if (user.profilePictureId != 0) {
+            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+        }
+        ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(user.name);
+        ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(user.aboutMe);
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(user.friendsNumber + " " + getString(R.string.friend));
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(user.reviewsNumber + " " + getString(R.string.review));
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(user.followedBusinessesNumber + " " + getString(R.string.business));
+        // MY OWN USER'S PROFILE
+        if (profileOwn == true) {
+            myOwnProfile();
+        } else { // SOMEONE'S PROFILE
+            if (user.friendshipRelationStatus == FriendshipRelation.Status.NOT_FRIEND) {
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+                // FRIEND REQUEST
+                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendFriendRequest();
+                    }
+                });
+            } else if (user.friendshipRelationStatus == FriendshipRelation.Status.FRIEND) {
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
+                header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
+            } else if (user.friendshipRelationStatus == FriendshipRelation.Status.REQUEST_SENT) {
+                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
+                header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
             }
         }
     }
@@ -615,8 +619,26 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         profile_user = new User();
         profile_business = new Business();
         posts = new ArrayList<>();
-        new GetUserHomeInfo(profileId,LoginInfo.getUserId(cont), webserviceResponse).execute();
+        new GetUserHomeInfo(profileId, LoginInfo.getUserId(cont), webserviceResponse).execute();
         runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
         swipeView.setRefreshing(true);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Params.ACTION_USER_EDIT_PROFILE) {
+                String profilePictureFilePath = data.getStringExtra(Params.USER_PROFILE_PICTURE);
+                String userName = data.getStringExtra(Params.USER_NAME);
+                String aboutMe = data.getStringExtra(Params.ABOUT_ME);
+
+                if (!profilePictureFilePath.equals("null"))
+                    ((ImageViewCircle) header.findViewById(R.id.img_profile_pic)).setImageBitmap(Image_M.readBitmapFromStorate(profilePictureFilePath));
+                ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(userName);
+                //TODO assign aboutMe
+            }
+        }
     }
 }

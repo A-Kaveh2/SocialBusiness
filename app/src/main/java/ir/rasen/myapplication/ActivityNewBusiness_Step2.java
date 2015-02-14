@@ -145,6 +145,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         putDataInPassingBusiness();
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+        pd.dismiss();
     }
 
     public void back(View v) {
@@ -183,8 +184,8 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             if (workDays[6])
                 workTimeText += "جمعه";
             workTimeText +=
-                    "\nزمان شروع به کار: " + two_char((workTime.time_open / 60)) + ":" + two_char((workTime.time_open % 60))
-                            + "\nزمان پایان کار: " + two_char((workTime.time_close / 60)) + ":" + two_char((workTime.time_close % 60));
+                    "\nزمان شروع به کار: " + two_char((workTime.time_open_hour)) + ":" + two_char((workTime.time_open_minutes))
+                            + "\nزمان پایان کار: " + two_char((workTime.time_close_hour)) + ":" + two_char((workTime.time_close_minutes));
             ((ButtonFont) findViewById(R.id.edt_business_step2_workingTime)).setText(workTimeText);
         }
         if (locationM != null) {
@@ -246,6 +247,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
     @Override
     public void getResult(Object result) {
         try {
+            pd.dismiss();
 
             //registerBusiness' result
             if (result instanceof Integer) {
@@ -280,4 +282,6 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
+
+
 }

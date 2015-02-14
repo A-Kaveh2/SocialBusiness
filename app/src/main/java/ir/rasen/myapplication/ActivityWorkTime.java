@@ -25,7 +25,7 @@ public class ActivityWorkTime extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_work_time);
 
-        if(PassingWorkTime.getInstance().getValue()!=null) {
+        if (PassingWorkTime.getInstance().getValue() != null) {
             WorkTime workTime = PassingWorkTime.getInstance().getValue();
             ((CheckBox) findViewById(R.id.check1)).setChecked(workTime.getWorkDays()[0]);
             ((CheckBox) findViewById(R.id.check2)).setChecked(workTime.getWorkDays()[1]);
@@ -34,10 +34,10 @@ public class ActivityWorkTime extends Activity {
             ((CheckBox) findViewById(R.id.check5)).setChecked(workTime.getWorkDays()[4]);
             ((CheckBox) findViewById(R.id.check6)).setChecked(workTime.getWorkDays()[5]);
             ((CheckBox) findViewById(R.id.check7)).setChecked(workTime.getWorkDays()[6]);
-            ((TimePicker) findViewById(R.id.timePicker_working_time_start)).setCurrentHour(workTime.getTime_open()/60);
-            ((TimePicker) findViewById(R.id.timePicker_working_time_start)).setCurrentMinute(workTime.getTime_open()%60);
-            ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).setCurrentHour(workTime.getTime_close() / 60);
-            ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).setCurrentMinute(workTime.getTime_close() % 60);
+            ((TimePicker) findViewById(R.id.timePicker_working_time_start)).setCurrentHour(workTime.time_open_hour);
+            ((TimePicker) findViewById(R.id.timePicker_working_time_start)).setCurrentMinute(workTime.time_open_minutes);
+            ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).setCurrentHour(workTime.time_close_hour);
+            ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).setCurrentMinute(workTime.time_close_minutes);
         }
     }
 
@@ -62,25 +62,28 @@ public class ActivityWorkTime extends Activity {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-        workTime.time_open =
-                ((TimePicker) findViewById(R.id.timePicker_working_time_start)).getCurrentHour()*60
-                + ((TimePicker) findViewById(R.id.timePicker_working_time_start)).getCurrentMinute();
-        workTime.time_close =
-                ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).getCurrentHour()*60
-                        + ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).getCurrentMinute();
+        workTime.time_open_hour =
+                ((TimePicker) findViewById(R.id.timePicker_working_time_start)).getCurrentHour();
+        workTime.time_open_minutes = ((TimePicker) findViewById(R.id.timePicker_working_time_start)).getCurrentMinute();
+
+        workTime.time_close_hour =
+                ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).getCurrentHour();
+        workTime.time_close_minutes = ((TimePicker) findViewById(R.id.timePicker_working_time_stop)).getCurrentMinute();
+
         PassingWorkTime.getInstance().setValue(workTime);
         Intent i = new Intent();
-        setResult(Params.INTENT_OK , i);
+        setResult(Params.INTENT_OK, i);
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
 
     public void onBackPressed() {
         Intent i = new Intent();
-        setResult(Params.INTENT_ERROR , i);
+        setResult(Params.INTENT_ERROR, i);
         finish();
         overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
     }
+
     public void back(View v) {
         onBackPressed();
     }
@@ -88,7 +91,7 @@ public class ActivityWorkTime extends Activity {
     // week day clicked
     public void weekDayClicked(View v) {
         CheckBox check = (CheckBox) (((RelativeLayout) v).getChildAt(0));
-        if(check.isChecked())
+        if (check.isChecked())
             check.setChecked(false);
         else
             check.setChecked(true);

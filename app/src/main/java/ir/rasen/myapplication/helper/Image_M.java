@@ -88,5 +88,9 @@ public class Image_M {
         }
     }
 
+    public static Bitmap readBitmapFromStorate(String filePath){
+        return BitmapFactory.decodeFile(filePath);
+    }
+
 
 }

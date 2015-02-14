@@ -129,6 +129,7 @@
             android:layout_gravity="center_horizontal"
             android:textColor="@color/text_details"
             android:textSize="@dimen/text_size_normal"/>
+
         <RatingBar
             android:id="@+id/ratingBar_profile"
             android:layout_width="wrap_content"
