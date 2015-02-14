@@ -107,8 +107,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 if(charSequence.toString().equals(oldText))
                     return;
-                TextProcessor textProcessor = new TextProcessor(context);
-                textProcessor.processEdtHashtags(description.getText().toString(), description);
+                TextProcessor.processEdtHashtags(description.getText().toString(), description, ActivityNewPost_Step2.this);
             }
             @Override
             public void afterTextChanged(Editable editable) {

@@ -89,13 +89,6 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         edtDescription = (EditTextFont) findViewById(R.id.edt_business_step1_description);
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
-
-        edtDescription.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-            }
-        });
         // SET ANIMATIONS
         setAnimations();
 
@@ -140,10 +133,13 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if (charSequence.toString().equals(oldText))
+                if (oldText==null || charSequence.toString().equals(oldText))
                     return;
-                TextProcessor textProcessor = new TextProcessor(context);
-                textProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription);
+                try {
+                    TextProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription, ActivityNewBusiness_Step1.this);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
             }
 
             @Override

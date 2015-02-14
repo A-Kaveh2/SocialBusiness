@@ -47,26 +47,13 @@
         android:onClick="back"
         android:contentDescription="@null"/>
 
-    <LinearLayout
-        android:id="@+id/ll_profile_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/img_profile_cover"
-        android:layout_alignBottom="@+id/img_profile_cover"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:weightSum="100">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="5"/>
-
         <!-- PROFILE PICTURE -->
         <RelativeLayout
+            android:id="@+id/rl_profile_pic"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="47">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/txt_profile_name"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -110,137 +97,135 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/txt_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="12"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/text_size_largest"
-            android:textColor="@android:color/white"/>
+    <ir.rasen.myapplication.ui.TextViewFont
+        android:id="@+id/txt_profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/txt_profile_status"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_size_largest"
+        android:textColor="@android:color/white"/>
 
-        <ir.rasen.myapplication.ui.TextViewFont
-            android:id="@+id/txt_profile_status"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="11"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/text_details"
-            android:textSize="@dimen/text_size_normal"/>
+    <ir.rasen.myapplication.ui.TextViewFont
+        android:id="@+id/txt_profile_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/ll_profile_options"
+        android:textColor="@color/text_details"
+        android:textSize="@dimen/text_size_normal"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="11"
-            android:layout_gravity="center_horizontal"
-            style="?android:attr/ratingBarStyleSmall"
-            android:visibility="gone" />
+    <RatingBar
+        android:id="@+id/ratingBar_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/ll_profile_options"
+        style="?android:attr/ratingBarStyleSmall"
+        android:visibility="gone" />
 
+    <LinearLayout
+        android:id="@+id/ll_profile_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:weightSum="3"
+        android:layout_alignBottom="@+id/img_profile_cover"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <!-- OPTION 1 -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="25"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:weightSum="3"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <!-- OPTION 1 -->
-            <LinearLayout
-                android:id="@+id/ll_profile_option1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:weightSum="5"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:background="@drawable/style_button_transparent"
-                android:clickable="true">
-                <ImageView
-                    android:id="@+id/img_profile_option1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_menu_user"/>
-                <ir.rasen.myapplication.ui.TextViewFont
-                    android:id="@+id/txt_profile_option1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_profile_option2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:weightSum="5"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:background="@drawable/style_button_transparent"
-                android:clickable="true">
-                <ImageView
-                    android:id="@+id/img_profile_option2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_menu_reviews"/>
-                <ir.rasen.myapplication.ui.TextViewFont
-                    android:id="@+id/txt_profile_option2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_profile_option3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:weightSum="5"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:background="@drawable/style_button_transparent"
-                android:clickable="true">
-                <ImageView
-                    android:id="@+id/img_profile_option3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_menu_businesses"/>
-                <ir.rasen.myapplication.ui.TextViewFont
-                    android:id="@+id/txt_profile_option3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
+            android:id="@+id/ll_profile_option1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="5"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:background="@drawable/style_button_transparent"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/img_profile_option1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_user"/>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_profile_option1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/ll_profile_option2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:background="@drawable/style_button_transparent"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/img_profile_option2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_reviews"/>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_profile_option2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_profile_option3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:background="@drawable/style_button_transparent"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/img_profile_option3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_businesses"/>
+            <ir.rasen.myapplication.ui.TextViewFont
+                android:id="@+id/txt_profile_option3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/ll_profile_tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
         android:orientation="horizontal"
-        android:layout_below="@+id/ll_profile_header"
+        android:layout_below="@+id/img_profile_cover"
         android:weightSum="2"
         android:background="@color/text_details">
         <ImageButton
