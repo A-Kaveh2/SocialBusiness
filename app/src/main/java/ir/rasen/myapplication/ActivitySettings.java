@@ -2,6 +2,7 @@ package ir.rasen.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         cbFriends.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_FRIENDS, false));
         cbReviews.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_REVIEWS, false));
         cbBusinesses.setChecked(getIntent().getBooleanExtra(Params.PERMISSION_FOLLOWED_BUSINESSES, false));
+
     }
 
     // SWITCH FRIENDS
