@@ -159,9 +159,8 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         pd.dismiss();
         try {
             if (result instanceof ArrayList) {
-                users = new ArrayList<User>();
-                ArrayList<SearchItemUserBusiness> searchResult = new ArrayList<SearchItemUserBusiness>();
-                searchResult = (ArrayList<SearchItemUserBusiness>) result;
+                users = new ArrayList<>();
+                ArrayList<SearchItemUserBusiness> searchResult = (ArrayList<SearchItemUserBusiness>) result;
                 User user = null;
                 for (SearchItemUserBusiness item : searchResult) {
                     user = new User();

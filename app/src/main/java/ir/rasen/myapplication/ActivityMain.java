@@ -251,7 +251,7 @@ public class ActivityMain extends FragmentActivity {
             overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
     }
-
+/*
     public void reloadFragmentData(int profileId) {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem() + "." + fragCount[pager.getCurrentItem()]);
         if(fragment instanceof FragmentProfile) {
@@ -260,7 +260,7 @@ public class ActivityMain extends FragmentActivity {
             ((FragmentHome) fragment).startLoad();
         }
     }
-
+*/
     public void lockDrawers() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
     }

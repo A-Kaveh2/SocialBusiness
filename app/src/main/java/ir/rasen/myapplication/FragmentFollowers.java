@@ -119,9 +119,9 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
 
     void setUpListView() {
         // manage blockeds header::
-        listHeaderView = (View) getActivity().getLayoutInflater().inflate(R.layout.layout_followers_blockeds, null);
-        list.addHeaderView(listHeaderView);
         if(businessOwner) {
+            listHeaderView = getActivity().getLayoutInflater().inflate(R.layout.layout_followers_blockeds, null);
+            list.addHeaderView(listHeaderView);
             listHeaderView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,8 +130,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 }
             });
             listHeaderView.setVisibility(View.VISIBLE);
-        } else
-            listHeaderView.setVisibility(View.GONE);
+        }
         // SwipeRefreshLayout
         swipeView.setColorScheme(R.color.button_on_dark, R.color.red, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

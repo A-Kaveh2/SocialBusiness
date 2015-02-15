@@ -180,7 +180,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
             ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
             ArrayList<User> temp = blockeds;
             blockeds = new ArrayList<>();
-            User user = null;
+            User user;
             for(SearchItemUserBusiness item:businessesFollowers){
                 user = new User();
                 user.userName = item.username;

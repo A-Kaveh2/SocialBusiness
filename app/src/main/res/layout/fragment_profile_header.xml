@@ -147,8 +147,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:weightSum="5"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical"
             android:background="@drawable/style_button_transparent"
             android:clickable="true">
@@ -157,6 +155,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_menu_user"
                 android:contentDescription="@null"/>
@@ -175,8 +175,6 @@
             android:layout_height="match_parent"
             android:weightSum="5"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical"
             android:background="@drawable/style_button_transparent"
             android:clickable="true">
@@ -185,6 +183,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_menu_reviews"
                 android:contentDescription="@null"/>
@@ -203,8 +203,6 @@
             android:layout_height="match_parent"
             android:weightSum="5"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical"
             android:background="@drawable/style_button_transparent"
             android:clickable="true">
@@ -213,6 +211,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_menu_businesses"
                 android:contentDescription="@null"/>
