@@ -178,16 +178,22 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             //result of executing AddPost
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
 
-            ActivityMain.activityMain.onBackPressed();
-            InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
-            innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
-            ActivityNewPost_Step1.step1.finish();
-            finish();
+            finished();
         }
         else if(result instanceof ResultStatus){
             //result of executing UpdatePost
             Image_M.deletePictureById(context,PassingPosts.getInstance().getValue().get(0).pictureId);
+
+            finished();
         }
+    }
+
+    private void finished() {
+        ActivityMain.activityMain.onBackPressed();
+        InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
+        innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
+        ActivityNewPost_Step1.step1.finish();
+        finish();
     }
 
     @Override

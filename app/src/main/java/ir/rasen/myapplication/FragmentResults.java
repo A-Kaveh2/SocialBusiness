@@ -146,7 +146,7 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     swipeView.setRefreshing(false);
                     return;
                 }
-                searchResultUserBusiness = new ArrayList<SearchItemUserBusiness>();
+                searchResultUserBusiness = new ArrayList<>();
                 loadMoreData();
                 swipeView.setRefreshing(true);
             }
@@ -196,7 +196,6 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
 
                     searchResultPost.addAll(searchResultPostTemp);
 
-                    //TODO check the code. FORCE CLOSE
                     mAdapter = new PostsGridAdapterResult(getActivity(), searchResultPost);
                     list.setAdapter(mAdapter);
                     isLoadingMore=false;
@@ -204,7 +203,6 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     listFooterView.setVisibility(View.GONE);
 
                 } else {
-                    searchResultUserBusinessTemp = new ArrayList<SearchItemUserBusiness>();
                     searchResultUserBusinessTemp = (ArrayList<SearchItemUserBusiness>) result;
 
                     searchResultUserBusiness.addAll(searchResultUserBusinessTemp);
