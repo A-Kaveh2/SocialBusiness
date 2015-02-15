@@ -34,6 +34,7 @@ import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 
@@ -41,6 +42,7 @@ public class ActivityNewPost_Step1 extends Activity  {
     private String TAG = "ActivityNewPost_Step1";
 
     private boolean isEditing = false, picChoosed = false;
+    private DownloadImages downloadImages;
 
     public static ActivityNewPost_Step1 step1;
 
@@ -52,15 +54,17 @@ public class ActivityNewPost_Step1 extends Activity  {
         setContentView(R.layout.activity_post_step_1);
 
         step1 = this;
+        downloadImages = new DownloadImages(this);
 
         // SET ANIMATIONS
         setAnimations();
 
         if (PassingPosts.getInstance().getValue() != null) {
             // TODO EDIT THIS POST
-            if(PassingPosts.getInstance().getValue().get(0).picture!=null)
-                ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
-                    .setImageBitmap(Image_M.getBitmapFromString(PassingPosts.getInstance().getValue().get(0).picture));
+            if(PassingPosts.getInstance().getValue().get(0).pictureId !=0)
+                downloadImages.download(PassingPosts.getInstance().getValue().get(0).pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE),(ImageViewSquare) findViewById(R.id.btn_post_picture_set));
+                /*((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
+                    .setImageBitmap(Image_M.getBitmapFromString(PassingPosts.getInstance().getValue().get(0).picture));*/
             isEditing = true;
         } else {
             ArrayList<Post> post = new ArrayList<>();

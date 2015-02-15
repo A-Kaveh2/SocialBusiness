@@ -1,5 +1,6 @@
 package ir.rasen.myapplication.classes;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.helper.Hashtag;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 
 /**
@@ -181,6 +183,13 @@ public class Post {
     public static int getReviewRate(String jsonObjectString) throws Exception {
         JSONObject jsonObject = new JSONObject(jsonObjectString);
         return jsonObject.getInt(Params.RATE);
+    }
+
+    public boolean isMine(Context context) {
+        int ownerId = LoginInfo.getUserId(context);
+        if (ownerId == this.userId)
+            return true;
+        return false;
     }
 
 }

@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/text_size_normal"
             android:gravity="center"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <!-- HELP OPTION -->
@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/text_size_normal"
             android:gravity="center"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>
