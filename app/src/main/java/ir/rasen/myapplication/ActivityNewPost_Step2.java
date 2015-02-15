@@ -60,8 +60,11 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     private String img;
     private boolean isEditing = false;
     private String businessId;
+    String filePath;
+    private ImageView imgPost;
 
     private ProgressDialogCustom pd;
+    private DownloadImages downloadImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +74,13 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         setContentView(R.layout.activity_post_step_2);
         context = this;
         pd = new ProgressDialogCustom(context);
-
+        downloadImages = new DownloadImages(this);
         // SET VALUES
         name = ((EditTextFont) findViewById(R.id.edt_post_name));
         description = ((EditTextFont) findViewById(R.id.edt_post_text));
         price = ((EditTextFont) findViewById(R.id.edt_post_price));
         code = ((EditTextFont) findViewById(R.id.edt_post_code));
-
+        imgPost = (ImageView)findViewById(R.id.img_new_post_step2_post);
         // SET ANIMATIONS
         setAnimations();
 
@@ -86,17 +89,26 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             isEditing = true;
         }
 
+        filePath = getIntent().getStringExtra(Params.FILE_PATH);
+
         Post post = PassingPosts.getInstance().getValue().get(0);
         // TODO :: SET PICTURE
         //if (!post.picture.equals(post.picture))
         //    downloadImages.
+
+        if(!filePath.equals("null"))
+            //user choose new picture in step 1
+            imgPost.setImageBitmap(Image_M.readBitmapFromStorate(filePath));
+        else if(post.pictureId != 0)
+            downloadImages.download(post.pictureId,Image_M.getImageSize(Image_M.ImageSize.LARGE),imgPost);
+
+
         name.setText(post.title);
         description.setText(post.description);
         price.setText(post.price);
         code.setText(post.code);
 
-        Dialogs dialogs = new Dialogs();
-        dialogs.showPostDeletePopup(this, 1, 1, this);
+
 
 
         description.addTextChangedListener(new TextWatcher() {
@@ -118,57 +130,10 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     }
 
-    // SET PICTURE
-    public void setPicture(View view) {
-        final String[] items = getResources().getStringArray(R.array.camera_or_gallery);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle(R.string.choose_photo);
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) { //pick from camera
-                if (item == 0) {
-                    Intent myIntent = new Intent(getApplicationContext(), ActivityCamera.class);
-                    startActivityForResult(myIntent, ActivityCamera.CAPTURE_PHOTO);
-                } else { //pick from file
-                    Intent myIntent = new Intent(getApplicationContext(), ActivityGallery.class);
-                    startActivityForResult(myIntent, ActivityGallery.CAPTURE_GALLERY);
-                }
-            }
-        });
 
-        Dialog d = builder.show();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
-                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
-                displayCropedImage(filePath);
-            } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
-                String filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
-                displayCropedImage(filePath);
-            }
-        }
-
-    }
-
-    private void displayCropedImage(String filePath) {
-        File file = new File(filePath);
-        if (file.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            try {
-                ((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
-                        .setImageBitmap(myBitmap);
-                PassingPosts.getInstance().getValue().get(0).picture = Image_M.getBase64String(filePath);
-            } catch (Exception e) {
-                String s = e.getMessage();
-            }
-        }
-    }
 
     // SUBMIT TOUCHED
     public void submit(View view) {
@@ -233,7 +198,10 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     public void getResult(Object result) {
         pd.dismiss();
         if (result instanceof Post) {
+            //result of executing AddPost
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+
+
 
             //TODO force close here
             ActivityMain.activityMain.onBackPressed();
@@ -241,6 +209,10 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
             ActivityNewPost_Step1.step1.finish();
             finish();
+        }
+        else if(result instanceof ResultStatus){
+            //result of executing UpdatePost
+            Image_M.deletePictureById(context,PassingPosts.getInstance().getValue().get(0).pictureId);
         }
     }
 
@@ -267,6 +239,9 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             post.code = code.getText().toString();
             post.description = description.getText().toString();
             post.hashtagList = TextProcessor.getHashtags(post.description);
+
+            if(!filePath.equals("null"))
+                post.picture = Image_M.getBase64String(filePath);
 
         } else {
             Calendar calander = Calendar.getInstance();

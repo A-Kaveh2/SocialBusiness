@@ -168,6 +168,7 @@ public class Params {
     public static String PROFILE_PICTURE_ID = "ProfilePictureId";
     public static String DISTANCE = "Distance";
     public static String TYPE = "PostTypeId";
+    public static String FILE_PATH = "FilePath";
 
 
     //Actions

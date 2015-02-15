@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -88,8 +89,25 @@ public class Image_M {
         }
     }
 
-    public static Bitmap readBitmapFromStorate(String filePath){
+    public static Bitmap readBitmapFromStorate(String filePath) {
         return BitmapFactory.decodeFile(filePath);
+    }
+
+    public static void deletePictureById(Context context, int id) {
+        String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                context.getResources().getString(R.string.download_storage_path);
+
+        File file = new File(storagePath + "/" + String.valueOf(id) + "_" + String.valueOf(1) + ".jpg");
+        if (file.exists())
+            file.delete();
+        file = new File(storagePath + "/" + String.valueOf(id) + "_" + String.valueOf(2) + ".jpg");
+        if (file.exists())
+            file.delete();
+
+        file = new File(storagePath + "/" + String.valueOf(id) + "_" + String.valueOf(3) + ".jpg");
+        if (file.exists())
+            file.delete();
+
     }
 
 
