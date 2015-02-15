@@ -278,7 +278,7 @@ public class TextProcessor {
                 }
             }
 
-            editTextFont.setMovementMethod(LinkMovementMethod.getInstance());
+            //editTextFont.setMovementMethod(LinkMovementMethod.getInstance());
             editTextFont.setText(wordtoSpan);
             editTextFont.setSelection(selection);
         }catch(Exception e) {
@@ -374,7 +374,7 @@ public class TextProcessor {
             }
         }
 
-        editTextFont.setMovementMethod(LinkMovementMethod.getInstance());
+        //editTextFont.setMovementMethod(LinkMovementMethod.getInstance());
         editTextFont.setText(wordtoSpan);
         editTextFont.setSelection(selection);
 

@@ -142,6 +142,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        startLoad();
+
+    }
+
+    public void startLoad() {
         webserviceResponse = this;
         downloadImages = new DownloadImages(getActivity());
         pd = new ProgressDialogCustom(getActivity());
@@ -188,8 +193,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             }
 
         }
-
-
     }
 
     @Override

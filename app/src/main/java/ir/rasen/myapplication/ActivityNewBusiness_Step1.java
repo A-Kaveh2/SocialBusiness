@@ -126,18 +126,15 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         });
 
         edtDescription.addTextChangedListener(new TextWatcher() {
-            String oldText;
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                oldText = charSequence.toString();
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if (charSequence.toString().equals(oldText))
-                    return;
+                edtDescription.removeTextChangedListener(this);
                 TextProcessor.processEdtHashtags(edtDescription.getText().toString(), edtDescription, ActivityNewBusiness_Step1.this);
+                edtDescription.addTextChangedListener(this);
             }
 
             @Override
