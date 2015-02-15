@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -24,11 +25,8 @@ import ir.rasen.myapplication.alarm.Alarm_M;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.LoginInfo;
-import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.Permission;
-import ir.rasen.myapplication.helper.Results;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
 
 /**
@@ -54,7 +52,7 @@ public class ActivityMain extends FragmentActivity {
 
     boolean drawerIsShowing = false;
 
-    private ArrayList<Business> businesses = new ArrayList<Business>();
+    private ArrayList<Business> businesses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,7 @@ public class ActivityMain extends FragmentActivity {
         activityMain = this;
 
         //set alarm manager to run GetLastCommentNotification periodically
-        Alarm_M alarm_m = new Alarm_M();
+        //Alarm_M alarm_m = new Alarm_M();
         //TODO uncomment
         //alarm_m.set(this);
 
@@ -116,29 +114,25 @@ public class ActivityMain extends FragmentActivity {
         lockDrawers();
         pager.setCurrentItem(0);
 
-        // TODO: Change Adapter to display user's business list
-        businesses = new ArrayList<Business>();
+        businesses = new ArrayList<>();
         mAdapter = new UsersBusinessesAdapter(ActivityMain.this, businesses);
-        ((AdapterView<ListAdapter>) findViewById(R.id.list_drawer)).setAdapter(mAdapter);
+        ((ListView) findViewById(R.id.list_drawer)).setAdapter(mAdapter);
 
     }
 
     public void home(View v) {
-        // TODO: GOTO HOME FRAGMENT
         if (pager.getCurrentItem() != 0)
             pager.setCurrentItem(0);
         else toRoot();
     }
 
     public void search(View v) {
-        // TODO: GOTO SEARCH FRAGMENT
         if (pager.getCurrentItem() != 1)
             pager.setCurrentItem(1);
         else toRoot();
     }
 
     public void profile(View v) {
-        // TODO: GOTO PROFILE FRAGMENT
         if (pager.getCurrentItem() != 2)
             pager.setCurrentItem(2);
         else toRoot();
@@ -249,7 +243,7 @@ public class ActivityMain extends FragmentActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.anim.to_0_from_left, R.anim.to_right);
             ft.remove(fragment);
-            ft.commit();
+            ft.commitAllowingStateLoss();
             fragCount[pager.getCurrentItem()]--;
             checkDrawerLock();
         } else {
