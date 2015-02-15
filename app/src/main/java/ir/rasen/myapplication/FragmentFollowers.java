@@ -20,17 +20,12 @@ import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
-import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.business.BlockUser;
-import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
-import ir.rasen.myapplication.webservice.business.RateBusiness;
-import ir.rasen.myapplication.webservice.business.UnblockUser;
 
 /**
  * Created by 'Sina KH'.
@@ -88,7 +83,6 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         }
         pd = new ProgressDialogCustom(getActivity());
 
-        pd.show();
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
         //new BlockUser(businessId,3,FragmentFollowers.this).execute();
         //new UnblockUser(businessId, 3, FragmentFollowers.this).execute();
@@ -153,7 +147,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
-        listFooterView.setVisibility(View.INVISIBLE);
+        listFooterView.setVisibility(View.GONE);
         list.addFooterView(listFooterView);
         // TODO: ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {

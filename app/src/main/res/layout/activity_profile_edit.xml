@@ -61,7 +61,6 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:layout_margin="4dp"
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="textEmailAddress"
                 android:drawableLeft="@drawable/ic_edittext_email" />
@@ -74,7 +73,6 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:layout_margin="4dp"
                 android:textSize="@dimen/text_size_normal"
                 android:inputType="textShortMessage"
                 android:selectAllOnFocus="true"
@@ -84,8 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner_profile_edit_sex"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="4dp" />
+                android:layout_gravity="center_horizontal" />
 
             <ir.rasen.myapplication.ui.TextViewFont
                 android:id="@+id/edt_profile_edit_password"
@@ -95,7 +92,6 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:layout_margin="4dp"
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
                 android:drawableLeft="@drawable/ic_edittext_password"
@@ -111,7 +107,6 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:layout_margin="4dp"
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
                 android:drawableLeft="@drawable/ic_edittext_email"
@@ -129,7 +124,6 @@
                 android:layout_centerHorizontal="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin_2x"
                 android:paddingRight="@dimen/activity_horizontal_margin_2x"
-                android:layout_margin="4dp"
                 android:textSize="@dimen/text_size_normal"
                 android:selectAllOnFocus="true"
                 android:drawableLeft="@drawable/ic_edittext_date"

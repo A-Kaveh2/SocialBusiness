@@ -108,7 +108,6 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         Bitmap myBitmap;
         if (file.exists()) {
             myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            int si = Image_M.sizeOf(myBitmap);
             if(Image_M.sizeOf(myBitmap)>1000000){
                 BitmapFactory.Options ops = new BitmapFactory.Options();
                 ops.inSampleSize = 2;
@@ -223,6 +222,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         try {
             pd.dismiss();
             startActivity(new Intent(context, ActivityMain.class));
+            finish();
         } catch (Exception e) {}
     }
 
