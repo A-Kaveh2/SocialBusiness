@@ -1,13 +1,7 @@
 package ir.rasen.myapplication;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,37 +14,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import org.apache.http.cookie.SM;
-
-import java.io.File;
 import java.util.Calendar;
 
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
-import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
-import ir.rasen.myapplication.helper.PassingActiveRole;
-import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.helper.PassingPosts;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
-import ir.rasen.myapplication.ui.ImageViewSquare;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
-import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.AddPost;
-import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.post.UpdatePost;
-import ir.rasen.myapplication.webservice.user.RequestConfirmation;
 
 public class ActivityNewPost_Step2 extends Activity implements WebserviceResponse {
     private String TAG = "ActivityNewPost_Step2";
@@ -59,7 +41,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     private Context context;
     private String img;
     private boolean isEditing = false;
-    private String businessId;
     String filePath;
     private ImageView imgPost;
 
@@ -131,10 +112,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
     }
 
 
-
-
-
-
     // SUBMIT TOUCHED
     public void submit(View view) {
 
@@ -170,7 +147,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     public void setAnimations() {
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_normal);
-        ((Button) findViewById(R.id.btn_post_submit)).startAnimation(fadeIn);
+        findViewById(R.id.btn_post_submit).startAnimation(fadeIn);
         AnimationSet animationSetBtn = new AnimationSet(getBaseContext(), null);
         animationSetBtn.addAnimation(fadeIn);
         Animation anim_fromDown = new TranslateAnimation(
@@ -181,7 +158,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         anim_fromDown.setDuration(500);
         anim_fromDown.setInterpolator(new AccelerateInterpolator());
         animationSetBtn.addAnimation(anim_fromDown);
-        ((TextViewFont) findViewById(R.id.btn_post_help)).startAnimation(animationSetBtn);
+        findViewById(R.id.btn_post_help).startAnimation(animationSetBtn);
     }
 
     public void onBackPressed() {
@@ -201,9 +178,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             //result of executing AddPost
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
 
-
-
-            //TODO force close here
             ActivityMain.activityMain.onBackPressed();
             InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
             innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));

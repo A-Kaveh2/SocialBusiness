@@ -133,7 +133,6 @@ public class ActivityGallery extends Activity  {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
-        ;
 
         return mediaFile;
     }

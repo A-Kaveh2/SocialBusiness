@@ -139,7 +139,7 @@ public class TextProcessor {
             // if found tag is really acceptable
             if(text.substring(index_temp, index_end).toString().length()>=Params.USER_NAME_MIN_LENGTH && text.substring(index_temp, index_end).toString().matches(Params.USER_NAME_VALIDATION)) {
 
-                //TODO change profileId to profileUserName
+                // change profileId to profileUserName
                 final String profileId = text.substring(index_temp, index_end);
                 wordtoSpan.setSpan(new ForegroundColorSpan(R.color.button_on_dark), index_temp-1, index_end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -209,7 +209,7 @@ public class TextProcessor {
                     @Override
                     public void onClick(View textView) {
                         // username clicked!
-                        // TODO:: commentOwner is the profile id that should be passed
+                        // commentOwner is the profile id that should be passed
                         InnerFragment innerFragment = new InnerFragment(context);
                         innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
                     }
@@ -218,7 +218,7 @@ public class TextProcessor {
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
                 textView.setText(wordtoSpan);
         */
-            // TODO:: FIND AND LINK PROFILE TAGS!
+            // FIND AND LINK PROFILE TAGS!
                 /*int index_temp = 0;
                 while ((index_temp = text.indexOf("@", index_temp)) != -1 && index_temp<=text.length()-1-Params.USER_NAME_MIN_LENGTH) {
 
@@ -248,7 +248,7 @@ public class TextProcessor {
                     }
                 }*/
 
-            // TODO:: FIND AND LINK HASHTAGS!
+            // FIND AND LINK HASHTAGS!
             int index_temp = 0;
             while ((index_temp = text.indexOf("#", index_temp)) != -1 && index_temp <= text.length() - 1 - Params.HASHTAG_MIN_LENGTH) {
 
@@ -305,7 +305,7 @@ public class TextProcessor {
             @Override
             public void onClick(View textView) {
                 // username clicked!
-                // TODO:: commentOwner is the profile id that should be passed
+                // commentOwner is the profile id that should be passed
                 InnerFragment innerFragment = new InnerFragment(context);
                 innerFragment.newProfile(Params.ProfileType.PROFILE_USER, false);
             }
@@ -314,7 +314,7 @@ public class TextProcessor {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(wordtoSpan);*/
 
-        // TODO:: FIND AND LINK PROFILE TAGS!
+        // FIND AND LINK PROFILE TAGS!
         int index_temp = 0;
         while ((index_temp = text.indexOf("@", index_temp)) != -1 && index_temp<=text.length()-1-Params.USER_NAME_MIN_LENGTH) {
 
@@ -344,7 +344,7 @@ public class TextProcessor {
             }
         }
 
-        // TODO:: FIND AND LINK HASHTAGS!
+        // FIND AND LINK HASHTAGS!
         index_temp = 0;
         while ((index_temp = text.indexOf("#", index_temp)) != -1 && index_temp<=text.length()-1-Params.HASHTAG_MIN_LENGTH) {
 
