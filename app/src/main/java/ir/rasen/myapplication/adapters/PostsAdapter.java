@@ -46,6 +46,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     private Context context;
     private DownloadImages downloadImages;
 
+    private int position;
+    private Post post;
+
     public PostsAdapter(Context context, ArrayList<Post> posts, WebserviceResponse delegate, EditInterface editDelegateInterface) {
         super(context, R.layout.layout_post, posts);
         mPosts = posts;
@@ -60,6 +63,8 @@ public class PostsAdapter extends ArrayAdapter<Post> {
     public View getView(final int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final Post post = mPosts.get(position);
+        this.position = position;
+        this.post = mPosts.get(position);
 
         if (convertView == null) {
             holder = new ViewHolder();
@@ -82,6 +87,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.commentsNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comments);
             holder.sharesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_shares);
 
+            holder.initail();
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -98,23 +104,21 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
 
             holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+        }
 
-            if (post.lastThreeComments.size() > 0) {
-                holder.comment1_user.setText(post.lastThreeComments.get(0).username);
-                holder.comment1_user.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // TODO:: OPEN COMMENT's USER's PROFILE
-                        InnerFragment innerFragment = new InnerFragment(getContext());
-                        innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.lastThreeComments.get(0).userID);
-                    }
-                });
-                TextProcessor textProcessor = new TextProcessor(getContext());
-                textProcessor.process(post.lastThreeComments.get(0).text, holder.comment1);
-            } else {
-                holder.comments_3.setVisibility(View.GONE);
-            }
-            holder.options.setOnClickListener(new View.OnClickListener() {
+        return convertView;
+    }
+
+    class ViewHolder {
+        TextViewFont business_name, description, time, comment1, comment1_user, likesNum, commentsNum, sharesNum;
+        ImageView options, postPic, likeHeart;
+        ImageViewCircle business_pic, comment1_pic;
+        LinearLayout likes, comments;
+        RelativeLayout comments_3;
+        int id;
+
+        public void initail(){
+            this.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     OptionsPost optionsPost = new OptionsPost(context);
                     optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface);
@@ -122,11 +126,11 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             });
 
             // double tap listener !
-            holder.postPic.setOnClickListener(new View.OnClickListener() {
+            this.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (singleTapped) {
-                        holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                        likeHeart.setImageResource(R.drawable.ic_menu_liked);
                         likeNow(mPosts.get(position).id);
                     } else {
                         singleTapped = true;
@@ -141,17 +145,17 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 }
             });
             // LIKE!!
-            holder.likes.setOnClickListener(new View.OnClickListener() {
+            this.likes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // like now!
-                    holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                    likeHeart.setImageResource(R.drawable.ic_menu_liked);
                     likeNow(mPosts.get(position).id);
                 }
             });
 
             // SHOW COMMENTS LISTENER
-            holder.comments.setOnClickListener(new View.OnClickListener() {
+            this.comments.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // TODO: SHOW COMMENTS
@@ -161,14 +165,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             });
 
             // ON CLICK LISTENERS FOR business pic and name
-            holder.business_pic.setOnClickListener(new View.OnClickListener() {
+            this.business_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
                     innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
                 }
             });
-            holder.business_name.setOnClickListener(new View.OnClickListener() {
+            this.business_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
@@ -176,38 +180,21 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 }
             });
 
-            holder.comment1_pic.setOnClickListener(new View.OnClickListener() {
+            this.comment1_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
                     innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
-            holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+            this.comment1_user.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
                     innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
                 }
             });
-
-            // TODO:: Check if liked
-            // IF LIKED ::
-            //holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-            //else
-            //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
         }
-
-        return convertView;
-    }
-
-    class ViewHolder {
-        TextViewFont business_name, description, time, comment1, comment1_user, likesNum, commentsNum, sharesNum;
-        ImageView options, postPic, likeHeart;
-        ImageViewCircle business_pic, comment1_pic;
-        LinearLayout likes, comments;
-        RelativeLayout comments_3;
-        int id;
     }
 
     void likeNow(int post_id) {

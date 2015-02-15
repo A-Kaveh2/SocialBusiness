@@ -87,19 +87,23 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private boolean follow_friend_request_sent = false;
 
-    @Override
-    public void setEditing(int id, String text, Dialog dialog) {
-        editingId = id;
-        editingText = text;
-        editingDialog = dialog;
-    }
-
 
     private enum RunningWebserviceType {getUserHomeInfo, getUserPosts, getBustinessPosts, getBusinessHomeInfo}
 
     private static RunningWebserviceType runningWebserviceType;
 
     private ArrayList<Post> posts;
+
+    private ArrayList<Post> uPosts;//user posts
+    private ArrayList<Post> bPosts;//business posts
+
+
+    @Override
+    public void setEditing(int id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
+    }
 
     public static FragmentProfile newInstance(Context context, int profileType, boolean profileOwn, int profileId) {
         FragmentProfile fragment = new FragmentProfile();
@@ -267,7 +271,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         if (profileType == Params.ProfileType.PROFILE_USER) {
             // TODO:: if are not friends, show lock!! (uncommment)
             //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                //header.findViewById(R.id.img_profile_lock).setVisibility(View.VISIBLE);
+            //header.findViewById(R.id.img_profile_lock).setVisibility(View.VISIBLE);
             ((ImageView) header.findViewById(R.id.img_profile_option3)).setImageResource(R.drawable.ic_menu_businesses);
             // FRIENDS
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
@@ -276,7 +280,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     InnerFragment innerFragment = new InnerFragment(getActivity());
                     // TODO:: if are friends (uncomment)
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                        innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
+                    innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
                 }
             });
             // REVIEWS OF USER
@@ -294,7 +298,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     InnerFragment innerFragment = new InnerFragment(getActivity());
                     // TODO:: if are friends ( uncomment )
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                        innerFragment.newBusinessesFragment(profileId);
+                    innerFragment.newBusinessesFragment(profileId);
                 }
             });
         }
@@ -333,10 +337,16 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         }
 
         posts = new ArrayList<>();
+        uPosts = new ArrayList<>();
+        bPosts = new ArrayList<>();
 
-        listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
-        gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
-        grid.setAdapter(gridAdapter);
+        //TODO posts is empty. Why did you pass it to the adatper class?!!!!
+        //listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
+        //gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
+
+        //TODO why you set adapter here while you DO NOT HAVE DATA here.
+        //TODO data are given in getResult not here
+        //grid.setAdapter(gridAdapter);
     }
 
     void sendFriendRequest() {
@@ -435,9 +445,20 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore && posts.size() > 0) {
-                        loadMoreData();
+                    if (profileType == Params.ProfileType.PROFILE_USER) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && uPosts.size() > getResources().getInteger(R.integer.lazy_load_limitation)) {
+                            loadMoreData();
+                        }
+                    } else if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && bPosts.size() > getResources().getInteger(R.integer.lazy_load_limitation)) {
+                            loadMoreData();
+                        }
                     }
+
+
+                   /* if (!swipeView.isRefreshing() && !isLoadingMore && posts.size() > 0) {
+                        loadMoreData();
+                    }*/
                 }
             }
         });
@@ -446,10 +467,12 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         if (profileType == Params.ProfileType.PROFILE_USER) {
-            new GetSharedPosts(LoginInfo.getUserId(cont), posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            //new GetSharedPosts(LoginInfo.getUserId(cont), posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            new GetSharedPosts(LoginInfo.getUserId(cont), uPosts.get(uPosts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getUserPosts;
         } else {
-            new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            //new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, posts.get(posts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+            new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, uPosts.get(uPosts.size() - 1).id, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
             runningWebserviceType = RunningWebserviceType.getBustinessPosts;
         }
         isLoadingMore = true;
@@ -487,21 +510,40 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 assignNow();
 
-                if (profileType == Params.ProfileType.PROFILE_USER) {
+                //TODO look up, I wrote "get visited user home info"
+                //TODO this is the result of executing GetUserHomeInfo and
+                //TODO profileType is absolutely PROFILE_USER
+                /*if (profileType == Params.ProfileType.PROFILE_USER) {
                     new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getUserPosts;
                 } else {
                     new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                     runningWebserviceType = RunningWebserviceType.getBustinessPosts;
-                }
+                }*/
+
+                new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
+                runningWebserviceType = RunningWebserviceType.getUserPosts;
 
             } else if (result instanceof ArrayList) {
 
                 pd.dismiss();
 
-                //TODO assign
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
+                    uPosts.addAll((ArrayList<Post>) result);
+                    initialAdapters(uPosts);
+
+                } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
+                    bPosts.addAll((ArrayList<Post>) result);
+                    initialAdapters(bPosts);
+
+                }
+
+                /*if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
                     //user shared posts
+
+                    //TODO look
+                    //this wrong. You assign temp to the posts by pointer
+                    //when you clear posts, the temp will clear too!
                     ArrayList<Post> temp = posts;
                     temp.addAll((ArrayList<Post>) result);
                     posts.clear();
@@ -512,9 +554,13 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     temp.addAll((ArrayList<Post>) result);
                     posts.clear();
                     posts.addAll(temp);
-                }
-                listAdapter.notifyDataSetChanged();
-                gridAdapter.notifyDataSetChanged();
+                }*/
+
+                grid.setAdapter(gridAdapter);
+
+               /* listAdapter.notifyDataSetChanged();
+                gridAdapter.notifyDataSetChanged();*/
+
                 isLoadingMore = false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
@@ -523,8 +569,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //business home info
 
                 profile_business = (Business) result;
-
-
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
 
                 assignNow();
@@ -537,6 +581,18 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private void initialAdapters(ArrayList<Post> posts) {
+        if (listAdapter == null)
+            listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
+        else
+            listAdapter.notifyDataSetChanged();
+
+        if (gridAdapter == null)
+            gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
+        else
+            gridAdapter.notifyDataSetChanged();
     }
 
     @Override

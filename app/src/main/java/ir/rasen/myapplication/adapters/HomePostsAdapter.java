@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.internal.is;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,9 +47,11 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
     private Post post;
 
+
 	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_post_home, posts);
 		mPosts 	= posts;
+
         this.webserviceResponse = webserviceResponse;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;

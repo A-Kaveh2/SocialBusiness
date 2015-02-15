@@ -25,20 +25,30 @@ public class OptionsPost {
     }
 
     public void showOptionsPopup(final Post post, View view, final WebserviceResponse webserviceResponse, final EditInterface editDelegateInterface) {
-        // TODO: CHECK IS MINE
-        Boolean isMine = true;
+
         // SHOWING POPUP WINDOW
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        final View layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
-                new LinearLayout(context));
+        final View layout;
+
+        //if (post.isMine(context)) {
+        if (true) {
+            layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
+                    new LinearLayout(context));
+        } else {
+            layout = inflater.inflate(R.layout.layout_menu_post_options,
+                    new LinearLayout(context));
+        }
+
         final PopupWindow pw = new PopupWindow(layout, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         pw.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         pw.setOutsideTouchable(true);
         pw.showAsDropDown(view);
         // SETTING ON CLICK LISTENERS
-        if(isMine) {
+
+        //if (post.isMine(context)) {
+        if (true) {
             // EDIT OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
+            (layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO: EDIT POST
                     ArrayList<Post> posts = new ArrayList<Post>();
@@ -51,24 +61,33 @@ public class OptionsPost {
                 }
             });
             // DELETE OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
+            (layout.findViewById(R.id.ll_menu_post_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO DELETE POST
                     showDeletePopup(post, webserviceResponse);
-                    editDelegateInterface.setEditing(post.id,null,null);
+                    editDelegateInterface.setEditing(post.id, null, null);
                     pw.dismiss();
                 }
             });
         } else {
-            // SHARE OPTION
-            ((LinearLayout) layout.findViewById(R.id.ll_menu_post_options_report)).setOnClickListener(new View.OnClickListener() {
+            // REPORT OPTION
+
+            (layout.findViewById(R.id.ll_menu_post_options_report)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO REPORT POST
                     showReportPopup(post, webserviceResponse);
                     pw.dismiss();
                 }
             });
-            // REPORT OPTION
+
+            // SHARE OPTION
+            (layout.findViewById(R.id.ll_menu_post_options_share)).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // TODO REPORT POST
+                    showSharePopup(post, webserviceResponse);
+                    pw.dismiss();
+                }
+            });
         }
     }
 
@@ -79,7 +98,7 @@ public class OptionsPost {
         Dialogs dialogs = new Dialogs();
         //"1": post.businessID
         //"4": post.id
-        dialogs.showPostDeletePopup(context,1,1,webserviceResponse);
+        dialogs.showPostDeletePopup(context, 1, 1, webserviceResponse);
     }
 
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {
