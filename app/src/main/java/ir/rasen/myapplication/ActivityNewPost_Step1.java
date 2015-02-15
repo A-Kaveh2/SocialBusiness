@@ -38,13 +38,14 @@ import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 
-public class ActivityNewPost_Step1 extends Activity  {
+public class ActivityNewPost_Step1 extends Activity {
     private String TAG = "ActivityNewPost_Step1";
 
     private boolean isEditing = false, picChoosed = false;
     private DownloadImages downloadImages;
 
     public static ActivityNewPost_Step1 step1;
+    String filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +62,15 @@ public class ActivityNewPost_Step1 extends Activity  {
 
         if (PassingPosts.getInstance().getValue() != null) {
             // TODO EDIT THIS POST
-            if(PassingPosts.getInstance().getValue().get(0).pictureId !=0)
-                downloadImages.download(PassingPosts.getInstance().getValue().get(0).pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE),(ImageViewSquare) findViewById(R.id.btn_post_picture_set));
+            if (PassingPosts.getInstance().getValue().get(0).pictureId != 0)
+                downloadImages.download(PassingPosts.getInstance().getValue().get(0).pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewSquare) findViewById(R.id.btn_post_picture_set));
                 /*((ImageViewSquare) findViewById(R.id.btn_post_picture_set))
                     .setImageBitmap(Image_M.getBitmapFromString(PassingPosts.getInstance().getValue().get(0).picture));*/
             isEditing = true;
         } else {
             ArrayList<Post> post = new ArrayList<>();
             Post postTemp = new Post();
-            postTemp.businessID = getIntent().getIntExtra(Params.BUSINESS_ID,0);
+            postTemp.businessID = getIntent().getIntExtra(Params.BUSINESS_ID, 0);
             post.add(postTemp);
             PassingPosts.getInstance().setValue(post);
         }
@@ -104,11 +105,11 @@ public class ActivityNewPost_Step1 extends Activity  {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == ActivityCamera.CAPTURE_PHOTO) {
-                String filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
+                filePath = data.getStringExtra(ActivityCamera.FILE_PATH);
                 displayCropedImage(filePath);
-                picChoosed=true;
+                picChoosed = true;
             } else if (requestCode == ActivityGallery.CAPTURE_GALLERY) {
-                String filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
+                filePath = data.getStringExtra(ActivityGallery.FILE_PATH);
                 displayCropedImage(filePath);
             }
         }
@@ -134,12 +135,17 @@ public class ActivityNewPost_Step1 extends Activity  {
     // SUBMIT TOUCHED
     public void submit(View view) {
         // next step
-        if(!isEditing && !picChoosed){
+        if (!isEditing && !picChoosed) {
             Dialogs.showMessage(ActivityNewPost_Step1.this, getString(R.string.err_set_picture));
             return;
         }
+
         Intent intent = new Intent(getBaseContext(), ActivityNewPost_Step2.class);
         intent.putExtra(Params.EDIT_MODE, isEditing);
+        if (filePath != null)
+            intent.putExtra(Params.FILE_PATH, filePath);
+        else
+            intent.putExtra(Params.FILE_PATH, "null");
         intent.putExtra(Params.BUSINESS_ID, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
         startActivity(intent);
         overridePendingTransition(R.anim.to_0, R.anim.to_left);
