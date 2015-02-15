@@ -374,6 +374,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 // Edit business now
                 PassingBusiness.getInstance().setValue(profile_business);
                 Intent intent = new Intent(getActivity(), ActivityBusinessSettings.class);
+                //startActivityForResult(intent,Params.ACTION_DELETE_BUSIENSS);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
@@ -647,6 +648,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(userName);
                 //TODO assign aboutMe
             }
+
         }
     }
 }

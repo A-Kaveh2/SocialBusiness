@@ -234,6 +234,8 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         pd.dismiss();
         if (result instanceof Post) {
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+
+            //TODO force close here
             ActivityMain.activityMain.onBackPressed();
             InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
             innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
@@ -257,9 +259,6 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
         Post post = PassingPosts.getInstance().getValue().get(0);
 
-        //TODO for the test
-        isEditing = true;
-        post.id = 2;
 
         if (isEditing) {
             //update existing post

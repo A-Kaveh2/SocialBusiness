@@ -67,10 +67,16 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
     public void getResult(Object result) {
         pd.dismiss();
         if(result instanceof ResultStatus){
+            //delete was successful
+
             Toast.makeText(getBaseContext(), R.string.business_deleted, Toast.LENGTH_LONG).show();
             ActivityMain.activityMain.removeBusiness(business.id);
             ActivityMain.activityMain.backToRoot();
             finish();
+           /* Intent i = getIntent();
+            i.putExtra(Params.BUSINESS_ID, business.id);
+            setResult(RESULT_OK, i);
+            startac*/
         }
     }
 

@@ -49,12 +49,7 @@ public class DeleteBusiness extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected void onPostExecute(ResultStatus result) {
-        /*if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
 
-        //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;

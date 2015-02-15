@@ -203,7 +203,7 @@ public class ActivityMain extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), ActivityNewBusiness_Step1.class);
-                startActivityForResult(intent,Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
+                startActivityForResult(intent, Params.ACTION_ADD_NEW_BUSIENSS_SUCCESS);
                 //startActivity(intent);
                 overridePendingTransition(R.anim.to_0, R.anim.to_left);
             }
@@ -316,6 +316,8 @@ public class ActivityMain extends FragmentActivity {
                 business.id = data.getIntExtra(Params.BUSINESS_ID, 0);
                 business.businessUserName = data.getStringExtra(Params.BUSINESS_USER_NAME);
                 addBusiness(business);
+            } else if (requestCode == Params.ACTION_DELETE_BUSIENSS) {
+                removeBusiness(data.getIntExtra(Params.BUSINESS_ID, 0));
             }
         }
     }
