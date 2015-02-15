@@ -124,6 +124,11 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        startLoad();
+
+    }
+
+    public void startLoad() {
         webserviceResponse = this;
         editDelegateInterface = this;
         pd = new ProgressDialogCustom(getActivity());

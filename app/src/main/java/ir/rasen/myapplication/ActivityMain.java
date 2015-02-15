@@ -252,6 +252,15 @@ public class ActivityMain extends FragmentActivity {
         }
     }
 
+    public void reloadFragmentData(int profileId) {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(pager.getCurrentItem() + "." + fragCount[pager.getCurrentItem()]);
+        if(fragment instanceof FragmentProfile) {
+            ((FragmentProfile) fragment).startLoad();
+        } else if(fragment instanceof FragmentHome) {
+            ((FragmentHome) fragment).startLoad();
+        }
+    }
+
     public void lockDrawers() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayoutRight);
     }
