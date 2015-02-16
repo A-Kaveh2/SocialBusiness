@@ -30,8 +30,8 @@ public class OptionsPost {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View layout;
 
-        //if (post.isMine(context)) {
-        if (true) {
+        if (post.isMine(context)) {
+        //if (true) {
             layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
                     new LinearLayout(context));
         } else {
@@ -45,8 +45,8 @@ public class OptionsPost {
         pw.showAsDropDown(view);
         // SETTING ON CLICK LISTENERS
 
-        //if (post.isMine(context)) {
-        if (true) {
+        if (post.isMine(context)) {
+        //if (true) {
             // EDIT OPTION
             (layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -96,9 +96,8 @@ public class OptionsPost {
         // TODO ANSWER:: post.businessID and post.id prepared for you
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        //"1": post.businessID
-        //"4": post.id
-        dialogs.showPostDeletePopup(context, 1, 1, webserviceResponse);
+        dialogs.showPostDeletePopup(context, post.businessID,post.id, webserviceResponse);
+        //dialogs.showPostDeletePopup(context,1,1, webserviceResponse);
     }
 
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {

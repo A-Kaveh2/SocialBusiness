@@ -61,7 +61,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         description = ((EditTextFont) findViewById(R.id.edt_post_text));
         price = ((EditTextFont) findViewById(R.id.edt_post_price));
         code = ((EditTextFont) findViewById(R.id.edt_post_code));
-        imgPost = (ImageView)findViewById(R.id.img_new_post_step2_post);
+        imgPost = (ImageView) findViewById(R.id.img_new_post_step2_post);
         // SET ANIMATIONS
         setAnimations();
 
@@ -77,11 +77,11 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         //if (!post.picture.equals(post.picture))
         //    downloadImages.
 
-        if(!filePath.equals("null"))
+        if (!filePath.equals("null"))
             //user choose new picture in step 1
             imgPost.setImageBitmap(Image_M.readBitmapFromStorate(filePath));
-        else if(post.pictureId != 0)
-            downloadImages.download(post.pictureId,Image_M.getImageSize(Image_M.ImageSize.LARGE),imgPost);
+        else if (post.pictureId != 0)
+            downloadImages.download(post.pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), imgPost);
 
 
         name.setText(post.title);
@@ -90,20 +90,21 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         code.setText(post.code);
 
 
-
-
         description.addTextChangedListener(new TextWatcher() {
             String oldText;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 oldText = charSequence.toString();
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if(charSequence.toString().equals(oldText))
+                if (charSequence.toString().equals(oldText))
                     return;
                 TextProcessor.processEdtHashtags(description.getText().toString(), description, ActivityNewPost_Step2.this);
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -124,7 +125,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             return;
         }
 
-        if(!post.price.matches(Params.NUMERIC_VALIDATION)) {
+        if (!post.price.matches(Params.NUMERIC_VALIDATION)) {
             price.requestFocus();
             price.setErrorC(getString(R.string.enter_valid_price));
             return;
@@ -179,10 +180,10 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
 
             finished();
-        }
-        else if(result instanceof ResultStatus){
+        } else if (result instanceof ResultStatus) {
             //result of executing UpdatePost
-            Image_M.deletePictureById(context,PassingPosts.getInstance().getValue().get(0).pictureId);
+            if (!filePath.equals("null"))
+                Image_M.deletePictureById(context, PassingPosts.getInstance().getValue().get(0).pictureId);
 
             finished();
         }
@@ -220,7 +221,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
             post.description = description.getText().toString();
             post.hashtagList = TextProcessor.getHashtags(post.description);
 
-            if(!filePath.equals("null"))
+            if (!filePath.equals("null"))
                 post.picture = Image_M.getBase64String(filePath);
 
         } else {

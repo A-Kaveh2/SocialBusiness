@@ -104,19 +104,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
         return fragment;
     }
-/*
-    // as search fragment
-    public static FragmentHome newInstance (String searchString){
-        FragmentHome fragment = new FragmentHome();
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(Params.HOME_TYPE, Params.HomeType.HOME_SEARCH);
-        bundle.putString(Params.TITLE, searchString);
-        fragment.setArguments(bundle);
-
-        return fragment;
-    }
-*/
     public FragmentHome() {
     }
 
@@ -146,12 +134,6 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         posts = new ArrayList<Post>();
 
         // Check home type
-        //if(homeType==Params.HomeType.HOME_SEARCH) {
-
-        //    // load as search page!
-        //    homeTitle = bundle.getString(Params.TITLE);
-
-        //} else
         if(homeType==Params.HomeType.HOME_POST) {
 
             // load as post page!
@@ -163,47 +145,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             }
             mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse, editDelegateInterface);
         } else if(homeType==Params.HomeType.HOME_HOME) {
-            //if(((ActivityMain) getActivity()).fragCount[0]==0)
-            //    PassingActiveRole.getInstance().setValue(-1);
 
-            // LOAD AS HOME PAGE
-
-            /*
-                for example, i've made some fake data to show ::
-            */
-            /*Post post1 = new Post();
-            Post post2 = new Post();
-            Post post3 = new Post();
-            post1.businessID = 1;
-            post1.businessUserName = "راسن";
-            post1.description = "یک نرم افزار عالی!!";
-            post1.price = "100.000";
-            post1.code = "30";
-            ArrayList<Comment> lastThreeComments = new ArrayList<>();
-            Comment comment = new Comment();
-            comment.userID = 1;
-            comment.text = "سلام";
-            lastThreeComments.add(comment);
-            post1.lastThreeComments = lastThreeComments;
-            post1.title = "عنوان!!";
-            posts.add(post1);
-            post2.businessID = 2;
-            post2.businessUserName = "راسfsaن";
-            post2.description = "programmer - RASEN CO.";
-            post2.price = "123.456";
-            post2.code = "30";
-            post2.title = "عنوان!!";
-            post2.lastThreeComments = lastThreeComments;
-            posts.add(post2);
-            post3.businessID = 2;
-            post3.businessUserName = "راسsfafsdfن";
-            post3.description = "progrsafasfasfasfafafasfasd\n\nammer - RASEN CO.";
-            post3.price = "125.234";
-            post3.code = "30";
-            post3.title = "عنوان!!";
-            post3.lastThreeComments = lastThreeComments;
-            posts.add(post3);
-*/
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
             new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
                     ,0,getResources().getInteger(R.integer.lazy_load_limitation),FragmentHome.this).execute();

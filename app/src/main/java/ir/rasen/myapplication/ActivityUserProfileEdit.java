@@ -357,11 +357,14 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
                     imbProfilePicture.setImageBitmap(bitmapProfilePicture);
                 }
-                if (!user.birthDate.equals("null")) txtBirthDate.setText(user.birthDate);
+                if (!user.birthDate.equals("null") && !user.birthDate.equals("NULL"))
+                    txtBirthDate.setText(user.birthDate);
             } else if (result instanceof ResultStatus) {
                 // result from executing UpdateUserProfileInfo
-                //Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
-                //FragmentProfile.fragmentProfile.getAgain();
+
+                //delete old profile pictures
+                if (filePath != null)
+                    Image_M.deletePictureById(context, user.profilePictureId);
 
                 Intent i = getIntent();
                 if (filePath == null)
