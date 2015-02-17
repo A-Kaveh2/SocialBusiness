@@ -513,17 +513,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 assignNow();
 
-                //TODO look up, I wrote "get visited user home info"
-                //TODO this is the result of executing GetUserHomeInfo and
-                //TODO profileType is absolutely PROFILE_USER
-                /*if (profileType == Params.ProfileType.PROFILE_USER) {
-                    new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
-                    runningWebserviceType = RunningWebserviceType.getUserPosts;
-                } else {
-                    new GetBusinessPosts(LoginInfo.getUserId(cont), profileId, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
-                    runningWebserviceType = RunningWebserviceType.getBustinessPosts;
-                }*/
-
                 new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getUserPosts;
 
@@ -547,13 +536,15 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     //TODO look
                     //this wrong. You assign temp to the posts by pointer
                     //when you clear posts, the temp will clear too!
-                    ArrayList<Post> temp = posts;
+                    ArrayList<Post> temp = new ArrayList<>();
+temp.addAll(posts);
                     temp.addAll((ArrayList<Post>) result);
                     posts.clear();
                     posts.addAll(temp);
                 } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
                     //business posts
-                    ArrayList<Post> temp = posts;
+                    ArrayList<Post> temp = new ArrayList<>();
+temp.addAll(posts);
                     temp.addAll((ArrayList<Post>) result);
                     posts.clear();
                     posts.addAll(temp);

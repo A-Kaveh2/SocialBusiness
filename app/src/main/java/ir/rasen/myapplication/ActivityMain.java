@@ -34,7 +34,6 @@ import ir.rasen.myapplication.ui.ViewPagerPaging;
  */
 
 public class ActivityMain extends FragmentActivity {
-//
 
     public static ActivityMain activityMain;
 

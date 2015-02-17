@@ -92,12 +92,9 @@ public class OptionsPost {
     }
 
     public void showDeletePopup(Post post, WebserviceResponse webserviceResponse) {
-        //TODO where is business.id and post.id?
-        // TODO ANSWER:: post.businessID and post.id prepared for you
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
         dialogs.showPostDeletePopup(context, post.businessID,post.id, webserviceResponse);
-        //dialogs.showPostDeletePopup(context,1,1, webserviceResponse);
     }
 
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {

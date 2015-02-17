@@ -178,7 +178,8 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         if(result instanceof ArrayList){
             //result from executing getBusinessFollowers
             ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
-            ArrayList<User> temp = blockeds;
+            ArrayList<User> temp = new ArrayList<>();
+            temp.addAll(blockeds);
             blockeds = new ArrayList<>();
             User user;
             for(SearchItemUserBusiness item:businessesFollowers){

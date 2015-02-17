@@ -34,7 +34,7 @@ import ir.rasen.myapplication.webservice.post.Report;
  * Created by 'Sina KH'.
  */
 
-// TODO: POSTS LIST ADAPTER ( HOME & PROFILE LIST )
+// POSTS LIST ADAPTER ( PROFILE LIST )
 public class PostsAdapter extends ArrayAdapter<Post> {
     private ArrayList<Post> mPosts;
     private LayoutInflater mInflater;
@@ -102,8 +102,14 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.description.setText(Html.fromHtml("<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
                     + "<br /><font color=#3F6F94><b>" + getContext().getString(R.string.product_code) + "</font> " + post.code
                     + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
+            holder.likesNum.setText(post.likeNumber+"");
+            holder.commentsNum.setText(post.commentNumber+"");
+            holder.sharesNum.setText(post.shareNumber+"");
 
-            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+            // TODO :: CREATION DATE should be passed in minute
+            //holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), post.creationDate));
+            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), 1000));
+
         }
 
         return convertView;
@@ -158,7 +164,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             this.comments.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: SHOW COMMENTS
+                    // SHOW COMMENTS
                     InnerFragment innerFragment = new InnerFragment(getContext());
                     innerFragment.newComments(post.id);
                 }

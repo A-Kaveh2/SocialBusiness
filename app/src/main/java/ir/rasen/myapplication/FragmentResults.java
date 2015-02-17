@@ -127,11 +127,21 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
         listFooterView.setVisibility(View.VISIBLE);
         // load results
         if (searchType == Params.SearchType.PRODUCTS) {
-            new SearchPost( searchString, searchResultPost.get(searchResultPost.size()-1).postId
+            int lastId;
+            if(searchResultPost.size()>0)
+                lastId = searchResultPost.get(searchResultPost.size()-1).postId;
+            else
+                lastId=0;
+            new SearchPost( searchString, lastId
                     ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         } else {
+            int lastId;
+            if(searchResultUserBusiness.size()>0)
+                lastId = searchResultUserBusiness.get(searchResultUserBusiness.size()-1).id;
+            else
+                lastId=0;
             new SearchBusinessesLocation(LoginInfo.getUserId(context), searchString,subcategoryId, location_latitude, location_longitude
-                    , searchResultUserBusiness.get(searchResultUserBusiness.size()-1).id
+                    , lastId
                     ,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResults.this).execute();
         }
     }
@@ -146,7 +156,11 @@ public class FragmentResults extends Fragment implements WebserviceResponse {
                     swipeView.setRefreshing(false);
                     return;
                 }
-                searchResultUserBusiness = new ArrayList<>();
+                if (searchType == Params.SearchType.PRODUCTS) {
+                    searchResultPost = new ArrayList<>();
+                } else {
+                    searchResultUserBusiness = new ArrayList<>();
+                }
                 loadMoreData();
                 swipeView.setRefreshing(true);
             }

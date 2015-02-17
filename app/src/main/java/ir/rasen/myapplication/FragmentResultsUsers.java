@@ -99,9 +99,10 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         return view;
     }
 
-    // TODO: LOAD MORE DATA
+    // LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
+        new SearchUser(searchString,users.get(users.size()-1).id,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResultsUsers.this).execute();
         isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
     }
@@ -117,14 +118,16 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                     return;
                 }
                 users = new ArrayList<User>();
-                // TODO get results again
+                // get results again
+                users.clear();
+                new SearchUser(searchString,0,getResources().getInteger(R.integer.lazy_load_limitation), FragmentResultsUsers.this).execute();
                 swipeView.setRefreshing(true);
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
         listFooterView.setVisibility(View.INVISIBLE);
         list.addFooterView(listFooterView);
-        // TODO: ListView LoadMore
+        // ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             int currentFirstVisibleItem
                     ,
@@ -168,7 +171,6 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                     user.profilePictureId = item.pictureId;
                     users.add(user);
                 }
-
 
                 mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
                 list.setAdapter(mAdapter);

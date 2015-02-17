@@ -266,7 +266,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         try {
             if (result instanceof ArrayList) {
                 ArrayList<Post> temp = new ArrayList<>();
-                temp = (ArrayList<Post>) result;
+                temp.addAll((ArrayList<Post>) result);
                 posts.addAll(temp);
                 mAdapter.notifyDataSetChanged();
                 pd.dismiss();

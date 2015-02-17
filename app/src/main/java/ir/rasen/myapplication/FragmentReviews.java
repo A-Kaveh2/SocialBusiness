@@ -68,6 +68,8 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        pd = new ProgressDialogCustom(getActivity());
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             businessId = bundle.getInt(Params.BUSINESS_ID);
@@ -75,14 +77,13 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
             new GetBusinessReviews(businessId,0,
                     getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
                     ,FragmentReviews.this).execute();
-            pd.show();
+            //pd.show();
 
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
             getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
         }
-
 
     }
 
@@ -166,7 +167,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
         listFooterView.setVisibility(View.INVISIBLE);
         list.addFooterView(listFooterView);
-        // TODO: ListView LoadMore
+        // ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             int currentFirstVisibleItem
                     ,
@@ -198,11 +199,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
         try {
+            pd.dismiss();
             if (result instanceof ArrayList) {
                 if (isLoadingMore) {
-                    ArrayList<Review> temp = reviews;
+                    ArrayList<Review> temp = new ArrayList<>();
+                    temp.addAll(reviews);
                     temp.addAll((ArrayList<Review>) result);
                     reviews.clear();
                     reviews.addAll(temp);
@@ -251,10 +253,10 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
-        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
+            pd.hide();
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

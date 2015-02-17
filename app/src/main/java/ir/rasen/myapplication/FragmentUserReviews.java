@@ -24,6 +24,7 @@ import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 import ir.rasen.myapplication.webservice.review.GetUserReviews;
@@ -43,6 +44,8 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
 
     private ArrayList<Review> reviews;
 
+    private ProgressDialogCustom pd;
+
     public static FragmentUserReviews newInstance() {
         FragmentUserReviews fragment = new FragmentUserReviews();
         return fragment;
@@ -59,8 +62,11 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        pd = new ProgressDialogCustom(getActivity());
         new GetUserReviews(LoginInfo.getUserId(getActivity()),
                 0, getResources().getInteger(R.integer.lazy_load_limitation), FragmentUserReviews.this).execute();
+        pd.show();
     }
 
     @Override
@@ -108,7 +114,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
         listFooterView.setVisibility(View.INVISIBLE);
         list.addFooterView(listFooterView);
-        // TODO: ListView LoadMore
+        // ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             int currentFirstVisibleItem
                     ,
@@ -141,8 +147,10 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
     @Override
     public void getResult(Object result) {
         try {
+            pd.dismiss();
             if (result instanceof ArrayList) {
-                ArrayList<Review> temp = reviews;
+                ArrayList<Review> temp = new ArrayList<>();
+                temp.addAll(reviews);
                 temp.addAll((ArrayList<Review>) result);
                 reviews.clear();
                 reviews.addAll(temp);
@@ -177,6 +185,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
     @Override
     public void getError(Integer errorCode) {
         try {
+            pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
         } catch (Exception e) {

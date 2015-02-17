@@ -34,6 +34,9 @@ public class TextProcessor {
     public static String timeToTimeAgo (Context context, int time)
     {
 
+        // convert minutes to seconds
+
+        time *= 60;
         if(time<60)
             return context.getString(R.string.time_now) ;
 

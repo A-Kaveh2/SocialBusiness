@@ -168,7 +168,8 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
         try {
             if (result instanceof ArrayList) {
                 pd.hide();
-                ArrayList<Business> temp = businesses;
+                ArrayList<Business> temp = new ArrayList<>();
+                temp.addAll(businesses);
                 Business business = null;
                 ArrayList<SearchItemUserBusiness> searchItemUserBusinesses = (ArrayList<SearchItemUserBusiness>) result;
                 for (SearchItemUserBusiness item : searchItemUserBusinesses) {
