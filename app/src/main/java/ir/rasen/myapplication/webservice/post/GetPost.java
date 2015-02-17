@@ -49,6 +49,7 @@ public class GetPost extends AsyncTask<Void, Void, Post> {
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

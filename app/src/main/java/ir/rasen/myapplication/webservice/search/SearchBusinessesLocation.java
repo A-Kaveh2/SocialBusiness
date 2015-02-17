@@ -72,6 +72,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
 
@@ -79,10 +80,7 @@ public class SearchBusinessesLocation extends AsyncTask<Void, Void, ArrayList<Se
 
     @Override
     protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
+
 
         //if webservice.execute() throws exception
 

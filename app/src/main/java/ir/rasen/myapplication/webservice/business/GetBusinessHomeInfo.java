@@ -63,6 +63,7 @@ public class GetBusinessHomeInfo extends AsyncTask<Void, Void, Business> {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

@@ -51,8 +51,8 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
                 user.id = visitedUserID;
                 user.name = jsonObject.getString(Params.NAME);
                 user.aboutMe = jsonObject.getString(Params.ABOUT_ME);
-                user.profilePicture = jsonObject.getString(Params.PROFILE_PICTURE);
-                user.coverPicture = jsonObject.getString(Params.COVER_PICTURE);
+                user.profilePictureId = jsonObject.getInt(Params.PROFILE_PICTURE_ID);
+                user.coverPictureId = jsonObject.getInt(Params.COVER_PICTURE_ID);
                 user.friendRequestNumber = jsonObject.getInt(Params.FRIEND_REQUEST_NUMBER);
                 user.reviewsNumber = jsonObject.getInt(Params.REVIEWS_NUMBER);
                 user.followedBusinessesNumber = jsonObject.getInt(Params.FOLLOWED_BUSINESSES_NUMBER);
@@ -72,16 +72,13 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(User result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
         if (serverAnswer == null) {

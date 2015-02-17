@@ -28,6 +28,7 @@ public class User {
     public String birthDate;
     public String profilePicture;
     public int profilePictureId;
+    public int coverPictureId;
     public String coverPicture;
     public Permission permissions;
     public FriendshipRelation.Status friendshipRelationStatus;

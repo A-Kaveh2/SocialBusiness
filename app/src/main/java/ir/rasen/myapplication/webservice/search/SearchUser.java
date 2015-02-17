@@ -61,6 +61,7 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

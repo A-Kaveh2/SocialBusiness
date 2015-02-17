@@ -54,6 +54,7 @@ public class GetTimeLinePosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

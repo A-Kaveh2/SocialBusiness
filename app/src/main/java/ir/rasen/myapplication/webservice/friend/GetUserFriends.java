@@ -55,6 +55,7 @@ public class GetUserFriends extends AsyncTask<Void, Void, ArrayList<SearchItemUs
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

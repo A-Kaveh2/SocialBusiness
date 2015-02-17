@@ -80,6 +80,7 @@ public class GetLastCommentNotification extends AsyncTask<Void, Void, CommentNot
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

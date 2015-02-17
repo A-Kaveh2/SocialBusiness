@@ -48,6 +48,7 @@ public class UpdateSetting extends AsyncTask<Void, Void, ResultStatus> {
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

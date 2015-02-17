@@ -29,7 +29,7 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
     private ServerAnswer serverAnswer;
     private ArrayList<String> params;
 
-    public GetUserProfileInfo(int userID,WebserviceResponse delegate) {
+    public GetUserProfileInfo(int userID, WebserviceResponse delegate) {
         this.userID = userID;
         this.delegate = delegate;
     }
@@ -59,6 +59,8 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
+
         }
         return null;
     }

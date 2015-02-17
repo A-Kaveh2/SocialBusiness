@@ -67,6 +67,7 @@ public class Login extends AsyncTask<Void, Void, ResultStatus> {
                 return new ResultStatus(false, serverAnswer.getErrorCode());
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

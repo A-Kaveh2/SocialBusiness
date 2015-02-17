@@ -75,6 +75,7 @@ public class GetAllCommentNotifications extends AsyncTask<Void, Void, ArrayList<
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

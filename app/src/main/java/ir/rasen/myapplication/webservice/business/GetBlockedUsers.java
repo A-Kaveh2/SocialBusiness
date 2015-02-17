@@ -54,6 +54,7 @@ public class GetBlockedUsers extends AsyncTask<Void, Void, ArrayList<SearchItemU
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

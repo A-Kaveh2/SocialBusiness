@@ -530,30 +530,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 }
 
-                /*if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
-                    //user shared posts
-
-                    //TODO look
-                    //this wrong. You assign temp to the posts by pointer
-                    //when you clear posts, the temp will clear too!
-                    ArrayList<Post> temp = new ArrayList<>();
-temp.addAll(posts);
-                    temp.addAll((ArrayList<Post>) result);
-                    posts.clear();
-                    posts.addAll(temp);
-                } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
-                    //business posts
-                    ArrayList<Post> temp = new ArrayList<>();
-temp.addAll(posts);
-                    temp.addAll((ArrayList<Post>) result);
-                    posts.clear();
-                    posts.addAll(temp);
-                }*/
 
                 grid.setAdapter(gridAdapter);
-
-               /* listAdapter.notifyDataSetChanged();
-                gridAdapter.notifyDataSetChanged();*/
 
                 isLoadingMore = false;
                 swipeView.setRefreshing(false);
@@ -644,7 +622,7 @@ temp.addAll(posts);
     public void assignUserProfileInfo(User user) {
         if (user.profilePictureId != 0) {
             downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
-            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCircle) header.findViewById(R.id.img_profile_cover));
+            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCover) header.findViewById(R.id.img_profile_cover));
         }
         ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(user.name);
         ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(user.aboutMe);

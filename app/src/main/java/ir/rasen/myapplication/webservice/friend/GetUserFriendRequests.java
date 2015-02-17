@@ -55,16 +55,14 @@ public class GetUserFriendRequests extends AsyncTask<Void, Void, ArrayList<Searc
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
+
 
         //if webservice.execute() throws exception
         if (serverAnswer == null) {

@@ -50,6 +50,7 @@ public class GetBusinessGategories extends AsyncTask<Void, Void, ArrayList<Categ
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }

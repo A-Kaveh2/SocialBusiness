@@ -72,16 +72,14 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            serverAnswer = null;
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(Business result) {
-      /*  if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
+
 
         //if webservice.execute() throws exception
         if (serverAnswer == null) {
