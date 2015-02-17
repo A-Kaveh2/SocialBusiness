@@ -493,6 +493,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
             if (result instanceof ResultStatus) {
                 //delete post,follow business
+
                 if (follow_friend_request_sent) {
                     if (profileType == Params.ProfileType.PROFILE_USER) {
                         if (profileType == Params.ProfileType.PROFILE_BUSINESS) {

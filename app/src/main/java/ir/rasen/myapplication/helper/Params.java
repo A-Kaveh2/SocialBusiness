@@ -114,7 +114,7 @@ public class Params {
     public static String COMMENTS = "Comments";
     public static String HASHTAG_LIST= "HashTagList";
     public static String POST_ID= "PostId";
-    public static String POST_PICTURE_ID= "PostId";
+    public static String POST_PICTURE_ID= "PostPictureId";
     public static String TEXT= "Text";
     public static String APPLICATOR_USER_ID= "ApplicatorId";
     public static String REQUESTED_USER_ID= "RequestedId";

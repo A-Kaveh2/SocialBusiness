@@ -50,7 +50,7 @@ public class GetBusinessPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(Post.getFromJSONObjectBusiness(jsonObject));
+                    list.add(Post.getFromJSONObjectBusiness(businessID,jsonObject));
                 }
                 return list;
             }

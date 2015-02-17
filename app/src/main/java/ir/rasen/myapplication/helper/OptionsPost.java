@@ -30,8 +30,8 @@ public class OptionsPost {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View layout;
 
-        if (post.isMine(context)) {
-        //if (true) {
+        //if (post.isMine(context)) {
+        if (true) {
             layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
                     new LinearLayout(context));
         } else {
@@ -45,8 +45,8 @@ public class OptionsPost {
         pw.showAsDropDown(view);
         // SETTING ON CLICK LISTENERS
 
-        if (post.isMine(context)) {
-        //if (true) {
+        //if (post.isMine(context)) {
+        if (true) {
             // EDIT OPTION
             (layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

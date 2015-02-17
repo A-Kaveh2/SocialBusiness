@@ -30,7 +30,7 @@ public class Post {
     public int userId;//used when post is follow or review announcement
     public String userName;////used when post is follow or review announcement
 
-    public String creationDate;
+    public int creationDate;
 
     public String title;
     public String picture;
@@ -89,7 +89,7 @@ public class Post {
         post.businessUserName = jsonObject.getString(Params.BUSINESS_USER_NAME);
         post.businessProfilePictureId = jsonObject.getInt(Params.BUSINESS_PROFILE_PICUTE_ID);
         post.title = jsonObject.getString(Params.TITLE);
-        post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
+        post.creationDate = jsonObject.getInt(Params.CREATION_DATAE);
         post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
         post.description = jsonObject.getString(Params.DESCRIPTION);
         post.code = jsonObject.getString(Params.CODE);
@@ -110,11 +110,12 @@ public class Post {
     }
 
 
-    public static Post getFromJSONObjectBusiness(JSONObject jsonObject) throws Exception {
+    public static Post getFromJSONObjectBusiness(int businessID,JSONObject jsonObject) throws Exception {
         Post post = new Post();
         post.id = jsonObject.getInt(Params.POST_ID);
+        post.businessID = businessID;
         post.title = jsonObject.getString(Params.TITLE);
-        post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
+        post.creationDate = jsonObject.getInt(Params.CREATION_DATAE);
         post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
         post.description = jsonObject.getString(Params.DESCRIPTION);
         post.code = jsonObject.getString(Params.CODE);
@@ -146,7 +147,7 @@ public class Post {
         if (post.type == Type.Complete) {
             post.businessProfilePictureId = jsonObject.getInt(Params.BUSINESS_PROFILE_PICUTE_ID);
             post.title = jsonObject.getString(Params.TITLE);
-            post.creationDate = jsonObject.getString(Params.CREATION_DATAE);
+            post.creationDate = jsonObject.getInt(Params.CREATION_DATAE);
             post.pictureId = jsonObject.getInt(Params.POST_PICTURE_ID);
             post.description = jsonObject.getString(Params.DESCRIPTION);
             post.code = jsonObject.getString(Params.CODE);

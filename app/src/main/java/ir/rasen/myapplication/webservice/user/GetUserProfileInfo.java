@@ -52,7 +52,7 @@ public class GetUserProfileInfo extends AsyncTask<Void, Void, User> {
                 user.aboutMe = jsonObject.getString(Params.ABOUT_ME);
                 user.sex = Sex.getSex(jsonObject.getString(Params.SEX));
                 user.birthDate = jsonObject.getString(Params.BIRTH_DATE);
-                user.profilePicture = jsonObject.getString(Params.PROFILE_PICTURE);
+                user.profilePictureId = jsonObject.getInt(Params.PROFILE_PICTURE_ID);
                 user.isEmailConfirmed = jsonObject.getBoolean(Params.IS_EMAIL_COMFIRMED);
 
                 return user;

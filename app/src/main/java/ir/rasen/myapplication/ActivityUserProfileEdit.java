@@ -42,6 +42,7 @@ import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.user.GetUserProfileInfo;
 import ir.rasen.myapplication.webservice.user.UpdateUserProfile;
@@ -57,7 +58,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
     User user = new User();
     Context context;
     boolean sex;
-
+    private DownloadImages downloadImages;
     private ProgressDialogCustom pd;
 
 
@@ -69,6 +70,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         setContentView(R.layout.activity_profile_edit);
 
         context = this;
+        downloadImages = new DownloadImages(this);
         pd = new ProgressDialogCustom(context);
         // SET VALUES
         edtName = (EditTextFont) findViewById(R.id.edt_profile_edit_name);
@@ -352,10 +354,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                     spinnerSex.setSelection(0);
                 }
                 if (!user.aboutMe.equals("null")) edtAboutMe.setText(user.aboutMe);
-                if (user.profilePicture.length() > 0) {
-                    byte[] decodedProfilePicture = Base64.decode(user.profilePicture, Base64.DEFAULT);
-                    Bitmap bitmapProfilePicture = BitmapFactory.decodeByteArray(decodedProfilePicture, 0, decodedProfilePicture.length);
-                    imbProfilePicture.setImageBitmap(bitmapProfilePicture);
+                if (user.profilePictureId != 0) {
+                    downloadImages.download(user.profilePictureId,Image_M.getImageSize(Image_M.ImageSize.MEDIUM),imbProfilePicture);
                 }
                 if (!user.birthDate.equals("null") && !user.birthDate.equals("NULL"))
                     txtBirthDate.setText(user.birthDate);

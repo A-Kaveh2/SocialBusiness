@@ -225,11 +225,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
                 post.picture = Image_M.getBase64String(filePath);
 
         } else {
-            Calendar calander = Calendar.getInstance();
-            String day = String.valueOf(calander.get(Calendar.DAY_OF_MONTH));
-            String month = String.valueOf(calander.get(Calendar.MONTH) + 1);
-            String year = String.valueOf(calander.get(Calendar.YEAR));
-            post.creationDate = day + "/" + month + "/" + year;
+
             post.title = name.getText().toString();
             post.price = price.getText().toString();
             post.code = code.getText().toString();
