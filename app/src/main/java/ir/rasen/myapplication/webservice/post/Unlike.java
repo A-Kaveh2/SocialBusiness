@@ -19,7 +19,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
  * Created by android on 12/16/2014.
  */
 public class Unlike extends AsyncTask<Void, Void, ResultStatus> {
-    private static final String TAG = "Dislike";
+    private static final String TAG = "Unlike";
 
     private WebserviceResponse delegate = null;
     private int userID;
