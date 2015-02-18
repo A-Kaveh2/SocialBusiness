@@ -23,6 +23,7 @@ import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -48,8 +49,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
     private int position;
     private Post post;
+    private ProgressDialogCustom pd;
 
-    public PostsAdapter(Context context, ArrayList<Post> posts, WebserviceResponse delegate, EditInterface editDelegateInterface) {
+    public PostsAdapter(Context context, ArrayList<Post> posts, WebserviceResponse delegate, EditInterface editDelegateInterface, ProgressDialogCustom pd) {
         super(context, R.layout.layout_post, posts);
         mPosts = posts;
         mInflater = LayoutInflater.from(context);
@@ -57,6 +59,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
         this.downloadImages = new DownloadImages(context);
+        this.pd = pd;
     }
 
     @Override
@@ -94,6 +97,11 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         }
 
         if (post != null && holder != null) {
+            // Check if liked
+            if(post.isLiked)
+                holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+            else
+                holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
             downloadImages.download(post.pictureId, 1, holder.postPic);
             downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
             if(post.lastThreeComments!=null && post.lastThreeComments.size()>0)
@@ -106,9 +114,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.commentsNum.setText(post.commentNumber+"");
             holder.sharesNum.setText(post.shareNumber+"");
 
-            // TODO :: CREATION DATE should be passed in minute
-            //holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), post.creationDate));
-            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), 1000));
+            holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), post.creationDate));
 
         }
 
@@ -127,7 +133,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             this.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     OptionsPost optionsPost = new OptionsPost(context);
-                    optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface);
+                    optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface, pd);
                 }
             });
 

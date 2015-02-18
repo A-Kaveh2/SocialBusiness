@@ -21,17 +21,23 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.CommentsAdapter;
+import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
+import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.EditTextFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
+import ir.rasen.myapplication.webservice.comment.GetPostAllComments;
 import ir.rasen.myapplication.webservice.comment.SendComment;
 import ir.rasen.myapplication.webservice.user.GetFollowingBusinesses;
 
@@ -52,6 +58,8 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     private int postId;
 
     ArrayList<Comment> comments;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentComments newInstance(int postId) {
         FragmentComments fragment = new FragmentComments();
@@ -77,6 +85,13 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         Bundle bundle = getArguments();
         if (bundle != null) {
             postId = bundle.getInt(Params.POST_ID);
+
+
+            pd = new ProgressDialogCustom(getActivity());
+            pd.show();
+
+            new GetPostAllComments(postId, 0, getResources().getInteger(R.integer.lazy_load_limitation),FragmentComments.this).execute();
+
         } else {
             Log.e(TAG, "bundle is null!!");
             getActivity().finish();
@@ -113,7 +128,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         comments.add(comment1);
         comments.add(comment2);
         comments.add(comment3);*/
-        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this);
+        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this, FragmentComments.this, pd);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.btn_comments_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +170,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         return view;
     }
 
-    public void sendComment(View view) {
+    public void sendComment(View v) {
         EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
         if (commentText.getText().toString().length() < Params.COMMENT_TEXT_MIN_LENGTH) {
             commentText.setErrorC(getString(R.string.comment_is_too_short));
@@ -172,11 +187,14 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
                 FragmentComments.this).execute();
     }
 
-    // TODO: LOAD MORE DATA
+    // LOAD MORE DATA
     public void loadMoreData() {
         // LOAD MORE DATA HERE...
         isLoadingMore = true;
         listFooterView.setVisibility(View.VISIBLE);
+
+        new GetPostAllComments(postId, comments.get(comments.size()-1).id, getResources().getInteger(R.integer.lazy_load_limitation),FragmentComments.this).execute();
+
     }
 
     void setUpListView() {
@@ -229,30 +247,40 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         if(result instanceof ResultStatus){
-
-        }
-
-        // AFTER EDITING OR DELETING A COMMENT ::
-        int editingPosition = -1;
-        for(int i=0; i<comments.size(); i++) {
-            if(comments.get(i).id==editingId) {
-                editingPosition = i;
-                break;
+            int editingPosition = -1;
+            for(int i=0; i<comments.size(); i++) {
+                if(comments.get(i).id==editingId) {
+                    editingPosition = i;
+                    break;
+                }
+            }
+            if(editingText==null) {
+                comments.remove(editingPosition);
+                mAdapter.notifyDataSetChanged();
+            } else {
+                comments.get(editingPosition).text=editingText;
+                mAdapter.notifyDataSetChanged();
             }
         }
-        if(editingText==null) {
-            comments.remove(editingPosition);
+
+        if (result instanceof ArrayList) {
+            //result from executing getBusinessFollowers
+            ArrayList<Comment> postComments = (ArrayList<Comment>) result;
+            comments.addAll(postComments);
             mAdapter.notifyDataSetChanged();
-        } else {
-            comments.get(editingPosition).text=editingText;
-            mAdapter.notifyDataSetChanged();
+            isLoadingMore = false;
+            swipeView.setRefreshing(false);
+            listFooterView.setVisibility(View.GONE);
+
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
         try {
+            pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage);
         } catch(Exception e) {

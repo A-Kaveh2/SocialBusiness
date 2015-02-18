@@ -50,8 +50,8 @@ public class PostsGridAdapterResult extends ArrayAdapter<SearchItemPost> {
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO :: GET POST FROM POST ID HERE AND THEN ::
-                    //InnerFragment innerFragment = new InnerFragment(getContext());
+                    // TODO:: GET POST FROM POST ID HERE AND THEN ::
+                    // InnerFragment innerFragment = new InnerFragment(getContext());
                     // innerFragment.newPostFragment(fullPost);
                 }
             });

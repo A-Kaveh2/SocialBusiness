@@ -15,23 +15,26 @@ import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.ActivityNewPost_Step1;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 public class OptionsPost {
     private Context context;
+    private ProgressDialogCustom pd;
 
     public OptionsPost(Context context) {
         this.context = context;
     }
 
-    public void showOptionsPopup(final Post post, View view, final WebserviceResponse webserviceResponse, final EditInterface editDelegateInterface) {
-
+    public void showOptionsPopup(final Post post, View view, final WebserviceResponse webserviceResponse, final EditInterface editDelegateInterface, ProgressDialogCustom pd) {
+        this.pd = pd;
         // SHOWING POPUP WINDOW
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View layout;
-
+        // TODO :: TEST
+boolean isMine = false;
         //if (post.isMine(context)) {
-        if (true) {
+        if (isMine) {
             layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
                     new LinearLayout(context));
         } else {
@@ -46,7 +49,7 @@ public class OptionsPost {
         // SETTING ON CLICK LISTENERS
 
         //if (post.isMine(context)) {
-        if (true) {
+        if (isMine) {
             // EDIT OPTION
             (layout.findViewById(R.id.ll_menu_post_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -100,7 +103,7 @@ public class OptionsPost {
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showPostReportPopup(context, post.id, webserviceResponse);
+        dialogs.showPostReportPopup(context, post.id, webserviceResponse, pd);
     }
 
     public void showSharePopup(Post post, WebserviceResponse webserviceResponse) {

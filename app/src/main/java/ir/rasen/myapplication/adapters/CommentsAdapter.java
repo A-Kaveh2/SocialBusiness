@@ -21,8 +21,10 @@ import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -34,14 +36,18 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
     private Context context;
     private EditInterface editDelegateInterface;
     private DownloadImages downloadImages;
+    private ProgressDialogCustom pd;
+    private WebserviceResponse delegate;
 
-	public CommentsAdapter(Context context, ArrayList<Comment> comments, EditInterface editDelegateInterface) {
+	public CommentsAdapter(Context context, ArrayList<Comment> comments, WebserviceResponse delegate, EditInterface editDelegateInterface, ProgressDialogCustom pd) {
 		super(context, R.layout.layout_comments_comment, comments);
 		mComments 	= comments;
 		mInflater	= LayoutInflater.from(context);
         this.context = context;
+        this.delegate = delegate;
         this.editDelegateInterface = editDelegateInterface;
         this.downloadImages = new DownloadImages(context);
+        this.pd = pd;
 	}
 
 	@Override
@@ -117,7 +123,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 public void onClick(View v) {
                     // TODO: EDIT COMMENT
                     Dialogs dialogs = new Dialogs();
-                    Dialog dialog = dialogs.showCommentEditPopup(getContext(), comment);
+                    Dialog dialog = dialogs.showCommentEditPopup(getContext(), comment, pd);
                     editDelegateInterface.setEditing(comment.id, comment.text, dialog);
                     pw.dismiss();
                 }
@@ -125,9 +131,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             // DELETE OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_delete)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // TODO DELETE COMMENT
+                    // DELETE COMMENT
                     Dialogs dialogs = new Dialogs();
-                    dialogs.showCommentDeletePopup(getContext());
+                    dialogs.showCommentDeletePopup(getContext(), comment.businessID, comment.id, delegate, pd);
                     pw.dismiss();
                 }
             });
@@ -147,7 +153,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 public void onClick(View v) {
                     // TODO DELETE POST
                     Dialogs dialogs = new Dialogs();
-                    dialogs.showCommentDeleteFromMyBusinessPopup(getContext());
+                    dialogs.showCommentDeleteFromMyBusinessPopup(getContext(), comment.businessID, comment.id, delegate, pd);
                     editDelegateInterface.setEditing(comment.id, comment.text, null);
                     pw.dismiss();
                 }

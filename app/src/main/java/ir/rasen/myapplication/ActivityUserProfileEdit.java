@@ -232,7 +232,8 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         if (user.birthDate.length() > 0) {
             try {
                 year.setText(user.birthDate.substring(0, user.birthDate.indexOf("/")));
-                month.setText(user.birthDate.substring(user.birthDate.indexOf("/") + 1, user.birthDate.indexOf("/", user.birthDate.indexOf("/") + 1)));
+                String monthTemp = user.birthDate.substring(user.birthDate.indexOf("/") + 1, user.birthDate.indexOf("/", user.birthDate.indexOf("/") + 1));
+                month.setText(monthTemp.length()<2 ? "0"+monthTemp : monthTemp);
                 day.setText(user.birthDate.substring(user.birthDate.indexOf("/", user.birthDate.indexOf("/") + 1) + 1, user.birthDate.length()));
             } catch (Exception e) {
 

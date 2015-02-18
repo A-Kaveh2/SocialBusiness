@@ -143,10 +143,10 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
             if (posts.size() == 1) {
                 singlePost = true;
             }
-            mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse, editDelegateInterface);
+            mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse, editDelegateInterface, pd);
         } else if(homeType==Params.HomeType.HOME_HOME) {
 
-            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface);
+            mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface, pd);
             new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
                     ,0,getResources().getInteger(R.integer.lazy_load_limitation),FragmentHome.this).execute();
             pd.show();

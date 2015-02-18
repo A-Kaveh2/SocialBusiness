@@ -488,10 +488,10 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
         try {
 
             if (result instanceof ResultStatus) {
+                pd.dismiss();
                 //delete post,follow business
 
                 if (follow_friend_request_sent) {
@@ -558,7 +558,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private void initialAdapters(ArrayList<Post> posts) {
         if (listAdapter == null)
-            listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this);
+            listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this, pd);
         else
             listAdapter.notifyDataSetChanged();
 

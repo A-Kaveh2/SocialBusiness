@@ -346,6 +346,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
                 edtDescription.setText(existedBusiness.description);
                 edtName.setText(existedBusiness.name);
                 setSpnCategory(existedBusiness.category);
+                try {
+                    imbProfilePicture.setImageBitmap(
+                            Image_M.getBitmapFromString(existedBusiness.profilePicture));
+                } catch (Exception e) {Log.e(TAG, "Error in bitmap string");}
+
+                PassingBusiness.getInstance().setValue(existedBusiness);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

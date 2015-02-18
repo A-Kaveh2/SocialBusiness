@@ -26,6 +26,7 @@ import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
 import ir.rasen.myapplication.ui.ImageViewCircle;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -46,9 +47,10 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
     private DownloadImages downloadImages;
 
     private Post post;
+    private ProgressDialogCustom pd;
 
 
-	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse, EditInterface editDelegateInterface) {
+	public HomePostsAdapter(Context context, ArrayList<Post> posts,WebserviceResponse webserviceResponse, EditInterface editDelegateInterface, ProgressDialogCustom pd) {
 		super(context, R.layout.layout_post_home, posts);
 		mPosts 	= posts;
 
@@ -57,6 +59,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         this.context = context;
         this.editDelegateInterface = editDelegateInterface;
         this.downloadImages = new DownloadImages(context);
+        this.pd = pd;
 	}
 
 	@Override
@@ -185,15 +188,15 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 holder.options.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         OptionsPost optionsPost = new OptionsPost(getContext());
-                        optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse, editDelegateInterface);
+                        optionsPost.showOptionsPopup(mPosts.get(position), view, webserviceResponse, editDelegateInterface, pd);
                     }
                 });
 
-                // TODO:: Check if liked
-                // IF LIKED ::
-                //holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                //else
-                //holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
+                // Check if liked
+                if(post.isLiked)
+                holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                else
+                holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
             } else if(post.type==Post.Type.Review) {
                 holder.postPic.setVisibility(View.GONE);
                 holder.likes.setVisibility(View.GONE);
@@ -253,9 +256,9 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             if(post.type== Post.Type.Complete) {
                 holder.business_name.setText(post.businessUserName);
                 downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
-                // TODO: لطفأ ورودی زمان و کامنت را اصلاح و سایر مقادیر را وارد کنید
-                // FOR TEST ONLY!
-                holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), new Random().nextInt(100000)));
+
+                holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), post.creationDate));
+
 
                 // ON CLICK LISTENERS FOR business pic and name
                 holder.business_pic.setOnClickListener(new View.OnClickListener() {

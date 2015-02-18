@@ -20,7 +20,9 @@ import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
+import ir.rasen.myapplication.webservice.business.DeleteComment;
 import ir.rasen.myapplication.webservice.post.DeletePost;
+import ir.rasen.myapplication.webservice.post.Report;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
 
 public class Dialogs {
@@ -61,43 +63,47 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showPostReportPopup(Context context, final int post_id, final WebserviceResponse delegate) {
+    public void showPostReportPopup(final Context context, final int post_id, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.report)
                 .setMessage(R.string.popup_report)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: REPORT NOW
-                        //new DeletePost(buisness_id,post_id,delegate).execute();
+                        // REPORT NOW
+                        pd.show();
+                        new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
     }
 
-    public void showCommentDeletePopup(Context context) {
+    public void showCommentDeletePopup(Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_comment)
                 .setMessage(R.string.popup_delete_comment)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE COMMENT
+                        new DeleteComment(businessId, commentId, delegate);
+                        pd.show();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
     }
 
-    public void showCommentDeleteFromMyBusinessPopup(Context context) {
+    public void showCommentDeleteFromMyBusinessPopup(Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_comment)
                 .setMessage(R.string.popup_delete_comment_from_my_business)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: DELETE COMMENT
+                        // DELETE COMMENT from my business
+                        new DeleteComment(businessId, commentId, delegate);
+                        pd.show();
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -169,7 +175,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public Dialog showCommentEditPopup(final Context context, final Comment comment) {
+    public Dialog showCommentEditPopup(final Context context, final Comment comment, final ProgressDialogCustom pd) {
         final Dialog dialog = new Dialog(context, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_edit_comment);
@@ -194,6 +200,7 @@ public class Dialogs {
                     return;
                 }
                 // TODO:: edit comment
+                pd.show();
             }
         });
         dialog.show();

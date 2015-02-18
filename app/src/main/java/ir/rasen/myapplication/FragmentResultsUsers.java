@@ -16,6 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
+import ir.rasen.myapplication.adapters.UserResultsAdapter;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
@@ -172,7 +173,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
                     users.add(user);
                 }
 
-                mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
+                mAdapter = new UserResultsAdapter(getActivity(), users);
                 list.setAdapter(mAdapter);
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);

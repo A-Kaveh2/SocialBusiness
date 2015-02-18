@@ -27,7 +27,7 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
     private Context context;
     private DownloadImages downloadImages;
 
-	public UserResultsAdapter(Context context, ArrayList<User> friends, boolean ownFriends) {
+	public UserResultsAdapter(Context context, ArrayList<User> friends) {
 		super(context, R.layout.layout_friends_friend, friends);
 		mFriends 	= friends;
 		mInflater	= LayoutInflater.from(context);
@@ -54,7 +54,7 @@ public class UserResultsAdapter extends ArrayAdapter<User> {
 
         if (friend != null) {
             downloadImages.download(friend.profilePictureId, 3, holder.user_profile_pic);
-            holder.user_name.setText(friend.name);
+            holder.user_name.setText(friend.userName);
             // show friends profile
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

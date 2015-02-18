@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/text_size_normal"
             android:gravity="center"
-            android:textColor="@color/gray"/>
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
     <!-- DELETE OPTION -->
@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/text_size_normal"
             android:gravity="center"
-            android:textColor="@color/gray"/>
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </LinearLayout>

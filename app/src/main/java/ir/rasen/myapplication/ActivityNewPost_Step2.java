@@ -191,10 +191,10 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     private void finished() {
         ActivityMain.activityMain.onBackPressed();
-        InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
-        innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
         ActivityNewPost_Step1.step1.finish();
         finish();
+        InnerFragment innerFragment = new InnerFragment(ActivityMain.activityMain);
+        innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, true, getIntent().getIntExtra(Params.BUSINESS_ID, 0));
     }
 
     @Override
