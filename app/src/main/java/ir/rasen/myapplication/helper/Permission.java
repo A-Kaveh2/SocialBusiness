@@ -5,9 +5,9 @@ import org.json.JSONObject;
 
 public class Permission {
 
-    public boolean followedBusiness;
-    public boolean friends;
-    public boolean reviews;
+    public boolean followedBusiness = true;
+    public boolean friends= true;
+    public boolean reviews = true;
 
     public void getFromJsonObject(JSONObject jsonObject) throws Exception {
         followedBusiness = jsonObject.getBoolean(Params.FOLLOWED_BUSINESS);

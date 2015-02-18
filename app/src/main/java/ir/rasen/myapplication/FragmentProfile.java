@@ -514,6 +514,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 assignNow();
 
+                //pd.dismiss();
                 new GetSharedPosts(LoginInfo.getUserId(cont), 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getUserPosts;
 

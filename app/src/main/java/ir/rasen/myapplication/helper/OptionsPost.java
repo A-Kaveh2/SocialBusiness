@@ -32,7 +32,7 @@ public class OptionsPost {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View layout;
         // TODO :: TEST
-boolean isMine = false;
+        boolean isMine = false;
         //if (post.isMine(context)) {
         if (isMine) {
             layout = inflater.inflate(R.layout.layout_menu_post_options_owner,
@@ -97,7 +97,7 @@ boolean isMine = false;
     public void showDeletePopup(Post post, WebserviceResponse webserviceResponse) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showPostDeletePopup(context, post.businessID,post.id, webserviceResponse);
+        dialogs.showPostDeletePopup(context, post.businessID, post.id, webserviceResponse);
     }
 
     public void showReportPopup(Post post, WebserviceResponse webserviceResponse) {

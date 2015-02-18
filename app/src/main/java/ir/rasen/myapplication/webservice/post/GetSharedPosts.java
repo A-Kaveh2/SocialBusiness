@@ -9,7 +9,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Hashtag;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
@@ -45,14 +47,40 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         try {
             serverAnswer = webserviceGET.executeList();
-            if (serverAnswer.getSuccessStatus()) {
+            Post post = new Post();
+            post.id = 27;
+            post.pictureId = 2022;
+
+            post.businessID = 1;
+            post.businessUserName = "dkad";
+            post.businessProfilePictureId = 2022;
+            post.title = "title";
+            post.creationDate = -2025;
+            post.description = "dess";
+            post.code = "code";
+            post.price = "price";
+
+            ArrayList<Comment> comments = new ArrayList<>();
+            post.lastThreeComments = comments;
+            ArrayList<String> hash = new ArrayList<>();
+            post.hashtagList = hash;
+
+            post.isLiked = false;
+            post.likeNumber = 0;
+            post.commentNumber = 0;
+            post.shareNumber = 0;
+
+            list.add(post);
+            return list;
+
+            /*if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(Post.getFromJSONObjectShare(jsonObject));
                 }
                 return list;
-            }
+            }*/
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -64,7 +92,9 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     @Override
     protected void onPostExecute(ArrayList<Post> result) {
 
-        //if webservice.execute() throws exception
+        delegate.getResult(result);
+
+       /* //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
@@ -72,6 +102,6 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
         if (serverAnswer.getSuccessStatus())
             delegate.getResult(result);
         else
-            delegate.getError(serverAnswer.getErrorCode());
+            delegate.getError(serverAnswer.getErrorCode());*/
     }
 }

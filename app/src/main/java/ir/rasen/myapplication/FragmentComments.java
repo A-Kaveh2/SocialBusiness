@@ -112,22 +112,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
         comments = new ArrayList<Comment>();
 
-        /*
-            for example, i've made some fake data to show ::
-        */
-        /*Comment comment1 = new Comment();
-        Comment comment2 = new Comment();
-        Comment comment3 = new Comment();
-        comment1.userID = 1;
-        comment1.username = "SI35NA";
-        comment1.text = ("سلام!!");
-        comment2.userID = 2;
-        comment2.text = ("چطوری @سینا؟");
-        comment3.username = "SINA";
-        comment3.text = ("فدایت عزیز");
-        comments.add(comment1);
-        comments.add(comment2);
-        comments.add(comment3);*/
+
         mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this, FragmentComments.this, pd);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.btn_comments_send).setOnClickListener(new View.OnClickListener() {

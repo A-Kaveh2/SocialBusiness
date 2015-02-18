@@ -68,10 +68,6 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
 
     @Override
     protected void onPostExecute(ArrayList<SearchItemUserBusiness> result) {
-       /* if (result == null)
-            delegate.getError(serverAnswer.getErrorCode());
-        else
-            delegate.getResult(result);*/
 
         //if webservice.execute() throws exception
         if (serverAnswer == null) {
