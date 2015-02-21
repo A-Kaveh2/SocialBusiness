@@ -95,6 +95,9 @@ public class CustomeCamera {
         else
             autoFocusEnabled = false;
 
+        //TODO for the test
+        autoFocusEnabled = false;
+
         mCamera.setParameters(params);
 
         // Create our Preview view and set it as the content of our activity.
