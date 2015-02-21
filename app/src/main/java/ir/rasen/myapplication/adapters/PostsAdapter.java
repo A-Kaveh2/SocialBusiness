@@ -132,6 +132,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         public void initail(){
             this.options.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
+                    //TODO here: position is wrong. e.g. clicking option menu on first item of the mPosts: position = 1 while it must be 0
                     OptionsPost optionsPost = new OptionsPost(context);
                     optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface, pd);
                 }

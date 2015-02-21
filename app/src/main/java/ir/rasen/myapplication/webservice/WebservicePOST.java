@@ -12,6 +12,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.classes.User;
@@ -41,7 +42,8 @@ public class WebservicePOST {
 
     private HttpResponse run(HttpPost httpPost) throws Exception {
         HttpResponse httpResponse = null;
-        StringEntity params = new StringEntity(jsonParams.toString());
+        //StringEntity params = new StringEntity(jsonParams.toString());
+        StringEntity params = new StringEntity(jsonParams.toString(), "UTF-8");
         httpPost.setEntity(params);
         httpPost.setHeader("Content-Type", "application/json");
         httpPost.setHeader("Accept", "application/json");
