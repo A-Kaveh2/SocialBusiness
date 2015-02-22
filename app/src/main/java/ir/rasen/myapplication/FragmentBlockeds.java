@@ -26,6 +26,7 @@ import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
 import ir.rasen.myapplication.webservice.business.GetBusinessFollowers;
 import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 
@@ -44,16 +45,17 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     ArrayList<User> blockeds;
 
     // business id is received here
-    private int businessId;
+    private static int businessId;
 
     private ProgressDialogCustom pd;
 
-    public static FragmentBlockeds newInstance (int businessId){
+    public static FragmentBlockeds newInstance (int businessID){
         FragmentBlockeds fragment = new FragmentBlockeds();
 
         Bundle bundle = new Bundle();
         bundle.putInt(Params.BUSINESS_ID, businessId);
         fragment.setArguments(bundle);
+        businessId = businessID;
 
         return fragment;
     }
@@ -79,7 +81,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetBusinessFollowers(1,FragmentBlockeds.this).execute();
+        new GetBlockedUsers(businessId,FragmentBlockeds.this).execute();
     }
 
     @Override
@@ -184,10 +186,14 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
             User user;
             for(SearchItemUserBusiness item:businessesFollowers){
                 user = new User();
+                user.id = item.id;
                 user.userName = item.username;
                 user.profilePictureId = item.pictureId;
                 temp.add(user);
             }
+
+            //TODO temp have the result. Display the result.
+
             blockeds.addAll(temp);
             mAdapter.notifyDataSetChanged();
             isLoadingMore=false;

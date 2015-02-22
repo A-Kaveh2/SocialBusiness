@@ -49,6 +49,22 @@ public class ServerAnswer {
                 return context.getResources().getString(R.string.err_invalid_base64_string);
             case 10:
                 return context.getResources().getString(R.string.err_database_constraints_violation);
+            case 11:
+                return context.getResources().getString(R.string.err_block_does_not_exist);
+            case 12:
+                return context.getResources().getString(R.string.err_comment_does_not_exist);
+            case 13:
+                return context.getResources().getString(R.string.err_follow_already_exist);
+            case 14:
+                return context.getResources().getString(R.string.err_follow_does_not_exist);
+            case 15:
+                return context.getResources().getString(R.string.err_friend_request_does_not_exist);
+            case 16:
+                return context.getResources().getString(R.string.err_image_does_not_exist);
+            case 17:
+                return context.getResources().getString(R.string.err_no_rate);
+            case 18:
+                return context.getResources().getString(R.string.err_no_review);
 
         }
 

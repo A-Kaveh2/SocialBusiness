@@ -47,16 +47,17 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         try {
             serverAnswer = webserviceGET.executeList();
-           /* Post post = new Post();
+            Post post = new Post();
             post.id = 27;
             post.pictureId = 2022;
 
-            post.businessID = 1;
-            post.businessUserName = "dkad";
+            post.businessID = 2013;
+            post.businessUserName = "dhhhhhh";
             post.businessProfilePictureId = 2022;
             post.title = "title";
             post.creationDate = -2025;
             post.description = "dess";
+            post.isLiked = true;
             post.code = "code";
             post.price = "price";
 
@@ -71,16 +72,16 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
             post.shareNumber = 0;
 
             list.add(post);
-            return list;*/
+            return list;
 
-            if (serverAnswer.getSuccessStatus()) {
+           /* if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(Post.getFromJSONObjectShare(jsonObject));
                 }
                 return list;
-            }
+            }*/
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

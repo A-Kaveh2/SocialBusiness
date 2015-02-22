@@ -84,9 +84,6 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         pd = new ProgressDialogCustom(getActivity());
 
         new GetBusinessFollowers(businessId,FragmentFollowers.this).execute();
-        //new BlockUser(businessId,3,FragmentFollowers.this).execute();
-        //new UnblockUser(businessId, 3, FragmentFollowers.this).execute();
-        //new GetBlockedUsers(businessId,FragmentFollowers.this).execute();
 
     }
 

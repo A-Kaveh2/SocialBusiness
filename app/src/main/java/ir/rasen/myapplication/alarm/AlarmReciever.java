@@ -47,9 +47,12 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
             Comment.insertLastCommentId(context, commentNotification.id);
 
             MyNotification notification = new MyNotification();
+
+            //TODO remove test part: ActivityWelcome
+
             notification.notify(context, commentNotification.userName,
                     Image_M.getBitmapFromString(commentNotification.postPicture),
-                    Image_M.getBitmapFromString(commentNotification.userPicture));
+                    Image_M.getBitmapFromString(commentNotification.userPicture),ActivityWelcome.class);
         }
     }
 

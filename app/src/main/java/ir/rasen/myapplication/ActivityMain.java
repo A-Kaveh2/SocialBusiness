@@ -61,9 +61,9 @@ public class ActivityMain extends FragmentActivity {
         activityMain = this;
 
         //set alarm manager to run GetLastCommentNotification periodically
-        //Alarm_M alarm_m = new Alarm_M();
+        Alarm_M alarm_m = new Alarm_M();
         //TODO uncomment
-        //alarm_m.set(this);
+        alarm_m.set(this);
 
         btnHome = (ImageButton) findViewById(R.id.btn_main_home);
         btnSearch = (ImageButton) findViewById(R.id.btn_main_search);

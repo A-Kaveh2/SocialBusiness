@@ -44,13 +44,23 @@
     <string name="choose_category_first">لطفأ موضوع فعالیت کسب و کار خود را تعیین نمایید.</string>
     <string name="ok">تأیید</string>
     <string name="enter_business_description">لطفأ توضیحاتی در خصوص کسب و کار وارد نمایید.</string>
-    <string name="err_business_does_not_exist">چنین کسب و کاری وجود ندارد</string>
-    <string name="err_post_does_not_exist">چنین پستی وجود ندارد</string>
-    <string name="err_json_serialization">JSON Serialization Error</string>
-    <string name="err_further_development">Need Further Development</string>
-    <string name="err_empty_post_request">Empty Post Request</string>
-    <string name="err_invalid_base64_string">Invalid Base64 String</string>
-    <string name="err_database_constraints_violation">چنین نام کاربری قبلا ثبت شده است</string>
+    <string name="err_business_does_not_exist">BUSINESS DOES NOT EXIST! Error:04</string>
+    <string name="err_post_does_not_exist">POST DOES NOT EXIST! Error:05</string>
+    <string name="err_json_serialization">CAN NOT SERIALIZE TO JSON! Error:06</string>
+    <string name="err_further_development">Need Further Development! Error:07</string>
+    <string name="err_empty_post_request">EMPTY OR INVALID BODY FOR POST REQUEST! Error:08</string>
+    <string name="err_invalid_base64_string">INVALID BASE64 STRING! Error:09</string>
+    <string name="err_database_constraints_violation">DATA BASE CONSTRAINTS VIOLATION! Error: 10</string>
+    <string name="err_block_does_not_exist">BLOCK DOES NOT EXIST! Error: 11</string>
+    <string name="err_comment_does_not_exist">COMMENT DOES NOT EXIST! Error: 12</string>
+    <string name="err_follow_already_exist">FOLLOW ALREADY EXISTS! Error: 13</string>
+    <string name="err_follow_does_not_exist">FOLLOW DOES NOT EXIST! Error: 14</string>
+    <string name="err_friend_request_does_not_exist">FRIEND REQUEST DOES NOT EXIST! Error: 15</string>
+    <string name="err_image_does_not_exist">IMAGE DOES NOT EXIST! Error: 16</string>
+    <string name="err_no_rate">NO RATE! Error: 17</string>
+    <string name="err_no_review">NO REVIEW! Error: 18</string>
+
+
     <string name="err_login_password_re_enter">رمز عبور و تکرار آن یکسان نیستند.</string>
     <string name="err_login_password_short">رمز عبور باید حداقل 6 کاراکتر باشد.</string>
     <string name="err_login_email_invalid">آدرس ایمیل نامعتبر است.</string>
@@ -66,9 +76,9 @@
     <string name="err_execution">Execution Error</string>
     <string name="err_none">None</string>
 
-    <string name="err_unknown">لطفا مجددا سعی نمایید</string>
+    <string name="err_unknown">UNKNOW ERROR! Error:00</string>
     <string name="err_database_connection">ارتباط برقرار نشد. مجددا سعی نمایید</string>
-    <string name="err_user_dose_not_exist">چنین پست الکترونیکی ثبت نشده است</string>
+    <string name="err_user_dose_not_exist">USER DOES NOT EXIST! Error:02</string>
     <string name="err_password_incorrect">رمز عبور اشتباه است</string>
     <string name="err_location">لطفأ موقعیت کسب و کار خود را تعیین کنید.</string>
 
