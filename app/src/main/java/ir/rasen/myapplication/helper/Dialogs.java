@@ -22,6 +22,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
 import ir.rasen.myapplication.webservice.business.DeleteComment;
+import ir.rasen.myapplication.webservice.business.UnblockUser;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.post.Report;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
@@ -139,7 +140,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerBlockPopup(Context context,final int businessId, final int userId,final WebserviceResponse delegate) {
+    public void showFollowerBlockPopup(Context context,final int businessId, final int userId,final WebserviceResponse delegate, final EditInterface editDelegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.block_follower)
@@ -147,21 +148,33 @@ public class Dialogs {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // BLOCK FOLLOWER ( ID is in userId )
-                        new BlockUser(businessId,userId,delegate);
+                        new BlockUser(businessId,userId,delegate).execute();
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        editDelegate.setEditing(0,null,null);
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerUnblockPopup(Context context, final int userId) {
+    public void showFollowerUnblockPopup(Context context,final int businessId, final int userId,final WebserviceResponse delegate, final EditInterface editDelegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.unblock_follower)
                 .setMessage(R.string.popup_unblock_follower)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: UNBLOCK FOLLOWER ( ID is in userId )
+                        new UnblockUser(businessId, userId, delegate).execute();
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        editDelegate.setEditing(0, null, null);
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);

@@ -12,32 +12,40 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
  */
-// TODO: FRIENDS LIST ADAPTER
 public class BlockedsAdapter extends ArrayAdapter<User> {
-	private ArrayList<User> mFollowers;
-	private LayoutInflater mInflater;
+    private ArrayList<User> mFollowers;
+    private LayoutInflater mInflater;
     private Context context;
     private DownloadImages downloadImages;
+    private int businessId;
+    private WebserviceResponse delegate;
+    private EditInterface editDelegateInterface;
 
-	public BlockedsAdapter(Context context, ArrayList<User> blockeds) {
-		super(context, R.layout.layout_businesses_business, blockeds);
-		mFollowers	= blockeds;
-		mInflater	= LayoutInflater.from(context);
+    public BlockedsAdapter(Context context, ArrayList<User> blockeds, int businessId, WebserviceResponse delegate
+            , EditInterface editDelegateInterface) {
+        super(context, R.layout.layout_businesses_business, blockeds);
+        mFollowers = blockeds;
+        mInflater = LayoutInflater.from(context);
         this.context = context;
         downloadImages = new DownloadImages(context);
-	}
+        this.businessId = businessId;
+        this.delegate = delegate;
+        this.editDelegateInterface = editDelegateInterface;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup group) {
+    @Override
+    public View getView(int position, View convertView, ViewGroup group) {
         final ViewHolder holder;
         final User blocked = mFollowers.get(position);
 
@@ -62,20 +70,22 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
                 @Override
                 public void onClick(View view) {
                     InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, blocked.id);
+                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, blocked.id);
                 }
             });
             holder.unblock.setVisibility(View.VISIBLE);
             holder.unblock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    editDelegateInterface.setEditing(blocked.id, null, null);
                     showUnblockPopup(blocked.id);
-            }
-                });
+                }
+            });
         }
 
-        return  convertView;
+        return convertView;
     }
+
     class ViewHolder {
         ImageViewCircle blocked_profile_pic;
         TextViewFont blocked_name;
@@ -85,7 +95,7 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
     private void showUnblockPopup(int userId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showFollowerUnblockPopup(getContext(), userId);
+        dialogs.showFollowerUnblockPopup(getContext(), businessId, userId, delegate, editDelegateInterface);
     }
 
 }

@@ -83,8 +83,8 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 holder.block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    showBlockPopup(businessId, follower.id);
                     editDelegateInterface.setEditing(follower.id, null, null);
+                    showBlockPopup(follower.id);
                     }
                 });
             } else
@@ -99,10 +99,10 @@ public class FollowersAdapter extends ArrayAdapter<User> {
         ImageButton block;
     }
 
-    private void showBlockPopup(int businessId, int userId) {
+    private void showBlockPopup(int userId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showFollowerBlockPopup(getContext(),businessId, userId, delegate);
+        dialogs.showFollowerBlockPopup(getContext(),businessId, userId, delegate, editDelegateInterface);
     }
 
 }

@@ -223,5 +223,9 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         editingId = id;
         editingText = text;
         editingDialog = dialog;
+        if(id>0)
+            pd.show();
+        else
+            pd.dismiss();
     }
 }
