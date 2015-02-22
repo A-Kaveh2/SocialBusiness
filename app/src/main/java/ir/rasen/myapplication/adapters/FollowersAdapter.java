@@ -18,6 +18,7 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
 
 /**
  * Created by 'Sina KH' on 01/11/2015.
@@ -30,14 +31,19 @@ public class FollowersAdapter extends ArrayAdapter<User> {
     private Context context;
     private EditInterface editDelegateInterface;
     private DownloadImages downloadImages;
+    private WebserviceResponse delegate;
+    private int businessId;
 
-	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers, EditInterface editDelegateInterface) {
+	public FollowersAdapter(Context context, ArrayList<User> followers, boolean ownFollowers,
+                            int businessId, WebserviceResponse delegate, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_businesses_business, followers);
 		mFollowers	= followers;
 		mInflater	= LayoutInflater.from(context);
         mOwnFollowers = ownFollowers;
         this.context = context;
+        this.delegate = delegate;
         this.editDelegateInterface = editDelegateInterface;
+        this.businessId = businessId;
         downloadImages =  new DownloadImages(context);
 	}
 
@@ -77,7 +83,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                 holder.block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    showBlockPopup(follower.id);
+                    showBlockPopup(businessId, follower.id);
                     editDelegateInterface.setEditing(follower.id, null, null);
                     }
                 });
@@ -93,10 +99,10 @@ public class FollowersAdapter extends ArrayAdapter<User> {
         ImageButton block;
     }
 
-    private void showBlockPopup(int userId) {
+    private void showBlockPopup(int businessId, int userId) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showFollowerBlockPopup(getContext(), userId);
+        dialogs.showFollowerBlockPopup(getContext(),businessId, userId, delegate);
     }
 
 }

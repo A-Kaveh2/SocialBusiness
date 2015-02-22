@@ -44,14 +44,13 @@ public class ProfilePostsGridAdapter extends ArrayAdapter<Post> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (post != null && holder != null) { // TODO:: WHY holder should be checked, too?
+        if (post != null) {
             downloadImages.download(post.pictureId, 2, holder.postPic);
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO:: GET POST FROM POST ID HERE AND THEN ::
-                    // InnerFragment innerFragment = new InnerFragment(getContext());
-                    // innerFragment.newPostFragment(fullPost);
+                    InnerFragment innerFragment = new InnerFragment(getContext());
+                    innerFragment.newPostFragment(post);
                 }
             });
         }

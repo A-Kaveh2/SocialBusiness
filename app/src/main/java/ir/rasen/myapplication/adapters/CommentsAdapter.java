@@ -143,7 +143,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 public void onClick(View v) {
                     // TODO DELETE POST
                     Dialogs dialogs = new Dialogs();
-                    dialogs.showFollowerBlockPopup(getContext(), comment.userID);
+                    dialogs.showFollowerBlockPopup(getContext(), comment.businessID, comment.userID, delegate);
                     editDelegateInterface.setEditing(comment.id, comment.text, null);
                     pw.dismiss();
                 }

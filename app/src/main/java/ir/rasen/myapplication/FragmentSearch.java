@@ -431,6 +431,7 @@ public class FragmentSearch extends Fragment implements WebserviceResponse {
         });
         if(location!=null) {
             locationM = new Location_M(location);
+            mMap = null;
         }
     }
 

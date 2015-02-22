@@ -19,6 +19,7 @@ import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
 import ir.rasen.myapplication.webservice.business.DeleteComment;
 import ir.rasen.myapplication.webservice.post.DeletePost;
@@ -138,14 +139,15 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showFollowerBlockPopup(Context context, final int userId) {
+    public void showFollowerBlockPopup(Context context,final int businessId, final int userId,final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.block_follower)
                 .setMessage(R.string.popup_block_follower)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO:: BLOCK FOLLOWER ( ID is in userId )
+                        // BLOCK FOLLOWER ( ID is in userId )
+                        new BlockUser(businessId,userId,delegate);
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);

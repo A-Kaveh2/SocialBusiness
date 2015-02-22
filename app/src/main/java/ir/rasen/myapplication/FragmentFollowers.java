@@ -101,7 +101,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         setUpListView();
 
         followers = new ArrayList<User>();
-        mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
+        mAdapter = new FollowersAdapter(getActivity(), followers, true, businessId, FragmentFollowers.this, FragmentFollowers.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
 
         return view;
@@ -191,7 +191,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                     user.profilePictureId = item.pictureId;
                     followers.add(user);
                 }
-                mAdapter = new FollowersAdapter(getActivity(), followers, true, FragmentFollowers.this);
+                mAdapter = new FollowersAdapter(getActivity(), followers, true, businessId, FragmentFollowers.this, FragmentFollowers.this);
                 ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
                 isLoadingMore = false;
                 swipeView.setRefreshing(false);
