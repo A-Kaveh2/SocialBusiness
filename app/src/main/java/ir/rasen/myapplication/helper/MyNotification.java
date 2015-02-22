@@ -24,18 +24,18 @@ import ir.rasen.myapplication.R;
 public class MyNotification {
 
 
-	public void notify(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Class destinationClass) {
+	public void notify(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent intent) {
 
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-			notifyLowerHonycomb(context,userName,postPicture,userPicture,destinationClass);
+			notifyLowerHonycomb(context,userName,postPicture,userPicture,intent);
 		else
-			notifyUpperHonycomb(context,userName,postPicture,userPicture,destinationClass);
+			notifyUpperHonycomb(context,userName,postPicture,userPicture,intent);
 	}
 
 
 
-    public void notifyLowerHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Class destinationClass){
+    public void notifyLowerHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent notificationIntent){
         int NOTIFICATION_ID = 1;
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
@@ -51,7 +51,6 @@ public class MyNotification {
 
         notification.contentView = contentView;
 
-        Intent notificationIntent = new Intent(context,destinationClass);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         notification.contentIntent = contentIntent;
@@ -66,7 +65,7 @@ public class MyNotification {
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void notifyUpperHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Class destinationClass){
+    public void notifyUpperHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent resultIntent){
         RemoteViews contentView = new RemoteViews(context.getPackageName(),
                 R.layout.custom_notification);
 
@@ -78,7 +77,6 @@ public class MyNotification {
                 context).setSmallIcon(R.drawable.ic_launcher).setContent(
                 contentView);
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(context, destinationClass);
         // The stack builder object will contain an artificial back stack for
         // the
         // started Activity.

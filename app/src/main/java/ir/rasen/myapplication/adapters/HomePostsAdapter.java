@@ -121,6 +121,9 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                         + "<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
                         + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_code) + "</font> " + post.code
                         + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_description) + "</font>" + post.description));
+                holder.likesNum.setText(post.likeNumber+"");
+                holder.commentsNum.setText(post.commentNumber+"");
+                holder.sharesNum.setText(post.shareNumber+"");
 
                 if (post.lastThreeComments.size() > 0) {
                     holder.comment1_user.setText(post.lastThreeComments.get(0).username);

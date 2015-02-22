@@ -72,6 +72,8 @@ public class Params {
 
     public static String CLOSED_BEFORE_RESPONSE = "closed before webservice response...";
 
+    public static String NOTIFICATION = "notification";
+
     /**
      * Created by android on 12/15/2014.
      */

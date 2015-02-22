@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.internal.id;
 
+import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.ActivityWelcome;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
@@ -20,6 +21,7 @@ import ir.rasen.myapplication.classes.CommentNotification;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.MyNotification;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
 
@@ -48,11 +50,13 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
 
             MyNotification notification = new MyNotification();
 
-            //TODO remove test part: ActivityWelcome
+            //TODO check if activity is on top
+            Intent intent = new Intent(context, ActivityMain.class);
+            intent.putExtra(Params.NOTIFICATION, true);
 
             notification.notify(context, commentNotification.userName,
                     Image_M.getBitmapFromString(commentNotification.postPicture),
-                    Image_M.getBitmapFromString(commentNotification.userPicture),ActivityWelcome.class);
+                    Image_M.getBitmapFromString(commentNotification.userPicture), intent);
         }
     }
 
