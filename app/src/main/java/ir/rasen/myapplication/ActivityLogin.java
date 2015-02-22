@@ -1,8 +1,10 @@
 package ir.rasen.myapplication;
 
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.ForgetPasswordDialog;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
+import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
@@ -32,6 +34,9 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
     EditTextFont edtEmail, edtPassword;
     Context cotext;
     WebserviceResponse webserviceResponse;
+
+    private enum RunningWebservice{LOGIN,FORGET_PASSWORD};
+    private RunningWebservice runningWebservice;
 
     ProgressDialogCustom pd;
 
@@ -75,21 +80,23 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
 
         pd.show();
         new Login(cotext, email, password, webserviceResponse).execute();
+        runningWebservice = RunningWebservice.LOGIN;
     }
 
     // FORGOT TOUCHED
     public void forgot(View v) {
         // TODO FORGOT
-        /*ForgetPasswordDialog forgetPasswordDialog = new ForgetPasswordDialog(cotext,
-                getResources().getString(R.string.dialog_forget_password));
-        forgetPasswordDialog.show();*/
+        ForgetPasswordDialog forgetPasswordDialog = new ForgetPasswordDialog(cotext,
+                getResources().getString(R.string.dialog_forget_password),ActivityLogin.this);
+        forgetPasswordDialog.show();
+        runningWebservice = RunningWebservice.FORGET_PASSWORD;
         // .....
         /**
          * HERE WE USE INTENT TO TEST MAIN ACTIVITY DURING DEVELOPMENT OPERATIONS
          * */
 
-        gotoActivity(ActivityMain.class);
-        finish();
+        /*gotoActivity(ActivityMain.class);
+        finish();*/
     }
 
     public void setAnimations() {
@@ -125,13 +132,21 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
-        try {
+        if(result instanceof ResultStatus) {
             pd.dismiss();
-            boolean b = LoginInfo.isLoggedIn(cotext);
-            startActivity(new Intent(cotext, ActivityMain.class));
-            finish();
-        } catch (Exception e) {
-            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+            if(runningWebservice ==RunningWebservice.LOGIN) {
+                //login result
+                try {
+                    startActivity(new Intent(cotext, ActivityMain.class));
+                    finish();
+                } catch (Exception e) {
+                    Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+                }
+            }
+            else if (runningWebservice == RunningWebservice.FORGET_PASSWORD){
+                //forget password result
+                //TODO display success message
+            }
         }
     }
 
