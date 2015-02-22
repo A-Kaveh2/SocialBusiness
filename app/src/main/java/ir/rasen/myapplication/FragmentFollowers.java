@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -38,7 +39,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
     private boolean isLoadingMore = false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     // business id is received here
     private int businessId;
@@ -192,11 +193,19 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                     followers.add(user);
                 }
                 mAdapter = new FollowersAdapter(getActivity(), followers, true, businessId, FragmentFollowers.this, FragmentFollowers.this);
-                ((AdapterView<ListAdapter>) view.findViewById(R.id.list_followers_followers)).setAdapter(mAdapter);
+                list.setAdapter(mAdapter);
                 isLoadingMore = false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
 
+            } else if(editingId>0) {
+                for(int i=0; i<followers.size(); i++) {
+                    if(followers.get(i).id==editingId) {
+                        followers.remove(i);
+                        mAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -208,7 +217,7 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, followers.size()==0 ? true : false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

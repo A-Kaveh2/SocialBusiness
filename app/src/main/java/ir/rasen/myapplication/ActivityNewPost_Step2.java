@@ -177,7 +177,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         pd.dismiss();
         if (result instanceof Post) {
             //result of executing AddPost
-            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success));
+            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success), false);
 
             finished();
         } else if (result instanceof ResultStatus) {
@@ -202,7 +202,7 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage);
+            Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

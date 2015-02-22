@@ -121,7 +121,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         pd.dismiss();
         try {
             if(result instanceof ResultStatus) {
-                Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved));
+                Dialogs.showMessage(ActivitySettings.this, getString(R.string.settings_saved), true);
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -133,7 +133,7 @@ public class ActivitySettings extends Activity implements WebserviceResponse {
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(context, errorMessage);
+            Dialogs.showMessage(context, errorMessage, false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

@@ -85,7 +85,7 @@ public class OptionsReview {
                     editDelegateInterface.setEditing(review.id, reviewText, dialog);
                     editReview(context,review.id, reviewText,(int)rate,delegate);
                 } else {
-                    Dialogs.showMessage(context, context.getString(R.string.rate_needed));
+                    Dialogs.showMessage(context, context.getString(R.string.rate_needed), false);
                 }
             }
         });

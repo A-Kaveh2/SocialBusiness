@@ -280,7 +280,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

@@ -87,7 +87,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         Business business = PassingBusiness.getInstance().getValue();
 
         if (business.location_m == null) {
-            Dialogs.showMessage(context, getString(R.string.err_location));
+            Dialogs.showMessage(context, getString(R.string.err_location), false);
             return;
         }
 
@@ -277,7 +277,7 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(ActivityNewBusiness_Step2.this, errorCode);
-            Dialogs.showMessage(context, errorMessage);
+            Dialogs.showMessage(context, errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

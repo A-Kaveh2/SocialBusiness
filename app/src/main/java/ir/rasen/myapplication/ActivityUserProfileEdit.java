@@ -185,7 +185,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                 }
                 dialog.dismiss();
                 user.password = pass1.getText().toString();
-                Dialogs.showMessage(context, getString(R.string.password_will_change));
+                Dialogs.showMessage(context, getString(R.string.password_will_change), false);
             }
         });
         dialog.show();
@@ -215,7 +215,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
                 }
                 user.email = email.getText().toString();
                 dialog.dismiss();
-                Dialogs.showMessage(context, getString(R.string.email_will_change));
+                Dialogs.showMessage(context, getString(R.string.email_will_change), false);
             }
         });
         dialog.show();
@@ -244,11 +244,11 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
             public void onClick(View view) {
                 try {
                     if (!PersianDate.validateDayBaseOnMonth(Integer.parseInt(day.getText().toString()), Integer.parseInt(month.getText().toString()))) {
-                        Dialogs.showMessage(context, getString(R.string.invalid_birthday));
+                        Dialogs.showMessage(context, getString(R.string.invalid_birthday), false);
                         return;
                     }
                 } catch (Exception e) {
-                    Dialogs.showMessage(context, getString(R.string.invalid_birthday));
+                    Dialogs.showMessage(context, getString(R.string.invalid_birthday), false);
                     return;
                 }
                 user.birthDate = year.getText().toString() + "/" + month.getText().toString() + "/" + day.getText().toString();
@@ -387,7 +387,7 @@ public class ActivityUserProfileEdit extends Activity implements WebserviceRespo
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-            Dialogs.showMessage(context, errorMessage);
+            Dialogs.showMessage(context, errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

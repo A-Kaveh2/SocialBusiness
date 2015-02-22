@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.FragmentSearch;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
@@ -23,6 +24,7 @@ import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
 import ir.rasen.myapplication.webservice.business.DeleteComment;
 import ir.rasen.myapplication.webservice.business.UnblockUser;
+import ir.rasen.myapplication.webservice.comment.UpdateComment;
 import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.post.Report;
 import ir.rasen.myapplication.webservice.review.DeleteReview;
@@ -190,7 +192,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public Dialog showCommentEditPopup(final Context context, final Comment comment, final ProgressDialogCustom pd) {
+    public Dialog showCommentEditPopup(final Context context, final Comment comment,final WebserviceResponse delegate, final EditInterface editDelegate) {
         final Dialog dialog = new Dialog(context, R.style.AppTheme_Dialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_edit_comment);
@@ -214,8 +216,15 @@ public class Dialogs {
                     newComment.setErrorC(context.getString(R.string.enter_is_too_long));
                     return;
                 }
-                // TODO:: edit comment
-                pd.show();
+                new UpdateComment(comment, delegate).execute();
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                editDelegate.setEditing(0,null,null);
             }
         });
         dialog.show();
@@ -283,13 +292,15 @@ public class Dialogs {
         return dialog;
     }
 
-    public static void showMessage(Context context, String message) {
+    public static void showMessage(final Context context, String message, final boolean back) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(R.string.popup_warning)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        if(back)
+                            ((ActivityMain) context).onBackPressed();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert);

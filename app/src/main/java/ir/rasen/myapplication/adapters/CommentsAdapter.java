@@ -121,10 +121,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             // EDIT OPTION
             ((LinearLayout) layout.findViewById(R.id.ll_menu_comment_options_edit)).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // TODO: EDIT COMMENT
+                    editDelegateInterface.setEditing(comment.id, comment.text, null);
                     Dialogs dialogs = new Dialogs();
-                    Dialog dialog = dialogs.showCommentEditPopup(getContext(), comment, pd);
-                    editDelegateInterface.setEditing(comment.id, comment.text, dialog);
+                    Dialog dialog = dialogs.showCommentEditPopup(getContext(), comment, delegate, editDelegateInterface);
                     pw.dismiss();
                 }
             });

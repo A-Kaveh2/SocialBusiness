@@ -580,7 +580,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, false);
             pd.dismiss();
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);

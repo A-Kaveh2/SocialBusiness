@@ -231,7 +231,7 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getApplicationContext(), errorCode);
-            Dialogs.showMessage(ActivityRegister.this, errorMessage);
+            Dialogs.showMessage(ActivityRegister.this, errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
