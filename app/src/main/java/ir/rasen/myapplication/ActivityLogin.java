@@ -142,10 +142,9 @@ public class ActivityLogin extends Activity implements WebserviceResponse {
                 } catch (Exception e) {
                     Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
                 }
-            }
-            else if (runningWebservice == RunningWebservice.FORGET_PASSWORD){
+            } else if (runningWebservice == RunningWebservice.FORGET_PASSWORD){
                 //forget password result
-                //TODO display success message
+                Dialogs.showMessage(ActivityLogin.this, getString(R.string.forgot_password_sent), false);
             }
         }
     }

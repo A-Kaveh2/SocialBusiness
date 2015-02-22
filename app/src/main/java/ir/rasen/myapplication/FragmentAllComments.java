@@ -150,7 +150,7 @@ public class FragmentAllComments extends Fragment implements WebserviceResponse,
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
         listFooterView.setVisibility(View.GONE);
         list.addFooterView(listFooterView);
-        // TODO: ListView LoadMore
+        // ListView LoadMore
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             int currentFirstVisibleItem
                     ,
@@ -172,7 +172,7 @@ public class FragmentAllComments extends Fragment implements WebserviceResponse,
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore) {
+                    if (!swipeView.isRefreshing() && !isLoadingMore && comments.size()>0 && comments.size()%getResources().getInteger(R.integer.lazy_load_limitation)==0) {
                         loadMoreData();
                     }
                 }

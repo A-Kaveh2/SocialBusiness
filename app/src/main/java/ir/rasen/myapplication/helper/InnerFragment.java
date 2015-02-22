@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.FragmentAllComments;
 import ir.rasen.myapplication.FragmentBlockeds;
 import ir.rasen.myapplication.FragmentBusinesses;
 import ir.rasen.myapplication.FragmentCallInfo;
@@ -139,6 +140,12 @@ public class InnerFragment {
     // new requests fragment
     public void newRequestsFragment(int userId) {
         Fragment newFragment = new FragmentRequests().newInstance(userId);
+        addFragment(newFragment);
+    }
+
+    // new search users fragment
+    public void newAllCommentsFragment() {
+        Fragment newFragment = new FragmentAllComments().newInstance();
         addFragment(newFragment);
     }
 

@@ -455,11 +455,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (profileType == Params.ProfileType.PROFILE_USER) {
-                        if (!swipeView.isRefreshing() && !isLoadingMore && uPosts.size() > getResources().getInteger(R.integer.lazy_load_limitation)) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && uPosts.size()>0 && uPosts.size()% getResources().getInteger(R.integer.lazy_load_limitation)==0) {
                             loadMoreData();
                         }
                     } else if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-                        if (!swipeView.isRefreshing() && !isLoadingMore && bPosts.size() > getResources().getInteger(R.integer.lazy_load_limitation)) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && bPosts.size()>0 && bPosts.size() % getResources().getInteger(R.integer.lazy_load_limitation)==0) {
                             loadMoreData();
                         }
                     }
@@ -528,18 +528,22 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
                 pd.dismiss();
 
+                ArrayList<Post> temp = new ArrayList<>();
                 if (runningWebserviceType == RunningWebserviceType.getUserPosts) {
-                    uPosts.addAll((ArrayList<Post>) result);
+                    temp.addAll(uPosts);
+                    temp.addAll((ArrayList<Post>) result);
+                    uPosts.clear();
+                    uPosts.addAll(temp);
                     initialAdapters(uPosts);
 
                 } else if (runningWebserviceType == RunningWebserviceType.getBustinessPosts) {
-                    bPosts.addAll((ArrayList<Post>) result);
+                    temp.addAll(bPosts);
+                    temp.addAll((ArrayList<Post>) result);
+                    bPosts.clear();
+                    bPosts.addAll(temp);
                     initialAdapters(bPosts);
 
                 }
-
-
-                grid.setAdapter(gridAdapter);
 
                 isLoadingMore = false;
                 swipeView.setRefreshing(false);
@@ -564,19 +568,22 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     }
 
     private void initialAdapters(ArrayList<Post> posts) {
-        if (listAdapter == null)
+        if (listAdapter == null) {
             listAdapter = new PostsAdapter(getActivity(), posts, webserviceResponse, FragmentProfile.this, pd);
-        else
+        } else
             listAdapter.notifyDataSetChanged();
 
-        if (gridAdapter == null)
+        if (gridAdapter == null) {
             gridAdapter = new ProfilePostsGridAdapter(getActivity(), posts);
-        else
+            grid.setAdapter(gridAdapter);
+        } else
             gridAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void getError(Integer errorCode) {
+        if(bPosts.size()==0 && uPosts.size()==0)
+            initialAdapters(bPosts);
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);

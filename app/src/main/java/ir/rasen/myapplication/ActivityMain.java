@@ -1,5 +1,7 @@
 package ir.rasen.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,8 @@ import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
 import ir.rasen.myapplication.alarm.Alarm_M;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
+import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
@@ -117,6 +121,12 @@ public class ActivityMain extends FragmentActivity {
         mAdapter = new UsersBusinessesAdapter(ActivityMain.this, businesses);
         ((ListView) findViewById(R.id.list_drawer)).setAdapter(mAdapter);
 
+        // show all comments fragment
+        if(getIntent().getExtras()!=null && getIntent().getBooleanExtra(Params.NOTIFICATION, false)) {
+            pager.setCurrentItem(2);
+            InnerFragment innerFragment = new InnerFragment(ActivityMain.this);
+            innerFragment.newAllCommentsFragment();
+        }
     }
 
     public void home(View v) {
@@ -246,8 +256,8 @@ public class ActivityMain extends FragmentActivity {
             fragCount[pager.getCurrentItem()]--;
             checkDrawerLock();
         } else {
-            finish();
-            overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+            // show exit dialog
+            Dialogs.showExitDialog(this);
         }
     }
 /*

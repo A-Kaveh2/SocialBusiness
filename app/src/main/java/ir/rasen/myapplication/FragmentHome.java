@@ -69,7 +69,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private boolean singlePost = false;
     public ArrayList<Post> posts;
 
-    Boolean isLoadingMore=false;
+    Boolean isLoadingMore = false;
 
     //Boolean actionBarShown = true, isMovingActionBar = false;
     //private int barHeight, getY;
@@ -83,7 +83,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private ProgressDialogCustom pd;
 
     // as home fragment
-    public static FragmentHome newInstance (){
+    public static FragmentHome newInstance() {
         FragmentHome fragment = new FragmentHome();
 
         Bundle bundle = new Bundle();
@@ -94,7 +94,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     }
 
     // as post fragment
-    public static FragmentHome newInstance (String title){
+    public static FragmentHome newInstance(String title) {
         FragmentHome fragment = new FragmentHome();
 
         Bundle bundle = new Bundle();
@@ -134,7 +134,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         posts = new ArrayList<Post>();
 
         // Check home type
-        if(homeType==Params.HomeType.HOME_POST) {
+        if (homeType == Params.HomeType.HOME_POST) {
 
             // load as post page!
             homeTitle = bundle.getString(Params.TITLE);
@@ -144,7 +144,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                 singlePost = true;
             }
             mAdapter = new HomePostsAdapter(getActivity(), posts, webserviceResponse, editDelegateInterface, pd);
-        } else if(homeType==Params.HomeType.HOME_HOME) {
+        } else if (homeType == Params.HomeType.HOME_HOME) {
 
             mAdapter = new HomePostsAdapter(getActivity(), posts,webserviceResponse, editDelegateInterface, pd);
             new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
@@ -166,7 +166,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         title = (TextViewFont) view.findViewById(R.id.txt_home_title);
 
         // set tile of fragment
-        if(homeTitle!=null) title.setText(homeTitle);
+        if (homeTitle != null) title.setText(homeTitle);
 
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
@@ -192,7 +192,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     void onClickLisneners(final View view) {
 
         // check if the button should be back or options or nothing!
-        if(((ActivityMain) getActivity()).fragCount[((ActivityMain) getActivity()).pager.getCurrentItem()] > 0) {
+        if (((ActivityMain) getActivity()).fragCount[((ActivityMain) getActivity()).pager.getCurrentItem()] > 0) {
             // back button!
             view.findViewById(R.id.btn_home_options).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -217,9 +217,10 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                     swipeView.setRefreshing(false);
                     return;
                 }
-                if(homeType==Params.HomeType.HOME_HOME) {
-                    // TODO get posts again
+                if (homeType == Params.HomeType.HOME_HOME) {
                     posts = new ArrayList<Post>();
+                    new GetTimeLinePosts(LoginInfo.getUserId(getActivity())
+                            ,0,getResources().getInteger(R.integer.lazy_load_limitation),FragmentHome.this).execute();
                     swipeView.setRefreshing(true);
                 }
             }
@@ -229,7 +230,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         mListView.addFooterView(listFooterView);
         mListView.setAdapter((StickyListHeadersAdapter) mAdapter);
         // TODO: ListView LoadMore if it's not single post
-        if(!singlePost) {
+        if (!singlePost) {
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 int currentFirstVisibleItem
                         ,
@@ -281,7 +282,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, false);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
@@ -289,6 +290,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     private int editingId;
     private String editingText;
     private Dialog editingDialog;
+
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
         pd.show();
@@ -346,7 +348,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                                             }
                                         };
                                     }*/
-                                    //isMovingActionBar = true;
+    //isMovingActionBar = true;
                                     /*delta = event.getY();
                                     actionBarShown=false;
                                     actionBar.setVisibility(View.GONE);
@@ -364,10 +366,10 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                                                 /*if (getY < 0)
                                                     moveHandler.postDelayed(this, 1);
                                                 else {*/
-                                                   // isMovingActionBar = false;
-                                                //}
-                                      //      }
-                                     //   };
+    // isMovingActionBar = false;
+    //}
+    //      }
+    //   };
                                     /*} else {
                                         viewer = new Runnable() {
                                             @Override

@@ -178,7 +178,8 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore) {
+                    if (!swipeView.isRefreshing() && !isLoadingMore
+                            && reviews.size()>0 && reviews.size()%getResources().getInteger(R.integer.lazy_load_limitation)==0) {
                         loadMoreData();
                     }
                 }

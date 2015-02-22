@@ -7,16 +7,23 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+
 import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.FragmentSearch;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
+import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.ui.EditTextFont;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
@@ -52,7 +59,7 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showPostSharePopup(Context context, final int post_id, final WebserviceResponse delegate) {
+    public void showPostSharePopup(final Context context, final Post post, final WebserviceResponse delegate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.share)
@@ -60,7 +67,16 @@ public class Dialogs {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO:: SHARE NOW
-                        //new DeletePost(buisness_id,post_id,delegate).execute();
+
+                        // TODO TESTING INSTAGRAM SHARE FOR FUTURE...
+                        File file = new File( Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            context.getResources().getString(R.string.download_storage_path), String.valueOf(post.pictureId) + "_" + String.valueOf(1) + ".jpg");
+
+                        String type = "image/*";
+                        String captionText = post.description;
+
+                        createInstagramIntent(context, type, file.getAbsolutePath(), captionText);
+
                     }
                 })
                 .setNegativeButton(R.string.not_now, null);
@@ -276,6 +292,20 @@ public class Dialogs {
                 .setNegativeButton(R.string.not_now, null);
         showCustomizedDialog(context, builder);
     }
+    public static void showExitDialog(final ActivityMain activityMain) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activityMain);
+        builder
+                .setTitle(R.string.exit_app)
+                .setMessage(R.string.popup_exit_app)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        activityMain.finish();
+                        activityMain.overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        showCustomizedDialog(activityMain, builder);
+    }
 
     static Dialog showCustomizedDialog(Context context, AlertDialog.Builder builder) {
         Dialog dialog = builder.show();
@@ -307,4 +337,25 @@ public class Dialogs {
         showCustomizedDialog(context, builder).show();
     }
 
+    private void createInstagramIntent(Context context, String type, String mediaPath, String caption){
+
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // Set the MIME type
+        share.setType(type);
+
+        // Create the URI from the media
+        File media = new File(mediaPath);
+        Uri uri = Uri.fromFile(media);
+
+        // Add the URI and the caption to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.putExtra(Intent.EXTRA_TEXT, caption);
+
+        share.setPackage("com.instagram.android");
+
+        // Broadcast the Intent.
+        context.startActivity(Intent.createChooser(share, "Share to"));
+    }
 }

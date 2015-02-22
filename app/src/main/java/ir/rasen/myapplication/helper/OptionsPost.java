@@ -109,7 +109,7 @@ public class OptionsPost {
     public void showSharePopup(Post post, WebserviceResponse webserviceResponse) {
         // SHOWING POPUP WINDOW
         Dialogs dialogs = new Dialogs();
-        dialogs.showPostSharePopup(context, post.id, webserviceResponse);
+        dialogs.showPostSharePopup(context, post, webserviceResponse);
     }
 
 }

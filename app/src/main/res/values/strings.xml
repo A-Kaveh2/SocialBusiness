@@ -3,10 +3,14 @@
 
     <string name="app_name">نرم افزار راسن</string>
 
+    <string name="exit_app">خروج</string>
+    <string name="popup_exit_app">خروج از نرم افزار؟</string>
+
     <!-- LOGIN PAGE -->
     <string name="login">ورود</string>
     <string name="email">ایمیل</string>
     <string name="password">رمز عبور</string>
+    <string name="forgot_password_sent">کلمه ی عبور شما از طریق ایمیل برایتان ارسال خواهد شد.</string>
     <!-- REGISTER PAGE -->
     <string name="register">ثبت نام</string>
     <string name="forgot_password">فراموشی رمز عبور</string>

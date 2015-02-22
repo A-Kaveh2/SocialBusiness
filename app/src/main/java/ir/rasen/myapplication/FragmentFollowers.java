@@ -168,7 +168,8 @@ public class FragmentFollowers extends Fragment implements WebserviceResponse, E
                 if (this.currentVisibleItemCount > 0 && this.currentScrollState == SCROLL_STATE_IDLE) {
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
-                    if (!swipeView.isRefreshing() && !isLoadingMore && followers.size()>0) {
+                    if (!swipeView.isRefreshing() && !isLoadingMore
+                            && followers.size()>0 && followers.size()%getResources().getInteger(R.integer.lazy_load_limitation)==0) {
                         loadMoreData();
                     }
                 }
