@@ -2,6 +2,7 @@ package ir.rasen.myapplication.adapters;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,14 @@ import com.google.android.gms.internal.is;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ir.rasen.myapplication.ActivityLogin;
+import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.FragmentHome;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
+import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsPost;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
@@ -30,6 +35,8 @@ import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.post.Like;
+import ir.rasen.myapplication.webservice.post.Unlike;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -159,8 +166,10 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     @Override
                     public void onClick(View view) {
                         if (singleTapped) {
-                            holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                            likeNow();
+                            if(post.isLiked) {
+                                holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                                likeNow(position, post.id);
+                            }
                         } else {
                             singleTapped = true;
                             Handler handler = new Handler();
@@ -180,8 +189,13 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                     @Override
                     public void onClick(View view) {
                         // like now!
-                        holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                        likeNow();
+                        if(post.isLiked) {
+                            holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
+                            unlikeNow(position, post.id);
+                        } else {
+                            holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                            likeNow(position, post.id);
+                        }
                     }
                 });
 
@@ -299,8 +313,16 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
         ImageViewCircle business_pic;
     }
 
-    void likeNow() {
-        // TODO:: LIKE NOW
+    void likeNow(int position, int post_id) {
+        new Like(LoginInfo.getUserId(context), post_id, webserviceResponse).execute();
+        //new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
+        FragmentHome fragment = (FragmentHome) ((ActivityMain) context).getSupportFragmentManager().findFragmentByTag(((ActivityMain) context).pager.getCurrentItem() + "." + ((ActivityMain) context).fragCount[((ActivityMain) context).pager.getCurrentItem()]);
+        fragment.posts.get(position).isLiked=true;
     }
-
+    void unlikeNow(int position, int post_id) {
+        new Unlike(LoginInfo.getUserId(context), post_id, webserviceResponse).execute();
+        //new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
+        FragmentHome fragment = (FragmentHome) ((ActivityMain) context).getSupportFragmentManager().findFragmentByTag(((ActivityMain) context).pager.getCurrentItem() + "." + ((ActivityMain) context).fragCount[((ActivityMain) context).pager.getCurrentItem()]);
+        fragment.posts.get(position).isLiked=true;
+    }
 }

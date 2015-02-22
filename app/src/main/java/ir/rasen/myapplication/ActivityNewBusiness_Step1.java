@@ -114,6 +114,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                pd.show();
                 new GetBusinessSubcategories(categoryList.get(position).id
                         , webserviceResponse).execute();
             }

@@ -67,7 +67,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
     //private RelativeLayout rlHome;
     private TextViewFont title;
     private boolean singlePost = false;
-    ArrayList<Post> posts;
+    public ArrayList<Post> posts;
 
     Boolean isLoadingMore=false;
 
@@ -269,7 +269,6 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
                 temp.addAll((ArrayList<Post>) result);
                 posts.addAll(temp);
                 mAdapter.notifyDataSetChanged();
-                pd.dismiss();
             }
         } catch (Exception e) {
 

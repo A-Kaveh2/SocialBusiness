@@ -92,10 +92,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     private static RunningWebserviceType runningWebserviceType;
 
-    private ArrayList<Post> posts;
-
-    private ArrayList<Post> uPosts;//user posts
-    private ArrayList<Post> bPosts;//business posts
+    public ArrayList<Post> uPosts;//user posts
+    public ArrayList<Post> bPosts;//business posts
 
 
     @Override
@@ -280,28 +278,34 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
                     // TODO:: if are friends (uncomment)
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                    innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
+                    if(profile_user.friendsNumber>0) {
+                        InnerFragment innerFragment = new InnerFragment(getActivity());
+                        innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
+                    }
                 }
             });
             // REVIEWS OF USER
             header.findViewById(R.id.ll_profile_option2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newPrfoileReviews(profileId);
+                    if(profile_user.reviewsNumber>0) {
+                        InnerFragment innerFragment = new InnerFragment(getActivity());
+                        innerFragment.newPrfoileReviews(profileId);
+                    }
                 }
             });
             // BUSINESSES OF USER
             header.findViewById(R.id.ll_profile_option3).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
                     // TODO:: if are friends ( uncomment )
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                    innerFragment.newBusinessesFragment(profileId);
+                    if(profile_user.followedBusinessesNumber>0) {
+                        InnerFragment innerFragment = new InnerFragment(getActivity());
+                        innerFragment.newBusinessesFragment(profileId);
+                    }
                 }
             });
         }
@@ -325,21 +329,24 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             header.findViewById(R.id.ll_profile_option2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newReviews(profileId, profile_business.userID); // TODO:: USERID is owner, RIGHT ?
+                    if(profile_business.reviewsNumber>0) {
+                        InnerFragment innerFragment = new InnerFragment(getActivity());
+                        innerFragment.newReviews(profileId, profile_business.userID);
+                    }
                 }
             });
             // FOLLOWERS
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InnerFragment innerFragment = new InnerFragment(getActivity());
-                    innerFragment.newFollowers(profileId, profileOwn);
+                    if(profile_business.followersNumber>0) { // TODO:: what if we have blockeds without any followers ??
+                        InnerFragment innerFragment = new InnerFragment(getActivity());
+                        innerFragment.newFollowers(profileId, profileOwn);
+                    }
                 }
             });
         }
 
-        posts = new ArrayList<>();
         uPosts = new ArrayList<>();
         bPosts = new ArrayList<>();
 
@@ -417,7 +424,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 getAgain();
                 profile_user = new User();
                 profile_business = new Business();
-                posts = new ArrayList<>();
                 new GetUserHomeInfo(profileId, LoginInfo.getUserId(cont), webserviceResponse).execute();
                 runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
                 swipeView.setRefreshing(true);
@@ -550,7 +556,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 new GetBusinessPosts(LoginInfo.getUserId(cont), profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();
                 runningWebserviceType = RunningWebserviceType.getBustinessPosts;
 
-            }
+            } else pd.dismiss();
 
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -657,7 +663,6 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     public void getAgain() {
         profile_user = new User();
         profile_business = new Business();
-        posts = new ArrayList<>();
         new GetUserHomeInfo(profileId, LoginInfo.getUserId(cont), webserviceResponse).execute();
         runningWebserviceType = RunningWebserviceType.getUserHomeInfo;
         swipeView.setRefreshing(true);

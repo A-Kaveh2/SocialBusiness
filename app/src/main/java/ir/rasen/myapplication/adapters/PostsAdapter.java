@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ir.rasen.myapplication.ActivityMain;
+import ir.rasen.myapplication.FragmentHome;
+import ir.rasen.myapplication.FragmentProfile;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.EditInterface;
@@ -30,6 +33,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.comment.SendComment;
 import ir.rasen.myapplication.webservice.post.Like;
 import ir.rasen.myapplication.webservice.post.Report;
+import ir.rasen.myapplication.webservice.post.Unlike;
 
 /**
  * Created by 'Sina KH'.
@@ -90,11 +94,93 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             holder.commentsNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_comments);
             holder.sharesNum = (TextViewFont) convertView.findViewById(R.id.txt_home_post_shares);
 
-            holder.initail();
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.options.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //TODO here: position is wrong. e.g. clicking option menu on first item of the mPosts: position = 1 while it must be 0
+                OptionsPost optionsPost = new OptionsPost(context);
+                optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface, pd);
+            }
+        });
+
+        // double tap listener !
+        holder.postPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (singleTapped) {
+                    holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                    likeNow(mPosts.get(position).id);
+                } else {
+                    singleTapped = true;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            singleTapped = false;
+                        }
+                    }, 250);
+                }
+            }
+        });
+        // LIKE!!
+        holder.likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // like now!
+                if(post.isLiked) {
+                    holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
+                    unlikeNow(mPosts.get(position).id);
+                } else {
+                    holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
+                    likeNow(mPosts.get(position).id);
+                }
+            }
+        });
+
+        // SHOW COMMENTS LISTENER
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SHOW COMMENTS
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newComments(post.id);
+            }
+        });
+
+        // ON CLICK LISTENERS FOR business pic and name
+        holder.business_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+            }
+        });
+        holder.business_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
+            }
+        });
+
+        holder.comment1_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+            }
+        });
+        holder.comment1_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InnerFragment innerFragment = new InnerFragment(getContext());
+                innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
+            }
+        });
 
         if (post != null && holder != null) {
             // Check if liked
@@ -121,6 +207,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         return convertView;
     }
 
+
     class ViewHolder {
         TextViewFont business_name, description, time, comment1, comment1_user, likesNum, commentsNum, sharesNum;
         ImageView options, postPic, likeHeart;
@@ -128,91 +215,27 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         LinearLayout likes, comments;
         RelativeLayout comments_3;
         int id;
-
-        public void initail(){
-            this.options.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    //TODO here: position is wrong. e.g. clicking option menu on first item of the mPosts: position = 1 while it must be 0
-                    OptionsPost optionsPost = new OptionsPost(context);
-                    optionsPost.showOptionsPopup(mPosts.get(position), view, delegate, editDelegateInterface, pd);
-                }
-            });
-
-            // double tap listener !
-            this.postPic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (singleTapped) {
-                        likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                        likeNow(mPosts.get(position).id);
-                    } else {
-                        singleTapped = true;
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                singleTapped = false;
-                            }
-                        }, 250);
-                    }
-                }
-            });
-            // LIKE!!
-            this.likes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // like now!
-                    likeHeart.setImageResource(R.drawable.ic_menu_liked);
-                    likeNow(mPosts.get(position).id);
-                }
-            });
-
-            // SHOW COMMENTS LISTENER
-            this.comments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // SHOW COMMENTS
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newComments(post.id);
-                }
-            });
-
-            // ON CLICK LISTENERS FOR business pic and name
-            this.business_pic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
-                }
-            });
-            this.business_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_BUSINESS, false, post.businessID);
-                }
-            });
-
-            this.comment1_pic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-            this.comment1_user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    InnerFragment innerFragment = new InnerFragment(getContext());
-                    innerFragment.newProfile(context, Params.ProfileType.PROFILE_USER, false, post.lastThreeComments.get(0).userID);
-                }
-            });
-        }
     }
 
     void likeNow(int post_id) {
         new Like(LoginInfo.getUserId(context), post_id, delegate).execute();
         //new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
+        FragmentProfile fragment = (FragmentProfile) ((ActivityMain) context).getSupportFragmentManager().findFragmentByTag(((ActivityMain) context).pager.getCurrentItem() + "." + ((ActivityMain) context).fragCount[((ActivityMain) context).pager.getCurrentItem()]);
+        if(fragment.uPosts.size()>0) {
+            fragment.uPosts.get(position).isLiked = true;
+        } else {
+            fragment.bPosts.get(position).isLiked=false;
+        }
+    }
+    void unlikeNow(int post_id) {
+        new Unlike(LoginInfo.getUserId(context), post_id, delegate).execute();
+        //new Report(LoginInfo.getUserId(context),post_id,delegate).execute();
+        FragmentProfile fragment = (FragmentProfile) ((ActivityMain) context).getSupportFragmentManager().findFragmentByTag(((ActivityMain) context).pager.getCurrentItem() + "." + ((ActivityMain) context).fragCount[((ActivityMain) context).pager.getCurrentItem()]);
+        if(fragment.uPosts.size()>0) {
+            fragment.uPosts.get(position).isLiked = true;
+        } else {
+            fragment.bPosts.get(position).isLiked=false;
+        }
     }
 
 }

@@ -232,33 +232,40 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
-        if(result instanceof ResultStatus){
-            int editingPosition = -1;
-            for(int i=0; i<comments.size(); i++) {
-                if(comments.get(i).id==editingId) {
-                    editingPosition = i;
-                    break;
+        try {
+            pd.dismiss();
+            if (result instanceof ResultStatus) {
+                int editingPosition = -1;
+                for (int i = 0; i < comments.size(); i++) {
+                    if (comments.get(i).id == editingId) {
+                        editingPosition = i;
+                        break;
+                    }
+                }
+                if (editingText == null) {
+                    comments.remove(editingPosition);
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    comments.get(editingPosition).text = editingText;
+                    mAdapter.notifyDataSetChanged();
                 }
             }
-            if(editingText==null) {
-                comments.remove(editingPosition);
+
+            if (result instanceof ArrayList) {
+                //result from executing getBusinessFollowers
+                ArrayList<Comment> postComments = new ArrayList<>();
+                postComments.addAll(comments);
+                postComments.addAll((ArrayList<Comment>) result);
+                comments.clear();
+                comments.addAll(postComments);
                 mAdapter.notifyDataSetChanged();
-            } else {
-                comments.get(editingPosition).text=editingText;
-                mAdapter.notifyDataSetChanged();
+                isLoadingMore = false;
+                swipeView.setRefreshing(false);
+                listFooterView.setVisibility(View.GONE);
+
             }
-        }
-
-        if (result instanceof ArrayList) {
-            //result from executing getBusinessFollowers
-            ArrayList<Comment> postComments = (ArrayList<Comment>) result;
-            comments.addAll(postComments);
-            mAdapter.notifyDataSetChanged();
-            isLoadingMore = false;
-            swipeView.setRefreshing(false);
-            listFooterView.setVisibility(View.GONE);
-
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
