@@ -67,24 +67,6 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        pd = new ProgressDialogCustom(getActivity());
-
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            businessId = bundle.getInt(Params.BUSINESS_ID);
-            businessOwner = bundle.getInt(Params.BUSINESS_OWNER);
-            new GetBusinessReviews(businessId,0,
-                    getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
-                    ,FragmentReviews.this).execute();
-            //pd.show();
-
-        } else {
-            Log.e(TAG, "bundle is null!!");
-            getActivity().finish();
-            getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
-        }
-
     }
 
     @Override
@@ -95,6 +77,11 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             businessId = bundle.getInt(Params.BUSINESS_ID);
+            businessOwner = bundle.getInt(Params.BUSINESS_OWNER);
+            new GetBusinessReviews(businessId,0,
+                    getActivity().getResources().getInteger(R.integer.lazy_load_limitation)
+                    ,FragmentReviews.this).execute();
+            //pd.show();
         } else {
             Log.e(TAG, "bundle is null!!");
             if (getActivity() != null) {
@@ -102,6 +89,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 getActivity().overridePendingTransition(R.anim.to_0_from_left, R.anim.to_right);
             }
         }
+        pd = new ProgressDialogCustom(getActivity());
 
         list = (ListView) view.findViewById(R.id.list_reviews_review);
         swipeView = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
@@ -120,6 +108,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     showReviewDialog();
                 }
             });
+            view.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -224,7 +213,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                 int reviewPosition = -1;
                 if(editingId == 0) {
                     // new review submitted
-                    Dialogs.showMessage(getActivity(), getString(R.string.success));
+                    Dialogs.showMessage(getActivity(), getString(R.string.success), false);
                     dialog.dismiss();
                     return;
                 }
@@ -243,7 +232,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     }
                     mAdapter.notifyDataSetChanged();
                 }
-                Dialogs.showMessage(getActivity(), getString(R.string.success));
+                Dialogs.showMessage(getActivity(), getString(R.string.success), false);
                 editingDialog.dismiss();
             }
         } catch(Exception e) {
@@ -255,7 +244,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, reviews.size()==0 ? true : false);
             pd.hide();
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -281,9 +270,9 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
                     editingId = 0;
                     editingText = null;
                     editingDialog = null;
-                    sendReview(review,(int)rate);
+                    sendReview((review!=null && review.trim().length()>0 ? review : null),(int)rate);
                 } else {
-                    Dialogs.showMessage(getActivity(), getString(R.string.rate_needed));
+                    Dialogs.showMessage(getActivity(), getString(R.string.rate_needed), false);
                 }
             }
         });

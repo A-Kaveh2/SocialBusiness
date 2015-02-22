@@ -85,7 +85,7 @@ public class ActivityBusinessSettings extends Activity implements WebserviceResp
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(ActivityBusinessSettings.this, errorCode);
-            Dialogs.showMessage(ActivityBusinessSettings.this, errorMessage);
+            Dialogs.showMessage(ActivityBusinessSettings.this, errorMessage, false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

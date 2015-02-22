@@ -374,7 +374,7 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(context, errorMessage);
+            Dialogs.showMessage(context, errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

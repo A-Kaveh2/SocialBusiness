@@ -60,6 +60,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     ArrayList<Comment> comments;
 
     private ProgressDialogCustom pd;
+    private boolean sendingComment = false;
 
     public static FragmentComments newInstance(int postId) {
         FragmentComments fragment = new FragmentComments();
@@ -170,6 +171,8 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
                 postId,
                 commentText.getText().toString(),
                 FragmentComments.this).execute();
+        sendingComment=true;
+        pd.show();
     }
 
     // LOAD MORE DATA
@@ -193,8 +196,8 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
                     return;
                 }
                 comments = new ArrayList<Comment>();
-                // TODO get comments again
-                swipeView.setRefreshing(true);
+                // get comments again
+                reload();
             }
         });
         listFooterView = ((LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_loading_more, null, false);
@@ -230,11 +233,23 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         });
     }
 
+    private void reload() {
+        comments.clear();
+        loadMoreData();
+        swipeView.setRefreshing(true);
+    }
     @Override
     public void getResult(Object result) {
         try {
             pd.dismiss();
             if (result instanceof ResultStatus) {
+                if(sendingComment) {
+                    EditTextFont commentText = (EditTextFont) view.findViewById(R.id.edt_comments_comment);
+                    commentText.setText("");
+                    reload();
+                    pd.show();
+                    return;
+                }
                 int editingPosition = -1;
                 for (int i = 0; i < comments.size(); i++) {
                     if (comments.get(i).id == editingId) {
@@ -267,14 +282,16 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+        sendingComment = false;
     }
 
     @Override
     public void getError(Integer errorCode) {
+        sendingComment = false;
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, comments.size()==0 ? true : false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }

@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import ir.rasen.myapplication.adapters.FollowersAdapter;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -33,7 +35,7 @@ import ir.rasen.myapplication.webservice.review.GetBusinessReviews;
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentBlockeds extends Fragment implements WebserviceResponse {
+public class FragmentBlockeds extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentBlockeds";
 
     private View view, listFooterView;
@@ -118,6 +120,8 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         //mAdapter = new BlockedsAdapter(getActivity(), blockeds);
         //list.setAdapter(mAdapter);
 
+        pd.show();
+
         return view;
     }
 
@@ -178,6 +182,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         if(result instanceof ArrayList){
             //result from executing getBusinessFollowers
             ArrayList<SearchItemUserBusiness> businessesFollowers = (ArrayList<SearchItemUserBusiness>)result;
@@ -197,12 +202,20 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
 
             blockeds.clear();
             blockeds.addAll(temp);
-            mAdapter = new BlockedsAdapter(getActivity(), blockeds);
+            mAdapter = new BlockedsAdapter(getActivity(), blockeds, businessId, FragmentBlockeds.this, FragmentBlockeds.this);
             list.setAdapter(mAdapter);
             isLoadingMore=false;
             swipeView.setRefreshing(false);
             listFooterView.setVisibility(View.GONE);
 
+        } else if(editingId>0){
+            for(int i=0; i<blockeds.size(); i++) {
+                if(blockeds.get(i).id==editingId) {
+                    blockeds.remove(i);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
         }
     }
 
@@ -210,9 +223,24 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
     public void getError(Integer errorCode) {
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, blockeds.size()==0 ? true : false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private int editingId;
+    private String editingText;
+    private Dialog editingDialog;
+
+    @Override
+    public void setEditing(int id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
+        if(id>0)
+            pd.show();
+        else
+            pd.dismiss();
     }
 }

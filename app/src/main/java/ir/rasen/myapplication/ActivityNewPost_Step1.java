@@ -136,7 +136,7 @@ public class ActivityNewPost_Step1 extends Activity {
     public void submit(View view) {
         // next step
         if (!isEditing && !picChoosed) {
-            Dialogs.showMessage(ActivityNewPost_Step1.this, getString(R.string.err_set_picture));
+            Dialogs.showMessage(ActivityNewPost_Step1.this, getString(R.string.err_set_picture), false);
             return;
         }
 

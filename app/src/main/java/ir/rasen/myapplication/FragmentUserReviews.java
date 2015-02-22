@@ -174,7 +174,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
                     }
                     mAdapter.notifyDataSetChanged();
                 }
-                Dialogs.showMessage(getActivity(), getString(R.string.success));
+                Dialogs.showMessage(getActivity(), getString(R.string.success), false);
                 editingDialog.dismiss();
             }
         } catch (Exception e) {
@@ -187,7 +187,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
-            Dialogs.showMessage(getActivity(), errorMessage);
+            Dialogs.showMessage(getActivity(), errorMessage, false);
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
