@@ -56,7 +56,7 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
 
         if (blocked != null) {
             downloadImages.download(blocked.profilePictureId, 3, holder.blocked_profile_pic);
-            holder.blocked_name.setText(blocked.name);
+            holder.blocked_name.setText(blocked.userName);
             // show followers profile
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

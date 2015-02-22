@@ -114,8 +114,9 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
         blockeds.add(User2);
         blockeds.add(User3);*/
 
-        mAdapter = new BlockedsAdapter(getActivity(), blockeds);
-        ((AdapterView<ListAdapter>) view.findViewById(R.id.list_blockeds_blockeds)).setAdapter(mAdapter);
+        /// TODO:: UNCOMMENT AFTER LAZY LOAD
+        //mAdapter = new BlockedsAdapter(getActivity(), blockeds);
+        //list.setAdapter(mAdapter);
 
         return view;
     }
@@ -192,10 +193,12 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse {
                 temp.add(user);
             }
 
-            //TODO temp have the result. Display the result.
+            // temp have the result. Display the result.
 
+            blockeds.clear();
             blockeds.addAll(temp);
-            mAdapter.notifyDataSetChanged();
+            mAdapter = new BlockedsAdapter(getActivity(), blockeds);
+            list.setAdapter(mAdapter);
             isLoadingMore=false;
             swipeView.setRefreshing(false);
             listFooterView.setVisibility(View.GONE);

@@ -103,7 +103,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
         if (post != null) {
 
-            if(post.type==Post.Type.Complete) {
+            if(post.type==null || post.type==Post.Type.Complete) {
 
                 holder.postPic.setVisibility(View.VISIBLE);
                 holder.likes.setVisibility(View.VISIBLE);
