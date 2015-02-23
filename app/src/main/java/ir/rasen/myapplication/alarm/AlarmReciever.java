@@ -51,12 +51,12 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
             MyNotification notification = new MyNotification();
 
             //TODO check if activity is on top
-            Intent intent = new Intent(context, ActivityMain.class);
+            Intent intent = new Intent(context, ActivityWelcome.class);
             intent.putExtra(Params.NOTIFICATION, true);
 
             notification.notify(context, commentNotification.userName,
                     Image_M.getBitmapFromString(commentNotification.postPicture),
-                    Image_M.getBitmapFromString(commentNotification.userPicture), intent);
+                    Image_M.getBitmapFromString(commentNotification.userPicture));
         }
     }
 

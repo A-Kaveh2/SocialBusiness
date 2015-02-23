@@ -24,18 +24,18 @@ import ir.rasen.myapplication.R;
 public class MyNotification {
 
 
-	public void notify(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent intent) {
+	public void notify(Context context,String userName,Bitmap postPicture,Bitmap userPicture) {
 
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-			notifyLowerHonycomb(context,userName,postPicture,userPicture,intent);
+			notifyLowerHonycomb(context,userName,postPicture,userPicture);
 		else
-			notifyUpperHonycomb(context,userName,postPicture,userPicture,intent);
+			notifyUpperHonycomb(context,userName,postPicture,userPicture);
 	}
 
 
 
-    public void notifyLowerHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent notificationIntent){
+    public void notifyLowerHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture){
         int NOTIFICATION_ID = 1;
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
@@ -51,6 +51,7 @@ public class MyNotification {
 
         notification.contentView = contentView;
 
+        Intent notificationIntent = new Intent(context, ActivityWelcome.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         notification.contentIntent = contentIntent;
@@ -65,10 +66,10 @@ public class MyNotification {
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void notifyUpperHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture,Intent resultIntent){
+    public void notifyUpperHonycomb(Context context,String userName,Bitmap postPicture,Bitmap userPicture){
         RemoteViews contentView = new RemoteViews(context.getPackageName(),
                 R.layout.custom_notification);
-
+        
         contentView.setImageViewBitmap(R.id.img_notification_user,userPicture);
         contentView.setImageViewBitmap(R.id.img_notification_post,postPicture);
         contentView.setTextViewText(R.id.txt_notification, userName);
@@ -77,6 +78,7 @@ public class MyNotification {
                 context).setSmallIcon(R.drawable.ic_launcher).setContent(
                 contentView);
         // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(context, ActivityWelcome.class);
         // The stack builder object will contain an artificial back stack for
         // the
         // started Activity.

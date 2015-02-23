@@ -10,47 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.FriendsAdapter;
-import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.InnerFragment;
-import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
-import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
-import ir.rasen.myapplication.webservice.announcement.GetAllCommentNotifications;
-import ir.rasen.myapplication.webservice.announcement.GetLastCommentNotification;
-import ir.rasen.myapplication.webservice.business.BlockUser;
-import ir.rasen.myapplication.webservice.business.DeleteComment;
-import ir.rasen.myapplication.webservice.business.GetBlockedUsers;
-import ir.rasen.myapplication.webservice.business.RateBusiness;
-import ir.rasen.myapplication.webservice.business.UnblockUser;
-import ir.rasen.myapplication.webservice.comment.GetPostAllComments;
-import ir.rasen.myapplication.webservice.comment.SendComment;
-import ir.rasen.myapplication.webservice.comment.UpdateComment;
-import ir.rasen.myapplication.webservice.friend.AnswerRequestFriendship;
 import ir.rasen.myapplication.webservice.friend.GetUserFriends;
-import ir.rasen.myapplication.webservice.friend.RequestFriendship;
-import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
-import ir.rasen.myapplication.webservice.post.GetPost;
-import ir.rasen.myapplication.webservice.post.GetSharedPosts;
-import ir.rasen.myapplication.webservice.post.GetTimeLinePosts;
-import ir.rasen.myapplication.webservice.post.Like;
-import ir.rasen.myapplication.webservice.post.Report;
-import ir.rasen.myapplication.webservice.post.Unlike;
-import ir.rasen.myapplication.webservice.user.ForgetPassword;
 
 /**
  * Created by 'Sina KH'.
@@ -230,11 +206,13 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                 User user = null;
                 for (SearchItemUserBusiness item : usersFriends) {
                     user = new User();
+                    user.id = item.id;
                     user.userName = item.username;
                     user.profilePictureId = item.pictureId;
                     temp.add(user);
                 }
 
+                //TODO : temp has the result. Display it!
                 friends.clear();
                 friends.addAll(temp);
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);

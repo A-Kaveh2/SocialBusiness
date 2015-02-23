@@ -37,6 +37,7 @@ public class URLs {
     public static String DELETE_COMMENT = MAIN_URL+"deleteComment";
     public static String GET_COMMENTS = MAIN_URL+"getPostComments";
     public static String SHARE = MAIN_URL+"share";
+    public static String CANCEL_SHARE = MAIN_URL+"cancelShare";
     public static String REPORT = MAIN_URL+"reportPost";
     public static String ADD_POST = MAIN_URL+"addPost";
     public static String UPDATE_POST = MAIN_URL+"updatePost";

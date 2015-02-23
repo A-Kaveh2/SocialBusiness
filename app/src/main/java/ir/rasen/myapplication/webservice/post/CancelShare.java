@@ -1,16 +1,12 @@
-package ir.rasen.myapplication.webservice.business;
+package ir.rasen.myapplication.webservice.post;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
-import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -18,27 +14,29 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by android on 12/16/2014.
  */
-public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
-    private static final String TAG = "DeleteComment ";
+public class CancelShare extends AsyncTask<Void, Void, ResultStatus> {
+    private static final String TAG = "CancelShare";
 
     private WebserviceResponse delegate = null;
-    private int businessID;
-    private int commentID;
+    private int userID;
+    private int postID;
     private ServerAnswer serverAnswer;
 
-    public DeleteComment(int businessID, int commentID,WebserviceResponse delegate) {
+    public CancelShare(int userID, int postID, WebserviceResponse delegate) {
         this.delegate = delegate;
-        this.businessID = businessID;
-        this.commentID = commentID;
+        this.userID = userID;
+        this.postID = postID;
     }
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.DELETE_COMMENT,new ArrayList<>(
-                Arrays.asList(String.valueOf(businessID), String.valueOf(commentID))));
+        WebservicePOST webservicePOST = new WebservicePOST(URLs.CANCEL_SHARE);
 
         try {
-              serverAnswer = webserviceGET.execute();
+            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
+            webservicePOST.addParam(Params.POST_ID,String.valueOf( postID));
+
+            serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {
@@ -51,6 +49,7 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
     @Override
     protected void onPostExecute(ResultStatus result) {
 
+
         //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
@@ -60,6 +59,5 @@ public class DeleteComment extends AsyncTask<Void, Void, ResultStatus> {
             delegate.getResult(result);
         else
             delegate.getError(serverAnswer.getErrorCode());
-
     }
 }
