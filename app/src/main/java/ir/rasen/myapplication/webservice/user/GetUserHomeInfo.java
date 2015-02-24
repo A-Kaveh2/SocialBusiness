@@ -67,6 +67,7 @@ public class GetUserHomeInfo extends AsyncTask<Void, Void, User> {
                 }
                 user.permissions = permission;
                 user.friendshipRelationStatus = FriendshipRelation.getFromCode(jsonObject.getInt(Params.FRIENDSHIP_RELATION_STATUS_CODE));
+                //user.friendshipRelationStatus = FriendshipRelation.Status.REQUEST_SENT;
 
                 String busi = jsonObject.getString(Params.BUSINESSES);
                 JSONArray busiArray;

@@ -1,8 +1,10 @@
 package ir.rasen.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,11 +45,14 @@ import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.DownloadImages;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessHomeInfo;
+import ir.rasen.myapplication.webservice.friend.RequestCancelFriendship;
 import ir.rasen.myapplication.webservice.friend.RequestFriendship;
+import ir.rasen.myapplication.webservice.post.DeletePost;
 import ir.rasen.myapplication.webservice.post.GetBusinessPosts;
 import ir.rasen.myapplication.webservice.post.GetSharedPosts;
 import ir.rasen.myapplication.webservice.user.FollowBusiness;
 import ir.rasen.myapplication.webservice.user.GetUserHomeInfo;
+import ir.rasen.myapplication.webservice.user.UnFollowBusiness;
 
 
 /**
@@ -280,7 +285,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 public void onClick(View v) {
                     // TODO:: if are friends (uncomment)
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                    if(profile_user.friendsNumber>0) {
+                    if (profile_user.friendsNumber > 0) {
                         InnerFragment innerFragment = new InnerFragment(getActivity());
                         innerFragment.newFriends(profileId, profile_user.friendRequestNumber);
                     }
@@ -290,7 +295,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             header.findViewById(R.id.ll_profile_option2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(profile_user.reviewsNumber>0) {
+                    if (profile_user.reviewsNumber > 0) {
                         InnerFragment innerFragment = new InnerFragment(getActivity());
                         innerFragment.newPrfoileReviews(profileId);
                     }
@@ -302,7 +307,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 public void onClick(View v) {
                     // TODO:: if are friends ( uncomment )
                     //if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.FRIEND)
-                    if(profile_user.followedBusinessesNumber>0) {
+                    if (profile_user.followedBusinessesNumber > 0) {
                         InnerFragment innerFragment = new InnerFragment(getActivity());
                         innerFragment.newBusinessesFragment(profileId);
                     }
@@ -329,7 +334,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             header.findViewById(R.id.ll_profile_option2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(profile_business.reviewsNumber>0) {
+                    if (profile_business.reviewsNumber > 0) {
                         InnerFragment innerFragment = new InnerFragment(getActivity());
                         innerFragment.newReviews(profileId, profile_business.userID);
                     }
@@ -339,7 +344,7 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             header.findViewById(R.id.ll_profile_option1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(profile_business.followersNumber>0) { // TODO:: what if we have blockeds without any followers ??
+                    if (profile_business.followersNumber > 0) { // TODO:: what if we have blockeds without any followers ??
                         InnerFragment innerFragment = new InnerFragment(getActivity());
                         innerFragment.newFollowers(profileId, profileOwn);
                     }
@@ -362,11 +367,26 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
     void sendFriendRequest() {
         follow_friend_request_sent = true;
         new RequestFriendship(LoginInfo.getUserId(getActivity()), profileId, FragmentProfile.this).execute();
+        pd.show();
     }
+
+    void sendUnfriendRequest() {
+        follow_friend_request_sent = true;
+        new RequestCancelFriendship(LoginInfo.getUserId(getActivity()), profileId, FragmentProfile.this).execute();
+        pd.show();
+    }
+
 
     void sendFollowRequest() {
         follow_friend_request_sent = true;
         new FollowBusiness(LoginInfo.getUserId(cont), profileId, FragmentProfile.this).execute();
+        pd.show();
+    }
+
+    void sendUnfollowRequest() {
+        follow_friend_request_sent = true;
+        new UnFollowBusiness(LoginInfo.getUserId(cont), profileId, FragmentProfile.this).execute();
+        pd.show();
     }
 
     void myOwnProfile() {
@@ -455,11 +475,11 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                     /*** In this way I detect if there's been a scroll which has completed ***/
                     /*** do the work for load more date! ***/
                     if (profileType == Params.ProfileType.PROFILE_USER) {
-                        if (!swipeView.isRefreshing() && !isLoadingMore && uPosts.size()>0 && uPosts.size()% getResources().getInteger(R.integer.lazy_load_limitation)==0) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && uPosts.size() > 0 && uPosts.size() % getResources().getInteger(R.integer.lazy_load_limitation) == 0) {
                             loadMoreData();
                         }
                     } else if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-                        if (!swipeView.isRefreshing() && !isLoadingMore && bPosts.size()>0 && bPosts.size() % getResources().getInteger(R.integer.lazy_load_limitation)==0) {
+                        if (!swipeView.isRefreshing() && !isLoadingMore && bPosts.size() > 0 && bPosts.size() % getResources().getInteger(R.integer.lazy_load_limitation) == 0) {
                             loadMoreData();
                         }
                     }
@@ -501,15 +521,20 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //delete post,follow business
 
                 if (follow_friend_request_sent) {
-                    if (profileType == Params.ProfileType.PROFILE_USER) {
-                        if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
-                            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
-                            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
-                        } else {
-                            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
-                            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
-                        }
+                    if (profileType == Params.ProfileType.PROFILE_BUSINESS) {
+                        if(profile_business.isFollowing)
+                            profile_business.isFollowing = false;
+                        else
+                            profile_business.isFollowing = true;
+                        refreshFollowButton();
+                    } else {
+                        if(profile_user.friendshipRelationStatus== FriendshipRelation.Status.NOT_FRIEND)
+                            profile_user.friendshipRelationStatus = FriendshipRelation.Status.REQUEST_SENT;
+                        else
+                            profile_user.friendshipRelationStatus = FriendshipRelation.Status.NOT_FRIEND;
+                        refreshFriendButton();
                     }
+                    follow_friend_request_sent = false;
                 }
 
             } else if (result instanceof User) {
@@ -582,7 +607,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
 
     @Override
     public void getError(Integer errorCode) {
-        if(bPosts.size()==0 && uPosts.size()==0)
+        editingId=0;
+        if (bPosts.size() == 0 && uPosts.size() == 0)
             initialAdapters(bPosts);
         pd.dismiss();
         try {
@@ -615,55 +641,28 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
             if (profileOwn) {
                 myOwnBusiness();
             } else { // SOMEONE'S BUSINESS
-                if (profile_business.isFollowing) {
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
-                    header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
-                } else {
-                    ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
-                    // FRIEND REQUEST
-                    header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sendFollowRequest();
-                        }
-                    });
-                }
+                refreshFollowButton();
             }
         } else if (profileType == Params.ProfileType.PROFILE_USER) {
-            assignUserProfileInfo(profile_user);
+            assignUserProfileInfo();
         }
     }
 
-    public void assignUserProfileInfo(User user) {
-        if (user.profilePictureId != 0) {
-            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
-            downloadImages.download(user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCover) header.findViewById(R.id.img_profile_cover));
+    public void assignUserProfileInfo() {
+        if (profile_user.profilePictureId != 0) {
+            downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), (ImageViewCircle) header.findViewById(R.id.img_profile_pic));
+            downloadImages.download(profile_user.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), (ImageViewCover) header.findViewById(R.id.img_profile_cover));
         }
-        ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(user.name);
-        ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(user.aboutMe);
-        ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(user.friendsNumber + " " + getString(R.string.friend));
-        ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(user.reviewsNumber + " " + getString(R.string.review));
-        ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(user.followedBusinessesNumber + " " + getString(R.string.business));
+        ((TextViewFont) header.findViewById(R.id.txt_profile_name)).setText(profile_user.name);
+        ((TextViewFont) header.findViewById(R.id.txt_profile_status)).setText(profile_user.aboutMe);
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option1)).setText(profile_user.friendsNumber + " " + getString(R.string.friend));
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option2)).setText(profile_user.reviewsNumber + " " + getString(R.string.review));
+        ((TextViewFont) header.findViewById(R.id.txt_profile_option3)).setText(profile_user.followedBusinessesNumber + " " + getString(R.string.business));
         // MY OWN USER'S PROFILE
         if (profileOwn == true) {
             myOwnProfile();
         } else { // SOMEONE'S PROFILE
-            if (user.friendshipRelationStatus == FriendshipRelation.Status.NOT_FRIEND) {
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
-                // FRIEND REQUEST
-                header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendFriendRequest();
-                    }
-                });
-            } else if (user.friendshipRelationStatus == FriendshipRelation.Status.FRIEND) {
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
-                header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
-            } else if (user.friendshipRelationStatus == FriendshipRelation.Status.REQUEST_SENT) {
-                ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
-                header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
-            }
+            refreshFriendButton();
         }
     }
 
@@ -691,6 +690,84 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 //TODO assign aboutMe
             }
 
+        }
+    }
+
+    public void showBusinessUnfollowPopup() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+                .setTitle(R.string.unfollow_business)
+                .setMessage(R.string.popup_unfollow_business)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        sendUnfollowRequest();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        Dialogs.showCustomizedDialog(getActivity(), builder);
+    }
+
+    public void showUserUnfriendPopup() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+                .setTitle(R.string.delete_friend)
+                .setMessage(R.string.popup_delete_friend)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        sendUnfollowRequest();
+                    }
+                })
+                .setNegativeButton(R.string.not_now, null);
+        Dialogs.showCustomizedDialog(getActivity(), builder);
+    }
+
+    private void refreshFollowButton() {
+        if (profile_business.isFollowing) {
+            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.following);
+            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
+            header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    showBusinessUnfollowPopup();
+                }
+            });
+        } else {
+            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.drawable.style_textview_on_pic);
+            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.follow_request);
+            header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendFollowRequest();
+                }
+            });
+        }
+    }
+
+    private void refreshFriendButton() {
+        if (profile_user.friendshipRelationStatus == FriendshipRelation.Status.NOT_FRIEND) {
+            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.drawable.style_textview_on_pic);
+            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.friend_request);
+            // FRIEND REQUEST
+            header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendFriendRequest();
+                }
+            });
+        } else if (profile_user.friendshipRelationStatus == FriendshipRelation.Status.FRIEND) {
+            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.your_friend);
+            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.green_dark);
+            header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showUserUnfriendPopup();
+                }
+            });
+        } else if (profile_user.friendshipRelationStatus == FriendshipRelation.Status.REQUEST_SENT) {
+            ((TextViewFont) header.findViewById(R.id.btn_profile_on_picture)).setText(R.string.request_sent);
+            header.findViewById(R.id.btn_profile_on_picture).setBackgroundResource(R.color.button_on_dark);
+            header.findViewById(R.id.btn_profile_on_picture).setOnClickListener(null);
         }
     }
 }

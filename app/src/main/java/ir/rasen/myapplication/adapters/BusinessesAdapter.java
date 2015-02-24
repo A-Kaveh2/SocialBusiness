@@ -16,6 +16,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -68,7 +69,7 @@ public class BusinessesAdapter extends ArrayAdapter<Business> {
  // ok
         if (business != null) {
             holder.name.setText(business.businessUserName);
-            downloadImages.download(business.profilePictureId, 3, holder.picture);
+            downloadImages.download(business.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.picture);
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

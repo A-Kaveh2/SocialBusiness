@@ -20,6 +20,7 @@ import ir.rasen.myapplication.FragmentProfile;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsPost;
@@ -188,10 +189,10 @@ public class PostsAdapter extends ArrayAdapter<Post> {
                 holder.likeHeart.setImageResource(R.drawable.ic_menu_liked);
             else
                 holder.likeHeart.setImageResource(R.drawable.ic_menu_like);
-            downloadImages.download(post.pictureId, 1, holder.postPic);
-            downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
+            downloadImages.download(post.pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), holder.postPic);
+            downloadImages.download(post.businessProfilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.business_pic);
             if(post.lastThreeComments!=null && post.lastThreeComments.size()>0)
-                downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
+                downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.comment1_pic);
             holder.business_name.setText(post.businessUserName);
             holder.description.setText(Html.fromHtml("<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
                     + "<br /><font color=#3F6F94><b>" + getContext().getString(R.string.product_code) + "</font> " + post.code

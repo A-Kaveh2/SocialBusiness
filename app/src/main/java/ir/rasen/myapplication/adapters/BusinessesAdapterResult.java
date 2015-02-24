@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.ActivityMain;
 import ir.rasen.myapplication.R;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -58,7 +59,7 @@ public class BusinessesAdapterResult extends ArrayAdapter<SearchItemUserBusiness
 
         if (business != null) {
             holder.name.setText(business.username);
-            downloadImages.download(business.pictureId, 3, holder.picture);
+            downloadImages.download(business.pictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.picture);
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -114,7 +114,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         comments = new ArrayList<Comment>();
 
 
-        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this, FragmentComments.this, pd);
+        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentComments.this, FragmentComments.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.btn_comments_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,6 +289,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     @Override
     public void getError(Integer errorCode) {
         sendingComment = false;
+        editingId=0;
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
@@ -306,5 +307,9 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
         editingId = id;
         editingText = text;
         editingDialog = dialog;
+        if(id>0)
+            pd.show();
+        else
+            pd.dismiss();
     }
 }

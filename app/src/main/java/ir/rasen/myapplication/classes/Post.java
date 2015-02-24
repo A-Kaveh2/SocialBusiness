@@ -156,9 +156,6 @@ public class Post {
             String comments = jsonObject.getString(Params.COMMENTS);
             JSONArray jsonArrayComments = new JSONArray(comments);
             post.lastThreeComments = Comment.getFromJSONArray(jsonArrayComments);
-
-
-            post.isLiked = jsonObject.getBoolean(Params.IS_LIKED);
             post.likeNumber = jsonObject.getInt(Params.LIKE_NUMBER);
             post.commentNumber = jsonObject.getInt(Params.COMMENT_NUMBER);
             post.shareNumber = jsonObject.getInt(Params.SHARE_NUMBER);

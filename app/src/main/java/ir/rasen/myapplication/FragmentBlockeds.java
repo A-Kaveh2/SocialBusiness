@@ -222,6 +222,7 @@ public class FragmentBlockeds extends Fragment implements WebserviceResponse, Ed
 
     @Override
     public void getError(Integer errorCode) {
+        editingId=0;
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, blockeds.size()==0 ? true : false);

@@ -13,6 +13,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -60,7 +61,7 @@ public class FriendsAdapter extends ArrayAdapter<User> {
         }
 
         if (friend != null) {
-            downloadImages.download(friend.profilePictureId, 3, holder.friend_profile_pic);
+            downloadImages.download(friend.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.friend_profile_pic);
             holder.friend_name.setText(friend.userName);
             // show friends profile
             convertView.setOnClickListener(new View.OnClickListener() {

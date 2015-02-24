@@ -175,7 +175,6 @@
     <string name="delete_comment">حذف نظر</string>
     <string name="popup_delete_comment">آیا میخواهید نظر خود را حذف نمایید؟</string>
     <string name="popup_delete_comment_from_my_business">آیا میخواهید این نظر را از روی محصول خود بردارید؟</string>
-    <string name="delete_friend">حذف دوست</string>
     <string name="popup_delete_friend">آیا میخواهید شخص را از لیست دوستان خود حذف نمایید؟</string>
     <string name="delete_review">حذف نظر</string>
     <string name="popup_delete_review">آیا میخواهید نقد خود را حذف نمایید؟</string>
@@ -186,6 +185,7 @@
     <string name="popup_unblock_follower">آیا میخواهید دسترسی کاربر به کسب و کار خود را آزاد نمایید؟</string>
     <string name="popup_delete_business">با این کار تمام محصولات این کسب و کار برای همیشه حذف خواهند شد.\n\nاز تصمیم خود مطمئن هستید؟</string>
     <string name="popup_warning">توجه!</string>
+    <string name="delete_friend">لغو دوستی</string>
 
     <!-- COMMENTS -->
     <string name="enter_your_comment">نظر خود را بنویسید&#8230;</string>

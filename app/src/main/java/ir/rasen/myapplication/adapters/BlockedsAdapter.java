@@ -13,6 +13,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -63,7 +64,7 @@ public class BlockedsAdapter extends ArrayAdapter<User> {
         }
 
         if (blocked != null) {
-            downloadImages.download(blocked.profilePictureId, 3, holder.blocked_profile_pic);
+            downloadImages.download(blocked.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.blocked_profile_pic);
             holder.blocked_name.setText(blocked.userName);
             // show followers profile
             convertView.setOnClickListener(new View.OnClickListener() {

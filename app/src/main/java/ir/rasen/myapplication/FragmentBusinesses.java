@@ -197,6 +197,7 @@ public class FragmentBusinesses extends Fragment implements WebserviceResponse, 
 
     @Override
     public void getError(Integer errorCode) {
+        editingId=0;
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, businesses.size()==0 ? true : false);

@@ -1,5 +1,6 @@
 package ir.rasen.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.adapters.RequestsAdapter;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Dialogs;
+import ir.rasen.myapplication.helper.EditInterface;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
 import ir.rasen.myapplication.helper.ServerAnswer;
@@ -26,7 +29,7 @@ import ir.rasen.myapplication.webservice.friend.GetUserFriendRequests;
 /**
  * Created by 'Sina KH' on 1/21/2015.
  */
-public class FragmentRequests extends Fragment implements WebserviceResponse {
+public class FragmentRequests extends Fragment implements WebserviceResponse, EditInterface {
     private static final String TAG = "FragmentRequests";
 
     private View view, listFooterView;
@@ -34,7 +37,7 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
     private boolean isLoadingMore=false;
     private SwipeRefreshLayout swipeView;
     private ListView list;
-    private ListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     int userId;
     Boolean nearby;
@@ -158,6 +161,16 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
                 isLoadingMore=false;
                 swipeView.setRefreshing(false);
                 listFooterView.setVisibility(View.GONE);
+
+                if(editingId>0) {
+                    for(int i=0; i<requests.size(); i++) {
+                        if (requests.get(i).id == editingId) {
+                            requests.remove(i);
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
@@ -166,11 +179,27 @@ public class FragmentRequests extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
+        editingId=0;
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, requests.size()==0 ? true : false);
         } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    private int editingId;
+    private String editingText;
+    private Dialog editingDialog;
+    @Override
+    public void setEditing(int id, String text, Dialog dialog) {
+        editingId = id;
+        editingText = text;
+        editingDialog = dialog;
+        if(editingId>0)
+            pd.show();
+        else
+            pd.dismiss();
     }
 }

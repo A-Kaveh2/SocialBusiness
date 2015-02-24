@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.webservice.DownloadImages;
 
@@ -45,7 +46,7 @@ public class ProfilePostsGridAdapter extends ArrayAdapter<Post> {
         }
 
         if (post != null) {
-            downloadImages.download(post.pictureId, 2, holder.postPic);
+            downloadImages.download(post.pictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), holder.postPic);
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

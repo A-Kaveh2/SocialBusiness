@@ -25,6 +25,7 @@ import ir.rasen.myapplication.FragmentHome;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsPost;
@@ -114,9 +115,9 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
                 holder.comments_3.setVisibility(View.VISIBLE);
                 holder.description.setVisibility(View.VISIBLE);
 
-                downloadImages.download(post.pictureId, 1, holder.postPic);
+                downloadImages.download(post.pictureId, Image_M.getImageSize(Image_M.ImageSize.LARGE), holder.postPic);
                 if (post.lastThreeComments != null && post.lastThreeComments.size() > 0)
-                    downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, 3, holder.comment1_pic);
+                    downloadImages.download(post.lastThreeComments.get(0).userProfilePictureID, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.comment1_pic);
                 holder.description.setText(Html.fromHtml(post.title + "<br />"
                         + "<font color=#3F6F94>" + getContext().getString(R.string.product_price) + ":</font> " + post.price
                         + "<br /><font color=#3F6F94>" + getContext().getString(R.string.product_code) + "</font> " + post.code
@@ -272,7 +273,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
             holder.business_name.setTextSize(context.getResources().getDimension(R.dimen.font_medium));
             if(post.type== Post.Type.Complete) {
                 holder.business_name.setText(post.businessUserName);
-                downloadImages.download(post.businessProfilePictureId, 3, holder.business_pic);
+                downloadImages.download(post.businessProfilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.business_pic);
 
                 holder.time.setText(TextProcessor.timeToTimeAgo(getContext(), post.creationDate));
 

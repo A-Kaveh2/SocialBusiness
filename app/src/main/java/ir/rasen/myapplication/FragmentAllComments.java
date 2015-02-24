@@ -85,8 +85,7 @@ public class FragmentAllComments extends Fragment implements WebserviceResponse,
 
         comments = new ArrayList<Comment>();
 
-
-        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentAllComments.this, FragmentAllComments.this, pd);
+        mAdapter = new CommentsAdapter(getActivity(), comments, FragmentAllComments.this, FragmentAllComments.this);
         ((AdapterView<ListAdapter>) view.findViewById(R.id.list_comments_comments)).setAdapter(mAdapter);
         view.findViewById(R.id.ll_comments_comment).setVisibility(View.GONE);
         ((EditTextFont) view.findViewById(R.id.edt_comments_comment)).addTextChangedListener(new TextWatcher() {

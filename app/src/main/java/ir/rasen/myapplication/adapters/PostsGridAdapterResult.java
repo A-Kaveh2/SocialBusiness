@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Post;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.SearchItemPost;
 import ir.rasen.myapplication.helper.SearchItemUserBusiness;
@@ -46,7 +47,7 @@ public class PostsGridAdapterResult extends ArrayAdapter<SearchItemPost> {
         }
 
         if (post != null) {
-            downloadImages.download(post.postPictureId, 2, holder.postPic);
+            downloadImages.download(post.postPictureId, Image_M.getImageSize(Image_M.ImageSize.MEDIUM), holder.postPic);
             holder.postPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

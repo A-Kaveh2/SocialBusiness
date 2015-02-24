@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.OptionsReview;
 import ir.rasen.myapplication.helper.Params;
@@ -66,12 +67,12 @@ public class ProfileReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
-            downloadImages.download(review.businessPicutreId, 3, holder.business_pic);
+            downloadImages.download(review.businessPicutreId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.business_pic);
 
             holder.business_name.setText(review.businessID);
 
             TextProcessor textProcessor = new TextProcessor(getContext());
-            textProcessor.process("SALAM @haSAN jan!! in naghdo bebin!", holder.review);
+            textProcessor.process(review.text, holder.review);
 
             holder.options.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

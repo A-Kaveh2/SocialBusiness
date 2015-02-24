@@ -244,6 +244,7 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     @Override
     public void getError(Integer errorCode) {
         try {
+            editingId=0;
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, reviews.size()==0 ? true : false);
             pd.hide();
@@ -291,9 +292,12 @@ public class FragmentReviews extends Fragment implements WebserviceResponse, Edi
     private Dialog editingDialog;
     @Override
     public void setEditing(int id, String text, Dialog dialog) {
-        pd.show();
         editingId = id;
         editingText = text;
         editingDialog = dialog;
+        if(id>0)
+            pd.show();
+        else
+            pd.dismiss();
     }
 }

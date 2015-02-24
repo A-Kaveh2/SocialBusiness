@@ -17,6 +17,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Comment;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.TextProcessor;
@@ -39,7 +40,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
     private ProgressDialogCustom pd;
     private WebserviceResponse delegate;
 
-	public CommentsAdapter(Context context, ArrayList<Comment> comments, WebserviceResponse delegate, EditInterface editDelegateInterface, ProgressDialogCustom pd) {
+	public CommentsAdapter(Context context, ArrayList<Comment> comments, WebserviceResponse delegate, EditInterface editDelegateInterface) {
 		super(context, R.layout.layout_comments_comment, comments);
 		mComments 	= comments;
 		mInflater	= LayoutInflater.from(context);
@@ -47,7 +48,6 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         this.delegate = delegate;
         this.editDelegateInterface = editDelegateInterface;
         this.downloadImages = new DownloadImages(context);
-        this.pd = pd;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         }
 
         if (comment != null) {
-            downloadImages.download(comment.userProfilePictureID, 3, holder.comment_profile_pic);
+            downloadImages.download(comment.userProfilePictureID, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.comment_profile_pic);
             holder.comment_user.setText(comment.username);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -132,7 +132,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 public void onClick(View v) {
                     // DELETE COMMENT
                     Dialogs dialogs = new Dialogs();
-                    dialogs.showCommentDeletePopup(getContext(), comment.businessID, comment.id, delegate, pd);
+                    editDelegateInterface.setEditing(comment.id, null, null);
+                    dialogs.showCommentDeletePopup(getContext(), comment.businessID, comment.id, delegate, editDelegateInterface);
                     pw.dismiss();
                 }
             });

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.Params;
@@ -64,7 +65,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
         }
 
         if (request != null) {
-            downloadImages.download(request.pictureId, 3, holder.pic);
+            downloadImages.download(request.pictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.pic);
 
             holder.username.setText(request.username);
 
@@ -78,6 +79,7 @@ public class RequestsAdapter extends ArrayAdapter<SearchItemUserBusiness> {
             holder.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     new AnswerRequestFriendship(request.id,LoginInfo.getUserId(context),false,delegate).execute();
                 }
             });

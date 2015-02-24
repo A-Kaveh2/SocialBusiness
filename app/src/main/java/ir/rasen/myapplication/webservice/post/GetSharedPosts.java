@@ -26,10 +26,10 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     private static final String TAG = "GetSharedPosts";
     private WebserviceResponse delegate = null;
     private int userID;
-    private int afterThisID,limitation;
+    private int afterThisID, limitation;
     private ServerAnswer serverAnswer;
 
-    public GetSharedPosts(int userID, int afterThisID, int limitation,WebserviceResponse delegate) {
+    public GetSharedPosts(int userID, int afterThisID, int limitation, WebserviceResponse delegate) {
         this.userID = userID;
         this.afterThisID = afterThisID;
         this.limitation = limitation;
@@ -39,7 +39,7 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
     @Override
     protected ArrayList<Post> doInBackground(Void... voids) {
         ArrayList<Post> list = new ArrayList<Post>();
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_SHARED_POSTS,new ArrayList<>(
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_SHARED_POSTS, new ArrayList<>(
                 Arrays.asList(String.valueOf(userID),
                         String.valueOf(afterThisID),
                         String.valueOf(limitation))));
@@ -47,7 +47,7 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         try {
             serverAnswer = webserviceGET.executeList();
-            Post post = new Post();
+            /*Post post = new Post();
             post.id = 27;
             post.pictureId = 2022;
 
@@ -72,16 +72,20 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
             post.shareNumber = 0;
 
             list.add(post);
-            return list;
+            return list;*/
 
-           /* if (serverAnswer.getSuccessStatus()) {
+
+            if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     list.add(Post.getFromJSONObjectShare(jsonObject));
                 }
                 return list;
-            }*/
+            }
+
+            //for the test todo.xlsx record number 185
+            //return null;
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -92,10 +96,10 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
     @Override
     protected void onPostExecute(ArrayList<Post> result) {
+        //for the test todo.xlsx record number 185
+        //delegate.getResult(result);
 
-        delegate.getResult(result);
-
-       /* //if webservice.execute() throws exception
+        //if webservice.execute() throws exception
         if (serverAnswer == null) {
             delegate.getError(ServerAnswer.EXECUTION_ERROR);
             return;
@@ -103,6 +107,6 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
         if (serverAnswer.getSuccessStatus())
             delegate.getResult(result);
         else
-            delegate.getError(serverAnswer.getErrorCode());*/
+            delegate.getError(serverAnswer.getErrorCode());
     }
 }

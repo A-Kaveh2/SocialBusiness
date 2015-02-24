@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.Review;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
 import ir.rasen.myapplication.helper.OptionsReview;
@@ -69,7 +70,7 @@ public class ReviewsAdapter extends ArrayAdapter<Review> {
         }
 
         if (review != null) {
-            downloadImages.download(review.userPicutreId, 3, holder.profile_pic);
+            downloadImages.download(review.userPicutreId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.profile_pic);
             if (review.userName != null)
                 holder.profile_name.setText(review.userName);
             else if (review.businessUserName != null)

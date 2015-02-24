@@ -185,6 +185,7 @@ public class FragmentUserReviews extends Fragment implements WebserviceResponse,
 
     @Override
     public void getError(Integer errorCode) {
+        editingId=0;
         try {
             pd.dismiss();
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);

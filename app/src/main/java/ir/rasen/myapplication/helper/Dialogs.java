@@ -1,14 +1,11 @@
 package ir.rasen.myapplication.helper;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
@@ -29,7 +26,7 @@ import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.BlockUser;
 import ir.rasen.myapplication.webservice.business.DeleteBusiness;
-import ir.rasen.myapplication.webservice.business.DeleteComment;
+import ir.rasen.myapplication.webservice.comment.DeleteComment;
 import ir.rasen.myapplication.webservice.business.UnblockUser;
 import ir.rasen.myapplication.webservice.comment.UpdateComment;
 import ir.rasen.myapplication.webservice.post.DeletePost;
@@ -99,22 +96,27 @@ public class Dialogs {
         showCustomizedDialog(context, builder);
     }
 
-    public void showCommentDeletePopup(Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
+    public void showCommentDeletePopup(final Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final EditInterface editDelegateInterface) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_comment)
                 .setMessage(R.string.popup_delete_comment)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new DeleteComment(businessId, commentId, delegate);
-                        pd.show();
+                        new DeleteComment(businessId, commentId, delegate).execute();
                     }
                 })
-                .setNegativeButton(R.string.not_now, null);
+                .setNegativeButton(R.string.not_now, null)
+        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                editDelegateInterface.setEditing(0, null, null);
+            }
+        });
         showCustomizedDialog(context, builder);
     }
 
-    public void showCommentDeleteFromMyBusinessPopup(Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
+    public void showCommentDeleteFromMyBusinessPopup(final Context context, final int businessId, final int commentId, final WebserviceResponse delegate, final ProgressDialogCustom pd) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(R.string.delete_comment)
@@ -307,7 +309,7 @@ public class Dialogs {
         showCustomizedDialog(activityMain, builder);
     }
 
-    static Dialog showCustomizedDialog(Context context, AlertDialog.Builder builder) {
+    public static Dialog showCustomizedDialog(Context context, AlertDialog.Builder builder) {
         Dialog dialog = builder.show();
         Typeface tf = getTypeface(context);
         ((TextView) dialog.findViewById(android.R.id.message)).setTypeface(tf);

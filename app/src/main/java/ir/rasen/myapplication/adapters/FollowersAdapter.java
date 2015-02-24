@@ -13,6 +13,7 @@ import ir.rasen.myapplication.R;
 import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.EditInterface;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.ImageViewCircle;
@@ -76,7 +77,7 @@ public class FollowersAdapter extends ArrayAdapter<User> {
                     innerFragment.newProfile(context,Params.ProfileType.PROFILE_USER, false, follower.id);
                 }
             });
-            downloadImages.download(follower.profilePictureId,3,holder.friend_profile_pic);
+            downloadImages.download(follower.profilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL),holder.friend_profile_pic);
 
             if(mOwnFollowers) {
                 holder.block.setVisibility(View.VISIBLE);

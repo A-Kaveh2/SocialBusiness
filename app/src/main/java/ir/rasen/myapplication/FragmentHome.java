@@ -278,6 +278,7 @@ public class FragmentHome extends Fragment implements WebserviceResponse, EditIn
 
     @Override
     public void getError(Integer errorCode) {
+        editingId=0;
         pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
