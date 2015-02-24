@@ -2,13 +2,13 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_register_actionbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
-        android:background="@color/button_on_dark" >
+        android:background="@color/button_on_dark">
 
         <ImageButton
             android:layout_width="@dimen/actionbar_height"
@@ -20,7 +20,7 @@
             android:layout_margin="8dp"
             android:scaleType="centerInside"
             android:onClick="back"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null" />
 
         <ir.rasen.myapplication.ui.TextViewFont
             android:id="@+id/txt_business_step1_title"
@@ -29,14 +29,14 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:text = "@string/new_business" />
+            android:text="@string/new_business" />
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_register_actionbar"
-        android:background="@color/gray_lighter" >
+        android:background="@color/gray_lighter">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,17 +45,54 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_register_picture_set"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_edittext_name"
-                android:layout_centerHorizontal="true"
-                android:scaleType="centerInside"
-                android:layout_margin="8dp"
-                android:contentDescription="@null"
-                android:onClick="setPicture"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btn_register_picture_set"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_edittext_name"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerInside"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@null"
+                    android:onClick="setPicture" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_camera_section"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="96dp">
+                    <!--the height will change in code with the value = screen width to tack an square-->
+
+                    <FrameLayout
+                        android:id="@+id/camera_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_camera_cover"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@color/gray_lighter"
+                        android:gravity="center"
+                        android:layout_alignParentBottom="true">
+
+                        <ir.rasen.myapplication.ui.ButtonFont
+                            android:id="@+id/button_capture"
+                            android:text="@string/submit"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
 
             <ir.rasen.myapplication.ui.EditTextFont
                 android:id="@+id/edt_business_step1_id"
@@ -65,7 +102,8 @@
                 android:inputType="text"
                 android:drawableLeft="@drawable/ic_edittext_username"
                 android:hint="@string/business_id">
-                <requestFocus/>
+
+                <requestFocus />
             </ir.rasen.myapplication.ui.EditTextFont>
 
             <ir.rasen.myapplication.ui.EditTextFont

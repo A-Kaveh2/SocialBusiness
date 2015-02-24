@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ir.rasen.myapplication.adapters.UsersBusinessesAdapter;
+import ir.rasen.myapplication.alarm.AlarmReciever;
 import ir.rasen.myapplication.alarm.Alarm_M;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.User;
@@ -63,6 +64,9 @@ public class ActivityMain extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         activityMain = this;
+
+        AlarmReciever a = new AlarmReciever();
+        a.displayNotification(this);
 
         //set alarm manager to run GetLastCommentNotification periodically
         Alarm_M alarm_m = new Alarm_M();

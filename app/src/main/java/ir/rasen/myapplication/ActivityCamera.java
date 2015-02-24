@@ -33,6 +33,7 @@ public class ActivityCamera extends Activity implements CropResult {
         cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
         captureButton = (Button) findViewById(R.id.button_capture);
         ll_cover = (LinearLayout)findViewById(R.id.ll_camera_cover);
+
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;

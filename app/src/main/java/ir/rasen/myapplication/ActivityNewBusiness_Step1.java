@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ArrowKeyMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +26,11 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import java.io.File;
@@ -34,6 +39,8 @@ import java.util.ArrayList;
 import ir.rasen.myapplication.classes.Business;
 import ir.rasen.myapplication.classes.Category;
 import ir.rasen.myapplication.classes.SubCategory;
+import ir.rasen.myapplication.helper.CropResult;
+import ir.rasen.myapplication.helper.CustomeCamera;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.LoginInfo;
@@ -49,7 +56,7 @@ import ir.rasen.myapplication.webservice.business.GetBusinessGategories;
 import ir.rasen.myapplication.webservice.business.GetBusinessProfileInfo;
 import ir.rasen.myapplication.webservice.business.GetBusinessSubcategories;
 
-public class ActivityNewBusiness_Step1 extends Activity implements WebserviceResponse {
+public class ActivityNewBusiness_Step1 extends Activity implements WebserviceResponse,CropResult {
     private String TAG = "ActivityNewBusiness_Step1";
 
     ActivityNewBusiness_Step1 activityNewBusiness_step1;
@@ -65,9 +72,14 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
     public static Activity step1;
     ArrayList<SubCategory> subcategoryObjectList;
 
-    private Business existedBusiness;
 
+    private Business existedBusiness;
+    FrameLayout cameraPreview ;
+    Button captureButton ;
     private ProgressDialogCustom pd;
+    RelativeLayout rl_camera_section;
+    CustomeCamera customeCamera;
+    LinearLayout ll_camera_cover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +101,40 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         edtDescription = (EditTextFont) findViewById(R.id.edt_business_step1_description);
         imbProfilePicture = (ImageButton) findViewById(R.id.btn_register_picture_set);
 
+        cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
+        captureButton = (Button) findViewById(R.id.button_capture);
+        rl_camera_section = (RelativeLayout)findViewById(R.id.rl_camera_section);
+        ll_camera_cover = (LinearLayout)findViewById(R.id.ll_camera_cover);
 
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        width = (width/4)*3;
+        int height = displaymetrics.heightPixels;
+        height = (height/4)*3;
+        RelativeLayout.LayoutParams lp_camera_section = new RelativeLayout.LayoutParams(width, height);
+        lp_camera_section.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        rl_camera_section.setLayoutParams(lp_camera_section);
+
+        RelativeLayout.LayoutParams lp_cover = new RelativeLayout.LayoutParams(width, height-width);
+        lp_cover.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);
+        ll_camera_cover.setLayoutParams(lp_cover);
+
+        customeCamera = new CustomeCamera(this, cameraPreview,getResources().getInteger(R.integer.image_size),getResources().getInteger(R.integer.image_quality));
+        customeCamera.delegate = this;
+        captureButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            customeCamera.capturePhoto();
+                        } catch (Exception e) {
+                            Log.d(TAG, e.getMessage());
+                        }
+
+                    }
+                }
+        );
 
         // SET ANIMATIONS
         setAnimations();
@@ -152,10 +197,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
 
         builder.setTitle(R.string.choose_photo);
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) { //pick from camera
+            public void onClick(DialogInterface dialog, int item) {
+                //pick from camera
                 if (item == 0) {
-                    Intent myIntent = new Intent(getApplicationContext(), ActivityCamera.class);
-                    startActivityForResult(myIntent, ActivityCamera.CAPTURE_PHOTO);
+                    rl_camera_section.setVisibility(View.VISIBLE);
+                    //Intent myIntent = new Intent(getApplicationContext(), ActivityCamera.class);
+                    //startActivityForResult(myIntent, ActivityCamera.CAPTURE_PHOTO);
                 } else { //pick from file
                     Intent myIntent = new Intent(getApplicationContext(), ActivityGallery.class);
                     startActivityForResult(myIntent, ActivityGallery.CAPTURE_GALLERY);
@@ -378,5 +425,12 @@ public class ActivityNewBusiness_Step1 extends Activity implements WebserviceRes
         } catch (Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
+    }
+
+    @Override
+    public void getResult(String filePath) {
+        rl_camera_section.setVisibility(View.GONE);
+        profilePictureFilePath = filePath;
+        displayCropedImage(profilePictureFilePath);
     }
 }
