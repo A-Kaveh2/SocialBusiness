@@ -213,6 +213,7 @@ public class FragmentFriends extends Fragment implements WebserviceResponse, Edi
                     temp.add(user);
                 }
 
+                //TODO : temp has the result. Display it!
                 friends.clear();
                 friends.addAll(temp);
                 mAdapter = new FriendsAdapter(getActivity(), friends, true, FragmentFriends.this);
