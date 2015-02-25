@@ -31,11 +31,13 @@ import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
 import ir.rasen.myapplication.ui.ButtonFont;
 import ir.rasen.myapplication.ui.TextViewFont;
+import ir.rasen.myapplication.webservice.WebserviceResponse;
+import ir.rasen.myapplication.webservice.business.GetBusinessContactInfo;
 
 /**
  * Created by 'Sina KH'.
  */
-public class FragmentCallInfo extends Fragment {
+public class FragmentCallInfo extends Fragment implements WebserviceResponse {
     private static final String TAG = "FragmentCallInfo";
 
     private View view;
@@ -70,10 +72,16 @@ public class FragmentCallInfo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_call_info, container, false);
         this.view = view;
 
+
         business = PassingBusiness.getInstance().getValue();
+
+        new GetBusinessContactInfo(business.id,FragmentCallInfo.this).execute();
+
         PassingBusiness.getInstance().setValue(null);
 
         setUpMapIfNeeded();
+
+        //TODO: initialize fields in getResult not here
 
         String workTimeText = "";
         if(business.workTime!=null) {
@@ -202,5 +210,18 @@ public class FragmentCallInfo extends Fragment {
         if (Integer.toString(x).length()==1)
             return "0"+Integer.toString(x);
         return Integer.toString(x);
+    }
+
+    @Override
+    public void getResult(Object result) {
+        if(result instanceof Business){
+            business = (Business) result;
+            //TODO user the business
+        }
+    }
+
+    @Override
+    public void getError(Integer errorCode) {
+
     }
 }

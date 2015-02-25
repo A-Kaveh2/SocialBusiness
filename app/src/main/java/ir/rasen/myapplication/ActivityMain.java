@@ -30,6 +30,7 @@ import ir.rasen.myapplication.classes.User;
 import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.LoginInfo;
+import ir.rasen.myapplication.helper.MyNotification;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.Permission;
 import ir.rasen.myapplication.ui.ViewPagerPaging;
@@ -65,8 +66,7 @@ public class ActivityMain extends FragmentActivity {
 
         activityMain = this;
 
-        AlarmReciever a = new AlarmReciever();
-        a.displayNotification(this);
+
 
         //set alarm manager to run GetLastCommentNotification periodically
         Alarm_M alarm_m = new Alarm_M();

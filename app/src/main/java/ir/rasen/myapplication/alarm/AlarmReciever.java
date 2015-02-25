@@ -7,7 +7,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -36,31 +38,24 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        new GetLastCommentNotification(context, LoginInfo.getUserId(context),AlarmReciever.this).execute();
+        new GetLastCommentNotification(context, LoginInfo.getUserId(context), AlarmReciever.this).execute();
     }
 
     @Override
     public void getResult(Object result) {
-        if(result instanceof CommentNotification){
-            CommentNotification commentNotification = (CommentNotification)result;
+        if (result instanceof CommentNotification) {
+            CommentNotification commentNotification = (CommentNotification) result;
 
-            if (Comment.isDisplayed(context, commentNotification.id))
+            if (CommentNotification.isDisplayed(context, commentNotification.id))
                 return;
 
-
-
-
-            Comment.insertLastCommentId(context, commentNotification.id);
-
-            MyNotification notification = new MyNotification();
+            //save comment.id in sharePreferences storage to check isDisplayed before
+            CommentNotification.insertLastCommentId(context, commentNotification.id);
 
             //TODO check if activity is on top
-            Intent intent = new Intent(context, ActivityWelcome.class);
+            Intent intent = new Intent(context, ActivityLogin.class);
             intent.putExtra(Params.NOTIFICATION, true);
-
-            notification.notify(context, commentNotification.userName,
-                    Image_M.getBitmapFromString(commentNotification.postPicture),
-                    Image_M.getBitmapFromString(commentNotification.userPicture));
+            MyNotification.displayNotificationCustomView(context, intent, commentNotification.getCommentNotificationContentView(context), R.drawable.ic_launcher);
         }
     }
 
@@ -69,53 +64,5 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
 
     }
 
-    @SuppressLint("NewApi")
 
-    public void displayNotification (Context context){
-
-        int icon = R.drawable.ic_launcher;
-        long when = System.currentTimeMillis();
-        NotificationManager nm=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent intent=new Intent(context,ActivityLogin.class);
-        PendingIntent  pending=PendingIntent.getActivity(context, 0, intent, 0);
-        Notification noti;
-        if (Build.VERSION.SDK_INT <  Build.VERSION_CODES.HONEYCOMB) {
-            noti = new Notification(icon, "Title", when);
-            noti.setLatestEventInfo(
-                    context,
-                    "Title",
-                    "Text",
-                    pending);
-
-        } else {
-           /* noti = new Notification.Builder(context)
-                    .setContentTitle("Title")
-                    .setContentText(
-                            "Text").
-                            setSmallIcon(R.drawable.ic_launcher)
-                    .setContentIntent(pending).setWhen(when).setAutoCancel(true)
-                    .build();*/
-
-            noti = new Notification.Builder(context)
-                    .setContentTitle("Title")
-                    .setContentText(
-                            "Text").
-                            setSmallIcon(R.drawable.ic_launcher)
-                    .setContentIntent(pending).setWhen(when).setAutoCancel(true)
-                    .build();
-        }
-
-        /*RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
-        contentView.setImageViewResource(R.id.img_notification_user,R.drawable.ic_launcher);
-        contentView.setImageViewResource(R.id.img_notification_post,R.drawable.ic_launcher);
-        contentView.setImageViewResource(R.id.txt_notification, R.drawable.ic_launcher);
-
-        noti.contentView = contentView;*/
-
-        noti.contentView = new RemoteViews(context.getPackageName(),
-                R.layout.custom_notification);
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
-        noti.defaults |= Notification.DEFAULT_SOUND;
-        nm.notify(0, noti);
-    }
 }

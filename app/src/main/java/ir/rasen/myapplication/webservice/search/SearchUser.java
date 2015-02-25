@@ -26,11 +26,11 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
 
     private WebserviceResponse delegate = null;
 
-    private int beforeThisId,limitation;
+    private int beforeThisId, limitation;
     private String searchText;
     private ServerAnswer serverAnswer;
 
-    public SearchUser( String searchText,int beforeThisId,int limitation,WebserviceResponse delegate) {
+    public SearchUser(String searchText, int beforeThisId, int limitation, WebserviceResponse delegate) {
         this.beforeThisId = beforeThisId;
         this.limitation = limitation;
         this.searchText = searchText;
@@ -41,8 +41,8 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
     protected ArrayList<SearchItemUserBusiness> doInBackground(Void... voids) {
         ArrayList<SearchItemUserBusiness> list = new ArrayList<SearchItemUserBusiness>();
 
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_USER,new ArrayList<>(
-                Arrays.asList(searchText,String.valueOf(beforeThisId),String.valueOf(limitation))));
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.SEARCH_USER, new ArrayList<>(
+                Arrays.asList(searchText, String.valueOf(beforeThisId), String.valueOf(limitation))));
 
 
         try {
@@ -51,10 +51,10 @@ public class SearchUser extends AsyncTask<Void, Void, ArrayList<SearchItemUserBu
                 JSONArray jsonArray = serverAnswer.getResultList();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.USER_ID),
+                    list.add(new SearchItemUserBusiness(jsonObject.getInt(Params.ID),
                             jsonObject.getInt(Params.USER_PROFILE_PICTURE_ID),
-                            jsonObject.getString(Params.USER_NAME)
-                            ));
+                            jsonObject.getString(Params.USER_ID)
+                    ));
                 }
                 return list;
             }

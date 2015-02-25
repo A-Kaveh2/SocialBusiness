@@ -2,12 +2,15 @@ package ir.rasen.myapplication.classes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.RemoteViews;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ir.rasen.myapplication.R;
+import ir.rasen.myapplication.helper.Image_M;
 import ir.rasen.myapplication.helper.Params;
 
 /**
@@ -39,21 +42,9 @@ public class Comment {
         return comments;
     }
 
-    public static boolean isDisplayed(Context context, int commendId) {
-        SharedPreferences preferences = context.getSharedPreferences(
-                context.getPackageName(), Context.MODE_PRIVATE);
-        int lastCommentId = preferences.getInt(Params.COMMENT_ID, 0);
 
-        if (lastCommentId != 0 && lastCommentId == commendId)
-            return true;
-        return false;
-    }
 
-    public static void insertLastCommentId(Context context, int lastCommentId) {
-        SharedPreferences preferences = context.getSharedPreferences(
-                context.getPackageName(), Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = preferences.edit();
-        edit.putInt(Params.COMMENT_ID, lastCommentId);
-        edit.commit();
-    }
+
+
+
 }
