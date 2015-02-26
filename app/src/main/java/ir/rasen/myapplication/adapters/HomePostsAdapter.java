@@ -271,7 +271,7 @@ public class HomePostsAdapter extends ArrayAdapter<Post> implements StickyListHe
 
         if(post!=null){
             holder.business_name.setTextSize(context.getResources().getDimension(R.dimen.font_medium));
-            if(post.type== Post.Type.Complete) {
+            if(post.type == null || post.type== Post.Type.Complete) {
                 holder.business_name.setText(post.businessUserName);
                 downloadImages.download(post.businessProfilePictureId, Image_M.getImageSize(Image_M.ImageSize.SMALL), holder.business_pic);
 

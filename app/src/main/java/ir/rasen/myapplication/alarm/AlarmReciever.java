@@ -53,7 +53,7 @@ public class AlarmReciever extends BroadcastReceiver implements WebserviceRespon
             CommentNotification.insertLastCommentId(context, commentNotification.id);
 
             //TODO check if activity is on top
-            Intent intent = new Intent(context, ActivityLogin.class);
+            Intent intent = new Intent(context, ActivityMain.class);
             intent.putExtra(Params.NOTIFICATION, true);
             MyNotification.displayNotificationCustomView(context, intent, commentNotification.getCommentNotificationContentView(context), R.drawable.ic_launcher);
         }

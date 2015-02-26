@@ -219,6 +219,7 @@ public class Dialogs {
         dialog.findViewById(R.id.btn_edit_comment_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editDelegate.setEditing(0,null,null);
                 dialog.dismiss();
             }
         });
