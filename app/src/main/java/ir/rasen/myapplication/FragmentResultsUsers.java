@@ -94,7 +94,7 @@ public class FragmentResultsUsers extends Fragment implements WebserviceResponse
         setUpListView();
 
         users = new ArrayList<User>();
-        mAdapter = new FriendsAdapter(getActivity(), users, true, FragmentResultsUsers.this);
+        mAdapter = new FriendsAdapter(getActivity(), users, false, FragmentResultsUsers.this);
         list.setAdapter(mAdapter);
 
         return view;

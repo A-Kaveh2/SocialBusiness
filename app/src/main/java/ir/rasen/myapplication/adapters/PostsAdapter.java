@@ -208,7 +208,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         return convertView;
     }
 
-
     class ViewHolder {
         TextViewFont business_name, description, time, comment1, comment1_user, likesNum, commentsNum, sharesNum;
         ImageView options, postPic, likeHeart;

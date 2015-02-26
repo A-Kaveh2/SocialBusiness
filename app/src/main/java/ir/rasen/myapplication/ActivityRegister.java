@@ -124,7 +124,8 @@ public class ActivityRegister extends Activity implements WebserviceResponse {
 
     // REGISTER TOUCHED
     public void register(View view) {
-
+        username.setText(username.getText().toString().trim());
+        name.setText(name.getText().toString().trim());
         // CHECK INPUT DATA
         if (!username.getText().toString().matches(Params.USER_USERNAME_VALIDATION) || username.getText().length() < Params.USER_USERNAME_MIN_LENGTH) {
             username.requestFocus();

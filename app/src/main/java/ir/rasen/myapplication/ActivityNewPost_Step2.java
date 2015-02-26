@@ -174,18 +174,22 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     @Override
     public void getResult(Object result) {
-        pd.dismiss();
-        if (result instanceof Post) {
-            //result of executing AddPost
-            Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success), false);
+        try {
+            pd.dismiss();
+            if (result instanceof Post) {
+                //result of executing AddPost
+                Dialogs.showMessage(context, context.getResources().getString(R.string.dialog_update_success), false);
 
-            finished();
-        } else if (result instanceof ResultStatus) {
-            //result of executing UpdatePost
-            if (!filePath.equals("null"))
-                Image_M.deletePictureById(context, PassingPosts.getInstance().getValue().get(0).pictureId);
+                finished();
+            } else if (result instanceof ResultStatus) {
+                //result of executing UpdatePost
+                if (!filePath.equals("null"))
+                    Image_M.deletePictureById(context, PassingPosts.getInstance().getValue().get(0).pictureId);
 
-            finished();
+                finished();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
@@ -199,11 +203,15 @@ public class ActivityNewPost_Step2 extends Activity implements WebserviceRespons
 
     @Override
     public void getError(Integer errorCode) {
-        pd.dismiss();
         try {
-            String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
-            Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage, false);
-        } catch (Exception e) {
+            pd.dismiss();
+            try {
+                String errorMessage = ServerAnswer.getError(getBaseContext(), errorCode);
+                Dialogs.showMessage(ActivityNewPost_Step2.this, errorMessage, false);
+            } catch (Exception e) {
+                Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+            }
+        } catch(Exception e) {
             Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }

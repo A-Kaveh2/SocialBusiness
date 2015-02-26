@@ -134,7 +134,7 @@ public class ActivityLocation extends FragmentActivity {
             builder.zoom(10);
         } else {
             target = new LatLng(location.getLatitude(),location.getLongitude());
-            builder.zoom(13);
+            builder.zoom(12);
         }
         builder.target(target);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(builder.build()));
@@ -151,7 +151,7 @@ public class ActivityLocation extends FragmentActivity {
                                 , Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LONGITUDE)));
                     else
                         target = new LatLng(location.getLatitude(), location.getLongitude());
-                    builder.zoom(13);
+                    builder.zoom(12);
                     builder.target(target);
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(builder.build()));
                     if(marker==null && getIntent().getIntExtra(Params.SET_LOCATION_TYPE, Params.SEARCH)!=Params.SEARCH) {

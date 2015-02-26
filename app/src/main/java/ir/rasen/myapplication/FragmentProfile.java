@@ -580,6 +580,8 @@ public class FragmentProfile extends Fragment implements WebserviceResponse, Edi
                 profile_business = (Business) result;
                 profileType = Params.ProfileType.PROFILE_BUSINESS;
 
+                header.findViewById(R.id.btn_profile_search).setVisibility(View.GONE);
+
                 assignNow();
 
                 new GetBusinessPosts(LoginInfo.getUserId(cont), profile_business.id, 0, cont.getResources().getInteger(R.integer.lazy_load_limitation), FragmentProfile.this).execute();

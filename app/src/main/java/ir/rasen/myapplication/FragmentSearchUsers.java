@@ -24,6 +24,7 @@ import ir.rasen.myapplication.adapters.HistorySimpleCursorAdapter;
 import ir.rasen.myapplication.helper.HistoryDatabase;
 import ir.rasen.myapplication.helper.InnerFragment;
 import ir.rasen.myapplication.helper.Location_M;
+import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.ui.AutoCompleteTextViewFontClickable;
 import ir.rasen.myapplication.ui.DrawableClickListener;
 import ir.rasen.myapplication.ui.TextViewFont;
@@ -79,7 +80,13 @@ public class FragmentSearchUsers extends Fragment {
     }
 
     void searchNow() {
-        // TODO:: Start searching...
+        // Start searching...
+        text.setText(text.getText().toString().trim());
+        if (!text.getText().toString().trim().matches(Params.USER_USERNAME_VALIDATION) || text.getText().toString().trim().length() < Params.USER_USERNAME_MIN_LENGTH) {
+            text.requestFocus();
+            text.setErrorC(getString(R.string.enter_valid_username));
+            return;
+        }
         if(text.getText().toString().trim().length()>0) {
             database = new HistoryDatabase(getActivity(), HistoryDatabase.TABLE_HISTORY_USERS);
             database.insert(text.getText().toString().trim());
@@ -144,6 +151,7 @@ public class FragmentSearchUsers extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 text.setText(((TextView) view).getText().toString());
+                searchNow();
             }
         });
     }
