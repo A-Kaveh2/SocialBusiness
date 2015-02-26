@@ -1,6 +1,7 @@
 package ir.rasen.myapplication.helper;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -219,6 +220,7 @@ public class Dialogs {
         dialog.findViewById(R.id.btn_edit_comment_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editDelegate.setEditing(0,null,null);
                 dialog.dismiss();
             }
         });
@@ -331,8 +333,12 @@ public class Dialogs {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        if(back)
-                            ((ActivityMain) context).onBackPressed();
+                        if (back) {
+                            try {
+                                ((Activity) context).onBackPressed();
+                            } catch (Exception e) {
+                            }
+                        }
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert);

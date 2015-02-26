@@ -176,12 +176,13 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
     }
 
     // LOAD MORE DATA
-    public void loadMoreData() {
+    public void loadMoreData(boolean footer) {
         // LOAD MORE DATA HERE...
         isLoadingMore = true;
-        listFooterView.setVisibility(View.VISIBLE);
+        if(footer)
+            listFooterView.setVisibility(View.VISIBLE);
 
-        new GetPostAllComments(postId, comments.get(comments.size()-1).id, getResources().getInteger(R.integer.lazy_load_limitation),FragmentComments.this).execute();
+        new GetPostAllComments(postId, (comments.size()>0 ? comments.get(comments.size()-1).id : 0), getResources().getInteger(R.integer.lazy_load_limitation),FragmentComments.this).execute();
 
     }
 
@@ -227,7 +228,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
                     /*** do the work for load more date! ***/
                     if (!swipeView.isRefreshing() && !isLoadingMore
                             && comments.size()>0 && comments.size()%getResources().getInteger(R.integer.lazy_load_limitation)==0) {
-                        loadMoreData();
+                        loadMoreData(true);
                     }
                 }
             }
@@ -236,7 +237,7 @@ public class FragmentComments extends Fragment implements WebserviceResponse, Ed
 
     private void reload() {
         comments.clear();
-        loadMoreData();
+        loadMoreData(false);
         swipeView.setRefreshing(true);
     }
     @Override

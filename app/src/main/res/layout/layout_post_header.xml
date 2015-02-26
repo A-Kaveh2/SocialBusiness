@@ -43,8 +43,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/button_on_dark_darker"
             android:textSize="@dimen/text_size_larger"
-            android:gravity="right|center"
-            android:text="نسرین محمدی"/>
+            android:gravity="right|center"/>
 
     </LinearLayout>
 

@@ -128,6 +128,7 @@
     <string name="search_products">جستجوی محصولات</string>
     <string name="choose_category">انتخاب موضوع</string>
     <string name="selected_location">جستجوی مکان انتخابی</string>
+    <string name="no_results_found">جستجو نتیجه ای در بر نداشت.</string>
 
     <!-- SEARCH USERS -->
     <string name="search_users">جستجوی کاربران</string>
@@ -224,6 +225,7 @@
     <string name="address_defined">موقعیت تعیین شد:</string>
     <string name="lat">عرض جغرافیایی:</string>
     <string name="lon">طول جغرافیایی:</string>
+    <string name="invalid_phone">شماره ی وارد شده صحیح نمی باشد.</string>
 
     <!-- POST -->
     <string name="product_name">نام محصول</string>

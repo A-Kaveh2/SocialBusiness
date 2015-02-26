@@ -90,6 +90,18 @@ public class ActivityNewBusiness_Step2 extends Activity implements WebserviceRes
             Dialogs.showMessage(context, getString(R.string.err_location), false);
             return;
         }
+        if (!business.phone.matches(Params.NUMERIC_VALIDATION)
+                || business.phone.length()<8
+                || business.phone.length()>11) {
+            edtPhone.requestFocus();
+            edtPhone.setErrorC(getString(R.string.invalid_phone));
+        }
+        if (!business.mobile.matches(Params.NUMERIC_VALIDATION)
+                || business.mobile.length() != 11
+                || !business.mobile.substring(0,2).equals("09")) {
+            edtPhone.requestFocus();
+            edtPhone.setErrorC(getString(R.string.invalid_phone));
+        }
 
         business.userID = LoginInfo.getUserId(context);
 

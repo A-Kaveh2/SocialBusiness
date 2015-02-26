@@ -27,9 +27,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import ir.rasen.myapplication.classes.Business;
+import ir.rasen.myapplication.helper.Dialogs;
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.PassingBusiness;
+import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.ui.ButtonFont;
+import ir.rasen.myapplication.ui.ProgressDialogCustom;
 import ir.rasen.myapplication.ui.TextViewFont;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 import ir.rasen.myapplication.webservice.business.GetBusinessContactInfo;
@@ -47,6 +50,8 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
     private GoogleMap mMap;
 
     private Business business;
+
+    private ProgressDialogCustom pd;
 
     public static FragmentCallInfo newInstance (){
         FragmentCallInfo fragment = new FragmentCallInfo();
@@ -72,6 +77,7 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
         View view = inflater.inflate(R.layout.fragment_call_info, container, false);
         this.view = view;
 
+        pd = new ProgressDialogCustom(getActivity());
 
         business = PassingBusiness.getInstance().getValue();
 
@@ -81,31 +87,8 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
 
         setUpMapIfNeeded();
 
-        //TODO: initialize fields in getResult not here
+        pd.show();
 
-        String workTimeText = "";
-        if(business.workTime!=null) {
-            boolean[] workDays = business.workTime.getWorkDays();
-            if (workDays[0])
-                workTimeText += "ش, ";
-            for (int i = 1; i < 6; i++) {
-                if (workDays[i])
-                    workTimeText += i + "ش, ";
-            }
-            if (workDays[6])
-                workTimeText += "جمعه";
-            workTimeText +=
-                    "\nزمان شروع به کار: " + two_char(((int) business.workTime.time_open_hour)) + ":" + two_char((business.workTime.time_open_minutes))
-                            + "\nزمان پایان کار: " + two_char(((int) business.workTime.time_close_hour)) + ":" + two_char((business.workTime.time_close_minutes));
-        }
-        ((TextViewFont) view.findViewById(R.id.txt_call_info_info)).setText(Html.fromHtml(
-                "<font color=#3F6F94>" +  getString(R.string.business_description)
-                + ":</font>" + business.description
-                + (business.phone!=null ? "<font color=#3F6F94>" + getString(R.string.phone) + ":</font> " + business.phone : "")
-                + (business.mobile!=null ? "<br /><font color=#3F6F94>" + getString(R.string.mobile) + ":</font>" + business.mobile : "")
-                + (business.email!=null ? "<br /><font color=#3F6F94>" + getString(R.string.email) + ":</font>" + business.email : "")
-                + (business.webSite!=null ? "<br /><font color=#3F6F94>" + getString(R.string.website) + ":</font>" + business.webSite : "")
-                + (workTimeText!=null ? "<br /><font color=#3F6F94>" + getString(R.string.working_time) + ":</font>" + workTimeText : "")));
         return view;
     }
 
@@ -212,16 +195,52 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
         return Integer.toString(x);
     }
 
+    private void assignNow() {
+
+        String workTimeText = "";
+        if(business.workTime!=null) {
+            boolean[] workDays = business.workTime.getWorkDays();
+            if (workDays[0])
+                workTimeText += "ش, ";
+            for (int i = 1; i < 6; i++) {
+                if (workDays[i])
+                    workTimeText += i + "ش, ";
+            }
+            if (workDays[6])
+                workTimeText += "جمعه";
+            workTimeText +=
+                    "\nزمان شروع به کار: " + two_char(((int) business.workTime.time_open_hour)) + ":" + two_char((business.workTime.time_open_minutes))
+                            + "\nزمان پایان کار: " + two_char(((int) business.workTime.time_close_hour)) + ":" + two_char((business.workTime.time_close_minutes));
+        }
+        ((TextViewFont) view.findViewById(R.id.txt_call_info_info)).setText(Html.fromHtml(
+                "<font color=#3F6F94>" +  getString(R.string.business_description)
+                        + ":</font>" + business.description
+                        + (business.phone!=null ? "<font color=#3F6F94>" + getString(R.string.phone) + ":</font> " + business.phone : "")
+                        + (business.mobile!=null ? "<br /><font color=#3F6F94>" + getString(R.string.mobile) + ":</font>" + business.mobile : "")
+                        + (business.email!=null ? "<br /><font color=#3F6F94>" + getString(R.string.email) + ":</font>" + business.email : "")
+                        + (business.webSite!=null ? "<br /><font color=#3F6F94>" + getString(R.string.website) + ":</font>" + business.webSite : "")
+                        + (workTimeText!=null ? "<br /><font color=#3F6F94>" + getString(R.string.working_time) + ":</font>" + workTimeText : "")));
+    }
+
     @Override
     public void getResult(Object result) {
-        if(result instanceof Business){
-            business = (Business) result;
-            //TODO user the business
+        try {
+            if (result instanceof Business) {
+                business = (Business) result;
+                assignNow();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
         }
     }
 
     @Override
     public void getError(Integer errorCode) {
-
+        try {
+            String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
+            Dialogs.showMessage(getActivity(), errorMessage, true);
+        } catch (Exception e) {
+            Log.e(TAG, Params.CLOSED_BEFORE_RESPONSE);
+        }
     }
 }

@@ -24,7 +24,7 @@ import ir.rasen.myapplication.webservice.WebserviceResponse;
 /**
  * Created by 'Sina KH' on 01/11/2015.
  */
-// TODO: FRIENDS LIST ADAPTER
+// FRIENDS LIST ADAPTER
 public class FollowersAdapter extends ArrayAdapter<User> {
 	private ArrayList<User> mFollowers;
 	private LayoutInflater mInflater;
