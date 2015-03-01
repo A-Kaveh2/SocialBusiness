@@ -47,33 +47,6 @@ public class GetSharedPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         try {
             serverAnswer = webserviceGET.executeList();
-            /*Post post = new Post();
-            post.id = 27;
-            post.pictureId = 2022;
-
-            post.businessID = 2013;
-            post.businessUserName = "dhhhhhh";
-            post.businessProfilePictureId = 2022;
-            post.title = "title";
-            post.creationDate = -2025;
-            post.description = "dess";
-            post.isLiked = true;
-            post.code = "code";
-            post.price = "price";
-
-            ArrayList<Comment> comments = new ArrayList<>();
-            post.lastThreeComments = comments;
-            ArrayList<String> hash = new ArrayList<>();
-            post.hashtagList = hash;
-
-            post.isLiked = false;
-            post.likeNumber = 0;
-            post.commentNumber = 0;
-            post.shareNumber = 0;
-
-            list.add(post);
-            return list;*/
-
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONArray jsonArray = serverAnswer.getResultList();
