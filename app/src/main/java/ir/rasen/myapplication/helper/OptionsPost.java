@@ -32,7 +32,8 @@ public class OptionsPost {
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         final View layout;
         // TODO :: TEST
-        boolean isMine = post.isMine(context);
+        //boolean isMine = post.isMine(context);
+        boolean isMine = true;
 
         if (isMine) {
             layout = inflater.inflate(R.layout.layout_menu_post_options_owner,

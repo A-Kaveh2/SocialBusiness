@@ -81,13 +81,15 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
 
         business = PassingBusiness.getInstance().getValue();
 
-        new GetBusinessContactInfo(business.id,FragmentCallInfo.this).execute();
+        //new GetBusinessContactInfo(business.id,FragmentCallInfo.this).execute();
+        //pd.show();
+
 
         PassingBusiness.getInstance().setValue(null);
 
         setUpMapIfNeeded();
 
-        pd.show();
+
 
         return view;
     }

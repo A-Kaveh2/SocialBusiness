@@ -40,6 +40,8 @@ public class UpdatePost extends AsyncTask<Void, Void, ResultStatus> {
             webservicePOST.addParam(Params.PRICE, post.price);
             webservicePOST.addParam(Params.CODE, post.code);
             webservicePOST.addParam(Params.HASHTAG_LIST, Hashtag.getStringFromList(post.hashtagList));
+            //discount will be added  next phase
+            webservicePOST.addParam(Params.DISCOUNT,"0");
 
             serverAnswer = webservicePOST.execute();
             if (serverAnswer.getSuccessStatus())

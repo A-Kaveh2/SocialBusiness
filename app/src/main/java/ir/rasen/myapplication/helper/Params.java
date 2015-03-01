@@ -125,8 +125,10 @@ public class Params {
     public static String BUSINESS_USER_NAME= "BusinessUserName";
     public static String REVIEW_ID= "ReviewId";
     public static String SEARCH_TEXT= "SearchText";
-    public static String LOCATION_LATITUDE= "Latitude";
-    public static String LOCATION_LONGITUDE= "Longitude";
+    public static String LOCATION_LATITUDE= "LocationLatitude";
+    public static String LATITUDE= "Latitude";
+    public static String LOCATION_LONGITUDE= "LocationLongitude";
+    public static String LONGITUDE= "Longitude";
     public static String NEAR_BY= "NearBy";
     public static String CATEGORY= "Category";
     public static String SUBCATEGORY= "SubCategory";
@@ -169,6 +171,7 @@ public class Params {
     public static String BUSINESSES = "Businesses";
     public static String PROFILE_PICTURE_ID = "ProfilePictureId";
     public static String DISTANCE = "Distance";
+    public static String DISCOUNT = "Discount";
     public static String TYPE = "PostTypeId";
     public static String FILE_PATH = "FilePath";
     public static String WEBSITE = "Website";

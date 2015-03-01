@@ -47,6 +47,7 @@ public class GetBusinessProfileInfo extends AsyncTask<Void, Void, Business> {
 
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
+                business.id = businessID;
                 business.name = jsonObject.getString(Params.NAME);
                 business.profilePicture = jsonObject.getString(Params.PROFILE_PICTURE);
                 business.coverPicture = jsonObject.getString(Params.COVER_PICTURE);

@@ -33,7 +33,7 @@ public class WorkTime {
         if (workDaysString.contains(",")) {
             String[] workDaysArrays = workDaysString.split(",");
             for (String str : workDaysArrays)
-                workDays[Integer.valueOf(str)] = true;
+                workDays[Integer.valueOf(str)-1] = true;
         }
     }
 
