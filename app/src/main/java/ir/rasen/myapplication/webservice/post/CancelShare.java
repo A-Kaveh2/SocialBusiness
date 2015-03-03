@@ -3,10 +3,14 @@ package ir.rasen.myapplication.webservice.post;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ir.rasen.myapplication.helper.Params;
 import ir.rasen.myapplication.helper.ResultStatus;
 import ir.rasen.myapplication.helper.ServerAnswer;
 import ir.rasen.myapplication.helper.URLs;
+import ir.rasen.myapplication.webservice.WebserviceGET;
 import ir.rasen.myapplication.webservice.WebservicePOST;
 import ir.rasen.myapplication.webservice.WebserviceResponse;
 
@@ -30,13 +34,13 @@ public class CancelShare extends AsyncTask<Void, Void, ResultStatus> {
 
     @Override
     protected ResultStatus doInBackground(Void... voids) {
-        WebservicePOST webservicePOST = new WebservicePOST(URLs.CANCEL_SHARE);
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.CANCEL_SHARE, new ArrayList<>(
+                Arrays.asList(String.valueOf(userID), String.valueOf(postID))));
+
 
         try {
-            webservicePOST.addParam(Params.USER_ID,String.valueOf( userID));
-            webservicePOST.addParam(Params.POST_ID,String.valueOf( postID));
 
-            serverAnswer = webservicePOST.execute();
+            serverAnswer = webserviceGET.execute();
             if (serverAnswer.getSuccessStatus())
                 return ResultStatus.getResultStatus(serverAnswer);
         } catch (Exception e) {

@@ -117,9 +117,8 @@ public class ServerAnswer {
         JSONObject json = new JSONObject(responseBody);
 
         //get success status
+
         boolean sucessStatus = json.getBoolean(Params.SUCCESS);
-
-
         //get error code
 
         String error = json.getString(Params.ERROR);
