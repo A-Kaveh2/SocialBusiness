@@ -81,8 +81,8 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
 
         business = PassingBusiness.getInstance().getValue();
 
-        //new GetBusinessContactInfo(business.id,FragmentCallInfo.this).execute();
-        //pd.show();
+        new GetBusinessContactInfo(business.id,FragmentCallInfo.this).execute();
+        pd.show();
 
 
         PassingBusiness.getInstance().setValue(null);
@@ -226,6 +226,7 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
 
     @Override
     public void getResult(Object result) {
+        pd.dismiss();
         try {
             if (result instanceof Business) {
                 business = (Business) result;
@@ -238,6 +239,7 @@ public class FragmentCallInfo extends Fragment implements WebserviceResponse {
 
     @Override
     public void getError(Integer errorCode) {
+        pd.dismiss();
         try {
             String errorMessage = ServerAnswer.getError(getActivity(), errorCode);
             Dialogs.showMessage(getActivity(), errorMessage, true);

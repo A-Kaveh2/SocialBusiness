@@ -27,12 +27,12 @@ public class Business {
     public int categoryID;
     public int subCategoryID;
     public String description;
-    public WorkTime workTime;
+    public WorkTime workTime = new WorkTime();
     public String phone;
     public String state;
     public String city;
     public String address;
-    public Location_M location_m;
+    public Location_M location_m = new Location_M();
     public String email;
     public String mobile;
     public String webSite;

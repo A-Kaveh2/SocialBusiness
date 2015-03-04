@@ -6,6 +6,9 @@ public class Location_M {
 	private String latitude;
 	private String longitude;
 
+    public Location_M(){
+
+    }
     public Location_M(Location location) {
 		latitude = ""+location.getLatitude();
 		longitude = ""+location.getLongitude();

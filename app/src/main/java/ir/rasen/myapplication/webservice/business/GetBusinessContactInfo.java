@@ -34,7 +34,7 @@ public class GetBusinessContactInfo extends AsyncTask<Void, Void, Business> {
 
 
         Business business = new Business();
-        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_HOME_INFO,new ArrayList<>(
+        WebserviceGET webserviceGET = new WebserviceGET(URLs.GET_BUSINESS_CONTACT_INFO,new ArrayList<>(
                 Arrays.asList(String.valueOf(businessID))));
 
         try {
@@ -43,8 +43,11 @@ public class GetBusinessContactInfo extends AsyncTask<Void, Void, Business> {
             if (serverAnswer.getSuccessStatus()) {
                 JSONObject jsonObject = serverAnswer.getResult();
                 business.id = businessID;
-                business.location_m.setLatitude(jsonObject.getString(Params.LOCATION_LATITUDE));
-                business.location_m.setLongitude(jsonObject.getString(Params.LOCATION_LONGITUDE));
+                String lat = jsonObject.getString(Params.LATITUDE);
+                String lon = jsonObject.getString(Params.LONGITUDE);
+
+                business.location_m.setLatitude(lat);
+                business.location_m.setLongitude(lon);
                 business.workTime.setTimeWorkOpenFromString(jsonObject.getString(Params.WORK_TIME_OPEN));
                 business.workTime.setTimeWorkCloseFromString(jsonObject.getString(Params.WORK_TIME_CLOSE));
                 business.webSite = jsonObject.getString(Params.WEBSITE);
