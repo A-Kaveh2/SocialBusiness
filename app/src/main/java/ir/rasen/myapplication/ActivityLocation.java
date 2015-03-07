@@ -198,15 +198,15 @@ public class ActivityLocation extends FragmentActivity {
         if(getIntent().getIntExtra(Params.SET_LOCATION_TYPE, Params.SEARCH)!=Params.SEARCH)
             mMap.setInfoWindowAdapter(new MarkerPopupAdapter(getBaseContext(), getLayoutInflater()));
         // set marker prev place
-        if(getIntent().getExtras().containsKey(Params.LOCATION_LATITUDE)) {
+        /*if(getIntent().getExtras().containsKey(Params.LOCATION_LATITUDE)) {
                 marker = mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LATITUDE))
-                                , Double.parseDouble(getIntent().getStringExtra(Params.LOCATION_LONGITUDE))))
+                        .position(new LatLng(Double.parseDouble(getIntent().getStringExtra(Params.LATITUDE))
+                                , Double.parseDouble(getIntent().getStringExtra(Params.LONGITUDE))))
                         .title(businessName)
                         .snippet(businessCategory)
                         .draggable(true));
                 findViewById(R.id.btn_location_submit).setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
 }
